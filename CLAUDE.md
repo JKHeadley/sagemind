@@ -189,5 +189,7 @@ dig @8.8.8.8 sagemindai.io A +short  # Via Google DNS
 | Vercel | Hosting & DNS | vercel.com/sagemind |
 | SendGrid | Email delivery | app.sendgrid.com |
 | Google Cloud | Calendar API | console.cloud.google.com (project: sagemind-website-486022) |
+| Google Workspace | Email (justin@sagemindai.io) | admin.google.com |
 | Namecheap | Domain registrar | namecheap.com |
 | Intercom | Customer messaging | app.intercom.com |
+| LinkedIn | Company page | linkedin.com/company/sagemindai |
