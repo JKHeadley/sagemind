@@ -164,21 +164,22 @@ Use this approach if the MCP Server is unavailable (wrong Egnyte plan, no Co-Pil
 
 **Current status: ACTIVE — proceeding with this approach while MCP Server access is pending.**
 
+### Egnyte Developer App (Completed)
+
+| Field | Value |
+|-------|-------|
+| **App Name** | GCI_Data_Scout |
+| **App ID** | 54955284-a8f4-426f-aee4-0cb59b0603f1 |
+| **Type** | Publicly Available Application |
+| **Domain** | gcigc |
+| **Platform** | Web App |
+| **API Access** | Prod Collaborate (approved, active) |
+| **Callback URL 1** | `https://chat.openai.com/aip/g-fd2a0698f4e8d07e30691edddf8098be2475d328/oauth/callback` |
+| **Callback URL 2** | `https://chatgpt.com/aip/g-fd2a0698f4e8d07e30691edddf8098be2475d328/oauth/callback` _(add if not already registered)_ |
+
+> **Note:** API Key and Secret are stored securely and not included in this document.
+
 ### Step-by-Step Setup Walkthrough
-
-#### Step 1: Register an Egnyte Developer Application
-
-1. Go to [developers.egnyte.com](https://developers.egnyte.com)
-2. Sign in with your Egnyte admin credentials for `gcigc.egnyte.com`
-3. Navigate to **My Apps** or **Create New Application**
-4. Fill in the application details:
-   - **App Name:** `GCI ChatGPT Integration` (or similar)
-   - **Description:** `Allows ChatGPT to search GCI project files`
-   - **App Type:** Select the option for server-side / web application
-5. Submit the application for approval
-6. Once approved, you'll receive a **Client ID** (also called API Key) and **Client Secret**
-
-> **Note:** Egnyte may take some time to approve the developer app. This is a manual review process on their side.
 
 #### Step 2: Create the Custom GPT
 
@@ -231,8 +232,9 @@ Use this approach if the MCP Server is unavailable (wrong Egnyte plan, no Co-Pil
     "/pubapi/v2/search": {
       "post": {
         "operationId": "searchFiles",
+        "x-openai-isConsequential": false,
         "summary": "Search file contents and metadata",
-        "description": "Search for documents and files by keyword query.",
+        "description": "Search for documents and files by keyword query. The query parameter must be a non-empty string containing at least one keyword.",
         "requestBody": {
           "required": true,
           "content": {
@@ -242,7 +244,8 @@ Use this approach if the MCP Server is unavailable (wrong Egnyte plan, no Co-Pil
                 "properties": {
                   "query": {
                     "type": "string",
-                    "description": "Search keywords (e.g. '300 California Specs')"
+                    "minLength": 1,
+                    "description": "Search keywords. MUST be a non-empty string. Use relevant keywords from the user's request (e.g. '300 California Specs'). Never send an empty query."
                   },
                   "count": {
                     "type": "integer",
@@ -335,12 +338,19 @@ https://chatgpt.com/aip/{g-YOUR-GPT-ID}/oauth/callback
 ```
 You are an expert Construction Project Manager assistant for GCI General Contractors.
 
+CRITICAL RULES FOR SEARCHING:
+- The search query parameter MUST ALWAYS be a non-empty string with at least one keyword. NEVER send an empty or whitespace-only query.
+- If the user asks a vague question like "what's the latest file?" without providing keywords, ask them for a project name, folder, or keyword to search with. Do NOT attempt to search with an empty query.
+- The Egnyte search API cannot list all files or browse folders — it requires keywords.
+
 When searching Egnyte:
 - Always look for the most recent version of documents
 - Prioritize "Issued for Construction" (IFC) drawings over "Schematic Design" (SD) or "Design Development" (DD)
 - When searching for specs, include the CSI division number if the user provides it
 - Present results with file name, path, and last modified date
 - If multiple versions exist, note the differences in dates
+- Use the sort_by parameter to sort by "last_modified" when the user wants the most recent files
+- Use the folder parameter to narrow results when the user specifies a project or folder
 
 When you cannot find a document, suggest alternative search terms the user could try.
 ```
@@ -453,7 +463,7 @@ Token expiry: **30 days** (2,592,000 seconds).
 
 | Test | Date | Result | Notes |
 |------|------|--------|-------|
-| 1. Basic Connectivity | | | |
+| 1. Basic Connectivity | 2026-02-04 | PASS | Searched "spec" sorted by last_modified, returned real project files with correct paths and dates |
 | 2. Permission Scoping | | | |
 | 3. Search Quality | | | |
 | 4. Negative Test | | | |
@@ -488,6 +498,10 @@ The original AI-assisted conversation contained several errors. Documenting them
 | 2026-02-03 | Created Custom GPT "GCI Data Scout", pasted v2 schema, configured OAuth | Schema accepted, action detected (searchFiles POST /pubapi/v2/search) |
 | 2026-02-03 | Tested OAuth sign-in | FAILED -- "Incorrect request type GET for resource owner flow" |
 | 2026-02-03 | Root cause: Egnyte app type is "Internal Application" which only supports Resource Owner Password flow, not Authorization Code flow | Need to change app type or create new non-internal app |
+| 2026-02-03 | Created new Egnyte developer app "GCI_Data_Scout" as "Publicly Available Application" | App ID: 54955284-a8f4-426f-aee4-0cb59b0603f1 |
+| 2026-02-03 | Prod Collaborate API approved and key activated | Ready to configure in Custom GPT |
+| 2026-02-04 | Re-entered OAuth credentials, updated GPT, synced callback URL with Egnyte app | OAuth flow working |
+| 2026-02-04 | **First successful search!** Queried "spec" sorted by last_modified | Returned real project files (B46.2 Lab, Ford Greenfield Labs, Project Proteus) dated Feb 4, 2026 |
 
 ## Open Questions / Next Steps
 
