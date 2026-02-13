@@ -1,0 +1,815 @@
+openapi: 3.1.0
+info:
+  title: ACC Data Scout
+  version: 1.0.0
+  description: >
+    Search and retrieve project data from Autodesk Construction Cloud (ACC).
+    Always call listProjects first to resolve a project name to its project ID,
+    then use that ID to query issues, RFIs, submittals, or cost data.
+    For cost data, call getProjectDetails first to get the cost container ID.
+servers:
+  - url: https://developer.api.autodesk.com
+
+paths:
+  # ============================================================
+  # PROJECTS — List and search projects in the ACC account
+  # ============================================================
+  /construction/admin/v1/accounts/{accountId}/projects:
+    get:
+      operationId: listProjects
+      summary: List projects in the ACC account. Use filter[name] to search by project name.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ACC account ID.
+        - name: filter[name]
+          in: query
+          schema:
+            type: string
+          description: Filter projects by name. Partial match by default (contains). Example: "Hospital" returns all projects containing "Hospital" in the name.
+        - name: filter[status]
+          in: query
+          schema:
+            type: string
+          description: Filter by project status. Comma-separated. Options: active, pending, archived, suspended.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max projects to return (1-200).
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of projects to skip for pagination.
+      responses:
+        "200":
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Project"
+
+  # ============================================================
+  # ISSUES — List, search, and get issue details
+  # ============================================================
+  /construction/issues/v1/projects/{projectId}/issues:
+    get:
+      operationId: listIssues
+      summary: List and search issues in a project. Use filter[search] for free text search on issue title and number.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The project ID (from listProjects).
+        - name: filter[search]
+          in: query
+          schema:
+            type: string
+          description: Free text search across issue title and issue number (displayId). Example: "safety" finds all issues with "safety" in the title.
+        - name: filter[status]
+          in: query
+          schema:
+            type: string
+          description: Comma-separated status values. Options: draft, open, pending, in_progress, in_review, completed, not_approved, in_dispute, closed.
+        - name: filter[assignedTo]
+          in: query
+          schema:
+            type: string
+          description: Filter by Autodesk ID of the assignee. Comma-separated for multiple.
+        - name: filter[dueDate]
+          in: query
+          schema:
+            type: string
+          description: Filter by due date. Format: YYYY-MM-DD. Use comma for range.
+        - name: filter[createdAt]
+          in: query
+          schema:
+            type: string
+          description: Filter by creation date. Format: YYYY-MM-DD.
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+          description: Sort field. Prefix with - for descending. Options: createdAt, updatedAt, displayId, title, status, dueDate, assignedTo. Example: -updatedAt
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max issues to return (1-100).
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of issues to skip for pagination.
+      responses:
+        "200":
+          description: List of issues
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Issue"
+
+  /construction/issues/v1/projects/{projectId}/issues/{issueId}:
+    get:
+      operationId: getIssueDetails
+      summary: Get detailed information about a single issue.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: issueId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the issue.
+      responses:
+        "200":
+          description: Issue details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Issue"
+
+  # ============================================================
+  # RFIs — Search and get RFI details
+  # ============================================================
+  /construction/rfis/v3/projects/{projectId}/search:rfis:
+    post:
+      operationId: searchRfis
+      summary: Search RFIs in a project. Send an empty filter {} to return all RFIs. Use filter fields to narrow results by status or date range.
+      x-openai-isConsequential: false
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The project ID.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max RFIs to return per page.
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of RFIs to skip for pagination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: object
+                  description: Filter criteria. Send empty object {} for all RFIs.
+                  properties:
+                    status:
+                      type: array
+                      items:
+                        type: string
+                      description: Filter by status. Options: draft, submitted, open, answered, closed, void.
+                    dueDate:
+                      type: string
+                      description: Date range. Format: ISO8601..ISO8601 (e.g. 2025-01-01T00:00:00.000Z..2025-12-31T23:59:59.000Z).
+      responses:
+        "200":
+          description: List of RFIs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Rfi"
+
+  /construction/rfis/v3/projects/{projectId}/rfis/{rfiId}:
+    get:
+      operationId: getRfiDetails
+      summary: Get detailed information about a single RFI including question, answer, and response.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rfiId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the RFI.
+      responses:
+        "200":
+          description: RFI details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Rfi"
+
+  # ============================================================
+  # SUBMITTALS — Search and filter submittals
+  # ============================================================
+  /construction/submittals/v2/projects/{projectId}/items:
+    get:
+      operationId: searchSubmittals
+      summary: Search and filter submittals. Use the search parameter for keyword search across title, identifier, spec section, and ball-in-court fields.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The project ID.
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Keyword search across identifier, title, spec identifier, and ball-in-court fields. Example: "generator" finds submittals with "generator" in any of those fields.
+        - name: filter[statusId]
+          in: query
+          schema:
+            type: string
+          description: "Filter by status ID. Comma-separated. Values: 1=Required, 2=Submitted, 3=In Review, 4=Reviewed, 5=Closed, 6=Draft."
+        - name: filter[specId]
+          in: query
+          schema:
+            type: string
+          description: Filter by spec section ID.
+        - name: filter[typeId]
+          in: query
+          schema:
+            type: string
+          description: Filter by submittal type ID.
+        - name: filter[ballInCourtUsers]
+          in: query
+          schema:
+            type: string
+          description: Filter by ball-in-court user ID.
+        - name: filter[dueDate]
+          in: query
+          schema:
+            type: string
+          description: Filter by due date. Format: YYYY-MM-DD.
+        - name: filter[responseId]
+          in: query
+          schema:
+            type: string
+          description: "Filter by response. Values: 1=Rejected, 2=Revise and resubmit, 3=Approved as noted, 4=Approved, 5=For record only."
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: Sort field with direction. Example: "updatedAt desc" or "identifier asc".
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max submittals to return (1-50).
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of submittals to skip for pagination.
+      responses:
+        "200":
+          description: List of submittals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Submittal"
+
+  # ============================================================
+  # COST — Requires containerId (get via getProjectDetails)
+  # ============================================================
+  /project/v1/hubs/{hubId}/projects/{projectId}:
+    get:
+      operationId: getProjectDetails
+      summary: Get project details including the cost container ID. The cost container ID is at data.relationships.cost.data.id in the response. Required before calling cost endpoints.
+      parameters:
+        - name: hubId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The hub ID. Format: b.{accountId} (e.g. b.1ae7cef1-4f15-45a1-b25d-3f79c76df406).
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The project ID with b. prefix. Format: b.{projectId} (e.g. b.abc123-def456).
+      responses:
+        "200":
+          description: Project details including relationships
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      type:
+                        type: string
+                      attributes:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                      relationships:
+                        type: object
+                        properties:
+                          cost:
+                            type: object
+                            description: Contains the cost container ID needed for cost endpoints.
+                            properties:
+                              data:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    description: The cost container ID. Use this as containerId in cost endpoints.
+
+  /cost/v1/containers/{containerId}/change-orders/{changeOrderType}:
+    get:
+      operationId: listChangeOrders
+      summary: List change orders of a specific type. The changeOrderType specifies which kind of change order to retrieve.
+      parameters:
+        - name: containerId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The cost container ID (from getProjectDetails → data.relationships.cost.data.id).
+        - name: changeOrderType
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - pco
+              - rfq
+              - rco
+              - oco
+              - sco
+          description: "Type of change order: pco (Potential), rfq (Request for Quote), rco (RFI Change Order), oco (Owner Change Order), sco (Subcontractor Change Order)."
+        - name: filter[costStatus]
+          in: query
+          schema:
+            type: string
+          description: Filter by cost status code. Comma-separated.
+        - name: filter[budgetStatus]
+          in: query
+          schema:
+            type: string
+          description: Filter by budget status code. Comma-separated.
+        - name: filter[contractId]
+          in: query
+          schema:
+            type: string
+          description: Filter by contract ID. Comma-separated.
+        - name: filter[lastModifiedSince]
+          in: query
+          schema:
+            type: string
+          description: Filter items modified after this date. Format: ISO 8601 datetime.
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: Sort field and direction. Example: "name desc".
+        - name: include
+          in: query
+          schema:
+            type: string
+          description: Include nested resources. Options: costItems, attributes, comments. Comma-separated.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max change orders to return (default API is 100, using 20 for GPT).
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of items to skip for pagination.
+      responses:
+        "200":
+          description: List of change orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ChangeOrder"
+
+  /cost/v1/containers/{containerId}/budgets:
+    get:
+      operationId: listBudgets
+      summary: List budget items for a project.
+      parameters:
+        - name: containerId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The cost container ID (from getProjectDetails → data.relationships.cost.data.id).
+        - name: filter[code]
+          in: query
+          schema:
+            type: string
+          description: Filter by budget code. Comma-separated.
+        - name: filter[lastModifiedSince]
+          in: query
+          schema:
+            type: string
+          description: Filter items modified after this date. Format: ISO 8601 datetime.
+        - name: include
+          in: query
+          schema:
+            type: string
+          description: Include nested data. Options: subitems, attributes, contract, mainContract, compounded. Comma-separated.
+        - name: sort
+          in: query
+          schema:
+            type: string
+          description: Sort field and direction. Example: "name desc".
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max budget items to return.
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of items to skip for pagination.
+      responses:
+        "200":
+          description: List of budget items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Budget"
+
+# ============================================================
+# COMPONENTS
+# ============================================================
+components:
+  schemas:
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        totalResults:
+          type: integer
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Project ID. Use this (without b. prefix) for issues, RFIs, and submittals. Add b. prefix for getProjectDetails.
+        name:
+          type: string
+        status:
+          type: string
+          description: "active, pending, archived, or suspended"
+        type:
+          type: string
+          description: Project type (e.g. Office, Hospital).
+        jobNumber:
+          type: string
+          description: User-defined project identifier.
+        startDate:
+          type: string
+        endDate:
+          type: string
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        platform:
+          type: string
+          description: "acc or bim360"
+
+    Issue:
+      type: object
+      properties:
+        id:
+          type: string
+        displayId:
+          type: integer
+          description: Human-friendly issue number.
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          description: "draft, open, pending, in_progress, in_review, completed, not_approved, in_dispute, or closed"
+        assignedTo:
+          type: string
+          description: Autodesk ID of the assignee.
+        assignedToType:
+          type: string
+          description: "user, company, or role"
+        dueDate:
+          type: string
+        startDate:
+          type: string
+        locationDetails:
+          type: string
+          description: Location as plain text.
+        rootCauseId:
+          type: string
+        commentCount:
+          type: integer
+        closedBy:
+          type: string
+        closedAt:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+
+    Rfi:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+          description: "draft, submitted, open, answered, closed, or void"
+        question:
+          type: string
+          description: The RFI question text.
+        suggestedAnswer:
+          type: string
+          description: Suggested answer from the creator.
+        officialResponse:
+          type: string
+          description: The official response.
+        customIdentifier:
+          type: string
+        dueDate:
+          type: string
+        assignedTo:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+          description: Assignees (array of user/company/role).
+        reviewers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+        watchers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        closedAt:
+          type: string
+        closedBy:
+          type: string
+
+    Submittal:
+      type: object
+      properties:
+        id:
+          type: string
+        identifier:
+          type: integer
+          description: Auto-generated numeric identifier.
+        customIdentifierHumanReadable:
+          type: string
+          description: "Human-readable number (e.g. 033100-01 for spec-based numbering)."
+        title:
+          type: string
+        description:
+          type: string
+        statusId:
+          type: string
+          description: "1=Required, 2=Submitted, 3=In Review, 4=Reviewed, 5=Closed, 6=Draft"
+        responseId:
+          type: string
+          description: "1=Rejected, 2=Revise and resubmit, 3=Approved as noted, 4=Approved, 5=For record only"
+        responseComment:
+          type: string
+        specId:
+          type: string
+        specIdentifier:
+          type: string
+          description: Spec section number (e.g. "033100").
+        specTitle:
+          type: string
+          description: Spec section title.
+        packageId:
+          type: string
+        packageTitle:
+          type: string
+        dueDate:
+          type: string
+        submitterDueDate:
+          type: string
+        managerDueDate:
+          type: string
+        leadTime:
+          type: integer
+          description: Lead time in days.
+        revision:
+          type: integer
+        priority:
+          type: integer
+          description: "1=Low, 2=Normal, 3=High"
+        ballInCourtUsers:
+          type: string
+        ballInCourtCompanies:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+    ChangeOrder:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Change order name/title.
+        description:
+          type: string
+        scope:
+          type: string
+          description: "out, in, tbd, budgetOnly, or contingency"
+        type:
+          type: string
+        sourceType:
+          type: string
+          description: Source type (e.g. RFI, Issue).
+        costStatusId:
+          type: string
+        budgetStatusId:
+          type: string
+        contractId:
+          type: string
+        companyId:
+          type: string
+        ownerId:
+          type: string
+        creatorId:
+          type: string
+        exchangeRate:
+          type: number
+        scheduleChange:
+          type: number
+        externalId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+    Budget:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+          description: Budget code.
+        name:
+          type: string
+        description:
+          type: string
+        quantity:
+          type: number
+        unitPrice:
+          type: number
+        unit:
+          type: string
+        amount:
+          type: number
+          description: Original budget (quantity * unitPrice).
+        actualCost:
+          type: number
+        scope:
+          type: string
+          description: "budgetOnly or budgetAndCost"
+        parentId:
+          type: string
+        contractId:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://developer.api.autodesk.com/authentication/v2/authorize
+          tokenUrl: https://developer.api.autodesk.com/authentication/v2/token
+          scopes:
+            data:read: Read project data
+            account:read: Read account and project list
+
+security:
+  - oauth2:
+      - data:read
+      - account:read

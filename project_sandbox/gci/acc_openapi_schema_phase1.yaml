@@ -1,0 +1,393 @@
+openapi: 3.1.0
+info:
+  title: ACC Data Scout
+  version: 1.0.0
+  description: >
+    Search and retrieve project data from Autodesk Construction Cloud (ACC).
+    Always call listProjects first to resolve a project name to its project ID,
+    then use that ID to query issues or RFIs within that project.
+servers:
+  - url: https://developer.api.autodesk.com
+
+paths:
+  /construction/admin/v1/accounts/{accountId}/projects:
+    get:
+      operationId: listProjects
+      summary: List projects in the ACC account. Use filter[name] to search by project name.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ACC account ID.
+        - name: filter[name]
+          in: query
+          schema:
+            type: string
+          description: Filter projects by name. Partial match by default (contains). Example: "Hospital" returns all projects containing "Hospital" in the name.
+        - name: filter[status]
+          in: query
+          schema:
+            type: string
+          description: Filter by project status. Comma-separated. Options: active, pending, archived, suspended.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max projects to return (1-200).
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of projects to skip for pagination.
+      responses:
+        "200":
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Project"
+
+  /construction/issues/v1/projects/{projectId}/issues:
+    get:
+      operationId: listIssues
+      summary: List and search issues in a project. Use filter[search] for free text search on issue title and number.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The project ID (from listProjects).
+        - name: filter[search]
+          in: query
+          schema:
+            type: string
+          description: Free text search across issue title and issue number (displayId). Example: "safety" finds all issues with "safety" in the title.
+        - name: filter[status]
+          in: query
+          schema:
+            type: string
+          description: Comma-separated status values. Options: draft, open, pending, in_progress, in_review, completed, not_approved, in_dispute, closed.
+        - name: filter[assignedTo]
+          in: query
+          schema:
+            type: string
+          description: Filter by Autodesk ID of the assignee. Comma-separated for multiple.
+        - name: filter[dueDate]
+          in: query
+          schema:
+            type: string
+          description: Filter by due date. Format: YYYY-MM-DD. Use comma for range.
+        - name: filter[createdAt]
+          in: query
+          schema:
+            type: string
+          description: Filter by creation date. Format: YYYY-MM-DD.
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+          description: Sort field. Prefix with - for descending. Options: createdAt, updatedAt, displayId, title, status, dueDate, assignedTo. Example: -updatedAt
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max issues to return (1-100).
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of issues to skip for pagination.
+      responses:
+        "200":
+          description: List of issues
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Issue"
+
+  /construction/issues/v1/projects/{projectId}/issues/{issueId}:
+    get:
+      operationId: getIssueDetails
+      summary: Get detailed information about a single issue.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: issueId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the issue.
+      responses:
+        "200":
+          description: Issue details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Issue"
+
+  /construction/rfis/v3/projects/{projectId}/search:rfis:
+    post:
+      operationId: searchRfis
+      summary: Search RFIs in a project. Send an empty filter {} to return all RFIs. Use filter fields to narrow results by status or date range.
+      x-openai-isConsequential: false
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The project ID.
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Max RFIs to return per page.
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+          description: Number of RFIs to skip for pagination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: object
+                  description: Filter criteria. Send empty object {} for all RFIs.
+                  properties:
+                    status:
+                      type: array
+                      items:
+                        type: string
+                      description: Filter by status. Options: draft, submitted, open, answered, closed, void.
+                    dueDate:
+                      type: string
+                      description: Date range. Format: ISO8601..ISO8601 (e.g. 2025-01-01T00:00:00.000Z..2025-12-31T23:59:59.000Z).
+      responses:
+        "200":
+          description: List of RFIs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Rfi"
+
+  /construction/rfis/v3/projects/{projectId}/rfis/{rfiId}:
+    get:
+      operationId: getRfiDetails
+      summary: Get detailed information about a single RFI including question, answer, and response.
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rfiId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The unique identifier of the RFI.
+      responses:
+        "200":
+          description: RFI details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Rfi"
+
+components:
+  schemas:
+    Pagination:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        totalResults:
+          type: integer
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Project ID. Use this for issues and RFI queries.
+        name:
+          type: string
+        status:
+          type: string
+          description: "active, pending, archived, or suspended"
+        type:
+          type: string
+          description: Project type (e.g. Office, Hospital).
+        jobNumber:
+          type: string
+          description: User-defined project identifier.
+        startDate:
+          type: string
+        endDate:
+          type: string
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        platform:
+          type: string
+          description: "acc or bim360"
+
+    Issue:
+      type: object
+      properties:
+        id:
+          type: string
+        displayId:
+          type: integer
+          description: Human-friendly issue number.
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          description: "draft, open, pending, in_progress, in_review, completed, not_approved, in_dispute, or closed"
+        assignedTo:
+          type: string
+          description: Autodesk ID of the assignee.
+        assignedToType:
+          type: string
+          description: "user, company, or role"
+        dueDate:
+          type: string
+        startDate:
+          type: string
+        locationDetails:
+          type: string
+          description: Location as plain text.
+        rootCauseId:
+          type: string
+        commentCount:
+          type: integer
+        closedBy:
+          type: string
+        closedAt:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+
+    Rfi:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        status:
+          type: string
+          description: "draft, submitted, open, answered, closed, or void"
+        question:
+          type: string
+          description: The RFI question text.
+        suggestedAnswer:
+          type: string
+          description: Suggested answer from the creator.
+        officialResponse:
+          type: string
+          description: The official response.
+        customIdentifier:
+          type: string
+        dueDate:
+          type: string
+        assignedTo:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+          description: Assignees (array of user/company/role).
+        reviewers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+        watchers:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        closedAt:
+          type: string
+        closedBy:
+          type: string
+
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://developer.api.autodesk.com/authentication/v2/authorize
+          tokenUrl: https://developer.api.autodesk.com/authentication/v2/token
+          scopes:
+            data:read: Read project data
+            account:read: Read account and project list
+
+security:
+  - oauth2:
+      - data:read
+      - account:read

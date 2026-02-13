@@ -1,5 +1,30 @@
 # Sagemind AI - Claude Code Context
 
+## Operational Standards (MANDATORY)
+
+These standards apply to ALL work performed in this repository. They override default behavior.
+
+### Due Diligence Standard
+
+**Full standard:** `docs/standards/due-diligence.md`
+
+Before presenting any recommendation, technical claim, or action plan to a client:
+
+1. **Verify independently.** Never relay AI-generated research to a client without checking primary sources. If you can't link to an official doc you actually accessed, the claim is unverified — label it as such.
+2. **Categorize every claim** as Verified, Strongly Supported, Unverified, or Contradicted. Do not mix categories without labeling them.
+3. **Assess "quick wins" honestly.** Before recommending anything as low-effort, verify the actual setup steps, prerequisites, costs, and whether it addresses the client's stated need. Do not present the client's own known fallback as a new discovery.
+4. **Flag gaps, don't fill them with confidence.** It is always better to say "I need to verify this" than to present an unverified claim as fact.
+5. **Verify capabilities, not just existence.** For any claim that an API/feature "can" or "cannot" do something, verify at the parameter/config level. Read the actual parameter list, Postman collection, or API reference — do not rely on a research summary's characterization.
+6. **Treat AI consensus as a single source.** Multiple AI tools agreeing is NOT independent confirmation. They have correlated errors. Pay special attention to "cannot" claims — AI tools are more likely to incorrectly say something is impossible than to fabricate something that exists.
+7. **Cross-check AI research sources.** Click cited URLs. Check dates. Watch for circular sourcing. Test when possible.
+
+When performing research (deep research prompts, web searches, API exploration):
+- Use multiple independent sources
+- Verify cited URLs actually exist and say what was claimed
+- Distinguish between "announced" and "available/working"
+- For API capability claims, check the actual parameter lists (Postman collections, OpenAPI specs, official reference pages)
+- Document verification status for each finding
+
 ## Overview
 
 Sagemind AI LLC is a Bay Area-based company focused on AI solutions, SaaS development, and software consulting. This is the parent repository that organizes all projects and organizational content.
@@ -12,12 +37,14 @@ Sagemind AI LLC is a Bay Area-based company focused on AI solutions, SaaS develo
 
 ```
 sagemind/
-├── brand/          # Brand assets, logos, style guides
-├── docs/           # Shared organizational documentation
-├── planning/       # Strategic planning, roadmaps
-├── scripts/        # Utility scripts (DNS setup, etc.)
-└── projects/       # Git submodules for deployable projects
-    └── website/    # Main company website (Next.js)
+├── brand/              # Brand assets, logos, style guides
+├── docs/               # Shared organizational documentation
+│   └── standards/      # Operational standards (due diligence, etc.)
+├── planning/           # Strategic planning, roadmaps
+├── project_sandbox/    # Active client project research & docs
+├── scripts/            # Utility scripts (DNS setup, etc.)
+└── projects/           # Git submodules for deployable projects
+    └── website/        # Main company website (Next.js)
 ```
 
 ## Projects

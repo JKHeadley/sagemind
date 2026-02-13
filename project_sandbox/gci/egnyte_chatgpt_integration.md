@@ -502,28 +502,43 @@ The original AI-assisted conversation contained several errors. Documenting them
 | 2026-02-03 | Prod Collaborate API approved and key activated | Ready to configure in Custom GPT |
 | 2026-02-04 | Re-entered OAuth credentials, updated GPT, synced callback URL with Egnyte app | OAuth flow working |
 | 2026-02-04 | **First successful search!** Queried "spec" sorted by last_modified | Returned real project files (B46.2 Lab, Ford Greenfield Labs, Project Proteus) dated Feb 4, 2026 |
+| 2026-02-09 | Client check-in call with Tom Southam | Tom confirmed GPT is working well for project search. Wants ACC data integrated. Shared GPT with testers. See `020926_transcript.md` |
+| 2026-02-10 | ACC API deep research + independent verification | Direct ACC integration is feasible. All endpoints, OAuth, and constraints verified. See `acc_integration_plan.md` |
+| 2026-02-10 | Established Sagemind Due Diligence Standard | See `docs/standards/due-diligence.md` — enforced via CLAUDE.md |
+| 2026-02-10 | Drafted email to Tom re: ACC feasibility | See `drafts/email_tom_acc_feasibility_2026-02-10.md` |
+| 2026-02-10 | Email sent to Tom + Shalon | Tom responded — looped in Jon West (PM) as ACC admin contact. Jon ready to proceed. |
+| 2026-02-11 | Verified cross-account APS app access | Confirmed: Sagemind-registered APS app can access GCI's ACC via Custom Integration. This is the intended third-party pattern. |
+| 2026-02-11 | Drafted ACC admin instructions for Jon West | See `drafts/email_jon_acc_admin_instructions_2026-02-11.md` |
 
 ## Open Questions / Next Steps
 
-### Option A (MCP Server) -- Blocked, Parallel Track
-- [ ] Check GCI's Egnyte plan tier in admin console (billing/account settings)
-- [ ] Verify Co-Pilot is active (Settings > Configuration > AI)
-- [ ] Contact Egnyte account exec or support to request MCP Server enablement
+### Egnyte (Option A — MCP Server) -- Blocked, Parallel Track
+- [ ] Contact Egnyte account exec or support to request MCP Server enablement for `gcigc.egnyte.com`
 
-### Option B (Custom GPT Action) -- Active
-- [ ] Register developer application at developers.egnyte.com
-- [ ] Obtain `client_id` and `client_secret`
-- [ ] Create Custom GPT in ChatGPT Enterprise with verified v2 OpenAPI schema
-- [ ] Configure OAuth2 authentication in GPT editor
-- [ ] Register callback URLs in Egnyte developer app
-- [ ] Test basic search functionality
-- [ ] Test permission scoping (two users with different access levels)
+### Egnyte (Option B — Custom GPT Action) -- Live
+- [x] Register developer application at developers.egnyte.com
+- [x] Obtain `client_id` and `client_secret`
+- [x] Create Custom GPT in ChatGPT Enterprise with verified v2 OpenAPI schema
+- [x] Configure OAuth2 authentication in GPT editor
+- [x] Register callback URLs in Egnyte developer app
+- [x] Test basic search functionality
+- [ ] Test permission scoping (two users with different access levels) -- pending testers getting access
 - [ ] Red team test -- verify search accuracy and negative cases
+
+### ACC Integration -- In Progress
+- [ ] Register APS app via Developer Hub (Free tier)
+- [ ] GCI ACC admin adds app as Custom Integration
+- [ ] Build OpenAPI schema (Issues + RFIs MVP, then Submittals + Cost)
+- [ ] Add ACC Action to existing Data Scout GPT
+- [ ] Update system instructions for multi-source routing
+- [ ] Test with known project data
+- **Full plan:** `acc_integration_plan.md`
 
 ### General
 - [ ] **Define folder scope** -- which Egnyte folders should be searchable? (e.g., `/Shared/Projects`)
-- [ ] **Plan user training** -- create "vetted foundational prompts" per Shalon's request
+- [ ] **Plan user training** -- create "vetted foundational prompts" per Shallan's request
 - [ ] **Test @mentions** on GCI's workspace -- verify which models support it
+- [ ] Tom sharing GPT with ~3 testers (Tom handling, coordinating with Shallan on licenses)
 
 ---
 
@@ -555,5 +570,5 @@ All information in this document was verified against the following sources:
 
 ---
 
-*Last updated: 2026-02-03*
+*Last updated: 2026-02-10*
 *Prepared by: Justin Headley / Sagemind AI*
