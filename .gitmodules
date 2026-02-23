@@ -1,3 +1,6 @@
 [submodule "projects/website"]
 	path = projects/website
 	url = https://github.com/JKHeadley/sagemind-website.git
+[submodule "projects/adriana-work"]
+	path = projects/adriana-work
+	url = https://github.com/SageMindAI/adriana-work.git
