@@ -220,3 +220,90 @@ dig @8.8.8.8 sagemindai.io A +short  # Via Google DNS
 | Namecheap | Domain registrar | namecheap.com |
 | Intercom | Customer messaging | app.intercom.com |
 | LinkedIn | Company page | linkedin.com/company/sagemindai |
+
+## Google Workspace MCP (Session Startup)
+
+A Google Workspace MCP server (`google-workspace`) is configured for this project. At the start of every session, verify it is running by making a quick tool call (e.g., `get_events` or `list_calendars` for `justin@sagemindai.io`). If authentication has expired, trigger re-auth via `start_google_auth`.
+
+- **MCP Server**: `google-workspace` (via `uvx workspace-mcp --tool-tier complete`)
+- **User email**: `justin@sagemindai.io`
+- **GCP Project**: `sagemind-website-486022` (project number: `694680803383`)
+- **OAuth type**: Desktop app credentials
+- **Services**: Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks, Chat, Contacts
+
+## Agent Infrastructure
+
+This project uses instar for persistent agent capabilities. The agent's name is **Luna**.
+
+### Identity Files (Read These First)
+- `.instar/AGENT.md` — Who you are, your role, your principles
+- `.instar/USER.md` — Who you're working with
+- `.instar/MEMORY.md` — What you've learned (load in main sessions only)
+
+### Runtime
+- State directory: `.instar/`
+- Config: `.instar/config.json`
+- Server: `instar server start`
+- Status: `instar status` or `curl http://localhost:4040/health`
+
+### Key Principles
+- **Research before recommending** — Verify claims, check sources, follow due diligence.
+- **Confirm before deploying** — Summarize what's changing and get explicit approval.
+- **Never delete data** without explicit instruction and confirmation.
+- **Adapt communication style** — Read the room, match the audience and task.
+- **Start guided, grow autonomous** — Confirm before significant actions until trust is established.
+
+## Telegram Relay
+
+When user input starts with `[telegram:N]` (e.g., `[telegram:26] hello`), the message came via Telegram topic N.
+
+**IMMEDIATE ACKNOWLEDGMENT (MANDATORY):** When you receive a Telegram message, your FIRST action must be sending a brief acknowledgment back. This confirms the message was received. Examples: "Got it, looking into this now." / "On it." Then do the work, then send the full response.
+
+
+**Message types:**
+- **Text**: `[telegram:N] hello there` — standard text message
+- **Voice**: `[telegram:N] [voice] transcribed text here` — voice message, already transcribed
+- **Photo**: `[telegram:N] [image:/path/to/file.jpg]` or with caption — use the Read tool to view the image at the given path
+
+**Response relay:** After completing your work, relay your response back:
+
+```bash
+cat <<'EOF' | .claude/scripts/telegram-reply.sh N
+Your response text here
+EOF
+```
+
+Or for short messages:
+```bash
+.claude/scripts/telegram-reply.sh N "Your response text here"
+```
+
+Strip the `[telegram:N]` prefix before interpreting the message. Respond naturally, then relay. Only relay your conversational text — not tool output or internal reasoning.
+
+
+### Self-Discovery (Know Before You Claim)
+
+Before EVER saying "I don't have", "I can't", or "this isn't available" — check what actually exists:
+
+```bash
+curl http://localhost:4040/capabilities
+```
+
+This returns your full capability matrix: scripts, hooks, Telegram status, jobs, relationships, and more. It is the source of truth about what you can do. **Never hallucinate about missing capabilities — verify first.**
+
+
+**Private Viewing** — Render markdown as auth-gated HTML pages, accessible only through the agent's server (local or via tunnel).
+- Create: `curl -X POST http://localhost:4040/view -H 'Content-Type: application/json' -d '{"title":"Report","markdown":"# Private content"}'`
+- View (HTML): Open `http://localhost:4040/view/VIEW_ID` in a browser
+- List: `curl http://localhost:4040/views`
+- Update: `curl -X PUT http://localhost:4040/view/VIEW_ID -H 'Content-Type: application/json' -d '{"title":"Updated","markdown":"# New content"}'`
+- Delete: `curl -X DELETE http://localhost:4040/view/VIEW_ID`
+
+**Use private views for sensitive content. Use Telegraph for public content.**
+
+**Cloudflare Tunnel** — Expose the local server to the internet via Cloudflare. Enables remote access to private views, the API, and file serving.
+- Status: `curl http://localhost:4040/tunnel`
+- Configure in `.instar/config.json`: `{"tunnel": {"enabled": true, "type": "quick"}}`
+- Quick tunnels (default): Zero-config, ephemeral URL (*.trycloudflare.com), no account needed
+- Named tunnels: Persistent custom domain, requires token from Cloudflare dashboard
+- When a tunnel is running, private view responses include a `tunnelUrl` with auth token for browser-clickable access

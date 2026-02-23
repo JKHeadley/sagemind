@@ -10,3 +10,25 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Instar runtime state (contains auth token, session data, relationships)
+.instar/state/
+.instar/logs/
+.instar/relationships/
+.instar/config.json
+.instar/caffeinate.pid
+.instar/feedback.json
+.instar/jobs.json
+.instar/telegram-messages.jsonl
+.instar/telegram-poll-offset.json
+.instar/telegram-images/
+.instar/lifeline-poll-offset.json
+.instar/topic-session-registry.json
+.instar/users.json
+.instar/publishing.json
+
+# Claude Code local settings (contains OAuth secrets in permission rules)
+.claude/settings.local.json
+
+# Logs
+logs/
