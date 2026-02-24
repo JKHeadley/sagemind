@@ -307,3 +307,11 @@ This returns your full capability matrix: scripts, hooks, Telegram status, jobs,
 - Quick tunnels (default): Zero-config, ephemeral URL (*.trycloudflare.com), no account needed
 - Named tunnels: Persistent custom domain, requires token from Cloudflare dashboard
 - When a tunnel is running, private view responses include a `tunnelUrl` with auth token for browser-clickable access
+
+
+**Dashboard** — Visual web interface for monitoring and managing sessions. Accessible from any device (phone, tablet, laptop) via tunnel.
+- Local: `http://localhost:4040/dashboard`
+- Remote: When a tunnel is running, the dashboard is accessible at `{tunnelUrl}/dashboard`
+- Authentication: Uses a 6-digit PIN (configured via `dashboardPin` in `.instar/config.json`) — no need to enter the full bearer token
+- Features: Real-time terminal streaming of all running sessions, session management, model badges, mobile-responsive
+- **Sharing the dashboard**: When the user wants to check on sessions from their phone, give them the tunnel URL + PIN. Check tunnel status: `curl -H "Authorization: Bearer $AUTH" http://localhost:4040/tunnel`
