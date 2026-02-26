@@ -46,6 +46,19 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .instar/hooks/external-operation-gate.js",
+            "blocking": true,
+            "timeout": 5000
+          }
+        ]
+      }
     ]
   }
 }

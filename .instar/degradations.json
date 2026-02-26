@@ -1,0 +1,12 @@
+[
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: Could not locate the bindings file. Tried:\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/out/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/out/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/default/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/compiled/20.20.0/darwin/arm64/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/release/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/debug/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/default/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/lib/binding/node-v115-darwin-arm64/better_sqlite3.node",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-02-26T01:26:19.944Z",
+    "reported": true,
+    "alerted": true
+  }
+]

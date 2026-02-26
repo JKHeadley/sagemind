@@ -1,0 +1,117 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "team": "Nuestro Equipo",
+    "gallery": "Galería",
+    "testimonials": "Testimonios",
+    "contact": "Contacto"
+  },
+  "header": {
+    "bookAppointment": "Agendar Cita",
+    "hours": "Lun-Vie 7:30AM-6PM | Sáb 7AM-1PM"
+  },
+  "hero": {
+    "tagline": "Deja Que Tu Sonrisa Cambie el Mundo",
+    "bookWhatsApp": "Agendar por WhatsApp",
+    "callUs": "Llamar +506 2474 0415",
+    "recommended": "100% Recomendado",
+    "reviews": "59 Reseñas",
+    "experience": "20+ Años de Experiencia",
+    "locations": "2 Ubicaciones"
+  },
+  "common": {
+    "whatsappUs": "Escríbenos por WhatsApp",
+    "callToBook": "Llamar para Agendar",
+    "callUs": "Llámanos",
+    "facebook": "Facebook",
+    "viewAllServices": "Ver Todos los Servicios",
+    "meetFullTeam": "Conoce al equipo completo",
+    "bookViaWhatsApp": "Agendar por WhatsApp",
+    "allLocations": "Todas las Ubicaciones",
+    "before": "Antes",
+    "after": "Después",
+    "backToHome": "Volver al Inicio"
+  },
+  "about": {
+    "title": "Acerca de Dental City",
+    "p1": "Fundada por dos graduados de la Universidad de Costa Rica (UCR), el Dr. Francisco Rodriguez Chaves y la Dra. Zaidy Mariela Hernandez Bonilla, Dental City Costa Rica se ha convertido en un nombre de confianza en el cuidado dental con más de 20 años de experiencia clínica.",
+    "p2": "Con dos sedes en Aguas Zarcas y La Virgen de Sarapiquí, ofrecemos una amplia gama de servicios desde cuidado preventivo y ortodoncia hasta procedimientos avanzados de implantes, rehabilitación oral completa e imágenes diagnósticas 3D en nuestras instalaciones.",
+    "p3": "Ya sea que sea un residente local o viaje a Costa Rica para recibir atención dental de alta calidad y precios accesibles, nuestro equipo bilingüe está aquí para que su experiencia sea cómoda y sin estrés."
+  },
+  "stats": {
+    "yearsExperience": "Años de Experiencia",
+    "orthodonticCases": "Casos de Ortodoncia",
+    "fiveStarReviews": "Reseñas 5 Estrellas",
+    "locations": "Ubicaciones"
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "subtitle": "Desde cuidado preventivo hasta restauraciones complejas, ofrecemos un espectro completo de servicios dentales a una fracción de los precios en EE.UU.",
+    "pageTitle": "Nuestros Servicios Dentales",
+    "pageSubtitle": "Atención dental integral con tecnología moderna, especialistas experimentados y precios que hacen la calidad accesible para todos.",
+    "askAbout": "Consultar sobre"
+  },
+  "technology": {
+    "title": "Nuestra Tecnología",
+    "subtitle": "Invertimos en la última tecnología dental para brindar diagnósticos más precisos, procedimientos más cómodos y mejores resultados."
+  },
+  "dentists": {
+    "title": "Nuestros Dentistas"
+  },
+  "testimonials": {
+    "title": "Lo Que Dicen Nuestros Pacientes"
+  },
+  "contact": {
+    "title": "Contáctenos",
+    "address": "Dirección",
+    "phone": "Teléfono",
+    "whatsapp": "WhatsApp",
+    "email": "Correo",
+    "hours": "Horario",
+    "main": "Principal",
+    "hoursAZ1": "Lun / Mar / Mié / Vie: 7:30AM - 6PM",
+    "hoursAZ2": "Jueves: 8AM - 6PM",
+    "hoursAZ3": "Sábado: 7AM - 1PM",
+    "hoursAZ4": "Domingo: Cerrado"
+  },
+  "team": {
+    "pageTitle": "Nuestro Equipo",
+    "pageSubtitle": "Profesionales graduados de la UCR con más de 26 años de experiencia combinada, dedicados a su comodidad y cuidado.",
+    "ctaTitle": "¿Listo para Conocer a Nuestro Equipo?",
+    "ctaText": "Agende una consulta y experimente la diferencia de Dental City. Nuestro equipo está aquí para ayudarle a lograr la sonrisa que merece."
+  },
+  "gallery": {
+    "pageTitle": "Galería",
+    "pageSubtitle": "Resultados reales, pacientes reales. Conozca nuestra clínica, nuestro equipo y las sonrisas que ayudamos a crear cada día.",
+    "beforeAfter": "Antes y Después",
+    "beforeAfterDesc": "Deslice el control para comparar los resultados. Pacientes reales, transformaciones reales.",
+    "ourClinic": "Nuestra Clínica",
+    "ourFacilities": "Nuestras Instalaciones",
+    "ourFacilitiesDesc": "Recorra virtualmente nuestras instalaciones modernas — diseñadas para su comodidad y equipadas con la última tecnología.",
+    "happyLittlePatients": "Pequeños Pacientes Felices",
+    "happyLittlePatientsDesc": "A los niños les encanta visitar Dental City. Hacemos que cada visita sea divertida, cómoda y gratificante.",
+    "technologyEquipment": "Tecnología y Equipos",
+    "ctaTitle": "¿Listo para Su Transformación?",
+    "ctaText": "Los resultados hablan por sí solos. Agende una consulta y permítanos crear un plan personalizado para su sonrisa."
+  },
+  "testimonialsPage": {
+    "pageTitle": "Testimonios",
+    "pageSubtitle": "Pacientes reales, historias reales. Descubra por qué familias de Costa Rica y del mundo confían en Dental City para sus sonrisas.",
+    "reviewsTitle": "Lo Que Dicen Nuestros Pacientes",
+    "happyPatientsTitle": "Pacientes Felices",
+    "happyPatientsSubtitle": "Sonrisas que hablan por sí solas — desde nuestros pacientes más pequeños hasta transformaciones completas.",
+    "googleReviewsTitle": "Reseñas de Google",
+    "ctaTitle": "¿Listo para Unirse a Nuestros Pacientes Felices?",
+    "ctaText": "Agende una consulta y experimente la diferencia de Dental City. Nuestro equipo está aquí para ayudarle a lograr la sonrisa que merece."
+  },
+  "servicesCta": {
+    "title": "¿Listo para Transformar Su Sonrisa?",
+    "text": "Contáctenos hoy para una consulta. Nuestro equipo evaluará sus necesidades y creará un plan de tratamiento personalizado — a una fracción de los costos en EE.UU."
+  },
+  "footer": {
+    "tagline": "Deja que tu sonrisa cambie el mundo. Más de 20 años brindando atención dental excepcional en dos ubicaciones en Costa Rica.",
+    "quickLinks": "Enlaces Rápidos",
+    "rights": "Todos los derechos reservados."
+  }
+}

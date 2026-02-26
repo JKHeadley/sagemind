@@ -315,3 +315,56 @@ This returns your full capability matrix: scripts, hooks, Telegram status, jobs,
 - Authentication: Uses a 6-digit PIN (configured via `dashboardPin` in `.instar/config.json`) — no need to enter the full bearer token
 - Features: Real-time terminal streaming of all running sessions, session management, model badges, mobile-responsive
 - **Sharing the dashboard**: When the user wants to check on sessions from their phone, give them the tunnel URL + PIN. Check tunnel status: `curl -H "Authorization: Bearer $AUTH" http://localhost:4040/tunnel`
+
+
+### Coherence Gate (Pre-Action Verification)
+
+**BEFORE any high-risk action** (deploying, pushing to git, modifying files outside this project, calling external APIs):
+
+1. **Check coherence**: `curl -X POST http://localhost:4040/coherence/check -H 'Content-Type: application/json' -d '{"action":"deploy","context":{"topicId":TOPIC_ID}}'`
+2. **If result says "block"** — STOP. You may be working on the wrong project for this topic.
+3. **If result says "warn"** — Pause and verify before proceeding.
+4. **Generate a reflection prompt**: `POST http://localhost:4040/coherence/reflect` — produces a self-verification checklist.
+
+**Topic-Project Bindings**: Each Telegram topic can be bound to a specific project. When switching topics, verify the binding matches your current working directory.
+- View bindings: `GET http://localhost:4040/topic-bindings`
+- Create binding: `POST http://localhost:4040/topic-bindings` with `{"topicId": N, "binding": {"projectName": "...", "projectDir": "..."}}`
+
+**Project Map**: Your spatial awareness of the working environment.
+- View: `GET http://localhost:4040/project-map?format=compact`
+- Refresh: `POST http://localhost:4040/project-map/refresh`
+
+
+### Session Continuity (CRITICAL)
+
+When your first message starts with `CONTINUATION`, you are **resuming an existing conversation**. The inline context contains a summary and recent messages from the prior session. You MUST:
+
+1. **Read the context first** — it tells you what the conversation is about
+2. **Pick up where you left off** — do NOT introduce yourself or ask "how can I help?"
+3. **Reference the prior context** — show the user you know what they were discussing
+
+The user has been talking to you (possibly for days). A generic greeting like "Hey! What can I help you with?" after dozens of messages of conversation history is a critical failure — it signals you lost all context and the user has to repeat everything. The context is right there in your input. Use it.
+
+
+### External Operation Safety (Structural Guardrails)
+
+**When using MCP tools that interact with external services** (email, Slack, GitHub, etc.), a PreToolUse hook automatically classifies and gates each operation.
+
+How it works:
+1. The `external-operation-gate.js` hook intercepts all `mcp__*` tool calls
+2. It classifies the operation by mutability (read/write/modify/delete) and reversibility
+3. For non-read operations, it calls the gate API: `POST http://localhost:4040/operations/evaluate`
+4. The gate returns: `allow`, `block`, `show-plan` (requires user approval), or `suggest-alternative`
+
+**If an operation is blocked**, you'll see an error message with the reason. Do NOT try to bypass it.
+**If an operation requires a plan**, show the plan to the user and get explicit approval before proceeding.
+
+**Emergency stop**: If the user says "stop everything", "emergency stop", "kill all sessions", or similar urgent commands, the MessageSentinel will intercept the message and halt operations immediately.
+
+**Trust levels**: Each service starts at a trust floor (supervised or collaborative). As operations succeed without issues, trust can be elevated automatically. Check trust status: `GET http://localhost:4040/trust`
+
+**API endpoints**:
+- Evaluate operation: `POST http://localhost:4040/operations/evaluate`
+- Classify message: `POST http://localhost:4040/sentinel/classify`
+- View trust: `GET http://localhost:4040/trust`
+- View operation log: `GET http://localhost:4040/operations/log`
