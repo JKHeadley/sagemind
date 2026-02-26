@@ -1,0 +1,20 @@
+[
+  {
+    "id": "adri",
+    "name": "Adri",
+    "email": "adriana@sagemindai.io",
+    "channels": [],
+    "permissions": ["admin"],
+    "preferences": {
+      "communicationStyle": "adaptive",
+      "timezone": "America/Los_Angeles"
+    }
+  },
+  {
+    "id": "justin",
+    "name": "Justin Headley",
+    "channels": [],
+    "permissions": ["admin"],
+    "preferences": {}
+  }
+]

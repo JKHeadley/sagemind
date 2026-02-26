@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "email-check-adriana",
+    "name": "Adriana Email Check",
+    "description": "Check adriana@sagemindai.io inbox for new emails and send a summary to Telegram topic 92",
+    "schedule": "0 */2 * * *",
+    "priority": "medium",
+    "expectedDurationMinutes": 5,
+    "model": "haiku",
+    "enabled": true,
+    "execute": {
+      "type": "prompt",
+      "value": "Check adriana@sagemindai.io Gmail inbox for any new/unread emails received since the last check (or in the last 2 hours if this is the first run). For each new email, note the sender, subject, and a brief summary of the content. Then send a concise update to Telegram topic 92 via: cat <<'TEOF' | .claude/scripts/telegram-reply.sh 92\\nYour summary here\\nTEOF\\n\\nIf there are no new emails, do NOT send a message — only message when there's something new."
+    }
+  },
+  {
+    "slug": "salon-form-responses",
+    "name": "Salon Form Response Monitor",
+    "description": "Check for new responses on the Innovations Salon intake forms (Stylist and Owner) and notify via Telegram",
+    "schedule": "0 */4 * * *",
+    "priority": "medium",
+    "expectedDurationMinutes": 5,
+    "model": "haiku",
+    "enabled": true,
+    "execute": {
+      "type": "prompt",
+      "value": "Check for new responses on the Innovations Salon & Spa intake forms using the Google Workspace MCP (user: adriana@sagemindai.io). Check BOTH forms:\n\n1. Stylist Intake form (ID: 17mJO-vF8j5Mwj40VLvITHDLQnzR8WyghaFYG0b_z89M)\n2. Owner Intake form (ID: 1eahz5PUi0lCZS40ZyUk_kEH-9yG8MGQiz-x2lVW9UpQ)\n\nUse list_form_responses for each form. If there are ANY responses, send a summary to Telegram topic 92 (Salon Website - Castro Valley) via:\ncat <<'TEOF' | .claude/scripts/telegram-reply.sh 92\nYour summary here\nTEOF\n\nInclude: which form got the response, respondent details, and key answers. If no new responses on either form, do NOT send a message — only notify when there's something new."
+    }
+  }
+]
