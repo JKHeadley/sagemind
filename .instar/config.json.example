@@ -1,0 +1,76 @@
+{
+  "projectName": "sagemind",
+  "port": 4040,
+  "sessions": {
+    "tmuxPath": "/opt/homebrew/bin/tmux",
+    "claudePath": "claude",
+    "projectDir": "/path/to/sagemind",
+    "maxSessions": 3,
+    "protectedSessions": [
+      "sagemind-server"
+    ],
+    "completionPatterns": [
+      "has been automatically paused",
+      "Session ended",
+      "Interrupted by user"
+    ]
+  },
+  "scheduler": {
+    "jobsFile": "/path/to/sagemind/.instar/jobs.json",
+    "enabled": false,
+    "maxParallelJobs": 1,
+    "quotaThresholds": {
+      "normal": 50,
+      "elevated": 70,
+      "critical": 85,
+      "shutdown": 95
+    }
+  },
+  "users": [],
+  "messaging": [
+    {
+      "type": "telegram",
+      "enabled": true,
+      "config": {
+        "token": "YOUR_TELEGRAM_BOT_TOKEN",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "lifelineTopicId": 30,
+        "pollIntervalMs": 2000,
+        "stallTimeoutMinutes": 5
+      }
+    }
+  ],
+  "autoUpdate": {
+    "enabled": false
+  },
+  "dashboardPin": "000000",
+  "monitoring": {
+    "quotaTracking": false,
+    "memoryMonitoring": true,
+    "healthCheckIntervalMs": 30000,
+    "triage": {
+      "enabled": true,
+      "cooldownMs": 180000,
+      "verifyDelayMs": 10000,
+      "maxEscalations": 2,
+      "useIntelligenceProvider": true
+    }
+  },
+  "tunnel": {
+    "enabled": false,
+    "type": "quick"
+  },
+  "externalOperations": {
+    "enabled": true,
+    "sentinel": {
+      "enabled": true
+    },
+    "services": {},
+    "readOnlyServices": [],
+    "trust": {
+      "floor": "supervised",
+      "autoElevateEnabled": false,
+      "elevationThreshold": 10
+    }
+  }
+}
