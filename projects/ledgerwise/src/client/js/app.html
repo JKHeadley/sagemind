@@ -1,0 +1,102 @@
+<script>
+/**
+ * Main Alpine.js application — SPA router and global state.
+ */
+
+document.addEventListener('alpine:init', () => {
+
+  Alpine.store('app', {
+    // ─── State ───────────────────────────────────────────────
+    user: null,
+    dataYear: new Date().getFullYear(),
+    loading: true,
+    currentView: (function() {
+      try {
+        var saved = localStorage.getItem('smartledger_view');
+        var valid = ['dashboard','accounts','ledger','transaction','bank-import','mapping-rules','projects','report-pl','report-bs','report-tb','settings'];
+        return saved && valid.indexOf(saved) >= 0 ? saved : 'dashboard';
+      } catch(e) { return 'dashboard'; }
+    })(),
+    sidebarOpen: false,
+    toastMessage: '',
+    toastType: 'success',
+    toastVisible: false,
+
+    // ─── Navigation ──────────────────────────────────────────
+    navItems: [
+      { id: 'dashboard',      label: 'Dashboard',       icon: 'home' },
+      { id: 'accounts',       label: 'Chart of Accounts', icon: 'list' },
+      { id: 'ledger',         label: 'General Ledger',  icon: 'book-open' },
+      { id: 'transaction',    label: 'New Entry',       icon: 'plus-circle' },
+      { id: 'bank-import',    label: 'Bank Import',     icon: 'upload' },
+      { id: 'mapping-rules',  label: 'Mapping Rules',   icon: 'git-branch' },
+      { id: 'projects',       label: 'Projects',        icon: 'folder' },
+      { id: 'report-pl',      label: 'P&L',             icon: 'trending-up' },
+      { id: 'report-bs',      label: 'Balance Sheet',   icon: 'layers' },
+      { id: 'report-tb',      label: 'Trial Balance',   icon: 'check-square' },
+      { id: 'settings',       label: 'Settings',        icon: 'settings' },
+    ],
+
+    // ─── Router ──────────────────────────────────────────────
+    navigate(view) {
+      this.currentView = view;
+      this.sidebarOpen = false;
+      try { localStorage.setItem('smartledger_view', view); } catch(e) {}
+      window.dispatchEvent(new CustomEvent('view-changed', { detail: { view } }));
+    },
+
+    // ─── Toast ───────────────────────────────────────────────
+    toast(message, type) {
+      this.toastMessage = message;
+      this.toastType = type || 'success';
+      this.toastVisible = true;
+      setTimeout(() => { this.toastVisible = false; }, type === 'error' ? 5000 : 3000);
+    },
+
+    // ─── Confirm Dialog ──────────────────────────────────────
+    confirmOpen: false,
+    confirmTitle: '',
+    confirmMessage: '',
+    _confirmResolve: null,
+
+    confirm(title, message) {
+      this.confirmTitle = title;
+      this.confirmMessage = message;
+      this.confirmOpen = true;
+      return new Promise(function(resolve) {
+        Alpine.store('app')._confirmResolve = resolve;
+      });
+    },
+
+    confirmYes() {
+      this.confirmOpen = false;
+      if (this._confirmResolve) this._confirmResolve(true);
+    },
+
+    confirmNo() {
+      this.confirmOpen = false;
+      if (this._confirmResolve) this._confirmResolve(false);
+    },
+
+    // ─── Init ────────────────────────────────────────────────
+    async init() {
+      try {
+        var results = await Promise.all([API.getCurrentUser(), API.getDataYear()]);
+        this.user = results[0];
+        if (results[1] && results[1].year) this.dataYear = results[1].year;
+        if (!this.user.authorized) {
+          this.currentView = 'unauthorized';
+        }
+      } catch (e) {
+        console.error('Auth error:', e);
+        this.currentView = 'unauthorized';
+      } finally {
+        this.loading = false;
+        // Now that auth and dataYear are ready, tell the active view to load
+        window.dispatchEvent(new CustomEvent('view-changed', { detail: { view: this.currentView } }));
+      }
+    },
+  });
+
+});
+</script>

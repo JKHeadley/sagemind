@@ -1,0 +1,61 @@
+<script>
+/**
+ * Client-side utilities.
+ */
+
+/**
+ * Format a number as currency (USD).
+ */
+function formatMoney(amount) {
+  if (amount === null || amount === undefined || amount === '') return '-';
+  const num = typeof amount === 'number' ? amount : parseFloat(String(amount).replace(/[,$]/g, ''));
+  if (isNaN(num)) return '-';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+  }).format(num);
+}
+
+/**
+ * Format a date for display.
+ */
+function formatDateDisplay(dateStr) {
+  if (!dateStr) return '-';
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+/**
+ * Get today as YYYY-MM-DD.
+ */
+function today() {
+  return new Date().toISOString().split('T')[0];
+}
+
+/**
+ * Get first day of current year as YYYY-MM-DD.
+ */
+function startOfYear() {
+  return new Date().getFullYear() + '-01-01';
+}
+
+/**
+ * Get last day of current year as YYYY-MM-DD.
+ */
+function endOfYear() {
+  return new Date().getFullYear() + '-12-31';
+}
+
+/**
+ * Debounce a function.
+ */
+function debounce(fn, delay) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+</script>

@@ -1,0 +1,92 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('reportPLView', () => ({
+    report: null,
+    loading: false,
+    startDate: startOfYear(),
+    endDate: today(),
+
+    async load() {
+      this.loading = true;
+      try { this.report = await API.getProfitAndLoss(this.startDate, this.endDate); }
+      catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    _ready: false,
+    init() {
+      window.addEventListener('view-changed', e => {
+        if (e.detail.view === 'report-pl') {
+          if (!this._ready) {
+            var dy = this.$store.app.dataYear;
+            this.startDate = dy + '-01-01';
+            this.endDate = dy + '-12-31';
+            this._ready = true;
+          }
+          this.load();
+        }
+      });
+    },
+  }));
+});
+</script>
+
+<div x-data="reportPLView" x-show="$store.app.currentView === 'report-pl'">
+  <h2 class="text-xl font-bold text-gray-900 mb-4">Profit & Loss Statement</h2>
+  <div class="flex gap-3 items-end mb-4">
+    <div><label class="form-label">From</label><input type="date" class="form-input" x-model="startDate"></div>
+    <div><label class="form-label">To</label><input type="date" class="form-input" x-model="endDate"></div>
+    <button class="btn-primary btn-sm" @click="load()">Generate</button>
+  </div>
+
+  <div x-show="loading" class="card p-6">
+    <div class="skeleton-bar mx-auto" style="width:40%;height:1.25rem;margin-bottom:0.5rem"></div>
+    <div class="skeleton-bar mx-auto" style="width:25%;height:0.75rem;margin-bottom:1.5rem"></div>
+    <template x-for="i in 8" :key="'skel-'+i">
+      <div class="flex justify-between py-2" :style="'animation-delay:' + (i*60) + 'ms'">
+        <div class="skeleton-bar" :style="'width:' + (30 + (i*7)%25) + '%;animation-delay:' + (i*60) + 'ms'"></div>
+        <div class="skeleton-bar" :style="'width:15%;animation-delay:' + (i*60) + 'ms'"></div>
+      </div>
+    </template>
+  </div>
+  <div x-show="!loading && report" x-cloak>
+    <div class="card">
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 text-center">
+        <div class="text-lg font-bold">Profit & Loss Statement</div>
+        <div class="text-sm text-gray-500" x-text="formatDateDisplay(report.startDate) + ' — ' + formatDateDisplay(report.endDate)"></div>
+      </div>
+      <div class="px-6 py-4">
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 border-b pb-1 mb-2">Revenue</h3>
+          <template x-for="a in report.revenue.accounts" :key="a.code">
+            <div class="flex justify-between py-1 text-sm">
+              <span x-text="a.code + ' — ' + a.name"></span>
+              <span class="font-mono" x-text="formatMoney(a.amount)"></span>
+            </div>
+          </template>
+          <div class="flex justify-between py-1 font-bold border-t mt-1">
+            <span>Total Revenue</span>
+            <span class="font-mono money-positive" x-text="formatMoney(report.revenue.total)"></span>
+          </div>
+        </div>
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 border-b pb-1 mb-2">Expenses</h3>
+          <template x-for="a in report.expenses.accounts" :key="a.code">
+            <div class="flex justify-between py-1 text-sm">
+              <span x-text="a.code + ' — ' + a.name"></span>
+              <span class="font-mono" x-text="formatMoney(a.amount)"></span>
+            </div>
+          </template>
+          <div class="flex justify-between py-1 font-bold border-t mt-1">
+            <span>Total Expenses</span>
+            <span class="font-mono money-negative" x-text="formatMoney(report.expenses.total)"></span>
+          </div>
+        </div>
+        <div class="flex justify-between py-3 text-lg font-bold border-t-2 border-gray-900">
+          <span>Net Income</span>
+          <span class="font-mono" :class="report.netIncome >= 0 ? 'money-positive' : 'money-negative'" x-text="formatMoney(report.netIncome)"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

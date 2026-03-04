@@ -1,0 +1,78 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('reportBSView', () => ({
+    report: null,
+    loading: false,
+    asOfDate: today(),
+
+    async load() {
+      this.loading = true;
+      try { this.report = await API.getBalanceSheet(this.asOfDate); }
+      catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    init() {
+      window.addEventListener('view-changed', e => { if (e.detail.view === 'report-bs') this.load(); });
+    },
+  }));
+});
+</script>
+
+<div x-data="reportBSView" x-show="$store.app.currentView === 'report-bs'">
+  <h2 class="text-xl font-bold text-gray-900 mb-4">Balance Sheet</h2>
+  <div class="flex gap-3 items-end mb-4">
+    <div><label class="form-label">As of</label><input type="date" class="form-input" x-model="asOfDate"></div>
+    <button class="btn-primary btn-sm" @click="load()">Generate</button>
+  </div>
+
+  <div x-show="loading" class="card p-6">
+    <div class="skeleton-bar mx-auto" style="width:35%;height:1.25rem;margin-bottom:0.5rem"></div>
+    <div class="skeleton-bar mx-auto" style="width:20%;height:0.75rem;margin-bottom:1.5rem"></div>
+    <template x-for="i in 8" :key="'skel-'+i">
+      <div class="flex justify-between py-2" :style="'animation-delay:' + (i*60) + 'ms'">
+        <div class="skeleton-bar" :style="'width:' + (30 + (i*7)%25) + '%;animation-delay:' + (i*60) + 'ms'"></div>
+        <div class="skeleton-bar" :style="'width:15%;animation-delay:' + (i*60) + 'ms'"></div>
+      </div>
+    </template>
+  </div>
+  <div x-show="!loading && report" x-cloak>
+    <div class="card">
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 text-center">
+        <div class="text-lg font-bold">Balance Sheet</div>
+        <div class="text-sm text-gray-500" x-text="'As of ' + formatDateDisplay(report.asOfDate)"></div>
+        <div class="mt-1">
+          <span :class="report.balanced ? 'badge-green' : 'badge-red'" x-text="report.balanced ? 'Balanced' : 'OUT OF BALANCE'"></span>
+        </div>
+      </div>
+      <div class="px-6 py-4">
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 border-b pb-1 mb-2">Assets</h3>
+          <template x-for="a in report.assets.accounts" :key="a.code">
+            <div class="flex justify-between py-1 text-sm"><span x-text="a.code + ' — ' + a.name"></span><span class="font-mono" x-text="formatMoney(a.amount)"></span></div>
+          </template>
+          <div class="flex justify-between py-1 font-bold border-t mt-1"><span>Total Assets</span><span class="font-mono" x-text="formatMoney(report.assets.total)"></span></div>
+        </div>
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 border-b pb-1 mb-2">Liabilities</h3>
+          <template x-for="a in report.liabilities.accounts" :key="a.code">
+            <div class="flex justify-between py-1 text-sm"><span x-text="a.code + ' — ' + a.name"></span><span class="font-mono" x-text="formatMoney(a.amount)"></span></div>
+          </template>
+          <div class="flex justify-between py-1 font-bold border-t mt-1"><span>Total Liabilities</span><span class="font-mono" x-text="formatMoney(report.liabilities.total)"></span></div>
+        </div>
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 border-b pb-1 mb-2">Equity</h3>
+          <template x-for="a in report.equity.accounts" :key="a.code">
+            <div class="flex justify-between py-1 text-sm"><span x-text="a.code + ' — ' + a.name"></span><span class="font-mono" x-text="formatMoney(a.amount)"></span></div>
+          </template>
+          <div class="flex justify-between py-1 text-sm"><span class="italic">Retained Earnings</span><span class="font-mono" x-text="formatMoney(report.equity.retainedEarnings)"></span></div>
+          <div class="flex justify-between py-1 font-bold border-t mt-1"><span>Total Equity</span><span class="font-mono" x-text="formatMoney(report.equity.total)"></span></div>
+        </div>
+        <div class="flex justify-between py-3 text-lg font-bold border-t-2 border-gray-900">
+          <span>Total Liabilities + Equity</span>
+          <span class="font-mono" x-text="formatMoney((report.liabilities ? report.liabilities.total : 0) + (report.equity ? report.equity.total : 0))"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

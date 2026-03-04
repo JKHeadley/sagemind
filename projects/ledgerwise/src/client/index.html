@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartLedger</title>
+
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#02222e',
+              cyan: '#08f1c7',
+              teal: '#008276',
+              dark: '#014f4f',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Feather Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+  <!-- Plaid Link SDK -->
+  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+
+  <?!= include('client/css/styles'); ?>
+  <?!= include('client/js/utils'); ?>
+  <?!= include('client/js/api'); ?>
+  <?!= include('client/js/components'); ?>
+  <?!= include('client/js/app'); ?>
+</head>
+<body class="bg-gray-50 min-h-screen" x-data x-init="$store.app.init(); $nextTick(() => feather.replace())">
+
+  <!-- Loading Screen -->
+  <div x-show="$store.app.loading" class="fixed inset-0 z-50 flex items-center justify-center bg-white">
+    <div class="text-center">
+      <svg class="spinner mx-auto mb-4 h-8 w-8" viewBox="0 0 24 24" fill="none">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <p class="text-gray-500">Loading SmartLedger...</p>
+    </div>
+  </div>
+
+  <!-- Unauthorized Screen -->
+  <div x-show="!$store.app.loading && $store.app.currentView === 'unauthorized'" x-cloak
+       class="fixed inset-0 flex items-center justify-center bg-white">
+    <div class="text-center max-w-md px-6">
+      <div class="text-5xl mb-4">🔒</div>
+      <h1 class="text-2xl font-bold text-gray-900 mb-2">Access Denied</h1>
+      <p class="text-gray-600">You are not authorized to use this application. Contact the administrator to request access.</p>
+    </div>
+  </div>
+
+  <!-- Main App Layout -->
+  <div x-show="!$store.app.loading && $store.app.currentView !== 'unauthorized'" x-cloak class="flex min-h-screen">
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div x-show="$store.app.sidebarOpen" x-cloak @click="$store.app.sidebarOpen = false"
+         class="fixed inset-0 bg-black/30 z-30 md:hidden"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar bg-brand-navy text-gray-300 flex flex-col"
+           :class="$store.app.sidebarOpen ? 'open' : ''">
+      <!-- Logo -->
+      <div class="px-5 py-5 border-b border-brand-dark">
+        <h1 class="text-xl font-bold text-brand-cyan tracking-tight">SmartLedger</h1>
+        <p class="text-xs text-gray-400 mt-0.5" x-text="$store.app.user ? $store.app.user.email : ''"></p>
+      </div>
+
+      <!-- Nav -->
+      <nav class="flex-1 py-4 px-3 space-y-1 overflow-y-auto">
+        <template x-for="item in $store.app.navItems" :key="item.id">
+          <button class="nav-item w-full text-left"
+                  :class="$store.app.currentView === item.id ? 'active' : ''"
+                  @click="$store.app.navigate(item.id); $nextTick(() => feather.replace())">
+            <i :data-feather="item.icon" class="w-4 h-4"></i>
+            <span x-text="item.label"></span>
+          </button>
+        </template>
+      </nav>
+
+      <!-- Footer -->
+      <div class="px-5 py-3 border-t border-brand-dark text-xs text-gray-500">
+        SmartLedger v0.1.0
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 min-w-0">
+      <!-- Top Bar -->
+      <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center gap-3">
+          <button class="md:hidden p-1" @click="$store.app.sidebarOpen = !$store.app.sidebarOpen">
+            <i data-feather="menu" class="w-5 h-5 text-gray-600"></i>
+          </button>
+          <h2 class="text-lg font-semibold text-gray-900"
+              x-text="($store.app.navItems.find(n => n.id === $store.app.currentView) || {}).label || ''"></h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-sm text-gray-500 hidden sm:inline" x-text="$store.app.user ? $store.app.user.role : ''"></span>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="p-6">
+        <?!= include('client/views/dashboard'); ?>
+        <?!= include('client/views/accounts'); ?>
+        <?!= include('client/views/ledger'); ?>
+        <?!= include('client/views/transaction'); ?>
+        <?!= include('client/views/bank-import'); ?>
+        <?!= include('client/views/mapping-rules'); ?>
+        <?!= include('client/views/projects'); ?>
+        <?!= include('client/views/report-pl'); ?>
+        <?!= include('client/views/report-bs'); ?>
+        <?!= include('client/views/report-tb'); ?>
+        <?!= include('client/views/settings'); ?>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div x-show="$store.app.confirmOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
+    <div class="fixed inset-0 bg-black/40" @click="$store.app.confirmNo()"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden"
+         x-show="$store.app.confirmOpen"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95">
+      <div class="p-6">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900" x-text="$store.app.confirmTitle"></h3>
+        </div>
+        <p class="text-sm text-gray-600 ml-13" x-text="$store.app.confirmMessage"></p>
+      </div>
+      <div class="flex border-t border-gray-200">
+        <button class="flex-1 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                @click="$store.app.confirmNo()">Cancel</button>
+        <button class="flex-1 px-4 py-3 text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors"
+                @click="$store.app.confirmYes()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div x-show="$store.app.toastVisible" x-cloak
+       class="toast"
+       :class="$store.app.toastType === 'error' ? 'toast-error' : 'toast-success'"
+       x-text="$store.app.toastMessage"
+       x-transition.duration.300ms>
+  </div>
+
+</body>
+</html>

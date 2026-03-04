@@ -1,0 +1,77 @@
+<script>
+/**
+ * Shared Alpine.js component definitions.
+ * Registered as Alpine.data() components.
+ */
+
+document.addEventListener('alpine:init', () => {
+
+  // ─── Toast Notification System ───────────────────────────
+  Alpine.data('toast', () => ({
+    show: false,
+    message: '',
+    type: 'success',
+
+    success(msg) {
+      this.message = msg;
+      this.type = 'success';
+      this.show = true;
+      setTimeout(() => this.show = false, 3000);
+    },
+
+    error(msg) {
+      this.message = msg;
+      this.type = 'error';
+      this.show = true;
+      setTimeout(() => this.show = false, 5000);
+    },
+  }));
+
+  // ─── Confirm Dialog ──────────────────────────────────────
+  Alpine.data('confirmDialog', () => ({
+    open: false,
+    title: '',
+    message: '',
+    _resolve: null,
+
+    confirm(title, message) {
+      this.title = title;
+      this.message = message;
+      this.open = true;
+      return new Promise(resolve => {
+        this._resolve = resolve;
+      });
+    },
+
+    yes() {
+      this.open = false;
+      if (this._resolve) this._resolve(true);
+    },
+
+    no() {
+      this.open = false;
+      if (this._resolve) this._resolve(false);
+    },
+  }));
+
+  // ─── Pagination ──────────────────────────────────────────
+  Alpine.data('pagination', () => ({
+    page: 1,
+    pages: 1,
+    total: 0,
+
+    setPagination(data) {
+      this.page = data.page || 1;
+      this.pages = data.pages || 1;
+      this.total = data.total || 0;
+    },
+
+    get hasPrev() { return this.page > 1; },
+    get hasNext() { return this.page < this.pages; },
+
+    prev() { if (this.hasPrev) this.page--; },
+    next() { if (this.hasNext) this.page++; },
+  }));
+
+});
+</script>

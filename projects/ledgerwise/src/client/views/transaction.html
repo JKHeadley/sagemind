@@ -1,0 +1,204 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('transactionView', () => ({
+    mode: 'simple',
+    accounts: [],
+    projects: [],
+    loading: false,
+    simple: { date: today(), description: '', drAccount: '', crAccount: '', amount: '', memo: '', project: '' },
+    journal: {
+      date: today(), description: '', memo: '', project: '',
+      lines: [{ account: '', debit: '', credit: '' }, { account: '', debit: '', credit: '' }],
+    },
+
+    get journalTotalDebits() {
+      return this.journal.lines.reduce(function(s, l) { return s + (parseFloat(l.debit) || 0); }, 0);
+    },
+    get journalTotalCredits() {
+      return this.journal.lines.reduce(function(s, l) { return s + (parseFloat(l.credit) || 0); }, 0);
+    },
+    get journalBalanced() {
+      return Math.abs(this.journalTotalDebits - this.journalTotalCredits) < 0.005;
+    },
+
+    addLine() { this.journal.lines.push({ account: '', debit: '', credit: '' }); },
+    removeLine(i) { if (this.journal.lines.length > 2) this.journal.lines.splice(i, 1); },
+
+    async loadRefs() {
+      try {
+        var results = await Promise.all([API.getAccounts(), API.getProjects()]);
+        this.accounts = results[0];
+        this.projects = results[1];
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async submitSimple() {
+      if (!this.simple.description || !this.simple.drAccount || !this.simple.crAccount || !this.simple.amount) {
+        this.$store.app.toast('Please fill in all required fields', 'error'); return;
+      }
+      this.loading = true;
+      try {
+        var result = await API.createSimpleEntry(this.simple);
+        if (result && result.txnId) {
+          this.$store.app.toast('Entry created (Txn: ' + result.txnId.substring(0, 8) + ')');
+          this.simple = { date: today(), description: '', drAccount: '', crAccount: '', amount: '', memo: '', project: '' };
+        } else {
+          this.$store.app.toast('Unexpected response: ' + JSON.stringify(result), 'error');
+        }
+      } catch (e) { this.$store.app.toast('Error: ' + String(e), 'error'); }
+      finally { this.loading = false; }
+    },
+
+    async submitJournal() {
+      if (!this.journal.description || !this.journalBalanced) {
+        this.$store.app.toast('Entry must have a description and debits must equal credits', 'error'); return;
+      }
+      this.loading = true;
+      try {
+        var entry = {
+          date: this.journal.date,
+          description: this.journal.description,
+          memo: this.journal.memo,
+          project: this.journal.project,
+          lines: this.journal.lines.filter(function(l) { return l.account; }).map(function(l) {
+            return { account: l.account, debit: parseFloat(l.debit) || 0, credit: parseFloat(l.credit) || 0 };
+          }),
+        };
+        var result = await API.createJournalEntry(entry);
+        this.$store.app.toast('Journal entry created (' + result.lines + ' lines)');
+        this.journal = {
+          date: today(), description: '', memo: '', project: '',
+          lines: [{ account: '', debit: '', credit: '' }, { account: '', debit: '', credit: '' }],
+        };
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    init() {
+      window.addEventListener('view-changed', e => {
+        if (e.detail.view === 'transaction') this.loadRefs();
+      });
+    },
+  }));
+});
+</script>
+
+<div x-data="transactionView" x-show="$store.app.currentView === 'transaction'">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-bold text-gray-900">New Journal Entry</h2>
+  </div>
+
+  <div class="flex gap-2 mb-4">
+    <button class="btn-sm" :class="mode === 'simple' ? 'btn-primary' : 'btn-secondary'" @click="mode = 'simple'">Simple Entry</button>
+    <button class="btn-sm" :class="mode === 'journal' ? 'btn-primary' : 'btn-secondary'" @click="mode = 'journal'">Compound Entry</button>
+  </div>
+
+  <!-- Simple -->
+  <div class="card p-6" x-show="mode === 'simple'">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="form-label">Date *</label>
+        <input type="date" class="form-input" x-model="simple.date">
+      </div>
+      <div>
+        <label class="form-label">Amount *</label>
+        <input type="number" step="0.01" class="form-input" x-model="simple.amount" placeholder="0.00">
+      </div>
+      <div class="md:col-span-2">
+        <label class="form-label">Description *</label>
+        <input class="form-input" x-model="simple.description" placeholder="What is this transaction for?">
+      </div>
+      <div>
+        <label class="form-label">Debit Account *</label>
+        <select class="form-select" x-model="simple.drAccount">
+          <option value="">Select account...</option>
+          <template x-for="a in accounts" :key="a.code"><option :value="a.code" x-text="a.code + ' — ' + a.name"></option></template>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Credit Account *</label>
+        <select class="form-select" x-model="simple.crAccount">
+          <option value="">Select account...</option>
+          <template x-for="a in accounts" :key="a.code"><option :value="a.code" x-text="a.code + ' — ' + a.name"></option></template>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Project</label>
+        <select class="form-select" x-model="simple.project">
+          <option value="">None</option>
+          <template x-for="p in projects" :key="p.code"><option :value="p.code" x-text="p.code + ' — ' + p.name"></option></template>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Memo</label>
+        <input class="form-input" x-model="simple.memo" placeholder="Optional note">
+      </div>
+    </div>
+    <div class="mt-6">
+      <button class="btn-primary" @click="submitSimple()" :disabled="loading">
+        <span x-show="loading">Creating...</span>
+        <span x-show="!loading">Create Entry</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Compound -->
+  <div class="card p-6" x-show="mode === 'journal'">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+      <div>
+        <label class="form-label">Date *</label>
+        <input type="date" class="form-input" x-model="journal.date">
+      </div>
+      <div>
+        <label class="form-label">Project</label>
+        <select class="form-select" x-model="journal.project">
+          <option value="">None</option>
+          <template x-for="p in projects" :key="p.code"><option :value="p.code" x-text="p.code + ' — ' + p.name"></option></template>
+        </select>
+      </div>
+      <div>
+        <label class="form-label">Memo</label>
+        <input class="form-input" x-model="journal.memo" placeholder="Optional note">
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="form-label">Description *</label>
+      <input class="form-input" x-model="journal.description" placeholder="What is this transaction for?">
+    </div>
+    <table class="data-table mb-2">
+      <thead><tr><th>Account</th><th class="text-right">Debit</th><th class="text-right">Credit</th><th></th></tr></thead>
+      <tbody>
+        <template x-for="(line, i) in journal.lines" :key="i">
+          <tr>
+            <td>
+              <select class="form-select" x-model="line.account">
+                <option value="">Select...</option>
+                <template x-for="a in accounts" :key="a.code"><option :value="a.code" x-text="a.code + ' — ' + a.name"></option></template>
+              </select>
+            </td>
+            <td><input type="number" step="0.01" class="form-input text-right" x-model="line.debit" placeholder="0.00"></td>
+            <td><input type="number" step="0.01" class="form-input text-right" x-model="line.credit" placeholder="0.00"></td>
+            <td><button class="text-red-500 hover:text-red-700 text-sm" @click="removeLine(i)" x-show="journal.lines.length > 2">x</button></td>
+          </tr>
+        </template>
+      </tbody>
+      <tfoot>
+        <tr class="font-bold">
+          <td>Totals</td>
+          <td class="text-right" x-text="formatMoney(journalTotalDebits)"></td>
+          <td class="text-right" x-text="formatMoney(journalTotalCredits)"></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="flex items-center gap-3 mb-4">
+      <button class="btn-secondary btn-sm" @click="addLine()">+ Add Line</button>
+      <span class="text-sm" :class="journalBalanced ? 'text-brand-teal' : 'text-red-600'"
+            x-text="journalBalanced ? 'Balanced' : 'Out of balance by ' + formatMoney(Math.abs(journalTotalDebits - journalTotalCredits))"></span>
+    </div>
+    <button class="btn-primary" @click="submitJournal()" :disabled="loading || !journalBalanced">
+      <span x-show="loading">Creating...</span>
+      <span x-show="!loading">Create Journal Entry</span>
+    </button>
+  </div>
+</div>

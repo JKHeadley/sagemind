@@ -1,0 +1,136 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('dashboardView', () => ({
+    data: null,
+    loading: true,
+    chart: null,
+
+    async load() {
+      // Only show skeleton on first load; silent refresh after that
+      if (!this.data) this.loading = true;
+      try {
+        this.data = await API.getDashboardData();
+        this.$nextTick(() => this.renderChart());
+      } catch (e) {
+        this.$store.app.toast(e, 'error');
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    renderChart() {
+      if (!this.data || !this.data.trend) return;
+      const ctx = this.$refs.trendChart;
+      if (!ctx) return;
+      if (this.chart) this.chart.destroy();
+      this.chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: this.data.trend.map(t => t.month),
+          datasets: [
+            {
+              label: 'Revenue',
+              data: this.data.trend.map(t => t.revenue),
+              backgroundColor: 'rgba(0, 130, 118, 0.8)',
+              borderRadius: 4,
+            },
+            {
+              label: 'Expenses',
+              data: this.data.trend.map(t => t.expenses),
+              backgroundColor: 'rgba(239, 68, 68, 0.6)',
+              borderRadius: 4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'top' } },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { callback: v => '$' + v.toLocaleString() },
+            },
+          },
+        },
+      });
+    },
+
+    init() {
+      window.addEventListener('view-changed', e => {
+        if (e.detail.view === 'dashboard') {
+          this.load();
+          this.$nextTick(() => this.renderChart());
+        }
+      });
+    },
+  }));
+});
+</script>
+
+<div x-data="dashboardView" x-show="$store.app.currentView === 'dashboard'">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="kpi-card">
+      <div class="kpi-label" x-text="data ? data.dataYear + ' Revenue' : 'YTD Revenue'"></div>
+      <div x-show="loading && !data" class="skeleton h-8 w-24 mt-1"></div>
+      <div x-show="data" class="kpi-value money-positive" x-text="data ? formatMoney(data.ytd.revenue) : ''"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label" x-text="data ? data.dataYear + ' Expenses' : 'YTD Expenses'"></div>
+      <div x-show="loading && !data" class="skeleton h-8 w-24 mt-1"></div>
+      <div x-show="data" class="kpi-value money-negative" x-text="data ? formatMoney(data.ytd.expenses) : ''"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Net Income</div>
+      <div x-show="loading && !data" class="skeleton h-8 w-24 mt-1"></div>
+      <div x-show="data" class="kpi-value"
+           :class="data && data.ytd.netIncome >= 0 ? 'money-positive' : 'money-negative'"
+           x-text="data ? formatMoney(data.ytd.netIncome) : ''"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Cash Balance</div>
+      <div x-show="loading && !data" class="skeleton h-8 w-24 mt-1"></div>
+      <div x-show="data" class="kpi-value" x-text="data ? formatMoney(data.cashBalance) : ''"></div>
+    </div>
+  </div>
+
+  <div class="card p-5 mb-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Revenue vs Expenses (6 months)</h3>
+    <div style="height: 300px;">
+      <canvas x-ref="trendChart"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="px-5 py-4 border-b border-gray-200">
+      <h3 class="text-lg font-semibold text-gray-900">Recent Transactions</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="data-table">
+        <thead>
+          <tr><th>Date</th><th>Description</th><th class="text-right">Debit</th><th class="text-right">Credit</th><th>Project</th></tr>
+        </thead>
+        <tbody>
+          <template x-for="i in 5" :key="'skel-'+i">
+            <tr x-show="loading && !data" class="skeleton-row" :style="'animation-delay:' + (i*80) + 'ms'">
+              <td><div class="skeleton-bar" :style="'width:70%;animation-delay:' + (i*80) + 'ms'"></div></td>
+              <td><div class="skeleton-bar" :style="'width:' + (40 + (i*8)%40) + '%;animation-delay:' + (i*80) + 'ms'"></div></td>
+              <td><div class="skeleton-bar" :style="'width:50%;margin-left:auto;animation-delay:' + (i*80) + 'ms'"></div></td>
+              <td><div class="skeleton-bar" :style="'width:50%;margin-left:auto;animation-delay:' + (i*80) + 'ms'"></div></td>
+              <td><div class="skeleton-bar skeleton-bar-badge" :style="'animation-delay:' + (i*80) + 'ms'"></div></td>
+            </tr>
+          </template>
+          <template x-for="(txn, idx) in (data ? data.recentTransactions : [])" :key="idx">
+            <tr>
+              <td x-text="formatDateDisplay(txn.date)"></td>
+              <td x-text="txn.description"></td>
+              <td class="text-right" x-text="txn.drAmount ? formatMoney(txn.drAmount) : ''"></td>
+              <td class="text-right" x-text="txn.crAmount ? formatMoney(txn.crAmount) : ''"></td>
+              <td><span class="badge-gray" x-text="txn.project" x-show="txn.project"></span></td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

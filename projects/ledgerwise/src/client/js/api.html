@@ -1,0 +1,116 @@
+<script>
+/**
+ * API wrapper — Promise-based interface to google.script.run.
+ *
+ * Usage: const result = await API.call('getAccounts');
+ *        const data = await API.call('createAccount', { code: '1000', name: 'Cash' });
+ */
+const API = {
+  /**
+   * Call a server-side API method.
+   * @param {string} method - API method name (matches switch cases in ApiRouter.gs)
+   * @param {object} [params] - Parameters to pass
+   * @returns {Promise<*>} - Resolves with data, rejects with error message
+   */
+  call(method, params) {
+    return new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(response => {
+          if (response && response.success) {
+            resolve(response.data);
+          } else {
+            reject(response ? response.error : 'Unknown error');
+          }
+        })
+        .withFailureHandler(err => {
+          reject(err.message || String(err));
+        })
+        .api(method, params || {});
+    });
+  },
+
+  // ─── Convenience methods ─────────────────────────────────
+
+  getCurrentUser()     { return this.call('getCurrentUser'); },
+  getDataYear()        { return this.call('getDataYear'); },
+  getDashboardData()   { return this.call('getDashboardData'); },
+
+  // Accounts
+  getAccounts()           { return this.call('getAccounts'); },
+  getAccount(code)        { return this.call('getAccount', { code }); },
+  getAccountsGrouped()    { return this.call('getAccountsGrouped'); },
+  createAccount(data)     { return this.call('createAccount', data); },
+  updateAccount(data)     { return this.call('updateAccount', data); },
+  deleteAccount(code)     { return this.call('deleteAccount', { code }); },
+
+  // Transactions
+  getEntries(params)           { return this.call('getEntries', params); },
+  getTransaction(txnId)        { return this.call('getTransaction', { txnId }); },
+  createJournalEntry(entry)    { return this.call('createJournalEntry', entry); },
+  createSimpleEntry(data)      { return this.call('createSimpleEntry', data); },
+
+  // Ledger
+  getAccountBalance(accountCode, startDate, endDate) {
+    return this.call('getAccountBalance', { accountCode, startDate, endDate });
+  },
+  getAccountLedger(accountCode, startDate, endDate) {
+    return this.call('getAccountLedger', { accountCode, startDate, endDate });
+  },
+
+  // Bank Import
+  importBankCSV(rows)          { return this.call('importBankCSV', { rows }); },
+  getUnprocessedBank()         { return this.call('getUnprocessedBank'); },
+  autoCategorize()             { return this.call('autoCategorize'); },
+  approveTransaction(data)     { return this.call('approveTransaction', data); },
+  batchApprove(approvals)      { return this.call('batchApprove', { approvals }); },
+
+  // Bank Import — AI-assisted
+  approveAndLearn(data)        { return this.call('approveAndLearn', data); },
+
+  // AI
+  getAIStatus()                { return this.call('getAIStatus'); },
+  setGeminiApiKey(key)         { return this.call('setGeminiApiKey', { key }); },
+
+  // Plaid
+  getPlaidStatus()             { return this.call('getPlaidStatus'); },
+  setPlaidCredentials(clientId, secret, env) {
+    return this.call('setPlaidCredentials', { clientId, secret, env });
+  },
+  createLinkToken()            { return this.call('createLinkToken'); },
+  exchangePublicToken(publicToken) { return this.call('exchangePublicToken', { publicToken }); },
+  getConnections()             { return this.call('getConnections'); },
+  syncTransactions(itemId)     { return this.call('syncTransactions', { itemId }); },
+  removeConnection(itemId)     { return this.call('removeConnection', { itemId }); },
+
+  // Mapping Rules
+  getMappingRules()            { return this.call('getMappingRules'); },
+  createMappingRule(data)      { return this.call('createMappingRule', data); },
+  updateMappingRule(data)      { return this.call('updateMappingRule', data); },
+  deleteMappingRule(rowNumber) { return this.call('deleteMappingRule', { rowNumber }); },
+  testMappingPattern(pattern, useRegex, description) {
+    return this.call('testMappingPattern', { pattern, useRegex, description });
+  },
+
+  // Projects
+  getProjects()                { return this.call('getProjects'); },
+  getProject(code)             { return this.call('getProject', { code }); },
+  createProject(data)          { return this.call('createProject', data); },
+  updateProject(data)          { return this.call('updateProject', data); },
+  deleteProject(code)          { return this.call('deleteProject', { code }); },
+  getProjectPL(code, startDate, endDate) {
+    return this.call('getProjectPL', { code, startDate, endDate });
+  },
+
+  // Reports
+  getProfitAndLoss(startDate, endDate) {
+    return this.call('getProfitAndLoss', { startDate, endDate });
+  },
+  getBalanceSheet(asOfDate)    { return this.call('getBalanceSheet', { asOfDate }); },
+  getTrialBalance(startDate, endDate) {
+    return this.call('getTrialBalance', { startDate, endDate });
+  },
+
+  // Audit
+  getAuditLog(limit) { return this.call('getAuditLog', { limit }); },
+};
+</script>

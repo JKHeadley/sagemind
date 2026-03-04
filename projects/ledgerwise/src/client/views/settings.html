@@ -1,0 +1,176 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('settingsView', () => ({
+    user: null,
+    auditLog: [],
+    loading: true,
+    aiStatus: null,
+    geminiKey: '',
+    savingKey: false,
+    plaidStatus: null,
+    plaidClientId: '',
+    plaidSecret: '',
+    plaidEnv: 'sandbox',
+    savingPlaid: false,
+
+    async load() {
+      this.loading = true;
+      try {
+        var results = await Promise.all([API.getCurrentUser(), API.getAuditLog(25), API.getAIStatus(), API.getPlaidStatus()]);
+        this.user = results[0];
+        this.auditLog = results[1];
+        this.aiStatus = results[2];
+        this.plaidStatus = results[3];
+        if (results[3]) this.plaidEnv = results[3].env || 'sandbox';
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    async setupAuth() {
+      try {
+        await API.call('ensureAuthSheet');
+        this.$store.app.toast('Authorized_Users sheet created');
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async saveGeminiKey() {
+      if (!this.geminiKey.trim()) return;
+      this.savingKey = true;
+      try {
+        this.aiStatus = await API.setGeminiApiKey(this.geminiKey.trim());
+        this.geminiKey = '';
+        this.$store.app.toast('Gemini API key saved');
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.savingKey = false; }
+    },
+
+    async savePlaidCredentials() {
+      if (!this.plaidClientId.trim() || !this.plaidSecret.trim()) return;
+      this.savingPlaid = true;
+      try {
+        this.plaidStatus = await API.setPlaidCredentials(this.plaidClientId.trim(), this.plaidSecret.trim(), this.plaidEnv);
+        this.plaidClientId = '';
+        this.plaidSecret = '';
+        this.$store.app.toast('Plaid credentials saved');
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.savingPlaid = false; }
+    },
+
+    init() {
+      window.addEventListener('view-changed', e => { if (e.detail.view === 'settings') this.load(); });
+    },
+  }));
+});
+</script>
+
+<div x-data="settingsView" x-show="$store.app.currentView === 'settings'">
+  <h2 class="text-xl font-bold text-gray-900 mb-4">Settings</h2>
+
+  <div class="card p-5 mb-4">
+    <h3 class="font-semibold mb-3">Current User</h3>
+    <template x-if="user">
+      <div class="space-y-2 text-sm">
+        <div><span class="text-gray-500">Email:</span> <span x-text="user.email"></span></div>
+        <div><span class="text-gray-500">Role:</span> <span class="badge-green" x-text="user.role"></span></div>
+      </div>
+    </template>
+  </div>
+
+  <div class="card p-5 mb-4">
+    <h3 class="font-semibold mb-3">Authorization</h3>
+    <p class="text-sm text-gray-600 mb-3">Create or manage the Authorized_Users sheet to control who can access this app.</p>
+    <button class="btn-secondary btn-sm" @click="setupAuth()">Create/Verify Auth Sheet</button>
+  </div>
+
+  <div class="card p-5 mb-4">
+    <h3 class="font-semibold mb-3">AI Categorization (Gemini)</h3>
+    <div class="space-y-3">
+      <div class="flex items-center gap-3 text-sm">
+        <span class="text-gray-500">Status:</span>
+        <template x-if="aiStatus && aiStatus.enabled">
+          <span class="badge-green">Enabled</span>
+        </template>
+        <template x-if="!aiStatus || !aiStatus.enabled">
+          <span class="badge-yellow">Not configured</span>
+        </template>
+        <template x-if="aiStatus && aiStatus.keyPreview">
+          <span class="text-xs text-gray-400" x-text="'Key: ' + aiStatus.keyPreview"></span>
+        </template>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="password" class="text-sm border rounded px-3 py-1.5 flex-1" style="max-width:320px"
+               placeholder="Enter Gemini API key" x-model="geminiKey" @keydown.enter="saveGeminiKey()">
+        <button class="btn-primary btn-sm" @click="saveGeminiKey()" :disabled="savingKey || !geminiKey.trim()">Save Key</button>
+      </div>
+      <p class="text-xs text-gray-400">
+        Get a free API key from <a href="https://aistudio.google.com/apikey" target="_blank" class="underline" style="color:#008276">Google AI Studio</a>.
+        Free tier: ~250 requests/day with Gemini Flash.
+      </p>
+    </div>
+  </div>
+
+  <div class="card p-5 mb-4">
+    <h3 class="font-semibold mb-3">Bank Connections (Plaid)</h3>
+    <div class="space-y-3">
+      <div class="flex items-center gap-3 text-sm">
+        <span class="text-gray-500">Status:</span>
+        <template x-if="plaidStatus && plaidStatus.enabled">
+          <span class="badge-green">Enabled</span>
+        </template>
+        <template x-if="!plaidStatus || !plaidStatus.enabled">
+          <span class="badge-yellow">Not configured</span>
+        </template>
+        <template x-if="plaidStatus && plaidStatus.env">
+          <span class="badge-gray" x-text="plaidStatus.env"></span>
+        </template>
+      </div>
+      <div class="space-y-2">
+        <input type="password" class="text-sm border rounded px-3 py-1.5 w-full" style="max-width:320px"
+               placeholder="Plaid Client ID" x-model="plaidClientId">
+        <input type="password" class="text-sm border rounded px-3 py-1.5 w-full" style="max-width:320px"
+               placeholder="Plaid Secret" x-model="plaidSecret">
+        <div class="flex items-center gap-3">
+          <select class="text-sm border rounded px-3 py-1.5" x-model="plaidEnv">
+            <option value="sandbox">Sandbox</option>
+            <option value="production">Production</option>
+          </select>
+          <button class="btn-primary btn-sm" @click="savePlaidCredentials()"
+                  :disabled="savingPlaid || !plaidClientId.trim() || !plaidSecret.trim()">Save Credentials</button>
+        </div>
+      </div>
+      <p class="text-xs text-gray-400">
+        Get Plaid credentials from <a href="https://dashboard.plaid.com/developers/keys" target="_blank" class="underline" style="color:#008276">Plaid Dashboard</a>.
+        Use Sandbox mode for testing.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="px-5 py-4 border-b border-gray-200"><h3 class="font-semibold">Recent Audit Log</h3></div>
+    <div class="overflow-x-auto">
+      <table class="data-table">
+        <thead><tr><th>Timestamp</th><th>User</th><th>Action</th><th>Sheet</th><th>Details</th></tr></thead>
+        <tbody>
+          <template x-for="i in 4" :key="'skel-'+i">
+            <tr x-show="loading" class="skeleton-row" :style="'animation-delay:' + (i*80) + 'ms'">
+              <td><div class="skeleton-bar" :style="'width:70%;animation-delay:' + (i*80) + 'ms'"></div></td>
+              <td><div class="skeleton-bar" :style="'width:60%;animation-delay:' + (i*80) + 'ms'"></div></td>
+              <td><div class="skeleton-bar skeleton-bar-badge" :style="'animation-delay:' + (i*80) + 'ms'"></div></td>
+              <td><div class="skeleton-bar" :style="'width:40%;animation-delay:' + (i*80) + 'ms'"></div></td>
+              <td><div class="skeleton-bar" :style="'width:' + (40 + (i*10)%30) + '%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            </tr>
+          </template>
+          <template x-for="(e, i) in auditLog" :key="i">
+            <tr x-show="!loading">
+              <td class="whitespace-nowrap text-xs" x-text="e.timestamp"></td>
+              <td class="text-xs" x-text="e.userEmail"></td>
+              <td><span class="badge-gray" x-text="e.action"></span></td>
+              <td class="text-xs" x-text="e.sheetName"></td>
+              <td class="text-xs text-gray-500 max-w-xs truncate" x-text="e.newValue || e.range"></td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('projectsView', () => ({
+    projects: [],
+    loading: true,
+    showForm: false,
+    editing: null,
+    form: { code: '', name: '', funding: '', revenue: '', clientShare: '', notes: '' },
+    projectPL: null,
+    selectedProject: null,
+
+    async load() {
+      this.loading = true;
+      try { this.projects = await API.getProjects(); }
+      catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    openNew() {
+      this.editing = null;
+      this.form = { code: '', name: '', funding: '', revenue: '', clientShare: '', notes: '' };
+      this.showForm = true;
+    },
+
+    openEdit(p) { this.editing = p.code; this.form = { ...p }; this.showForm = true; },
+
+    async save() {
+      try {
+        if (this.editing) { await API.updateProject(this.form); this.$store.app.toast('Project updated'); }
+        else { await API.createProject(this.form); this.$store.app.toast('Project created'); }
+        this.showForm = false;
+        this.load();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async remove(code) {
+      var ok = await this.$store.app.confirm('Delete Project', 'Delete project ' + code + '? This cannot be undone.');
+      if (!ok) return;
+      try { await API.deleteProject(code); this.$store.app.toast('Project deleted'); this.load(); }
+      catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async viewPL(project) {
+      this.selectedProject = project;
+      var dy = this.$store.app.dataYear;
+      try { this.projectPL = await API.getProjectPL(project.code, dy + '-01-01', dy + '-12-31'); }
+      catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    init() {
+      window.addEventListener('view-changed', e => { if (e.detail.view === 'projects') this.load(); });
+    },
+  }));
+});
+</script>
+
+<div x-data="projectsView" x-show="$store.app.currentView === 'projects'">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-bold text-gray-900">Projects</h2>
+    <button class="btn-primary" @click="openNew()">+ New Project</button>
+  </div>
+
+  <div x-show="showForm" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6" @click.outside="showForm = false">
+      <h3 class="text-lg font-semibold mb-4" x-text="editing ? 'Edit Project' : 'New Project'"></h3>
+      <div class="space-y-3">
+        <div><label class="form-label">Code *</label><input class="form-input" x-model="form.code" :disabled="editing" placeholder="e.g. CTR-25-001"></div>
+        <div><label class="form-label">Name *</label><input class="form-input" x-model="form.name" placeholder="Project name"></div>
+        <div><label class="form-label">Funding Source</label><input class="form-input" x-model="form.funding"></div>
+        <div><label class="form-label">Revenue Source</label><input class="form-input" x-model="form.revenue"></div>
+        <div><label class="form-label">Client Share</label><input class="form-input" x-model="form.clientShare"></div>
+        <div><label class="form-label">Notes</label><textarea class="form-input" x-model="form.notes" rows="2"></textarea></div>
+      </div>
+      <div class="flex gap-3 mt-6">
+        <button class="btn-primary flex-1" @click="save()">Save</button>
+        <button class="btn-secondary flex-1" @click="showForm = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div x-show="projectPL" x-cloak class="card p-5 mb-4">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-semibold" x-text="selectedProject ? selectedProject.name + ' — YTD P&L' : ''"></h3>
+      <button class="text-gray-400 hover:text-gray-600" @click="projectPL = null">x</button>
+    </div>
+    <div class="grid grid-cols-3 gap-4 text-center" x-show="projectPL">
+      <div><div class="text-sm text-gray-500">Revenue</div><div class="text-lg font-bold money-positive" x-text="formatMoney(projectPL && projectPL.revenue)"></div></div>
+      <div><div class="text-sm text-gray-500">Expenses</div><div class="text-lg font-bold money-negative" x-text="formatMoney(projectPL && projectPL.expenses)"></div></div>
+      <div><div class="text-sm text-gray-500">Net</div><div class="text-lg font-bold" :class="projectPL && projectPL.netIncome >= 0 ? 'money-positive' : 'money-negative'" x-text="formatMoney(projectPL && projectPL.netIncome)"></div></div>
+    </div>
+  </div>
+
+  <div class="card overflow-x-auto">
+    <table class="data-table">
+      <thead><tr><th>Code</th><th>Name</th><th>Funding</th><th>Revenue Source</th><th class="text-right">Actions</th></tr></thead>
+      <tbody>
+        <template x-for="i in 5" :key="'skel-'+i">
+          <tr x-show="loading" class="skeleton-row" :style="'animation-delay:' + (i*80) + 'ms'">
+            <td><div class="skeleton-bar" :style="'width:50%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:' + (45 + (i*8)%35) + '%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:55%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:50%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:60%;margin-left:auto;animation-delay:' + (i*80) + 'ms'"></div></td>
+          </tr>
+        </template>
+        <template x-for="p in projects" :key="p.code">
+          <tr x-show="!loading">
+            <td class="font-mono font-medium" x-text="p.code"></td>
+            <td x-text="p.name"></td>
+            <td class="text-gray-500 text-sm" x-text="p.funding"></td>
+            <td class="text-gray-500 text-sm" x-text="p.revenue"></td>
+            <td class="text-right">
+              <button class="btn-secondary btn-sm" @click="viewPL(p)">P&L</button>
+              <button class="btn-secondary btn-sm ml-1" @click="openEdit(p)">Edit</button>
+              <button class="btn-danger btn-sm ml-1" @click="remove(p.code)">Del</button>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('mappingRulesView', () => ({
+    rules: [],
+    loading: true,
+    showForm: false,
+    form: { pattern: '', useRegex: false, drCode: '', crCode: '', project: '', memoAppend: '', sourceAccount: '', active: true, priority: 100 },
+    editingRow: null,
+    accounts: [],
+    testDesc: '',
+    testResult: null,
+
+    async load() {
+      this.loading = true;
+      try {
+        var results = await Promise.all([API.getMappingRules(), API.getAccounts()]);
+        this.rules = results[0];
+        this.accounts = results[1];
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    openNew() {
+      this.editingRow = null;
+      this.form = { pattern: '', useRegex: false, drCode: '', crCode: '', project: '', memoAppend: '', sourceAccount: '', active: true, priority: 100 };
+      this.showForm = true;
+    },
+
+    openEdit(rule) {
+      this.editingRow = rule.rowNumber;
+      this.form = { ...rule };
+      this.showForm = true;
+    },
+
+    async save() {
+      try {
+        if (this.editingRow) {
+          await API.updateMappingRule({ rowNumber: this.editingRow, ...this.form });
+          this.$store.app.toast('Rule updated');
+        } else {
+          await API.createMappingRule(this.form);
+          this.$store.app.toast('Rule created');
+        }
+        this.showForm = false;
+        this.load();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async remove(rowNumber) {
+      var ok = await this.$store.app.confirm('Delete Rule', 'Delete this mapping rule? This cannot be undone.');
+      if (!ok) return;
+      try {
+        await API.deleteMappingRule(rowNumber);
+        this.$store.app.toast('Rule deleted');
+        this.load();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async testPattern() {
+      if (!this.form.pattern || !this.testDesc) return;
+      try {
+        this.testResult = await API.testMappingPattern(this.form.pattern, this.form.useRegex, this.testDesc);
+      } catch (e) { this.testResult = { matches: false, error: e }; }
+    },
+
+    init() {
+      window.addEventListener('view-changed', e => {
+        if (e.detail.view === 'mapping-rules') this.load();
+      });
+    },
+  }));
+});
+</script>
+
+<div x-data="mappingRulesView" x-show="$store.app.currentView === 'mapping-rules'">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-bold text-gray-900">Mapping Rules</h2>
+    <button class="btn-primary" @click="openNew()">+ New Rule</button>
+  </div>
+
+  <div x-show="showForm" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6" @click.outside="showForm = false">
+      <h3 class="text-lg font-semibold mb-4" x-text="editingRow ? 'Edit Rule' : 'New Rule'"></h3>
+      <div class="space-y-3">
+        <div>
+          <label class="form-label">Pattern *</label>
+          <input class="form-input" x-model="form.pattern" placeholder="e.g. GHOST.ORG">
+        </div>
+        <div class="flex gap-4 items-center">
+          <label class="flex items-center gap-2 text-sm"><input type="checkbox" x-model="form.useRegex"> Use Regex</label>
+          <label class="flex items-center gap-2 text-sm"><input type="checkbox" x-model="form.active"> Active</label>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Debit Account *</label>
+            <select class="form-select" x-model="form.drCode">
+              <option value="">Select...</option>
+              <template x-for="a in accounts" :key="a.code"><option :value="a.code" x-text="a.code + ' ' + a.name"></option></template>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Credit Account *</label>
+            <select class="form-select" x-model="form.crCode">
+              <option value="">Select...</option>
+              <template x-for="a in accounts" :key="a.code"><option :value="a.code" x-text="a.code + ' ' + a.name"></option></template>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="form-label">Project</label><input class="form-input" x-model="form.project" placeholder="Optional"></div>
+          <div><label class="form-label">Priority</label><input type="number" class="form-input" x-model="form.priority"></div>
+        </div>
+        <div><label class="form-label">Memo Append</label><input class="form-input" x-model="form.memoAppend" placeholder="Optional text to add to memo"></div>
+        <div class="border-t pt-3">
+          <label class="form-label">Test Pattern</label>
+          <div class="flex gap-2">
+            <input class="form-input flex-1" x-model="testDesc" placeholder="Paste a bank description...">
+            <button class="btn-secondary btn-sm" @click="testPattern()">Test</button>
+          </div>
+          <div x-show="testResult" class="mt-2 text-sm">
+            <span :class="testResult && testResult.matches ? 'text-brand-teal' : 'text-red-600'"
+                  x-text="testResult ? (testResult.matches ? 'Match!' : 'No match') : ''"></span>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-6">
+        <button class="btn-primary flex-1" @click="save()">Save</button>
+        <button class="btn-secondary flex-1" @click="showForm = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card overflow-x-auto">
+    <table class="data-table">
+      <thead><tr><th>Pattern</th><th>Regex</th><th>Dr Code</th><th>Cr Code</th><th>Priority</th><th>Active</th><th class="text-right">Actions</th></tr></thead>
+      <tbody>
+        <template x-for="i in 6" :key="'skel-'+i">
+          <tr x-show="loading" class="skeleton-row" :style="'animation-delay:' + (i*80) + 'ms'">
+            <td><div class="skeleton-bar" :style="'width:' + (50 + (i*9)%30) + '%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:30%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:45%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:45%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:30%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar skeleton-bar-badge" :style="'animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:50%;margin-left:auto;animation-delay:' + (i*80) + 'ms'"></div></td>
+          </tr>
+        </template>
+        <template x-for="r in rules" :key="r.rowNumber">
+          <tr x-show="!loading" :class="!r.active ? 'opacity-50' : ''">
+            <td class="font-mono text-xs" x-text="r.pattern"></td>
+            <td x-text="r.useRegex ? 'Yes' : 'No'"></td>
+            <td class="font-mono" x-text="r.drCode"></td>
+            <td class="font-mono" x-text="r.crCode"></td>
+            <td x-text="r.priority"></td>
+            <td><span :class="r.active ? 'badge-green' : 'badge-gray'" x-text="r.active ? 'Active' : 'Inactive'"></span></td>
+            <td class="text-right">
+              <button class="btn-secondary btn-sm" @click="openEdit(r)">Edit</button>
+              <button class="btn-danger btn-sm ml-1" @click="remove(r.rowNumber)">Del</button>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</div>

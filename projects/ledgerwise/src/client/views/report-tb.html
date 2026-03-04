@@ -1,0 +1,85 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('reportTBView', () => ({
+    report: null,
+    loading: false,
+    startDate: startOfYear(),
+    endDate: today(),
+
+    async load() {
+      this.loading = true;
+      try { this.report = await API.getTrialBalance(this.startDate, this.endDate); }
+      catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    _ready: false,
+    init() {
+      window.addEventListener('view-changed', e => {
+        if (e.detail.view === 'report-tb') {
+          if (!this._ready) {
+            var dy = this.$store.app.dataYear;
+            this.startDate = dy + '-01-01';
+            this.endDate = dy + '-12-31';
+            this._ready = true;
+          }
+          this.load();
+        }
+      });
+    },
+  }));
+});
+</script>
+
+<div x-data="reportTBView" x-show="$store.app.currentView === 'report-tb'">
+  <h2 class="text-xl font-bold text-gray-900 mb-4">Trial Balance</h2>
+  <div class="flex gap-3 items-end mb-4">
+    <div><label class="form-label">From</label><input type="date" class="form-input" x-model="startDate"></div>
+    <div><label class="form-label">To</label><input type="date" class="form-input" x-model="endDate"></div>
+    <button class="btn-primary btn-sm" @click="load()">Generate</button>
+  </div>
+
+  <div x-show="loading" class="card p-6">
+    <div class="skeleton-bar mx-auto" style="width:35%;height:1.25rem;margin-bottom:0.5rem"></div>
+    <div class="skeleton-bar mx-auto" style="width:20%;height:0.75rem;margin-bottom:1.5rem"></div>
+    <template x-for="i in 8" :key="'skel-'+i">
+      <div class="flex justify-between py-2" :style="'animation-delay:' + (i*60) + 'ms'">
+        <div class="skeleton-bar" :style="'width:' + (25 + (i*6)%20) + '%;animation-delay:' + (i*60) + 'ms'"></div>
+        <div class="skeleton-bar" :style="'width:12%;animation-delay:' + (i*60) + 'ms'"></div>
+        <div class="skeleton-bar" :style="'width:12%;animation-delay:' + (i*60) + 'ms'"></div>
+        <div class="skeleton-bar" :style="'width:12%;animation-delay:' + (i*60) + 'ms'"></div>
+      </div>
+    </template>
+  </div>
+  <div x-show="!loading && report" x-cloak>
+    <div class="card">
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 text-center">
+        <div class="text-lg font-bold">Trial Balance</div>
+        <div class="text-sm text-gray-500" x-text="formatDateDisplay(report.startDate) + ' — ' + formatDateDisplay(report.endDate)"></div>
+        <div class="mt-1"><span :class="report.balanced ? 'badge-green' : 'badge-red'" x-text="report.balanced ? 'Balanced' : 'OUT OF BALANCE'"></span></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Code</th><th>Account</th><th class="text-right">Debits</th><th class="text-right">Credits</th><th class="text-right">Balance</th></tr></thead>
+        <tbody>
+          <template x-for="a in report.accounts" :key="a.code">
+            <tr>
+              <td class="font-mono" x-text="a.code"></td>
+              <td x-text="a.name"></td>
+              <td class="text-right font-mono" x-text="formatMoney(a.debits)"></td>
+              <td class="text-right font-mono" x-text="formatMoney(a.credits)"></td>
+              <td class="text-right font-mono font-bold" x-text="formatMoney(a.balance)"></td>
+            </tr>
+          </template>
+        </tbody>
+        <tfoot>
+          <tr class="font-bold bg-gray-50">
+            <td colspan="2">Totals</td>
+            <td class="text-right font-mono" x-text="formatMoney(report.totalDebits)"></td>
+            <td class="text-right font-mono" x-text="formatMoney(report.totalCredits)"></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

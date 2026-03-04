@@ -1,0 +1,154 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('accountsView', () => ({
+    accounts: [],
+    loading: true,
+    showForm: false,
+    editing: null,
+    form: { code: '', name: '', type: 'Asset', subtype: '', normalBalance: 'Debit' },
+
+    accountTypes: ['Asset', 'Liability', 'Equity', 'Revenue', 'Expense'],
+    subtypes: {
+      Asset: ['Current Asset', 'Fixed Asset', 'Other Asset'],
+      Liability: ['Current Liability', 'Long-term Liability'],
+      Equity: ['Owner Equity', 'Retained Earnings'],
+      Revenue: ['Operating Revenue', 'Other Revenue'],
+      Expense: ['Operating Expense', 'Cost of Goods', 'Payroll', 'Other Expense'],
+    },
+
+    async load() {
+      this.loading = true;
+      try { this.accounts = await API.getAccounts(); }
+      catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    openNew() {
+      this.editing = null;
+      this.form = { code: '', name: '', type: 'Asset', subtype: '', normalBalance: 'Debit' };
+      this.showForm = true;
+    },
+
+    openEdit(acct) {
+      this.editing = acct.code;
+      this.form = { ...acct };
+      this.showForm = true;
+    },
+
+    async save() {
+      try {
+        if (this.editing) {
+          await API.updateAccount(this.form);
+          this.$store.app.toast('Account updated');
+        } else {
+          await API.createAccount(this.form);
+          this.$store.app.toast('Account created');
+        }
+        this.showForm = false;
+        this.load();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async remove(code) {
+      var ok = await this.$store.app.confirm('Delete Account', 'Delete account ' + code + '? This cannot be undone.');
+      if (!ok) return;
+      try {
+        await API.deleteAccount(code);
+        this.$store.app.toast('Account deleted');
+        this.load();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    onTypeChange() {
+      this.form.normalBalance = ['Asset', 'Expense'].includes(this.form.type) ? 'Debit' : 'Credit';
+      this.form.subtype = '';
+    },
+
+    init() {
+      window.addEventListener('view-changed', e => {
+        if (e.detail.view === 'accounts') this.load();
+      });
+    },
+  }));
+});
+</script>
+
+<div x-data="accountsView" x-show="$store.app.currentView === 'accounts'">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-bold text-gray-900">Chart of Accounts</h2>
+    <button class="btn-primary" @click="openNew()">+ New Account</button>
+  </div>
+
+  <div x-show="showForm" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6" @click.outside="showForm = false">
+      <h3 class="text-lg font-semibold mb-4" x-text="editing ? 'Edit Account' : 'New Account'"></h3>
+      <div class="space-y-4">
+        <div>
+          <label class="form-label">Account Code</label>
+          <input class="form-input" x-model="form.code" :disabled="editing" placeholder="e.g. 1000">
+        </div>
+        <div>
+          <label class="form-label">Account Name</label>
+          <input class="form-input" x-model="form.name" placeholder="e.g. Cash & Bank">
+        </div>
+        <div>
+          <label class="form-label">Type</label>
+          <select class="form-select" x-model="form.type" @change="onTypeChange()">
+            <template x-for="t in accountTypes"><option :value="t" x-text="t"></option></template>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Subtype</label>
+          <select class="form-select" x-model="form.subtype">
+            <option value="">—</option>
+            <template x-for="s in (subtypes[form.type] || [])"><option :value="s" x-text="s"></option></template>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Normal Balance</label>
+          <select class="form-select" x-model="form.normalBalance">
+            <option>Debit</option><option>Credit</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-6">
+        <button class="btn-primary flex-1" @click="save()">Save</button>
+        <button class="btn-secondary flex-1" @click="showForm = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card overflow-x-auto">
+    <table class="data-table">
+      <thead>
+        <tr><th>Code</th><th>Name</th><th>Type</th><th>Subtype</th><th>Normal Balance</th><th class="text-right">Actions</th></tr>
+      </thead>
+      <tbody>
+        <template x-for="i in 6" :key="'skel-'+i">
+          <tr x-show="loading" class="skeleton-row" :style="'animation-delay:' + (i*80) + 'ms'">
+            <td><div class="skeleton-bar" :style="'width:40%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:' + (50 + (i*7)%30) + '%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar skeleton-bar-badge" :style="'animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:60%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:40%;animation-delay:' + (i*80) + 'ms'"></div></td>
+            <td><div class="skeleton-bar" :style="'width:50%;margin-left:auto;animation-delay:' + (i*80) + 'ms'"></div></td>
+          </tr>
+        </template>
+        <tr x-show="!loading && !accounts.length"><td colspan="6" class="text-center py-8 text-gray-400">No accounts found</td></tr>
+        <template x-for="a in accounts" :key="a.code">
+          <tr x-show="!loading">
+            <td class="font-mono font-medium" x-text="a.code"></td>
+            <td x-text="a.name"></td>
+            <td><span class="badge-gray" x-text="a.type"></span></td>
+            <td class="text-gray-500" x-text="a.subtype"></td>
+            <td x-text="a.normalBalance"></td>
+            <td class="text-right">
+              <button class="btn-secondary btn-sm" @click="openEdit(a)">Edit</button>
+              <button class="btn-danger btn-sm ml-1" @click="remove(a.code)">Del</button>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</div>

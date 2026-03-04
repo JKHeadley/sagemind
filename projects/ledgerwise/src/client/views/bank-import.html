@@ -1,0 +1,450 @@
+<script>
+document.addEventListener('alpine:init', () => {
+  Alpine.data('bankImportView', () => ({
+    step: 'upload',
+    csvData: [],
+    categorized: [],
+    accounts: [],
+    connections: [],
+    loading: false,
+    syncing: {},
+    filter: 'all',
+    plaidEnabled: false,
+
+    get filtered() {
+      var self = this;
+      if (self.filter === 'all') return self.categorized;
+      return self.categorized.filter(function(t) {
+        if (self.filter === 'rule') return t.suggested && t.suggested.source === 'rule';
+        if (self.filter === 'ai') return t.suggested && t.suggested.source === 'ai';
+        if (self.filter === 'none') return !t.suggested;
+        return true;
+      });
+    },
+
+    get counts() {
+      var c = { total: this.categorized.length, rule: 0, ai: 0, none: 0 };
+      this.categorized.forEach(function(t) {
+        if (t.suggested && t.suggested.source === 'rule') c.rule++;
+        else if (t.suggested && t.suggested.source === 'ai') c.ai++;
+        else c.none++;
+      });
+      return c;
+    },
+
+    get highConfidenceCount() {
+      return this.categorized.filter(function(t) {
+        return t.suggested && t.suggested.confidence >= 70;
+      }).length;
+    },
+
+    confidenceClass(c) {
+      if (c >= 70) return 'confidence-high';
+      if (c >= 40) return 'confidence-medium';
+      return 'confidence-low';
+    },
+
+    parseCSV(text) {
+      var lines = text.trim().split('\n');
+      if (lines.length < 2) return [];
+      var headers = lines[0].split(',').map(function(h) {
+        return h.trim().replace(/^"|"$/g, '');
+      });
+      return lines.slice(1).map(function(line) {
+        var vals = line.match(/(?:"[^"]*"|[^,])+/g) || [];
+        var obj = {};
+        headers.forEach(function(h, i) {
+          obj[h.toLowerCase()] = (vals[i] || '').replace(/^"|"$/g, '').trim();
+        });
+        return {
+          date: obj.date || obj.posted_date || obj['transaction date'] || '',
+          description: obj.description || obj.memo || obj.payee || '',
+          amount: parseFloat((obj.amount || obj.debit || '0').replace(/[,$]/g, '')) || 0,
+          reference: obj.reference || obj['check number'] || '',
+        };
+      }).filter(function(r) { return r.date && r.description; });
+    },
+
+    handleFile(event) {
+      var self = this;
+      var file = event.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        self.csvData = self.parseCSV(e.target.result);
+        if (self.csvData.length) self.step = 'preview';
+        else self.$store.app.toast('No valid rows found in CSV', 'error');
+      };
+      reader.readAsText(file);
+    },
+
+    async importRows() {
+      this.loading = true;
+      try {
+        var result = await API.importBankCSV(this.csvData);
+        this.$store.app.toast(result.imported + ' transactions imported');
+        this.step = 'categorize';
+        this.loadCategorized();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    async loadCategorized() {
+      this.loading = true;
+      try {
+        var results = await Promise.all([API.autoCategorize(), API.getAccounts()]);
+        this.categorized = results[0].map(function(t) {
+          t.learn = t.suggested && t.suggested.source === 'ai';
+          t.manualDr = '';
+          t.manualCr = '';
+          t.manualProject = '';
+          return t;
+        });
+        this.accounts = results[1];
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    async approve(txn) {
+      var drCode = txn.suggested ? txn.suggested.drCode : txn.manualDr;
+      var crCode = txn.suggested ? txn.suggested.crCode : txn.manualCr;
+      if (!drCode || !crCode) {
+        this.$store.app.toast('Select debit and credit accounts', 'error');
+        return;
+      }
+      try {
+        var useLearn = txn.learn && txn.suggested && txn.suggested.source === 'ai';
+        if (useLearn) {
+          await API.approveAndLearn({
+            rowNumber: txn.rowNumber,
+            drCode: drCode,
+            crCode: crCode,
+            project: txn.suggested ? txn.suggested.project : txn.manualProject,
+            memo: txn.suggested ? txn.suggested.memo : '',
+            learn: true,
+            description: txn.description,
+          });
+          this.$store.app.toast('Approved + rule created: ' + txn.description);
+        } else {
+          await API.approveTransaction({
+            rowNumber: txn.rowNumber,
+            drCode: drCode,
+            crCode: crCode,
+            project: txn.suggested ? txn.suggested.project : txn.manualProject,
+            memo: txn.suggested ? txn.suggested.memo : '',
+          });
+          this.$store.app.toast('Approved: ' + txn.description);
+        }
+        this.categorized = this.categorized.filter(function(t) { return t.rowNumber !== txn.rowNumber; });
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async approveHighConfidence() {
+      var auto = this.categorized.filter(function(t) {
+        return t.suggested && t.suggested.confidence >= 70;
+      });
+      if (!auto.length) { this.$store.app.toast('No high-confidence transactions', 'error'); return; }
+
+      var confirmed = await this.$store.app.confirm(
+        'Approve ' + auto.length + ' high-confidence transactions?',
+        'This will create GL entries for all transactions with 70%+ confidence. AI-categorized items with "Learn" checked will also create mapping rules.'
+      );
+      if (!confirmed) return;
+
+      this.loading = true;
+      try {
+        var approved = 0;
+        for (var i = 0; i < auto.length; i++) {
+          var txn = auto[i];
+          var useLearn = txn.learn && txn.suggested.source === 'ai';
+          if (useLearn) {
+            await API.approveAndLearn({
+              rowNumber: txn.rowNumber,
+              drCode: txn.suggested.drCode,
+              crCode: txn.suggested.crCode,
+              project: txn.suggested.project,
+              memo: txn.suggested.memo,
+              learn: true,
+              description: txn.description,
+            });
+          } else {
+            await API.approveTransaction({
+              rowNumber: txn.rowNumber,
+              drCode: txn.suggested.drCode,
+              crCode: txn.suggested.crCode,
+              project: txn.suggested.project,
+              memo: txn.suggested.memo,
+            });
+          }
+          approved++;
+        }
+        this.$store.app.toast(approved + ' transactions approved');
+        this.loadCategorized();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.loading = false; }
+    },
+
+    async loadConnections() {
+      try {
+        var results = await Promise.all([API.getConnections(), API.getPlaidStatus()]);
+        this.connections = results[0];
+        this.plaidEnabled = results[1].enabled;
+      } catch (e) { /* silently fail — plaid may not be configured */ }
+    },
+
+    async connectBank() {
+      try {
+        var tokenResult = await API.createLinkToken();
+        var self = this;
+        var handler = Plaid.create({
+          token: tokenResult.linkToken,
+          onSuccess: async function(publicToken, metadata) {
+            try {
+              await API.exchangePublicToken(publicToken);
+              self.$store.app.toast('Bank connected: ' + (metadata.institution ? metadata.institution.name : 'Success'));
+              self.loadConnections();
+            } catch (e) { self.$store.app.toast(e, 'error'); }
+          },
+          onExit: function(err) {
+            if (err) self.$store.app.toast('Connection cancelled', 'error');
+          },
+        });
+        handler.open();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    async syncBank(itemId) {
+      this.syncing[itemId] = true;
+      try {
+        var result = await API.syncTransactions(itemId);
+        if (result.imported > 0) {
+          this.$store.app.toast(result.imported + ' new transactions synced');
+          this.step = 'categorize';
+          this.loadCategorized();
+        } else {
+          this.$store.app.toast('No new transactions');
+        }
+        this.loadConnections();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+      finally { this.syncing[itemId] = false; }
+    },
+
+    async disconnectBank(itemId) {
+      var confirmed = await this.$store.app.confirm(
+        'Disconnect bank?',
+        'This will revoke access to this bank account. Previously imported transactions are not affected.'
+      );
+      if (!confirmed) return;
+      try {
+        await API.removeConnection(itemId);
+        this.$store.app.toast('Bank disconnected');
+        this.loadConnections();
+      } catch (e) { this.$store.app.toast(e, 'error'); }
+    },
+
+    init() {
+      window.addEventListener('view-changed', e => {
+        if (e.detail.view === 'bank-import') {
+          this.step = 'upload';
+          this.csvData = [];
+          this.categorized = [];
+          this.filter = 'all';
+          this.loadConnections();
+        }
+      });
+    },
+  }));
+});
+</script>
+
+<div x-data="bankImportView" x-show="$store.app.currentView === 'bank-import'">
+  <h2 class="text-xl font-bold text-gray-900 mb-4">Bank Import</h2>
+
+  <!-- Connected Banks -->
+  <div x-show="plaidEnabled && (connections.length > 0 || step === 'upload')" class="card p-5 mb-4">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-semibold">Connected Banks</h3>
+      <button class="btn-primary btn-sm" @click="connectBank()">
+        <i data-feather="plus" class="w-3.5 h-3.5"></i> Connect Bank
+      </button>
+    </div>
+    <div x-show="connections.length === 0" class="text-sm text-gray-500 py-2">
+      No bank accounts connected yet. Click "Connect Bank" to link your bank via Plaid.
+    </div>
+    <div x-show="connections.length > 0" class="space-y-2">
+      <template x-for="conn in connections" :key="conn.accountId">
+        <div class="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+          <div>
+            <span class="text-sm font-medium" x-text="conn.institutionName"></span>
+            <span class="text-xs text-gray-500 ml-2" x-text="conn.accountName + (conn.accountMask ? ' ••' + conn.accountMask : '')"></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-gray-400" x-text="'Last sync: ' + conn.lastSync"></span>
+            <button class="btn-primary btn-sm" @click="syncBank(conn.itemId)" :disabled="syncing[conn.itemId]">
+              <span x-show="!syncing[conn.itemId]">Sync</span>
+              <span x-show="syncing[conn.itemId]">Syncing...</span>
+            </button>
+            <button class="text-xs text-red-500 hover:text-red-700" @click="disconnectBank(conn.itemId)">Remove</button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- Upload Step -->
+  <div x-show="step === 'upload'" class="card p-6">
+    <div class="text-center py-8">
+      <p class="text-gray-600 mb-4">Upload a bank CSV file to import transactions</p>
+      <input type="file" accept=".csv" class="form-input max-w-xs mx-auto" @change="handleFile($event)">
+    </div>
+    <div class="mt-4 border-t pt-4">
+      <button class="btn-secondary" @click="step = 'categorize'; loadCategorized()">Skip to Review Unprocessed</button>
+    </div>
+  </div>
+
+  <!-- Preview Step -->
+  <div x-show="step === 'preview'" class="card">
+    <div class="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
+      <h3 class="font-semibold" x-text="csvData.length + ' rows to import'"></h3>
+      <div class="flex gap-2">
+        <button class="btn-secondary btn-sm" @click="step = 'upload'">Back</button>
+        <button class="btn-primary btn-sm" @click="importRows()" :disabled="loading">Import</button>
+      </div>
+    </div>
+    <div class="overflow-x-auto max-h-96">
+      <table class="data-table">
+        <thead><tr><th>Date</th><th>Description</th><th class="text-right">Amount</th></tr></thead>
+        <tbody>
+          <template x-for="(r, i) in csvData.slice(0, 100)" :key="i">
+            <tr>
+              <td x-text="r.date"></td>
+              <td x-text="r.description"></td>
+              <td class="text-right font-mono" :class="r.amount < 0 ? 'text-red-600' : 'text-brand-teal'" x-text="formatMoney(r.amount)"></td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Categorize Step -->
+  <div x-show="step === 'categorize'">
+    <!-- Header Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <div class="flex flex-wrap items-center gap-2">
+        <button class="filter-pill" :class="filter === 'all' && 'active'" @click="filter = 'all'">
+          All <span class="opacity-75" x-text="'(' + counts.total + ')'"></span>
+        </button>
+        <button class="filter-pill" :class="filter === 'rule' && 'active'" @click="filter = 'rule'">
+          Rule <span class="opacity-75" x-text="'(' + counts.rule + ')'"></span>
+        </button>
+        <button class="filter-pill" :class="filter === 'ai' && 'active'" @click="filter = 'ai'">
+          AI <span class="opacity-75" x-text="'(' + counts.ai + ')'"></span>
+        </button>
+        <button class="filter-pill" :class="filter === 'none' && 'active'" @click="filter = 'none'">
+          No match <span class="opacity-75" x-text="'(' + counts.none + ')'"></span>
+        </button>
+      </div>
+      <div class="flex gap-2">
+        <button class="btn-secondary btn-sm" @click="step = 'upload'">New Import</button>
+        <button class="btn-primary btn-sm" @click="approveHighConfidence()" :disabled="loading || highConfidenceCount === 0"
+                x-text="'Approve High-Confidence (' + highConfidenceCount + ')'"></button>
+      </div>
+    </div>
+
+    <!-- Loading skeleton -->
+    <template x-if="loading">
+      <div class="space-y-2">
+        <template x-for="i in 5" :key="'skel-bank-'+i">
+          <div class="card p-4" :style="'animation-delay:' + (i*80) + 'ms'">
+            <div class="flex items-center gap-4">
+              <div class="flex-1">
+                <div class="skeleton-bar" :style="'width:' + (40 + i*8) + '%;animation-delay:' + (i*80) + 'ms'"></div>
+                <div class="skeleton-bar skeleton-bar-sm mt-2" style="width:25%"></div>
+              </div>
+              <div class="skeleton-bar" style="width:60px"></div>
+              <div class="skeleton-bar skeleton-bar-badge"></div>
+              <div class="skeleton-bar" style="width:70px; height:1.75rem; border-radius:0.375rem"></div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <!-- Transaction Cards -->
+    <div class="space-y-2" x-show="!loading">
+      <template x-for="txn in filtered" :key="txn.rowNumber">
+        <div class="card p-4">
+          <div class="flex flex-wrap items-start gap-4">
+            <!-- Description & Details -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="font-medium text-sm truncate" x-text="txn.description"></span>
+                <!-- Source Badge -->
+                <span x-show="txn.suggested && txn.suggested.source === 'rule'" class="badge-green">Rule</span>
+                <span x-show="txn.suggested && txn.suggested.source === 'ai'" class="badge-ai">AI</span>
+                <span x-show="!txn.suggested" class="badge-yellow">No match</span>
+              </div>
+              <div class="text-xs text-gray-500" x-text="formatDateDisplay(txn.date)"></div>
+              <!-- AI Reasoning -->
+              <div x-show="txn.suggested && txn.suggested.source === 'ai' && txn.suggested.reasoning"
+                   class="text-xs text-gray-400 italic mt-1" x-text="txn.suggested.reasoning"></div>
+            </div>
+
+            <!-- Amount -->
+            <div class="font-mono text-sm whitespace-nowrap" :class="txn.amount < 0 ? 'text-red-600' : 'text-brand-teal'" x-text="formatMoney(txn.amount)"></div>
+
+            <!-- Confidence + Accounts (when matched) -->
+            <div x-show="txn.suggested" class="text-right" style="min-width:120px">
+              <div class="flex items-center gap-2 justify-end mb-1">
+                <span class="text-xs font-medium" x-text="txn.suggested ? txn.suggested.confidence + '%' : ''"></span>
+                <div class="confidence-bar" style="width:60px">
+                  <div class="confidence-fill" :class="txn.suggested ? confidenceClass(txn.suggested.confidence) : ''"
+                       :style="'width:' + (txn.suggested ? txn.suggested.confidence : 0) + '%'"></div>
+                </div>
+              </div>
+              <div class="text-xs text-gray-600" x-text="txn.suggested ? txn.suggested.drCode + ' / ' + txn.suggested.crCode : ''"></div>
+            </div>
+
+            <!-- Manual accounts (when no match) -->
+            <div x-show="!txn.suggested" class="flex gap-2 items-center">
+              <select class="text-xs border rounded px-2 py-1" x-model="txn.manualDr" style="max-width:140px">
+                <option value="">Debit...</option>
+                <template x-for="a in accounts" :key="'dr-'+a.code">
+                  <option :value="a.code" x-text="a.code + ' ' + a.name"></option>
+                </template>
+              </select>
+              <select class="text-xs border rounded px-2 py-1" x-model="txn.manualCr" style="max-width:140px">
+                <option value="">Credit...</option>
+                <template x-for="a in accounts" :key="'cr-'+a.code">
+                  <option :value="a.code" x-text="a.code + ' ' + a.name"></option>
+                </template>
+              </select>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2">
+              <!-- Learn checkbox (AI only) -->
+              <label x-show="txn.suggested && txn.suggested.source === 'ai'" class="flex items-center gap-1 text-xs text-gray-500 cursor-pointer">
+                <input type="checkbox" x-model="txn.learn" class="rounded">
+                Learn
+              </label>
+              <button class="btn-primary btn-sm" @click="approve(txn)"
+                      :disabled="!txn.suggested && (!txn.manualDr || !txn.manualCr)">Approve</button>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- Empty state -->
+      <div x-show="filtered.length === 0 && !loading" class="text-center py-8 text-gray-500">
+        <template x-if="categorized.length === 0">
+          <p>No unprocessed transactions found.</p>
+        </template>
+        <template x-if="categorized.length > 0">
+          <p>No transactions match the selected filter.</p>
+        </template>
+      </div>
+    </div>
+  </div>
+</div>
