@@ -150,7 +150,7 @@ const servicesData = {
     {
       name: "Dental Bridges",
       description:
-        "A bridge is made up of two or more crowns for the teeth on either side of the gap — these two or more anchoring teeth are called abutment teeth — and a false tooth or teeth in between. These false teeth are called pontics and can be made from gold, alloys, porcelain, or a combination of these materials. Dental bridges are supported by natural teeth or implants.",
+        "A bridge is made up of two or more crowns for the teeth on either side of the gap. These anchoring teeth are called abutment teeth, and the false teeth in between are called pontics. Pontics can be made from gold, alloys, porcelain, or a combination of these materials. Dental bridges are supported by natural teeth or implants.",
     },
     {
       name: "Dental Veneers",
@@ -175,7 +175,7 @@ const servicesData = {
     {
       name: "Periodontics",
       description:
-        "Our specialists focus on the prevention, diagnosis, and treatment of gum disease. From deep cleanings to gum surgery, we protect the foundation of your smile — your gums and the bone that supports your teeth.",
+        "Our specialists focus on the prevention, diagnosis, and treatment of gum disease. From deep cleanings to gum surgery, we protect the foundation of your smile: your gums and the bone that supports your teeth.",
     },
     {
       name: "Dental X-Rays & CAT Scans",
@@ -195,7 +195,7 @@ const servicesData = {
     {
       name: "Teeth Whitening",
       description:
-        "We use the BEYOND POLUS ADVANCE whitening system — winner of the Top Whitening System award for 8 consecutive years. This professional-grade system delivers dramatically whiter teeth in a single visit, safely and comfortably.\n\nThe BEYOND POLUS ADVANCE uses a combination of halogen and LED light technology to accelerate the whitening process while minimizing sensitivity. Results are visible immediately, giving you a brighter, more confident smile.",
+        "We use the BEYOND POLUS ADVANCE whitening system, winner of the Top Whitening System award for 8 consecutive years. This professional-grade system delivers dramatically whiter teeth in a single visit, safely and comfortably.\n\nThe BEYOND POLUS ADVANCE uses a combination of halogen and LED light technology to accelerate the whitening process while minimizing sensitivity. Results are visible immediately, giving you a brighter, more confident smile.",
     },
   ],
   es: [
@@ -217,7 +217,7 @@ const servicesData = {
     {
       name: "Puentes Dentales",
       description:
-        "Un puente está compuesto por dos o más coronas para los dientes a cada lado del espacio vacío — estos dos o más dientes de anclaje se llaman dientes pilares — y un diente o dientes falsos en el medio. Estos dientes falsos se llaman pónticos y pueden fabricarse de oro, aleaciones, porcelana o una combinación de estos materiales. Los puentes dentales son soportados por dientes naturales o implantes.",
+        "Un puente está compuesto por dos o más coronas para los dientes a cada lado del espacio vacío. Estos dientes de anclaje se llaman dientes pilares, y los dientes falsos en el medio se llaman pónticos. Los pónticos pueden fabricarse de oro, aleaciones, porcelana o una combinación de estos materiales. Los puentes dentales son soportados por dientes naturales o implantes.",
     },
     {
       name: "Carillas Dentales",
@@ -242,7 +242,7 @@ const servicesData = {
     {
       name: "Periodoncia",
       description:
-        "Nuestros especialistas se enfocan en la prevención, diagnóstico y tratamiento de la enfermedad periodontal. Desde limpiezas profundas hasta cirugía de encías, protegemos la base de su sonrisa — sus encías y el hueso que sostiene sus dientes.",
+        "Nuestros especialistas se enfocan en la prevención, diagnóstico y tratamiento de la enfermedad periodontal. Desde limpiezas profundas hasta cirugía de encías, protegemos la base de su sonrisa: sus encías y el hueso que sostiene sus dientes.",
     },
     {
       name: "Rayos X y Tomografías Dentales",
@@ -262,7 +262,7 @@ const servicesData = {
     {
       name: "Blanqueamiento Dental",
       description:
-        "Utilizamos el sistema de blanqueamiento BEYOND POLUS ADVANCE — ganador del premio Top Whitening System por 8 años consecutivos. Este sistema de grado profesional ofrece dientes dramáticamente más blancos en una sola visita, de manera segura y cómoda.\n\nEl BEYOND POLUS ADVANCE utiliza una combinación de tecnología de luz halógena y LED para acelerar el proceso de blanqueamiento mientras minimiza la sensibilidad. Los resultados son visibles de inmediato, brindándole una sonrisa más brillante y segura.",
+        "Utilizamos el sistema de blanqueamiento BEYOND POLUS ADVANCE, ganador del premio Top Whitening System por 8 años consecutivos. Este sistema de grado profesional ofrece dientes dramáticamente más blancos en una sola visita, de manera segura y cómoda.\n\nEl BEYOND POLUS ADVANCE utiliza una combinación de tecnología de luz halógena y LED para acelerar el proceso de blanqueamiento mientras minimiza la sensibilidad. Los resultados son visibles de inmediato, brindándole una sonrisa más brillante y segura.",
     },
   ],
 };

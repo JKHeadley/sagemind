@@ -136,12 +136,12 @@ const dentistsData = {
     {
       name: "Dr. Zaidy Mariela Hernandez Bonilla",
       role: "Founder & Periodontist -- Dental Implants & Oral Rehabilitation",
-      image: "/images/team/dr-hernandez.jpg",
+      image: "/images/team-dra-hernandez.jpg",
     },
     {
-      name: "Dra. Joselyn Vargas Boza",
-      role: "Dental Surgeon",
-      image: "/images/team-member-1.jpg",
+      name: "Dr. Luis Alejandro Carvajal Chavarría",
+      role: "General Dentist -- Preventive Dentistry",
+      image: "/images/team-dr-carvajal.jpg",
     },
   ],
   es: [
@@ -153,12 +153,12 @@ const dentistsData = {
     {
       name: "Dra. Zaidy Mariela Hernandez Bonilla",
       role: "Fundadora y Periodoncista -- Implantes Dentales y Rehabilitación Oral",
-      image: "/images/team/dr-hernandez.jpg",
+      image: "/images/team-dra-hernandez.jpg",
     },
     {
-      name: "Dra. Joselyn Vargas Boza",
-      role: "Cirujana Dental",
-      image: "/images/team-member-1.jpg",
+      name: "Dr. Luis Alejandro Carvajal Chavarría",
+      role: "Odontólogo General -- Odontología Preventiva",
+      image: "/images/team-dr-carvajal.jpg",
     },
   ],
 };

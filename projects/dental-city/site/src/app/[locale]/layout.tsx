@@ -20,7 +20,7 @@ export async function generateMetadata({
     return {
       title: "Dental City Costa Rica | Atención Dental de Calidad en Aguas Zarcas",
       description:
-        "Dental City Costa Rica — Deja que tu sonrisa cambie el mundo. Implantes dentales, ortodoncia, estética dental y más a precios accesibles en Aguas Zarcas y Sarapiquí.",
+        "Dental City Costa Rica. Deja que tu sonrisa cambie el mundo. Implantes dentales, ortodoncia, estética dental y más a precios accesibles en Aguas Zarcas y Sarapiquí.",
       keywords: [
         "clínica dental Costa Rica",
         "implantes dentales Costa Rica",
@@ -44,7 +44,7 @@ export async function generateMetadata({
   return {
     title: "Dental City Costa Rica | Quality Dental Care in Aguas Zarcas",
     description:
-      "Dental City Costa Rica — Let your smile change the world. Affordable, high-quality dental implants, orthodontics, cosmetic dentistry, and more in Aguas Zarcas and Sarapiqui.",
+      "Dental City Costa Rica. Let your smile change the world. Affordable, high-quality dental implants, orthodontics, cosmetic dentistry, and more in Aguas Zarcas and Sarapiqui.",
     keywords: [
       "dental clinic Costa Rica",
       "dental implants Costa Rica",
