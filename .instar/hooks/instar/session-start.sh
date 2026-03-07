@@ -151,6 +151,17 @@ except: pass
 " 2>/dev/null
       echo "--- END CAPABILITIES ---"
     fi
+
+    # Context dispatch table — structural "when X, look at Y" routing
+    # Structure > Willpower: instead of burying this in a 600-line CLAUDE.md,
+    # inject it at session start so the agent sees it before doing anything.
+    DISPATCH_FILE="$INSTAR_DIR/context/DISPATCH.md"
+    if [ -f "$DISPATCH_FILE" ]; then
+      echo ""
+      echo "--- CONTEXT DISPATCH (when X arises, read Y) ---"
+      cat "$DISPATCH_FILE" | head -20
+      echo "--- END CONTEXT DISPATCH ---"
+    fi
   else
     echo ""
     echo "Instar server: NOT RUNNING (port ${PORT})"
@@ -159,6 +170,46 @@ fi
 
 echo ""
 echo "IMPORTANT: To report bugs or request features, use POST /feedback on your local server."
+
+# Working Memory — surface relevant knowledge from SemanticMemory + EpisodicMemory
+# Right context at the right moment: query-driven, not a full dump.
+if [ -f "$INSTAR_DIR/config.json" ]; then
+  PORT=$(grep -o '"port":[0-9]*' "$INSTAR_DIR/config.json" | head -1 | cut -d':' -f2)
+  if [ -n "$PORT" ]; then
+    AUTH_TOKEN=$(python3 -c "import json; print(json.load(open('$INSTAR_DIR/config.json')).get('authToken',''))" 2>/dev/null)
+    HEALTH=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:${PORT}/health" 2>/dev/null)
+    if [ "$HEALTH" = "200" ]; then
+      # Build query from available context signals
+      QUERY_PARTS=""
+      [ -n "$INSTAR_TELEGRAM_TOPIC" ] && QUERY_PARTS="topic:${INSTAR_TELEGRAM_TOPIC} "
+      WM_PROMPT=$(echo "${QUERY_PARTS}${CLAUDE_SESSION_GOAL:-session-start}" | python3 -c "import sys,urllib.parse; print(urllib.parse.quote(sys.stdin.read()[:300].strip()))" 2>/dev/null)
+      WORKING_MEM=$(curl -s -H "Authorization: Bearer ${AUTH_TOKEN}"         "http://localhost:${PORT}/context/working-memory?prompt=${WM_PROMPT}&limit=8" 2>/dev/null)
+      if [ -n "$WORKING_MEM" ]; then
+        WM_CONTEXT=$(echo "$WORKING_MEM" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    ctx = data.get('context', '').strip()
+    tokens = data.get('estimatedTokens', 0)
+    sources = data.get('sources', [])
+    if ctx and tokens > 0:
+        src_summary = ', '.join(f'{s["count"]} {s["name"]}' for s in sources if s.get('count', 0) > 0)
+        print(f'[{tokens} tokens from: {src_summary}]')
+        print()
+        print(ctx)
+except Exception:
+    pass
+" 2>/dev/null)
+        if [ -n "$WM_CONTEXT" ]; then
+          echo ""
+          echo "--- WORKING MEMORY (relevant knowledge for this session) ---"
+          echo "$WM_CONTEXT"
+          echo "--- END WORKING MEMORY ---"
+        fi
+      fi
+    fi
+  fi
+fi
 
 # Telegram relay instructions (structural — ensures EVERY Telegram session knows how to respond)
 if [ -n "$INSTAR_TELEGRAM_TOPIC" ]; then

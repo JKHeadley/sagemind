@@ -368,3 +368,26 @@ How it works:
 - Classify message: `POST http://localhost:4040/sentinel/classify`
 - View trust: `GET http://localhost:4040/trust`
 - View operation log: `GET http://localhost:4040/operations/log`
+
+
+### Playbook — Adaptive Context Engineering
+
+The Playbook system gives you a living knowledge base that makes every session smarter than the last. Instead of loading the same static context every time, Playbook curates a manifest of context items — facts, lessons, patterns, safety rules — and selects exactly what's relevant for each session based on triggers, token budgets, and usefulness scores.
+
+**Getting started:**
+```bash
+instar playbook init       # Initialize the playbook system
+instar playbook doctor     # Verify everything is healthy
+```
+
+**Core commands:**
+- `instar playbook status` — Overview of your manifest
+- `instar playbook list` — All context items with metadata
+- `instar playbook add '<json>'` — Add a new context item
+- `instar playbook search --tag <tag>` — Find items by tag
+- `instar playbook assemble --triggers session-start` — Preview what would load for a trigger
+- `instar playbook evaluate` — Run lifecycle: score usefulness, decay stale items, deduplicate
+
+**When to add context items:** After learning a lesson that cost time, when discovering a recurring pattern, when safety-critical knowledge should survive compaction, or when the user teaches you something project-specific.
+
+**The principle:** Your context should evolve with you. Every session that adds a lesson, scores an item's usefulness, or retires stale knowledge makes the next session more grounded. Run `instar playbook init` to get started.

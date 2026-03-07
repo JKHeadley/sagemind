@@ -155,6 +155,15 @@ except: pass
 " 2>/dev/null
       echo "--- END CAPABILITIES ---"
     fi
+
+    # Context dispatch table — structural "when X, read Y" routing
+    DISPATCH_FILE="$INSTAR_DIR/context/DISPATCH.md"
+    if [ -f "$DISPATCH_FILE" ]; then
+      echo ""
+      echo "--- CONTEXT DISPATCH (when X arises, read Y) ---"
+      cat "$DISPATCH_FILE" | head -20
+      echo "--- END CONTEXT DISPATCH ---"
+    fi
   else
     echo ""
     echo "Instar server: NOT RUNNING (port ${PORT})"
@@ -162,4 +171,42 @@ except: pass
 fi
 
 echo ""
+
+# Working Memory — surface relevant knowledge after compaction
+# This restores what you knew before compaction that's relevant now.
+if [ -f "$INSTAR_DIR/config.json" ]; then
+  PORT=$(grep -o '"port":[0-9]*' "$INSTAR_DIR/config.json" | head -1 | cut -d':' -f2)
+  if [ -n "$PORT" ]; then
+    AUTH_TOKEN=$(python3 -c "import json; print(json.load(open('$INSTAR_DIR/config.json')).get('authToken',''))" 2>/dev/null)
+    HEALTH=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:${PORT}/health" 2>/dev/null)
+    if [ "$HEALTH" = "200" ]; then
+      WM_QUERY=$(python3 -c "import urllib.parse; print(urllib.parse.quote('compaction-recovery context-restoration'))" 2>/dev/null)
+      WORKING_MEM=$(curl -s -H "Authorization: Bearer ${AUTH_TOKEN}"         "http://localhost:${PORT}/context/working-memory?prompt=${WM_QUERY}&limit=6" 2>/dev/null)
+      if [ -n "$WORKING_MEM" ]; then
+        WM_CONTEXT=$(echo "$WORKING_MEM" | python3 -c "
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    ctx = data.get('context', '').strip()
+    tokens = data.get('estimatedTokens', 0)
+    sources = data.get('sources', [])
+    if ctx and tokens > 0:
+        src_summary = ', '.join(f'{s[\"count\"]} {s[\"name\"]}' for s in sources if s.get('count', 0) > 0)
+        print(f'[{tokens} tokens from: {src_summary}]')
+        print()
+        print(ctx)
+except Exception:
+    pass
+" 2>/dev/null)
+        if [ -n "$WM_CONTEXT" ]; then
+          echo "--- WORKING MEMORY RESTORED ---"
+          echo "$WM_CONTEXT"
+          echo "--- END WORKING MEMORY ---"
+          echo ""
+        fi
+      fi
+    fi
+  fi
+fi
+
 echo "=== END IDENTITY RECOVERY ==="

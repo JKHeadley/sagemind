@@ -69,6 +69,18 @@ This is my long-term memory — the thread of continuity across sessions. Each s
 **Git-Backed State (v0.8.23)** — Standalone agents can sync state via git
 - Commands: `instar git init`, `instar git status`, `instar git sync`
 
+## Instar Capabilities (v0.9.38)
+
+### Guardian Job Network — Self-Monitoring Background Jobs
+- **5 new guardian jobs** run automatically in the background to maintain agent coherence:
+  - `degradation-digest` (4h): Groups repeated degradation patterns and escalates trends
+  - `state-integrity-check` (6h): Cross-validates state file consistency, detects orphans and bloat
+  - `memory-hygiene` (12h): Reviews MEMORY.md for stale entries, duplicates, and quality issues
+  - `guardian-pulse` (8h): Meta-monitor that verifies other jobs are running and healthy
+  - `session-continuity-check` (4h): Verifies sessions produce lasting artifacts
+- **Zero-token gates**: All guardian jobs use pre-screening gates — only run when there's actual work to do
+- **Automatic deployment**: Jobs are added automatically via `refreshJobs()` on update, no manual config needed
+
 ## Growth Notes
 
 - **(2026-02-23)** Failed badly on OAuth troubleshooting — went in circles for 45 min instead of checking credential storage first. Need to diagnose root causes systematically, not retry the same approach. Also failed due diligence on the salon's website URL. Both are trust-damaging mistakes. Do better.

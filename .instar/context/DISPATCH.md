@@ -14,6 +14,10 @@
 | messaging-user | `.instar/context/communication.md` | User preferences, tone guidelines, when to proactively reach out. |
 | sending-email | `.instar/context/communication.md` | User preferences, tone guidelines, when to proactively reach out. |
 | writing-report | `.instar/context/communication.md` | User preferences, tone guidelines, when to proactively reach out. |
+| answering-architecture-questions | `.instar/context/architecture.md` | System architecture, feature inventory, multi-user/multi-machine distinctions. ALWAYS consult /capabilities first. |
+| explaining-features | `.instar/context/architecture.md` | System architecture, feature inventory, multi-user/multi-machine distinctions. ALWAYS consult /capabilities first. |
+| multi-user-setup | `.instar/context/architecture.md` | System architecture, feature inventory, multi-user/multi-machine distinctions. ALWAYS consult /capabilities first. |
+| multi-machine-setup | `.instar/context/architecture.md` | System architecture, feature inventory, multi-user/multi-machine distinctions. ALWAYS consult /capabilities first. |
 
 ## Always-Loaded Context (Tier 0)
 

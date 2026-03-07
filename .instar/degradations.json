@@ -8,5 +8,195 @@
     "timestamp": "2026-02-26T01:26:19.944Z",
     "reported": true,
     "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: Could not locate the bindings file. Tried:\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/out/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/out/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/default/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/compiled/20.20.0/darwin/arm64/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/release/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/debug/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/default/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/lib/binding/node-v115-darwin-arm64/better_sqlite3.node",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-02-26T04:23:07.475Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate --dir /Users/amrch/Documents/Projects/sagemind\nerror: unknown option '--dir'\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T05:36:03.060Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate --dir /Users/amrch/Documents/Projects/sagemind\nerror: unknown option '--dir'\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T05:39:37.038Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate --dir /Users/amrch/Documents/Projects/sagemind\nerror: unknown option '--dir'\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T06:13:13.606Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate --dir /Users/amrch/Documents/Projects/sagemind\nerror: unknown option '--dir'\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T08:16:39.462Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Unexpected token 'C', \"Checking p\"... is not valid JSON",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T17:20:11.348Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T17:54:06.677Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T18:27:57.152Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T19:31:57.380Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T20:05:47.471Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T20:09:56.357Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T20:36:29.626Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T22:10:50.049Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T23:15:01.709Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T23:49:02.230Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-26T23:53:20.807Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-27T00:27:12.213Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-27T01:23:23.129Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: instar migrate\n",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-02-27T01:57:13.130Z",
+    "reported": true,
+    "alerted": true
   }
 ]
