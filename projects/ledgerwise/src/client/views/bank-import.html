@@ -7,9 +7,28 @@ document.addEventListener('alpine:init', () => {
     accounts: [],
     connections: [],
     loading: false,
-    syncing: {},
+    syncingId: null,
+    syncingAll: false,
     filter: 'all',
     plaidEnabled: false,
+    connectionsLoading: true,
+
+    get groupedConnections() {
+      var groups = {};
+      this.connections.forEach(function(conn) {
+        if (!groups[conn.itemId]) {
+          groups[conn.itemId] = {
+            itemId: conn.itemId,
+            institutionName: conn.institutionName,
+            lastSync: conn.lastSync,
+            accounts: [],
+          };
+        }
+        groups[conn.itemId].accounts.push(conn);
+        if (conn.lastSync !== 'Never') groups[conn.itemId].lastSync = conn.lastSync;
+      });
+      return Object.values(groups);
+    },
 
     get filtered() {
       var self = this;
@@ -185,11 +204,13 @@ document.addEventListener('alpine:init', () => {
     },
 
     async loadConnections() {
+      this.connectionsLoading = true;
       try {
         var results = await Promise.all([API.getConnections(), API.getPlaidStatus()]);
         this.connections = results[0];
         this.plaidEnabled = results[1].enabled;
       } catch (e) { /* silently fail — plaid may not be configured */ }
+      finally { this.connectionsLoading = false; }
     },
 
     async connectBank() {
@@ -214,19 +235,45 @@ document.addEventListener('alpine:init', () => {
     },
 
     async syncBank(itemId) {
-      this.syncing[itemId] = true;
+      this.syncingId = itemId;
       try {
         var result = await API.syncTransactions(itemId);
         if (result.imported > 0) {
           this.$store.app.toast(result.imported + ' new transactions synced');
-          this.step = 'categorize';
-          this.loadCategorized();
+          if (!this.syncingAll) {
+            this.step = 'categorize';
+            this.loadCategorized();
+          }
         } else {
           this.$store.app.toast('No new transactions');
         }
-        this.loadConnections();
+        if (!this.syncingAll) this.loadConnections();
       } catch (e) { this.$store.app.toast(e, 'error'); }
-      finally { this.syncing[itemId] = false; }
+      finally { this.syncingId = null; }
+    },
+
+    async syncAllBanks() {
+      this.syncingAll = true;
+      var totalImported = 0;
+      try {
+        var groups = this.groupedConnections;
+        for (var i = 0; i < groups.length; i++) {
+          this.syncingId = groups[i].itemId;
+          try {
+            var result = await API.syncTransactions(groups[i].itemId);
+            totalImported += result.imported || 0;
+          } catch (e) { this.$store.app.toast(groups[i].institutionName + ': ' + e, 'error'); }
+        }
+        this.syncingId = null;
+        if (totalImported > 0) {
+          this.$store.app.toast(totalImported + ' total transactions synced');
+          this.step = 'categorize';
+          this.loadCategorized();
+        } else {
+          this.$store.app.toast('No new transactions from any bank');
+        }
+        this.loadConnections();
+      } finally { this.syncingAll = false; this.syncingId = null; }
     },
 
     async disconnectBank(itemId) {
@@ -261,17 +308,39 @@ document.addEventListener('alpine:init', () => {
   <h2 class="text-xl font-bold text-gray-900 mb-4">Bank Import</h2>
 
   <!-- Connected Banks -->
-  <div x-show="plaidEnabled && (connections.length > 0 || step === 'upload')" class="card p-5 mb-4">
+  <div x-show="connectionsLoading || (plaidEnabled && (connections.length > 0 || step === 'upload'))" class="card p-5 mb-4">
     <div class="flex items-center justify-between mb-3">
       <h3 class="font-semibold">Connected Banks</h3>
-      <button class="btn-primary btn-sm" @click="connectBank()">
-        <i data-feather="plus" class="w-3.5 h-3.5"></i> Connect Bank
-      </button>
+      <div class="flex gap-2">
+        <button x-show="connections.length > 0" class="btn-secondary btn-sm" @click="syncAllBanks()" :disabled="syncingId !== null">
+          <span x-show="!syncingAll">Sync All</span>
+          <span x-show="syncingAll">Syncing All...</span>
+        </button>
+        <button class="btn-primary btn-sm" @click="connectBank()" :disabled="connectionsLoading">
+          <i data-feather="plus" class="w-3.5 h-3.5"></i> Connect Bank
+        </button>
+      </div>
     </div>
-    <div x-show="connections.length === 0" class="text-sm text-gray-500 py-2">
+    <!-- Loading skeleton -->
+    <div x-show="connectionsLoading" class="space-y-2">
+      <template x-for="i in 2" :key="'conn-skel-'+i">
+        <div class="flex items-center justify-between py-2" :style="'animation-delay:' + (i*80) + 'ms'">
+          <div class="flex-1">
+            <div class="skeleton-bar" :style="'width:' + (30 + i*10) + '%;animation-delay:' + (i*80) + 'ms'"></div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="skeleton-bar" style="width:80px"></div>
+            <div class="skeleton-bar" style="width:50px; height:1.75rem; border-radius:0.375rem"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+    <!-- Loaded: no connections -->
+    <div x-show="!connectionsLoading && connections.length === 0" class="text-sm text-gray-500 py-2">
       No bank accounts connected yet. Click "Connect Bank" to link your bank via Plaid.
     </div>
-    <div x-show="connections.length > 0" class="space-y-2">
+    <!-- Loaded: has connections -->
+    <div x-show="!connectionsLoading && connections.length > 0" class="space-y-1">
       <template x-for="conn in connections" :key="conn.accountId">
         <div class="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
           <div>
@@ -280,11 +349,10 @@ document.addEventListener('alpine:init', () => {
           </div>
           <div class="flex items-center gap-3">
             <span class="text-xs text-gray-400" x-text="'Last sync: ' + conn.lastSync"></span>
-            <button class="btn-primary btn-sm" @click="syncBank(conn.itemId)" :disabled="syncing[conn.itemId]">
-              <span x-show="!syncing[conn.itemId]">Sync</span>
-              <span x-show="syncing[conn.itemId]">Syncing...</span>
+            <button class="btn-primary btn-sm" @click="syncBank(conn.itemId)" :disabled="syncingId !== null">
+              <span x-show="syncingId !== conn.itemId">Sync</span>
+              <span x-show="syncingId === conn.itemId">Syncing...</span>
             </button>
-            <button class="text-xs text-red-500 hover:text-red-700" @click="disconnectBank(conn.itemId)">Remove</button>
           </div>
         </div>
       </template>

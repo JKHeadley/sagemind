@@ -84,8 +84,10 @@ const PlaidService = {
 
   createLinkToken() {
     var userEmail = Session.getActiveUser().getEmail();
+    var userId = Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, userEmail)
+      .map(function(b) { return ('0' + (b & 0xFF).toString(16)).slice(-2); }).join('');
     var result = this._request('/link/token/create', {
-      user: { client_user_id: userEmail },
+      user: { client_user_id: userId },
       client_name: 'SmartLedger',
       products: ['transactions'],
       country_codes: ['US'],
