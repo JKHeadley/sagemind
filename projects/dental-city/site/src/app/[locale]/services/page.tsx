@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { i18n, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -285,8 +286,14 @@ export default async function ServicesPage({
   return (
     <>
       {/* Hero */}
-      <section className="bg-navy pt-28 pb-12 md:pt-32 md:pb-16 text-white text-center">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="relative bg-navy pt-32 pb-20 md:pt-40 md:pb-24 text-white text-center">
+        <Image
+          src="/images/hero-dental-tech.jpg"
+          alt="Futuristic dental technology abstract design"
+          fill
+          className="object-cover opacity-40"
+        />
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
           <Link
             href={prefix}
             className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-primary-light transition-colors mb-6"

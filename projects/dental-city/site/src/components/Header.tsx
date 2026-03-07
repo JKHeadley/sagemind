@@ -65,6 +65,7 @@ export default function Header({
     { href: prefix, label: dict.nav.home },
     { href: `${prefix}/services`, label: dict.nav.services },
     { href: `${prefix}/team`, label: dict.nav.team },
+    { href: `${prefix}/facilities`, label: dict.nav.facilities },
     { href: `${prefix}/gallery`, label: dict.nav.gallery },
     { href: `${prefix}/testimonials`, label: dict.nav.testimonials },
     { href: `${prefix}/#contact`, label: dict.nav.contact },

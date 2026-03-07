@@ -4,6 +4,7 @@
     "services": "Services",
     "team": "Our Team",
     "gallery": "Gallery",
+    "facilities": "Facilities",
     "testimonials": "Testimonials",
     "contact": "Contact"
   },
@@ -83,17 +84,23 @@
   },
   "gallery": {
     "pageTitle": "Gallery",
-    "pageSubtitle": "Real results, real patients. Take a look at our clinic, our team, and the smiles we help create every day.",
+    "pageSubtitle": "Real results, real patients. Drag the slider to compare before and after transformations.",
     "beforeAfter": "Before & After",
     "beforeAfterDesc": "Drag the slider to compare results. Real patients, real transformations.",
-    "ourClinic": "Our Clinic",
-    "ourFacilities": "Our Facilities",
-    "ourFacilitiesDesc": "Take a virtual tour of our modern facilities, designed for your comfort and equipped with the latest technology.",
-    "happyLittlePatients": "Happy Little Patients",
-    "happyLittlePatientsDesc": "Kids love visiting Dental City. We make every visit fun, comfortable, and rewarding.",
-    "technologyEquipment": "Technology & Equipment",
     "ctaTitle": "Ready for Your Transformation?",
     "ctaText": "These results speak for themselves. Schedule a consultation and let us create a personalized plan for your smile."
+  },
+  "facilities": {
+    "pageTitle": "Our Facilities",
+    "pageSubtitle": "Modern facilities designed for your comfort, equipped with the latest dental technology.",
+    "ourClinic": "Our Clinic",
+    "ourClinicDesc": "Take a virtual tour of our modern clinic, designed for your comfort and relaxation.",
+    "facilityTour": "Facility Tour",
+    "facilityTourDesc": "Watch a walkthrough of our clinic and see where your smile transformation happens.",
+    "technologyEquipment": "Technology & Equipment",
+    "technologyEquipmentDesc": "We invest in cutting-edge dental technology to deliver precise diagnoses and comfortable treatments.",
+    "ctaTitle": "Experience Our Clinic in Person",
+    "ctaText": "Schedule a visit and see our modern facilities firsthand. Our team is ready to welcome you."
   },
   "testimonialsPage": {
     "pageTitle": "Testimonials",
@@ -103,7 +110,10 @@
     "happyPatientsSubtitle": "Smiles that speak for themselves, from our youngest patients to full transformations.",
     "googleReviewsTitle": "Google Reviews",
     "ctaTitle": "Ready to Join Our Happy Patients?",
-    "ctaText": "Schedule a consultation and experience the Dental City difference. Our team is here to help you achieve the smile you deserve."
+    "ctaText": "Schedule a consultation and experience the Dental City difference. Our team is here to help you achieve the smile you deserve.",
+    "followFacebook": "Follow Us on Facebook",
+    "followFacebookDesc": "Stay connected! Follow our Facebook page for the latest updates, patient stories, and dental tips.",
+    "likeFacebook": "Like Our Page"
   },
   "servicesCta": {
     "title": "Ready to Transform Your Smile?",

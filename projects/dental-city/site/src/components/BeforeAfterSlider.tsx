@@ -11,6 +11,8 @@ interface BeforeAfterSliderProps {
   label?: string;
   beforeLabel?: string;
   afterLabel?: string;
+  beforePosition?: string;
+  afterPosition?: string;
 }
 
 export default function BeforeAfterSlider({
@@ -21,6 +23,8 @@ export default function BeforeAfterSlider({
   label,
   beforeLabel = "Before",
   afterLabel = "After",
+  beforePosition = "center center",
+  afterPosition = "center center",
 }: BeforeAfterSliderProps) {
   const [position, setPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -70,6 +74,7 @@ export default function BeforeAfterSlider({
           alt={afterAlt}
           fill
           className="object-cover pointer-events-none"
+          style={{ objectPosition: afterPosition }}
           draggable={false}
         />
 
@@ -83,7 +88,7 @@ export default function BeforeAfterSlider({
             alt={beforeAlt}
             fill
             className="object-cover pointer-events-none"
-            style={{ minWidth: containerRef.current ? `${containerRef.current.offsetWidth}px` : "100%" }}
+            style={{ minWidth: containerRef.current ? `${containerRef.current.offsetWidth}px` : "100%", objectPosition: beforePosition }}
             draggable={false}
           />
         </div>

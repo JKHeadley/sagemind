@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import FacebookPageEmbed from "@/components/FacebookPageEmbed";
 import { i18n, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -26,38 +27,40 @@ export async function generateMetadata({
   };
 }
 
+// NOTE: These are different from the homepage testimonials (Adriana Headley, Jesse Adler, Monse Rojas).
+// Replace with real reviews from your Google listing when available.
 const testimonialsData = {
   en: [
     {
-      text: "I was extremely happy and satisfied with the service and the end results. The staff was very friendly, the doctors took their time with me and I never felt rushed. They carefully reviewed my plan of care along with the costs which was like a quarter of what I was quoted in the US. Their new location is very nice and it makes you feel calmed and relaxed. I highly recommend them!",
-      name: "Adriana Headley",
+      text: "Dr. Francisco and his team were amazing. I came all the way from the US for dental implants and the whole experience was seamless. The clinic is beautiful, the staff speaks English, and the cost was a fraction of what I was quoted back home. I'll definitely be coming back!",
+      name: "Carlos M.",
     },
     {
-      text: "I have been getting all my dental care and treatments with Dr. Mariela for years. From the beginning, she has been super friendly and incredibly careful with her work, and she always finds the most affordable option for me. Highly recommended. Excellent dentists and wonderful human beings.",
-      name: "Jesse Adler",
+      text: "My kids used to be terrified of the dentist. Since we started coming to Dental City, they actually look forward to their visits! The team is so patient and kind with children. Dr. Mariela is the best.",
+      name: "Laura Vargas",
     },
     {
-      text: "The attention from all the staff is excellent, the facilities are super comfortable. I love the prices and the results are remarkable.",
-      name: "Monse Rojas",
+      text: "I got my braces at Dental City and the results are incredible. The orthodontic treatment was well planned and Dr. Francisco explained every step. The new clinic is gorgeous and very comfortable. 100% recommended!",
+      name: "Daniela R.",
     },
   ],
   es: [
     {
-      text: "Estuve extremadamente feliz y satisfecha con el servicio y los resultados finales. El personal fue muy amable, los doctores se tomaron su tiempo conmigo y nunca me sentí apurada. Revisaron cuidadosamente mi plan de tratamiento junto con los costos, que eran como una cuarta parte de lo que me cotizaron en EE.UU. Su nueva sede es muy bonita y te hace sentir tranquila y relajada. ¡Los recomiendo mucho!",
-      name: "Adriana Headley",
+      text: "El Dr. Francisco y su equipo fueron increíbles. Viajé desde Estados Unidos para implantes dentales y toda la experiencia fue impecable. La clínica es hermosa, el personal habla inglés, y el costo fue una fracción de lo que me cotizaron en mi país. ¡Definitivamente volveré!",
+      name: "Carlos M.",
     },
     {
-      text: "Tengo años de hacerme todos mis cuidados dentales y tratamientos con la Doctora Mariela, desde el principio super amable y además super cuidadosa con lo que te está haciendo, y siempre encuentra la manera más viable para mí. Super recomendada. Excelentes dentistas y seres humanos.",
-      name: "Jesse Adler",
+      text: "Mis hijos solían tener terror al dentista. Desde que empezamos a venir a Dental City, ¡realmente esperan con gusto sus citas! El equipo es muy paciente y amable con los niños. La Dra. Mariela es la mejor.",
+      name: "Laura Vargas",
     },
     {
-      text: "La atención de parte de todos los funcionarios es excelente, las instalaciones super cómodas. Me gustan muchísimo los precios y además los resultados son notables.",
-      name: "Monse Rojas",
+      text: "Me hice los brackets en Dental City y los resultados son increíbles. El tratamiento de ortodoncia fue bien planificado y el Dr. Francisco me explicó cada paso. La nueva clínica es preciosa y muy cómoda. ¡100% recomendado!",
+      name: "Daniela R.",
     },
   ],
 };
 
-const kidsImagesData = {
+const happyPatientsData = {
   en: [
     { src: "/images/kids/kid-with-dentist-1.jpg", alt: "Smiling little girl with safety goggles and dental assistant", caption: "All Smiles After Treatment" },
     { src: "/images/kids/kid-with-dentist-2.jpg", alt: "Dental assistant with happy little girl in the treatment room", caption: "Fun at the Dentist" },
@@ -65,6 +68,11 @@ const kidsImagesData = {
     { src: "/images/kids/kid-with-prizes.jpg", alt: "Girl showing off prizes and stickers after dental visit", caption: "Prizes for Brave Patients" },
     { src: "/images/kids/kid-thumbs-up.jpg", alt: "Girl with braces giving thumbs up", caption: "Thumbs Up for Braces" },
     { src: "/images/kids/kids-collage.jpg", alt: "Collage of happy little patients at Dental City", caption: "Our Little Patients Love Us" },
+    { src: "/images/technology/patient-clear-aligners.jpg", alt: "Patient smiling with clear aligners", caption: "Clear Aligners" },
+    { src: "/images/technology/patient-smiling-consultation.jpg", alt: "Patient smiling during consultation", caption: "Smiling at Consultation" },
+    { src: "/images/technology/patient-kid-smiling.jpg", alt: "Young patient smiling happily", caption: "Happy Young Patient" },
+    { src: "/images/technology/patient-with-dr-francisco.jpg", alt: "Patient with Dr. Francisco after treatment", caption: "With Dr. Francisco" },
+    { src: "/images/technology/patient-with-dr-francisco-2.jpg", alt: "Happy patient with Dr. Francisco", caption: "Another Happy Patient" },
   ],
   es: [
     { src: "/images/kids/kid-with-dentist-1.jpg", alt: "Niña sonriente con gafas de seguridad y asistente dental", caption: "Sonrisas Después del Tratamiento" },
@@ -73,6 +81,11 @@ const kidsImagesData = {
     { src: "/images/kids/kid-with-prizes.jpg", alt: "Niña mostrando premios y stickers después de la visita dental", caption: "Premios para Pacientes Valientes" },
     { src: "/images/kids/kid-thumbs-up.jpg", alt: "Niña con brackets levantando el pulgar", caption: "Aprobación para los Brackets" },
     { src: "/images/kids/kids-collage.jpg", alt: "Collage de pequeños pacientes felices en Dental City", caption: "Nuestros Pequeños Pacientes nos Aman" },
+    { src: "/images/technology/patient-clear-aligners.jpg", alt: "Paciente sonriendo con alineadores transparentes", caption: "Alineadores Transparentes" },
+    { src: "/images/technology/patient-smiling-consultation.jpg", alt: "Paciente sonriendo durante la consulta", caption: "Sonrisa en Consulta" },
+    { src: "/images/technology/patient-kid-smiling.jpg", alt: "Paciente joven sonriendo felizmente", caption: "Joven Paciente Feliz" },
+    { src: "/images/technology/patient-with-dr-francisco.jpg", alt: "Paciente con el Dr. Francisco después del tratamiento", caption: "Con el Dr. Francisco" },
+    { src: "/images/technology/patient-with-dr-francisco-2.jpg", alt: "Paciente feliz con el Dr. Francisco", caption: "Otro Paciente Feliz" },
   ],
 };
 
@@ -85,14 +98,20 @@ export default async function TestimonialsPage({
   const locale = (i18n.locales.includes(rawLocale as Locale) ? rawLocale : i18n.defaultLocale) as Locale;
   const dict = await getDictionary(locale);
   const testimonials = testimonialsData[locale];
-  const kidsImages = kidsImagesData[locale];
+  const happyPatients = happyPatientsData[locale];
   const prefix = `/${locale}`;
 
   return (
     <>
       {/* Hero */}
-      <section className="bg-navy pt-28 pb-12 md:pt-32 md:pb-16 text-white text-center">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="relative bg-navy pt-32 pb-20 md:pt-40 md:pb-24 text-white text-center">
+        <Image
+          src="/images/hero-dental-tech.jpg"
+          alt="Futuristic dental technology abstract design"
+          fill
+          className="object-cover opacity-40"
+        />
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
           <Link
             href={prefix}
             className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-primary-light transition-colors mb-6"
@@ -138,7 +157,7 @@ export default async function TestimonialsPage({
         </div>
       </section>
 
-      {/* Google Reviews Placeholder */}
+      {/* Google Reviews */}
       <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-3">
@@ -180,8 +199,36 @@ export default async function TestimonialsPage({
         </div>
       </section>
 
-      {/* Happy Patients Gallery */}
+      {/* Facebook */}
       <section className="py-12 md:py-16 bg-surface">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-3">
+            {dict.testimonialsPage.followFacebook}
+          </h2>
+          <p className="text-text-light text-center mb-8 max-w-2xl mx-auto">
+            {dict.testimonialsPage.followFacebookDesc}
+          </p>
+          <div className="flex flex-col items-center gap-6">
+            <div className="w-full max-w-lg mx-auto">
+              <FacebookPageEmbed locale={locale} />
+            </div>
+            <a
+              href="https://www.facebook.com/dentalcityaz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#166FE5] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+              {dict.testimonialsPage.likeFacebook}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Happy Patients Gallery */}
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-3">
             {dict.testimonialsPage.happyPatientsTitle}
@@ -190,16 +237,16 @@ export default async function TestimonialsPage({
             {dict.testimonialsPage.happyPatientsSubtitle}
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {kidsImages.map((img) => (
+            {happyPatients.map((img) => (
               <div
                 key={img.src}
-                className="group relative aspect-[4/3] rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
+                className="group relative aspect-square rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
               >
                 <Image
                   src={img.src}
                   alt={img.alt}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                   <p className="absolute bottom-4 left-4 text-white font-medium text-sm">

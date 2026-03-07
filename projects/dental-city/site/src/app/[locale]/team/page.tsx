@@ -131,12 +131,12 @@ export default async function TeamPage({
   return (
     <>
       {/* Hero with team photo */}
-      <section className="relative bg-navy pt-28 pb-12 md:pt-32 md:pb-16 text-white text-center">
+      <section className="relative bg-navy pt-32 pb-20 md:pt-40 md:pb-24 text-white text-center">
         <Image
-          src="/images/team-hero.jpg"
-          alt="Young patient smiling with dental model at Dental City"
+          src="/images/hero-dental-tech.jpg"
+          alt="Futuristic dental technology abstract design"
           fill
-          className="object-cover opacity-20"
+          className="object-cover opacity-40"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4">
           <Link

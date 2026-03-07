@@ -168,17 +168,17 @@ const technologyData = {
     {
       name: "3Shape TRIOS 4",
       desc: "Premium digital intraoral scanner. No messy molds, more accurate results.",
-      image: "/images/3shape-trios.jpg",
+      image: "/images/technology/equipment-3shape-scanner.jpg",
     },
     {
       name: "CBCT / Panoramic X-Ray",
       desc: "In-house 3D diagnostic imaging for precise treatment planning.",
-      image: "/images/xray-machine.jpg",
+      image: "/images/technology/equipment-panoramic-xray.jpg",
     },
     {
       name: "BEYOND POLUS ADVANCE",
       desc: "Award-winning whitening system, Top Whitening System winner 8 consecutive years.",
-      image: "/images/clinic-treatment-room.jpg",
+      image: "/images/technology/treatment-whitening-session.jpg",
     },
     {
       name: "Digital X-Ray Sensors",
@@ -190,17 +190,17 @@ const technologyData = {
     {
       name: "3Shape TRIOS 4",
       desc: "Escáner intraoral digital premium. Sin moldes incómodos, resultados más precisos.",
-      image: "/images/3shape-trios.jpg",
+      image: "/images/technology/equipment-3shape-scanner.jpg",
     },
     {
       name: "CBCT / Radiografía Panorámica",
       desc: "Imágenes diagnósticas 3D en nuestras instalaciones para una planificación de tratamiento precisa.",
-      image: "/images/xray-machine.jpg",
+      image: "/images/technology/equipment-panoramic-xray.jpg",
     },
     {
       name: "BEYOND POLUS ADVANCE",
       desc: "Sistema de blanqueamiento premiado, ganador del Top Whitening System por 8 años consecutivos.",
-      image: "/images/clinic-treatment-room.jpg",
+      image: "/images/technology/treatment-whitening-session.jpg",
     },
     {
       name: "Sensores de Rayos X Digitales",

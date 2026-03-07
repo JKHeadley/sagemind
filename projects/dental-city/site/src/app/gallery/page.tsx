@@ -82,7 +82,7 @@ const categories = [
         caption: "The Dental City Family",
       },
       {
-        src: "/images/team-dr-rodriguez.jpg",
+        src: "/images/team-francisco.jpg",
         alt: "Dr. Francisco Rodriguez Chaves",
         caption: "Dr. Francisco Rodriguez Chaves",
       },
