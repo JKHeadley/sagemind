@@ -33,34 +33,32 @@ const clinicImagesData = {
     { src: "/images/clinic/small-image1.jpeg", alt: "Dental City building exterior at night with illuminated signage", caption: "Dental City at Night" },
     { src: "/images/clinic/P1100279.JPG", alt: "Dental City building exterior with team in matching uniforms", caption: "Our Building & Team" },
     { src: "/images/clinic/P1100251.JPG", alt: "Staff greeting patient at the reception desk", caption: "Welcoming Reception" },
+    { src: "/images/clinic/sarapiqui-lobby.jpg", alt: "Modern reception lobby with Dental City branding and marble floors", caption: "Sarapiquí Reception Lobby" },
     { src: "/images/clinic/image8.jpeg", alt: "Dental City reception area with branded front desk", caption: "Reception Area" },
-    { src: "/images/clinic/waiting-lounge.jpg", alt: "Patient waiting lounge with inspirational quote and coffee station", caption: "Waiting Lounge" },
     { src: "/images/clinic/image4.jpeg", alt: "Modern glass staircase and lobby interior", caption: "Clinic Interior" },
-    { src: "/images/clinic/image2.jpeg", alt: "Dental treatment room with modern equipment and ceiling TV", caption: "Treatment Room" },
+    { src: "/images/clinic/treatment-chair-closeup.jpg", alt: "Modern dental treatment station with advanced ZC-5700 equipment", caption: "Treatment Station" },
+    { src: "/images/clinic/treatment-room-cappadocia.jpg", alt: "Treatment room with orange dental chair and Cappadocia wall art", caption: "Treatment Room" },
     { src: "/images/clinic/image5.jpeg", alt: "Treatment room with dental chair and scenic wall art", caption: "Treatment Room" },
-    { src: "/images/clinic/image9.jpeg", alt: "Open treatment bay with multiple stations and floor-to-ceiling windows", caption: "Upstairs Treatment Area" },
-    { src: "/images/clinic/consultation-office.jpg", alt: "Private consultation office with iMac and glass partition", caption: "Consultation Office" },
-    { src: "/images/clinic/patient-restroom.jpg", alt: "Upscale restroom with black marble vessel sinks and LED mirrors", caption: "Patient Restroom" },
-    { src: "/images/clinic/treatment-cinque-terre.jpg", alt: "Treatment room with dental chair and Cinque Terre wall art", caption: "Treatment Room" },
+    { src: "/images/clinic/upstairs-treatment-wide.jpg", alt: "Upstairs open treatment bay with multiple stations and glass partitions", caption: "Upstairs Treatment Area" },
     { src: "/images/clinic/image3.jpeg", alt: "Treatment room with Cappadocia hot air balloon wall art and glass window", caption: "Treatment Room" },
     { src: "/images/clinic/treatment-room-roma.jpg", alt: "Treatment room with red dental chair and Roma, Italia wall art", caption: "Treatment Room" },
+    { src: "/images/clinic/patient-restroom-wide.jpg", alt: "Upscale patient restroom with black marble vessel sinks and panoramic windows", caption: "Patient Restroom" },
     { src: "/images/clinic/upstairs-gallery.jpg", alt: "Upper staircase with Eiffel Tower art and modern concrete columns", caption: "Upstairs Gallery" },
   ],
   es: [
     { src: "/images/clinic/small-image1.jpeg", alt: "Exterior del edificio Dental City de noche con señalización iluminada", caption: "Dental City de Noche" },
     { src: "/images/clinic/P1100279.JPG", alt: "Exterior del edificio Dental City con el equipo en uniformes", caption: "Nuestro Edificio y Equipo" },
     { src: "/images/clinic/P1100251.JPG", alt: "Personal saludando a paciente en la recepción", caption: "Recepción" },
+    { src: "/images/clinic/sarapiqui-lobby.jpg", alt: "Recepción moderna con marca Dental City y pisos de mármol", caption: "Recepción Sarapiquí" },
     { src: "/images/clinic/image8.jpeg", alt: "Área de recepción de Dental City con mostrador de la marca", caption: "Área de Recepción" },
-    { src: "/images/clinic/waiting-lounge.jpg", alt: "Sala de espera con frase inspiradora y estación de café", caption: "Sala de Espera" },
     { src: "/images/clinic/image4.jpeg", alt: "Escalera de vidrio moderna e interior del vestíbulo", caption: "Interior de la Clínica" },
-    { src: "/images/clinic/image2.jpeg", alt: "Sala de tratamiento dental con equipo moderno y TV en el techo", caption: "Sala de Tratamiento" },
+    { src: "/images/clinic/treatment-chair-closeup.jpg", alt: "Estación de tratamiento dental moderna con equipo avanzado ZC-5700", caption: "Estación de Tratamiento" },
+    { src: "/images/clinic/treatment-room-cappadocia.jpg", alt: "Sala de tratamiento con sillón dental naranja y arte de Capadocia", caption: "Sala de Tratamiento" },
     { src: "/images/clinic/image5.jpeg", alt: "Sala de tratamiento con sillón dental y arte escénico en la pared", caption: "Sala de Tratamiento" },
-    { src: "/images/clinic/image9.jpeg", alt: "Área de tratamiento abierta con múltiples estaciones y ventanales", caption: "Área de Tratamiento Superior" },
-    { src: "/images/clinic/consultation-office.jpg", alt: "Oficina de consulta privada con iMac y división de vidrio", caption: "Oficina de Consulta" },
-    { src: "/images/clinic/patient-restroom.jpg", alt: "Baño de lujo con lavamanos de mármol negro y espejos LED", caption: "Baño de Pacientes" },
-    { src: "/images/clinic/treatment-cinque-terre.jpg", alt: "Sala de tratamiento con sillón dental y arte de Cinque Terre", caption: "Sala de Tratamiento" },
+    { src: "/images/clinic/upstairs-treatment-wide.jpg", alt: "Área de tratamiento abierta con múltiples estaciones y divisiones de vidrio", caption: "Área de Tratamiento Superior" },
     { src: "/images/clinic/image3.jpeg", alt: "Sala de tratamiento con arte de globos aerostáticos de Capadocia", caption: "Sala de Tratamiento" },
     { src: "/images/clinic/treatment-room-roma.jpg", alt: "Sala de tratamiento con sillón rojo y arte de Roma, Italia", caption: "Sala de Tratamiento" },
+    { src: "/images/clinic/patient-restroom-wide.jpg", alt: "Baño de lujo con lavamanos de mármol negro y ventanales panorámicos", caption: "Baño de Pacientes" },
     { src: "/images/clinic/upstairs-gallery.jpg", alt: "Escalera superior con arte de la Torre Eiffel y columnas de concreto modernas", caption: "Galería Superior" },
   ],
 };
@@ -150,8 +148,10 @@ export default async function FacilitiesPage({
             {dict.facilities.facilityTourDesc}
           </p>
           <div className="grid md:grid-cols-2 gap-6">
-            <VideoPlayer src="/videos/demo-1.mp4" />
-            <VideoPlayer src="/videos/demo-2.mp4" />
+            <VideoPlayer src="/videos/tour-waiting-lounge.mp4" />
+            <VideoPlayer src="/videos/tour-lobby-reception.mp4" />
+            <VideoPlayer src="/videos/tour-lobby-sculptures.mp4" />
+            <VideoPlayer src="/videos/tour-treatment-room.mp4" />
           </div>
         </div>
       </section>
