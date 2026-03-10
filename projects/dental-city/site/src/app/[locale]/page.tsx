@@ -345,30 +345,39 @@ export default async function Home({
                 <tr className="border-b-2 border-navy/10">
                   <th className="py-3 pr-4 text-navy font-semibold text-sm">{dict.savings.procedure}</th>
                   <th className="py-3 px-4 text-navy font-semibold text-sm text-right">{dict.savings.usPrice}</th>
-                  <th className="py-3 px-4 text-navy font-semibold text-sm text-right">{dict.savings.ourPrice}</th>
                   <th className="py-3 pl-4 text-primary font-semibold text-sm text-right">{dict.savings.youSave}</th>
                 </tr>
               </thead>
               <tbody className="text-sm">
                 {[
-                  { procedure: locale === "es" ? "Implante Dental (con corona)" : "Dental Implant (with crown)", us: "$3,500–$6,000", ours: "$1,200–$1,800", save: "60–70%" },
-                  { procedure: "All-on-4", us: "$20,000–$35,000", ours: "$7,500–$12,000", save: "55–65%" },
-                  { procedure: locale === "es" ? "Corona Dental (porcelana)" : "Dental Crown (porcelain)", us: "$1,000–$2,000", ours: "$350–$600", save: "60–70%" },
-                  { procedure: locale === "es" ? "Carilla (por diente)" : "Veneer (per tooth)", us: "$800–$2,500", ours: "$400–$700", save: "50–70%" },
-                  { procedure: locale === "es" ? "Endodoncia" : "Root Canal", us: "$700–$1,500", ours: "$290–$500", save: "55–65%" },
-                  { procedure: locale === "es" ? "Ortodoncia" : "Orthodontics", us: "$4,000–$8,000", ours: "$1,500–$3,000", save: "55–65%" },
+                  { procedure: locale === "es" ? "Implante Dental (con corona)" : "Dental Implant (with crown)", us: "$3,500–$6,000", save: "50–70%" },
+                  { procedure: "All-on-4", us: "$20,000–$35,000", save: "55–65%" },
+                  { procedure: locale === "es" ? "Corona Dental (porcelana)" : "Dental Crown (porcelain)", us: "$1,000–$2,000", save: "60–70%" },
+                  { procedure: locale === "es" ? "Carilla (por diente)" : "Veneer (per tooth)", us: "$800–$2,500", save: "50–70%" },
+                  { procedure: locale === "es" ? "Endodoncia" : "Root Canal", us: "$700–$1,500", save: "55–65%" },
+                  { procedure: locale === "es" ? "Ortodoncia" : "Orthodontics", us: "$4,000–$8,000", save: "55–65%" },
                 ].map((row) => (
                   <tr key={row.procedure} className="border-b border-navy/5 hover:bg-surface/50 transition-colors">
                     <td className="py-3 pr-4 font-medium text-navy">{row.procedure}</td>
                     <td className="py-3 px-4 text-text-light text-right">{row.us}</td>
-                    <td className="py-3 px-4 text-navy font-semibold text-right">{row.ours}</td>
                     <td className="py-3 pl-4 text-primary font-bold text-right">{row.save}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-text-light text-center mb-8">{dict.savings.disclaimer}</p>
+          <p className="text-xs text-text-light text-center mb-4">{dict.savings.disclaimer}</p>
+          <div className="text-center mb-8">
+            <Link
+              href={`${prefix}/auth/register`}
+              className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+              {locale === "es" ? "Cree una Cuenta Gratis para Ver Nuestros Precios Exactos" : "Create a Free Account to See Our Exact Prices"}
+            </Link>
+          </div>
           <div className="max-w-2xl mx-auto grid sm:grid-cols-3 gap-4">
             {[dict.savings.bullet1, dict.savings.bullet2, dict.savings.bullet3].map((bullet, i) => (
               <div key={i} className="flex items-start gap-3 bg-surface rounded-lg p-4">
