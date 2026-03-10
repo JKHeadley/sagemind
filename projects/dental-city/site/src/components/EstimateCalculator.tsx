@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
 interface ProcedureOption {
@@ -67,7 +67,13 @@ function formatCurrency(n: number) {
   return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
 
-export default function EstimateCalculator() {
+interface InitialItem {
+  procedureName: string;
+  amount: number | null;
+  matchedSlug: string | null;
+}
+
+export default function EstimateCalculator({ initialItems = [] }: { initialItems?: InitialItem[] }) {
   const params = useParams();
   const locale = (params.locale as string) || "en";
   const isEs = locale === "es";
@@ -76,6 +82,22 @@ export default function EstimateCalculator() {
   const [rows, setRows] = useState<EstimateRow[]>([
     { id: generateId(), procedureSlug: "", quantity: 1, usQuote: "" },
   ]);
+
+  // Populate from AI upload results
+  useEffect(() => {
+    if (initialItems.length === 0) return;
+    const newRows = initialItems
+      .filter((item) => item.matchedSlug)
+      .map((item) => ({
+        id: generateId(),
+        procedureSlug: item.matchedSlug!,
+        quantity: 1,
+        usQuote: item.amount ? `$${item.amount}` : "",
+      }));
+    if (newRows.length > 0) {
+      setRows(newRows);
+    }
+  }, [initialItems]);
 
   const addRow = () => {
     setRows([...rows, { id: generateId(), procedureSlug: "", quantity: 1, usQuote: "" }]);
