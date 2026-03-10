@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { i18n, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import GatedPriceTable from "@/components/GatedPriceTable";
 
 export async function generateMetadata({
   params,
@@ -193,6 +194,23 @@ export default async function PricingPage({
               ? "* Los precios son estimados y varían según el caso. Contáctenos para una cotización personalizada."
               : "* Prices are estimates and vary by case. Contact us for a personalized quote."}
           </p>
+        </div>
+      </section>
+
+      {/* Dental City Actual Prices (Gated) */}
+      <section className="py-12 md:py-20 bg-surface">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-3">
+            {isEs ? "Lista de Precios de Dental City" : "Dental City Price List"}
+          </h2>
+          <p className="text-text-light text-center mb-8 max-w-2xl mx-auto">
+            {isEs
+              ? "Nuestra lista completa de precios con 16 procedimientos. Cree una cuenta gratuita para ver los precios exactos."
+              : "Our full price list with 16 procedures. Create a free account to see exact prices."}
+          </p>
+          <div className="bg-white rounded-xl shadow-sm p-4 md:p-8">
+            <GatedPriceTable />
+          </div>
         </div>
       </section>
 
