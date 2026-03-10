@@ -2,59 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { i18n, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-
-const ServiceIcon = ({ name }: { name: string }) => {
-  const cls = "w-8 h-8 text-primary";
-  switch (name) {
-    case "Dental Implants":
-    case "Implantes Dentales":
-      return (
-        <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C10.5 2 9 3.5 9 5.5c0 1.5.5 2.5 1 3.5.5 1 1 2 1 4s-.5 4-1 5.5C9.5 20 9 21 9 22h6c0-1-.5-2-1-3.5-.5-1.5-1-3.5-1-5.5s.5-3 1-4c.5-1 1-2 1-3.5C15 3.5 13.5 2 12 2z" />
-        </svg>
-      );
-    case "Orthodontics":
-    case "Ortodoncia":
-      return (
-        <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16M7 8h10M7 16h10M9 4l-2 4M15 4l2 4M9 20l-2-4M15 20l2-4" />
-        </svg>
-      );
-    case "Dental Aesthetics":
-    case "Estética Dental":
-      return (
-        <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
-        </svg>
-      );
-    case "Root Canal":
-    case "Endodoncia":
-      return (
-        <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-        </svg>
-      );
-    case "Oral Surgery":
-    case "Cirugía Oral":
-      return (
-        <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.384-5.383a1.5 1.5 0 010-2.121l.707-.707a1.5 1.5 0 012.121 0L12 10.086l3.136-3.127a1.5 1.5 0 012.121 0l.707.707a1.5 1.5 0 010 2.121L12.58 15.17a.75.75 0 01-1.06.1l-.1-.1z" />
-        </svg>
-      );
-    case "All-on-Four":
-      return (
-        <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.745 3.745 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-        </svg>
-      );
-    default:
-      return (
-        <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-      );
-  }
-};
+import ContactForm from "@/components/ContactForm";
+import FAQ from "@/components/FAQ";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
+import ServiceIcon from "@/components/ServiceIcon";
 
 const servicesData = {
   en: [
@@ -266,6 +217,7 @@ export default async function Home({
           fill
           className="object-cover opacity-30 object-right md:object-center"
           priority
+          sizes="100vw"
         />
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-24 md:py-32 text-center text-white">
           <h1 className="text-3xl md:text-6xl font-bold mb-4 tracking-tight">
@@ -274,35 +226,65 @@ export default async function Home({
               COSTA RICA
             </span>
           </h1>
-          <p className="text-lg md:text-2xl text-white/90 mb-6 max-w-2xl mx-auto font-light italic">
+          <p className="text-xl md:text-3xl text-white font-semibold mb-3 max-w-3xl mx-auto">
             {dict.hero.tagline}
+          </p>
+          <p className="text-base md:text-lg text-white/80 mb-8 max-w-2xl mx-auto font-light">
+            {dict.hero.subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
-              href="https://wa.me/50683398833"
+              href="https://wa.me/50683398833?text=Hi%2C%20I%27d%20like%20a%20free%20quote%20for%20dental%20treatment%20at%20Dental%20City."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3.5 rounded-lg text-lg transition-colors"
             >
-              {dict.hero.bookWhatsApp}
+              {dict.hero.getQuote}
             </a>
             <a
-              href="tel:+50624740415"
+              href={`${prefix}/pricing`}
               className="border-2 border-white/30 hover:border-primary-light text-white font-semibold px-8 py-3.5 rounded-lg text-lg transition-colors"
             >
-              {dict.hero.callUs}
+              {dict.hero.seePrices}
             </a>
           </div>
           {/* Trust badges */}
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/70">
-            <span>{dict.hero.recommended}</span>
+            <span className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-primary-light" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.403 12.652a3 3 0 010-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" /></svg>
+              {dict.hero.adaStandards}
+            </span>
             <span className="hidden sm:inline">|</span>
-            <span>{dict.hero.reviews}</span>
+            <span className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-primary-light" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zm-6.5-5a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5A.75.75 0 013.5 10zm13 0a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5a.75.75 0 01-.75-.75z" /></svg>
+              {dict.hero.englishSpeaking}
+            </span>
+            <span className="hidden sm:inline">|</span>
+            <span className="flex items-center gap-1.5">
+              <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clipRule="evenodd" /></svg>
+              {dict.hero.reviews}
+            </span>
             <span className="hidden sm:inline">|</span>
             <span>{dict.hero.experience}</span>
-            <span className="hidden sm:inline">|</span>
-            <span>{dict.hero.locations}</span>
           </div>
+        </div>
+      </section>
+
+      {/* Social Proof Strip */}
+      <section className="bg-surface-alt py-4 border-y border-primary/10">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+          <div className="flex items-center gap-3 text-sm text-text-light">
+            <span className="font-medium text-navy">{dict.socialProof.trustedBy}</span>
+            <span className="text-xl" title="United States">🇺🇸</span>
+            <span className="text-xl" title="Canada">🇨🇦</span>
+            <span className="text-xl" title="United Kingdom">🇬🇧</span>
+            <span className="text-xl" title="Costa Rica">🇨🇷</span>
+          </div>
+          <div className="hidden sm:block w-px h-6 bg-navy/10" />
+          <p className="text-sm text-text-light italic">
+            &ldquo;{dict.socialProof.patientQuote}&rdquo;{" "}
+            <span className="font-medium not-italic text-navy">{dict.socialProof.patientName}</span>
+          </p>
         </div>
       </section>
 
@@ -348,6 +330,58 @@ export default async function Home({
         </div>
       </section>
 
+      {/* Savings Comparison */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-navy text-center mb-4">
+            {dict.savings.title}
+          </h2>
+          <p className="text-text-light text-center mb-10 max-w-2xl mx-auto">
+            {dict.savings.subtitle}
+          </p>
+          <div className="overflow-x-auto mb-8">
+            <table className="w-full max-w-3xl mx-auto text-left border-collapse">
+              <thead>
+                <tr className="border-b-2 border-navy/10">
+                  <th className="py-3 pr-4 text-navy font-semibold text-sm">{dict.savings.procedure}</th>
+                  <th className="py-3 px-4 text-navy font-semibold text-sm text-right">{dict.savings.usPrice}</th>
+                  <th className="py-3 px-4 text-navy font-semibold text-sm text-right">{dict.savings.ourPrice}</th>
+                  <th className="py-3 pl-4 text-primary font-semibold text-sm text-right">{dict.savings.youSave}</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                {[
+                  { procedure: locale === "es" ? "Implante Dental (con corona)" : "Dental Implant (with crown)", us: "$3,500–$6,000", ours: "$1,200–$1,800", save: "60–70%" },
+                  { procedure: "All-on-4", us: "$20,000–$35,000", ours: "$7,500–$12,000", save: "55–65%" },
+                  { procedure: locale === "es" ? "Corona Dental (porcelana)" : "Dental Crown (porcelain)", us: "$1,000–$2,000", ours: "$350–$600", save: "60–70%" },
+                  { procedure: locale === "es" ? "Carilla (por diente)" : "Veneer (per tooth)", us: "$800–$2,500", ours: "$400–$700", save: "50–70%" },
+                  { procedure: locale === "es" ? "Endodoncia" : "Root Canal", us: "$700–$1,500", ours: "$290–$500", save: "55–65%" },
+                  { procedure: locale === "es" ? "Ortodoncia" : "Orthodontics", us: "$4,000–$8,000", ours: "$1,500–$3,000", save: "55–65%" },
+                ].map((row) => (
+                  <tr key={row.procedure} className="border-b border-navy/5 hover:bg-surface/50 transition-colors">
+                    <td className="py-3 pr-4 font-medium text-navy">{row.procedure}</td>
+                    <td className="py-3 px-4 text-text-light text-right">{row.us}</td>
+                    <td className="py-3 px-4 text-navy font-semibold text-right">{row.ours}</td>
+                    <td className="py-3 pl-4 text-primary font-bold text-right">{row.save}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-xs text-text-light text-center mb-8">{dict.savings.disclaimer}</p>
+          <div className="max-w-2xl mx-auto grid sm:grid-cols-3 gap-4">
+            {[dict.savings.bullet1, dict.savings.bullet2, dict.savings.bullet3].map((bullet, i) => (
+              <div key={i} className="flex items-start gap-3 bg-surface rounded-lg p-4">
+                <svg className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.403 12.652a3 3 0 010-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+                </svg>
+                <p className="text-sm text-navy">{bullet}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Services */}
       <section id="services" className="py-12 md:py-20 bg-surface">
         <div className="max-w-7xl mx-auto px-4">
@@ -358,19 +392,18 @@ export default async function Home({
             {dict.services.subtitle}
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((svc) => (
-              <div
-                key={svc.name}
-                className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="mb-3"><ServiceIcon name={svc.name} /></div>
-                <h3 className="font-semibold text-lg text-navy mb-2">
-                  {svc.name}
-                </h3>
-                <p className="text-text-light text-sm leading-relaxed">
-                  {svc.desc}
-                </p>
-              </div>
+            {services.map((svc, i) => (
+              <AnimateOnScroll key={svc.name} delay={i < 3 ? ((i * 100) as 100 | 200 | 300) : undefined}>
+                <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow h-full">
+                  <div className="mb-3"><ServiceIcon name={svc.name} /></div>
+                  <h3 className="font-semibold text-lg text-navy mb-2">
+                    {svc.name}
+                  </h3>
+                  <p className="text-text-light text-sm leading-relaxed">
+                    {svc.desc}
+                  </p>
+                </div>
+              </AnimateOnScroll>
             ))}
           </div>
           <div className="text-center mt-10">
@@ -394,26 +427,26 @@ export default async function Home({
             {dict.technology.subtitle}
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {technology.map((tech) => (
-              <div
-                key={tech.name}
-                className="group bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={tech.image}
-                    alt={tech.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+            {technology.map((tech, i) => (
+              <AnimateOnScroll key={tech.name} delay={i < 3 ? ((i * 100) as 100 | 200 | 300) : undefined}>
+                <div className="group bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow h-full">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image
+                      src={tech.image}
+                      alt={tech.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-semibold text-navy mb-1">{tech.name}</h3>
+                    <p className="text-text-light text-sm leading-relaxed">
+                      {tech.desc}
+                    </p>
+                  </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-semibold text-navy mb-1">{tech.name}</h3>
-                  <p className="text-text-light text-sm leading-relaxed">
-                    {tech.desc}
-                  </p>
-                </div>
-              </div>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
@@ -464,11 +497,15 @@ export default async function Home({
                 key={t.name}
                 className="bg-surface rounded-xl p-6 shadow-sm"
               >
-                <div className="text-primary text-4xl leading-none mb-3">
-                  &ldquo;
+                <div className="flex gap-0.5 mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clipRule="evenodd" />
+                    </svg>
+                  ))}
                 </div>
                 <p className="text-text-light text-sm leading-relaxed mb-4">
-                  {t.text}
+                  &ldquo;{t.text}&rdquo;
                 </p>
                 <div className="font-semibold text-navy">{t.name}</div>
               </div>
@@ -481,6 +518,34 @@ export default async function Home({
             >
               {locale === "es" ? "Ver todos los testimonios" : "See all testimonials"} &rarr;
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-navy text-center mb-3">
+            {dict.faq.title}
+          </h2>
+          <p className="text-text-light text-center mb-8 max-w-xl mx-auto">
+            {dict.faq.subtitle}
+          </p>
+          <FAQ items={dict.faq.items as unknown as { question: string; answer: string }[]} />
+        </div>
+      </section>
+
+      {/* Contact Form */}
+      <section className="py-12 md:py-20 bg-surface">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-navy text-center mb-3">
+            {dict.contactForm.formTitle}
+          </h2>
+          <p className="text-text-light text-center mb-8 max-w-xl mx-auto">
+            {dict.contactForm.formSubtitle}
+          </p>
+          <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm relative">
+            <ContactForm locale={locale} dict={dict} />
           </div>
         </div>
       </section>

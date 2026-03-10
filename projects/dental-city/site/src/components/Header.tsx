@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { useAuth } from "@/components/AuthProvider";
 
 function setLocaleCookie(locale: Locale) {
   document.cookie = `NEXT_LOCALE=${locale};path=/;max-age=${60 * 60 * 24 * 365};samesite=lax`;
@@ -58,12 +59,14 @@ export default function Header({
   dict: Dictionary;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, loading: authLoading } = useAuth();
 
   const prefix = `/${locale}`;
 
   const navLinks = [
     { href: prefix, label: dict.nav.home },
     { href: `${prefix}/services`, label: dict.nav.services },
+    { href: `${prefix}/pricing`, label: dict.nav.pricing },
     { href: `${prefix}/team`, label: dict.nav.team },
     { href: `${prefix}/facilities`, label: dict.nav.facilities },
     { href: `${prefix}/gallery`, label: dict.nav.gallery },
@@ -98,6 +101,17 @@ export default function Header({
               {dict.header.hours}
             </span>
             <LanguageSwitcher locale={locale} />
+            {!authLoading && (
+              <Link
+                href={user ? `${prefix}/dashboard` : `${prefix}/auth/login`}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-medium bg-white/10 hover:bg-white/20 transition-colors"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+                {user ? dict.auth.myAccount : dict.auth.login}
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -174,9 +188,17 @@ export default function Header({
         </button>
       </nav>
 
+      {/* Mobile backdrop */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-navy border-t border-white/10 px-4 pb-4">
+        <div className="md:hidden bg-navy border-t border-white/10 px-4 pb-4 relative z-50 mobile-menu-enter">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -196,6 +218,15 @@ export default function Header({
           >
             {dict.header.bookAppointment}
           </a>
+          {!authLoading && (
+            <Link
+              href={user ? `${prefix}/dashboard` : `${prefix}/auth/login`}
+              onClick={() => setMobileOpen(false)}
+              className="block mt-3 text-center border border-white/20 text-white font-medium px-5 py-2.5 rounded-lg hover:bg-white/10 transition-colors text-sm"
+            >
+              {user ? dict.auth.myAccount : dict.auth.login}
+            </Link>
+          )}
           <div className="mt-3 flex justify-center">
             <LanguageSwitcher locale={locale} />
           </div>

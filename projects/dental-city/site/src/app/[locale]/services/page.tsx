@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { i18n, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import ServiceIcon from "@/components/ServiceIcon";
 
-const ServiceIcon = ({ name }: { name: string }) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _ServiceIconOld = ({ name }: { name: string }) => {
   const cls = "w-8 h-8 text-primary";
   switch (name) {
     case "Dental Implants":

@@ -5,6 +5,7 @@
     "team": "Nuestro Equipo",
     "gallery": "Galería",
     "facilities": "Instalaciones",
+    "pricing": "Precios",
     "testimonials": "Testimonios",
     "contact": "Contacto"
   },
@@ -13,13 +14,15 @@
     "hours": "Lun-Vie 7:30AM-6PM | Sáb 7AM-1PM"
   },
   "hero": {
-    "tagline": "Deja Que Tu Sonrisa Cambie el Mundo",
-    "bookWhatsApp": "Agendar por WhatsApp",
+    "tagline": "Ahorre 50–70% en Atención Dental en Costa Rica",
+    "subtitle": "Implantes, ortodoncia y diseño de sonrisa de clase mundial — a una fracción de los precios en EE.UU. y Canadá.",
+    "getQuote": "Cotización Gratis",
+    "seePrices": "Ver Precios",
     "callUs": "Llamar +506 2474 0415",
-    "recommended": "100% Recomendado",
-    "reviews": "59 Reseñas",
-    "experience": "20+ Años de Experiencia",
-    "locations": "2 Ubicaciones"
+    "adaStandards": "Estándares Equivalentes ADA",
+    "englishSpeaking": "Equipo Bilingüe",
+    "reviews": "59 Reseñas 5 Estrellas",
+    "experience": "20+ Años de Experiencia"
   },
   "common": {
     "whatsappUs": "Escríbenos por WhatsApp",
@@ -79,6 +82,13 @@
   "team": {
     "pageTitle": "Nuestro Equipo",
     "pageSubtitle": "Profesionales graduados de la UCR con más de 26 años de experiencia combinada, dedicados a su comodidad y cuidado.",
+    "whyTrustTitle": "¿Por Qué Confían los Pacientes Internacionales en Nosotros?",
+    "whyTrustItems": [
+      "Todos los dentistas graduados de la UCR, la universidad mejor clasificada de Costa Rica y la facultad de odontología líder en Centroamérica",
+      "Equipo bilingüe — nuestro coordinador de pacientes habla inglés con fluidez y lo guía en cada paso",
+      "Los mismos materiales, tecnología y estándares de esterilización que las clínicas líderes en EE.UU. y Canadá",
+      "Más de 20 años de experiencia clínica combinada con pacientes internacionales"
+    ],
     "ctaTitle": "¿Listo para Conocer a Nuestro Equipo?",
     "ctaText": "Agende una consulta y experimente la diferencia de Dental City. Nuestro equipo está aquí para ayudarle a lograr la sonrisa que merece."
   },
@@ -118,6 +128,124 @@
   "servicesCta": {
     "title": "¿Listo para Transformar Su Sonrisa?",
     "text": "Contáctenos hoy para una consulta. Nuestro equipo evaluará sus necesidades y creará un plan de tratamiento personalizado, todo a una fracción de los costos en EE.UU."
+  },
+  "contactForm": {
+    "name": "Nombre Completo",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono (opcional)",
+    "country": "País",
+    "service": "Servicio de Interés",
+    "message": "Cuéntenos sobre sus necesidades dentales",
+    "submit": "Enviar Consulta",
+    "sending": "Enviando...",
+    "success": "¡Gracias! Responderemos en menos de 24 horas.",
+    "error": "Algo salió mal. Intente por WhatsApp o llámenos directamente.",
+    "required": "Este campo es obligatorio",
+    "selectCountry": "Seleccione su país",
+    "selectService": "Seleccione un servicio (opcional)",
+    "formTitle": "Solicite una Cotización Gratis",
+    "formSubtitle": "Envíenos su información y le responderemos en menos de 24 horas con un plan de tratamiento personalizado."
+  },
+  "savings": {
+    "title": "¿Por Qué Pacientes Eligen Costa Rica?",
+    "subtitle": "La misma calidad, los mismos materiales, la misma tecnología — a precios mucho más accesibles.",
+    "procedure": "Procedimiento",
+    "usPrice": "Precio EE.UU.",
+    "ourPrice": "Nuestro Precio",
+    "youSave": "Ahorro",
+    "disclaimer": "Los precios son estimados y varían según el caso. Contáctenos para una cotización personalizada.",
+    "bullet1": "Los mismos materiales y tecnología de las mejores clínicas de EE.UU.",
+    "bullet2": "Especialistas graduados de la UCR con más de 20 años de experiencia",
+    "bullet3": "Combine su tratamiento con unas vacaciones en Costa Rica"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Todo lo que los pacientes internacionales quieren saber sobre el cuidado dental en Costa Rica.",
+    "items": [
+      {
+        "question": "¿Cuánto puedo ahorrar comparado con los precios en EE.UU. o Canadá?",
+        "answer": "La mayoría de los pacientes ahorran entre 50–70% en procedimientos dentales. Por ejemplo, un implante dental con corona que cuesta $3,500–$6,000 en EE.UU. cuesta $1,200–$1,800 en Dental City. La rehabilitación All-on-4 comienza desde $7,500, comparado con $20,000–$35,000 en EE.UU."
+      },
+      {
+        "question": "¿Sus dentistas hablan inglés?",
+        "answer": "¡Sí! Nuestro coordinador de pacientes Marlon habla inglés con fluidez y guía a los pacientes internacionales en cada paso. Nuestros dentistas también se comunican en inglés, así que siempre entenderá su plan de tratamiento."
+      },
+      {
+        "question": "¿Cuáles son las calificaciones de sus dentistas?",
+        "answer": "Todos nuestros dentistas son graduados de la Universidad de Costa Rica (UCR), la universidad mejor clasificada de Centroamérica. El Dr. Rodriguez tiene 11+ años especializándose en ortodoncia con 1,500+ casos. La Dra. Hernandez tiene 15+ años en implantología y rehabilitación oral."
+      },
+      {
+        "question": "¿Cómo planifico un viaje dental a Costa Rica?",
+        "answer": "Es sencillo: (1) Envíenos sus radiografías o fotos por WhatsApp, (2) Le enviaremos un plan de tratamiento y cotización en 24 horas, (3) Reserve sus vuelos y alojamiento, (4) Nosotros nos encargamos del resto. ¡Muchos pacientes combinan el tratamiento con vacaciones!"
+      },
+      {
+        "question": "¿Cuánto tiempo tomará mi tratamiento?",
+        "answer": "Depende del procedimiento. Limpiezas, rellenos y coronas generalmente se completan en 1–2 visitas. Los implantes típicamente requieren 2 viajes separados por 3–4 meses. La ortodoncia requiere seguimientos regulares. Le daremos un cronograma claro antes de que se comprometa."
+      },
+      {
+        "question": "¿Aceptan seguro dental de EE.UU.?",
+        "answer": "No facturamos directamente al seguro, pero proporcionamos facturas detalladas y documentación que muchos planes de seguro de EE.UU. aceptan para reembolso fuera de red. Muchos pacientes encuentran que los ahorros son tan significativos que incluso sin reembolso, vale la pena."
+      },
+      {
+        "question": "¿Qué métodos de pago aceptan?",
+        "answer": "Aceptamos efectivo (dólares y colones), tarjetas de crédito (Visa, Mastercard) y transferencias bancarias. También podemos crear planes de pago flexibles para tratamientos más grandes."
+      },
+      {
+        "question": "¿Es seguro el cuidado dental en Costa Rica?",
+        "answer": "Absolutamente. Costa Rica es uno de los principales destinos de turismo dental en el mundo. Nuestra clínica utiliza los mismos protocolos de esterilización, materiales y tecnología que las clínicas líderes en EE.UU. Somos miembros del Colegio de Cirujanos Dentistas de Costa Rica, el organismo regulador nacional."
+      }
+    ]
+  },
+  "socialProof": {
+    "trustedBy": "Pacientes de confianza de",
+    "patientQuote": "Los costos eran como una cuarta parte de lo que me cotizaron en EE.UU. ¡Muy recomendados!",
+    "patientName": "— Adriana H., Estados Unidos"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "myAccount": "Mi Cuenta",
+    "dashboard": "Panel",
+    "loginTitle": "Bienvenido de Nuevo",
+    "loginSubtitle": "Inicie sesión para acceder a sus estimaciones y precios.",
+    "registerTitle": "Cree Su Cuenta Gratis",
+    "registerSubtitle": "Obtenga acceso a nuestros precios exactos y herramienta de estimación de ahorro.",
+    "resetTitle": "Restablecer Contraseña",
+    "resetSubtitle": "Ingrese su correo y le enviaremos un enlace para restablecer.",
+    "updatePasswordTitle": "Nueva Contraseña",
+    "updatePasswordSubtitle": "Elija una nueva contraseña para su cuenta.",
+    "fullName": "Nombre Completo",
+    "fullNamePlaceholder": "Juan Pérez",
+    "email": "Correo Electrónico",
+    "emailPlaceholder": "correo@ejemplo.com",
+    "phone": "Teléfono (opcional)",
+    "phonePlaceholder": "+506 8339 8833",
+    "country": "País",
+    "selectCountry": "Seleccione su país",
+    "password": "Contraseña",
+    "newPassword": "Nueva Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "passwordMinHint": "Mínimo 8 caracteres",
+    "loginButton": "Iniciar Sesión",
+    "registerButton": "Crear Cuenta",
+    "resetButton": "Enviar Enlace",
+    "updatePasswordButton": "Actualizar Contraseña",
+    "loading": "Por favor espere...",
+    "forgotPassword": "¿Olvidó su contraseña?",
+    "noAccount": "¿No tiene cuenta?",
+    "registerLink": "Cree una gratis",
+    "haveAccount": "¿Ya tiene cuenta?",
+    "loginLink": "Iniciar sesión",
+    "backToLogin": "Volver al inicio de sesión",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Ingrese un correo electrónico válido",
+    "passwordMin": "La contraseña debe tener al menos 8 caracteres",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "genericError": "Algo salió mal. Intente de nuevo.",
+    "checkEmail": "Revise Su Correo",
+    "confirmEmailSent": "Le hemos enviado un correo de confirmación. Haga clic en el enlace para activar su cuenta.",
+    "resetEmailSent": "Le hemos enviado un enlace para restablecer su contraseña. Revise su bandeja de entrada.",
+    "passwordUpdated": "Contraseña Actualizada",
+    "redirecting": "Redirigiendo a su panel..."
   },
   "footer": {
     "tagline": "Deja que tu sonrisa cambie el mundo. Más de 20 años brindando atención dental excepcional en dos ubicaciones en Costa Rica.",

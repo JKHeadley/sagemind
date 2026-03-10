@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { i18n, type Locale } from "./i18n/config";
+import { updateSession } from "./lib/supabase/middleware";
 
 // Spanish-speaking countries (ISO 3166-1 alpha-2)
 const spanishCountries = new Set([
@@ -32,7 +33,6 @@ function getLocaleFromCountry(country: string | null): Locale | null {
 
 function getLocaleFromAcceptLanguage(header: string | null): Locale | null {
   if (!header) return null;
-  // Parse Accept-Language: es-CR,es;q=0.9,en-US;q=0.8,en;q=0.7
   const languages = header.split(",").map((lang) => {
     const [code] = lang.trim().split(";");
     return code.trim().split("-")[0].toLowerCase();
@@ -45,15 +45,28 @@ function getLocaleFromAcceptLanguage(header: string | null): Locale | null {
 
 const LOCALE_COOKIE = "NEXT_LOCALE";
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+// Routes that require authentication (after locale prefix)
+const PROTECTED_PATHS = ["/dashboard"];
 
-  // Check if the pathname already has a locale
-  const pathnameHasLocale = i18n.locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+function isProtectedPath(pathname: string): boolean {
+  // Strip locale prefix to check the actual path
+  const pathWithoutLocale = pathname.replace(/^\/(en|es)/, "");
+  return PROTECTED_PATHS.some(
+    (p) => pathWithoutLocale === p || pathWithoutLocale.startsWith(`${p}/`)
   );
+}
 
-  if (pathnameHasLocale) return;
+function getLocaleFromPath(pathname: string): Locale | null {
+  for (const locale of i18n.locales) {
+    if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
+      return locale as Locale;
+    }
+  }
+  return null;
+}
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
 
   // Skip for static files, API routes, and Next.js internals
   if (
@@ -66,7 +79,28 @@ export function middleware(request: NextRequest) {
     return;
   }
 
-  // Priority: 1) Cookie (user chose), 2) Geo IP, 3) Accept-Language, 4) Default
+  // Refresh Supabase session (keeps auth tokens valid)
+  const { supabaseResponse, user } = await updateSession(request);
+
+  // Check if the pathname already has a locale
+  const pathnameHasLocale = i18n.locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+
+  if (pathnameHasLocale) {
+    // If this is a protected route and the user is not authenticated, redirect to login
+    if (isProtectedPath(pathname) && !user) {
+      const locale = getLocaleFromPath(pathname) || i18n.defaultLocale;
+      const loginUrl = new URL(`/${locale}/auth/login`, request.url);
+      loginUrl.searchParams.set("redirect", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    // Copy any Supabase cookies to the response
+    return supabaseResponse;
+  }
+
+  // No locale in path — detect and redirect
   const cookieLocale = request.cookies.get(LOCALE_COOKIE)?.value as Locale | undefined;
   const locale =
     (cookieLocale && i18n.locales.includes(cookieLocale) ? cookieLocale : null) ||
@@ -80,14 +114,18 @@ export function middleware(request: NextRequest) {
   // Set cookie so the language switcher choice persists
   response.cookies.set(LOCALE_COOKIE, locale, {
     path: "/",
-    maxAge: 60 * 60 * 24 * 365, // 1 year
+    maxAge: 60 * 60 * 24 * 365,
     sameSite: "lax",
+  });
+
+  // Copy Supabase auth cookies to the redirect response
+  supabaseResponse.cookies.getAll().forEach((cookie) => {
+    response.cookies.set(cookie.name, cookie.value);
   });
 
   return response;
 }
 
 export const config = {
-  // Match all paths except static files and API routes
   matcher: ["/((?!_next|api|images|videos|.*\\..*).*)"],
 };

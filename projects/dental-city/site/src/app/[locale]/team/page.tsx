@@ -155,6 +155,25 @@ export default async function TeamPage({
         </div>
       </section>
 
+      {/* Why Trust Us */}
+      <section className="py-10 md:py-14 bg-surface">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-xl md:text-2xl font-bold text-navy text-center mb-6">
+            {dict.team.whyTrustTitle}
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {(dict.team.whyTrustItems as string[]).map((item: string, i: number) => (
+              <div key={i} className="flex items-start gap-3 bg-white rounded-lg p-4 shadow-sm">
+                <svg className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.403 12.652a3 3 0 010-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+                </svg>
+                <p className="text-sm text-navy leading-relaxed">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Team */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 space-y-10 md:space-y-16">

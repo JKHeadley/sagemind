@@ -60,6 +60,9 @@ export default function Footer({
               <Link href={`${prefix}/services`} className="block hover:text-primary-light transition-colors">
                 {dict.nav.services}
               </Link>
+              <Link href={`${prefix}/pricing`} className="block hover:text-primary-light transition-colors">
+                {dict.nav.pricing}
+              </Link>
               <Link href={`${prefix}/team`} className="block hover:text-primary-light transition-colors">
                 {dict.nav.team}
               </Link>

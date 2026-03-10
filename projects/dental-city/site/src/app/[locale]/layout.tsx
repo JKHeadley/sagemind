@@ -4,6 +4,8 @@ import { getDictionary } from "@/i18n/dictionaries";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import AuthProvider from "@/components/AuthProvider";
+import { getLocalBusinessSchema } from "@/lib/structured-data";
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ locale }));
@@ -15,52 +17,77 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const baseUrl = "https://dentalcitycr.com";
+
+  const shared = {
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: `${baseUrl}/${locale}`,
+      languages: {
+        en: `${baseUrl}/en`,
+        es: `${baseUrl}/es`,
+      },
+    },
+    robots: { index: true, follow: true },
+    twitter: {
+      card: "summary_large_image" as const,
+      images: [`${baseUrl}/images/hero-francisco.jpg`],
+    },
+  };
 
   if (locale === "es") {
     return {
-      title: "Dental City Costa Rica | Atención Dental de Calidad en Aguas Zarcas",
+      ...shared,
+      title: "Dental City Costa Rica | Turismo Dental Accesible | Implantes y Ortodoncia",
       description:
-        "Dental City Costa Rica. Deja que tu sonrisa cambie el mundo. Implantes dentales, ortodoncia, estética dental y más a precios accesibles en Aguas Zarcas y Sarapiquí.",
+        "Ahorre 50–70% en implantes dentales, ortodoncia y diseño de sonrisa en Costa Rica. Más de 20 años de experiencia, equipo bilingüe, 59 reseñas 5 estrellas.",
       keywords: [
-        "clínica dental Costa Rica",
-        "implantes dentales Costa Rica",
-        "dentista Aguas Zarcas",
-        "atención dental accesible",
-        "Dental City",
-        "ortodoncia Costa Rica",
         "turismo dental Costa Rica",
+        "implantes dentales Costa Rica",
+        "dentista para americanos Costa Rica",
+        "vacaciones dentales Costa Rica",
+        "clínica dental Aguas Zarcas",
+        "ortodoncia Costa Rica precios",
+        "Dental City",
         "dentista Sarapiquí",
+        "carillas dentales Costa Rica",
+        "All-on-4 Costa Rica",
       ],
       openGraph: {
-        title: "Dental City Costa Rica",
+        title: "Dental City Costa Rica | Turismo Dental Accesible",
         description:
-          "Deja que tu sonrisa cambie el mundo. Atención dental de alta calidad y precios accesibles en Aguas Zarcas y Sarapiquí, Costa Rica.",
+          "Ahorre 50–70% en tratamientos dentales de alta calidad en Costa Rica. Implantes, ortodoncia, diseño de sonrisa y más.",
         locale: "es_CR",
         type: "website",
+        images: [{ url: `${baseUrl}/images/hero-francisco.jpg`, width: 1200, height: 630, alt: "Dental City Costa Rica" }],
       },
     };
   }
 
   return {
-    title: "Dental City Costa Rica | Quality Dental Care in Aguas Zarcas",
+    ...shared,
+    title: "Dental City Costa Rica | Affordable Dental Tourism | Implants & Orthodontics",
     description:
-      "Dental City Costa Rica. Let your smile change the world. Affordable, high-quality dental implants, orthodontics, cosmetic dentistry, and more in Aguas Zarcas and Sarapiqui.",
+      "Save 50–70% on dental implants, orthodontics, and smile makeovers in Costa Rica. 20+ years experience, English-speaking team, 59 five-star reviews.",
     keywords: [
-      "dental clinic Costa Rica",
-      "dental implants Costa Rica",
-      "dentist Aguas Zarcas",
-      "affordable dental care",
-      "Dental City",
-      "orthodontics Costa Rica",
       "dental tourism Costa Rica",
+      "affordable dental implants Costa Rica",
+      "dental vacation Costa Rica",
+      "dentist for Americans in Costa Rica",
+      "dental clinic Aguas Zarcas",
+      "orthodontics Costa Rica prices",
+      "Dental City",
       "dentist Sarapiqui",
+      "veneers Costa Rica",
+      "All-on-4 Costa Rica",
     ],
     openGraph: {
-      title: "Dental City Costa Rica",
+      title: "Dental City Costa Rica | Affordable Dental Tourism",
       description:
-        "Let your smile change the world. Affordable, high-quality dental care in Aguas Zarcas and Sarapiqui, Costa Rica.",
+        "Save 50–70% on world-class dental care in Costa Rica. Implants, orthodontics, smile makeovers, and more.",
       locale: "en_US",
       type: "website",
+      images: [{ url: `${baseUrl}/images/hero-francisco.jpg`, width: 1200, height: 630, alt: "Dental City Costa Rica" }],
     },
   };
 }
@@ -76,6 +103,8 @@ export default async function LocaleLayout({
   const locale = (i18n.locales.includes(rawLocale as Locale) ? rawLocale : i18n.defaultLocale) as Locale;
   const dict = await getDictionary(locale);
 
+  const structuredData = getLocalBusinessSchema(locale);
+
   return (
     <>
       <script
@@ -83,10 +112,19 @@ export default async function LocaleLayout({
           __html: `document.documentElement.lang = "${locale}";`,
         }}
       />
-      <Header locale={locale} dict={dict} />
-      <main>{children}</main>
-      <Footer locale={locale} dict={dict} />
-      <WhatsAppButton />
+      {structuredData.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      <AuthProvider>
+        <Header locale={locale} dict={dict} />
+        <main>{children}</main>
+        <Footer locale={locale} dict={dict} />
+        <WhatsAppButton />
+      </AuthProvider>
     </>
   );
 }

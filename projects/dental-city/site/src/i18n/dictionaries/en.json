@@ -5,6 +5,7 @@
     "team": "Our Team",
     "gallery": "Gallery",
     "facilities": "Facilities",
+    "pricing": "Pricing",
     "testimonials": "Testimonials",
     "contact": "Contact"
   },
@@ -13,13 +14,15 @@
     "hours": "Mon-Fri 7:30AM-6PM | Sat 7AM-1PM"
   },
   "hero": {
-    "tagline": "Let Your Smile Change the World",
-    "bookWhatsApp": "Book via WhatsApp",
+    "tagline": "Save 50–70% on Dental Care in Costa Rica",
+    "subtitle": "World-class implants, orthodontics, and smile makeovers — at a fraction of US and Canadian prices.",
+    "getQuote": "Get a Free Quote",
+    "seePrices": "See Our Prices",
     "callUs": "Call +506 2474 0415",
-    "recommended": "100% Recommended",
-    "reviews": "59 Reviews",
-    "experience": "20+ Years Experience",
-    "locations": "2 Locations"
+    "adaStandards": "ADA-Equivalent Standards",
+    "englishSpeaking": "English-Speaking Team",
+    "reviews": "59 Five-Star Reviews",
+    "experience": "20+ Years Experience"
   },
   "common": {
     "whatsappUs": "WhatsApp Us",
@@ -79,6 +82,13 @@
   "team": {
     "pageTitle": "Our Team",
     "pageSubtitle": "UCR-trained professionals with over 26 combined years of experience, dedicated to your comfort and care.",
+    "whyTrustTitle": "Why International Patients Trust Us",
+    "whyTrustItems": [
+      "All dentists trained at UCR, Costa Rica's top-ranked university and leading dental school in Central America",
+      "English-speaking team — our patient coordinator is fluent and guides you through every step",
+      "Same materials, technology, and sterilization standards as leading US and Canadian clinics",
+      "Over 20 years of combined clinical experience with international patients"
+    ],
     "ctaTitle": "Ready to Meet Our Team?",
     "ctaText": "Schedule a consultation and experience the Dental City difference. Our team is here to help you achieve the smile you deserve."
   },
@@ -118,6 +128,124 @@
   "servicesCta": {
     "title": "Ready to Transform Your Smile?",
     "text": "Contact us today for a consultation. Our team will review your needs and create a personalized treatment plan, all at a fraction of US costs."
+  },
+  "contactForm": {
+    "name": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone (optional)",
+    "country": "Country",
+    "service": "Service Interested In",
+    "message": "Tell us about your dental needs",
+    "submit": "Send Inquiry",
+    "sending": "Sending...",
+    "success": "Thank you! We'll respond within 24 hours.",
+    "error": "Something went wrong. Please try WhatsApp or call us directly.",
+    "required": "This field is required",
+    "selectCountry": "Select your country",
+    "selectService": "Select a service (optional)",
+    "formTitle": "Request a Free Quote",
+    "formSubtitle": "Send us your information and we'll get back to you within 24 hours with a personalized treatment plan."
+  },
+  "savings": {
+    "title": "Why Patients Choose Costa Rica",
+    "subtitle": "Same quality care, same materials, same technology — dramatically lower prices.",
+    "procedure": "Procedure",
+    "usPrice": "US Price",
+    "ourPrice": "Our Price",
+    "youSave": "You Save",
+    "disclaimer": "Prices are estimates and vary by case. Contact us for a personalized quote.",
+    "bullet1": "Same materials and technology used in top US clinics",
+    "bullet2": "UCR-trained specialists with 20+ years of experience",
+    "bullet3": "Combine your treatment with a Costa Rica vacation"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything international patients want to know about dental care in Costa Rica.",
+    "items": [
+      {
+        "question": "How much can I save compared to US or Canadian prices?",
+        "answer": "Most patients save 50–70% on dental procedures. For example, a dental implant with crown that costs $3,500–$6,000 in the US is $1,200–$1,800 at Dental City. All-on-4 full-arch rehabilitation starts around $7,500 compared to $20,000–$35,000 in the US."
+      },
+      {
+        "question": "Do your dentists speak English?",
+        "answer": "Yes! Our patient coordinator Marlon is fluent in English and guides international patients through every step. Our dentists communicate in English as well, so you'll always understand your treatment plan."
+      },
+      {
+        "question": "What are your dentists' qualifications?",
+        "answer": "All our dentists are graduates of the University of Costa Rica (UCR), the top-ranked university in Central America. Dr. Rodriguez has 11+ years specializing in orthodontics with 1,500+ cases. Dra. Hernandez has 15+ years in implant dentistry and oral rehabilitation."
+      },
+      {
+        "question": "How do I plan a dental trip to Costa Rica?",
+        "answer": "It's simple: (1) Send us your X-rays or photos via WhatsApp, (2) We'll send you a treatment plan and quote within 24 hours, (3) Book your flights and accommodation, (4) We handle the rest. Many patients combine treatment with a vacation!"
+      },
+      {
+        "question": "How long will my treatment take?",
+        "answer": "It depends on the procedure. Cleanings, fillings, and crowns can often be completed in 1–2 visits. Implants typically require 2 trips spaced 3–4 months apart. Orthodontics requires regular follow-ups. We'll give you a clear timeline before you commit."
+      },
+      {
+        "question": "Do you accept US dental insurance?",
+        "answer": "We don't bill insurance directly, but we provide detailed invoices and documentation that many US insurance plans accept for out-of-network reimbursement. Many patients find the savings so significant that even without reimbursement, it's worth it."
+      },
+      {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept cash (USD and colones), credit cards (Visa, Mastercard), and bank transfers. We can also create flexible payment plans for larger treatments."
+      },
+      {
+        "question": "Is dental care in Costa Rica safe?",
+        "answer": "Absolutely. Costa Rica is one of the top dental tourism destinations worldwide. Our clinic uses the same sterilization protocols, materials, and technology as leading US clinics. We're members of the Colegio de Cirujanos Dentistas de Costa Rica, the national regulatory body."
+      }
+    ]
+  },
+  "socialProof": {
+    "trustedBy": "Trusted by patients from",
+    "patientQuote": "The costs were like a quarter of what I was quoted in the US. Highly recommended!",
+    "patientName": "— Adriana H., United States"
+  },
+  "auth": {
+    "login": "Log In",
+    "myAccount": "My Account",
+    "dashboard": "Dashboard",
+    "loginTitle": "Welcome Back",
+    "loginSubtitle": "Log in to access your estimates and pricing.",
+    "registerTitle": "Create Your Free Account",
+    "registerSubtitle": "Get access to our exact pricing and savings estimate tool.",
+    "resetTitle": "Reset Password",
+    "resetSubtitle": "Enter your email and we'll send you a reset link.",
+    "updatePasswordTitle": "Set New Password",
+    "updatePasswordSubtitle": "Choose a new password for your account.",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "John Smith",
+    "email": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "phone": "Phone (optional)",
+    "phonePlaceholder": "+1 555 123 4567",
+    "country": "Country",
+    "selectCountry": "Select your country",
+    "password": "Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "passwordMinHint": "Minimum 8 characters",
+    "loginButton": "Log In",
+    "registerButton": "Create Account",
+    "resetButton": "Send Reset Link",
+    "updatePasswordButton": "Update Password",
+    "loading": "Please wait...",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "registerLink": "Create one for free",
+    "haveAccount": "Already have an account?",
+    "loginLink": "Log in",
+    "backToLogin": "Back to login",
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordMin": "Password must be at least 8 characters",
+    "passwordMismatch": "Passwords do not match",
+    "genericError": "Something went wrong. Please try again.",
+    "checkEmail": "Check Your Email",
+    "confirmEmailSent": "We've sent you a confirmation email. Click the link to activate your account.",
+    "resetEmailSent": "We've sent you a password reset link. Check your inbox.",
+    "passwordUpdated": "Password Updated",
+    "redirecting": "Redirecting to your dashboard..."
   },
   "footer": {
     "tagline": "Let your smile change the world. Over 20 years providing exceptional dental care across two locations in Costa Rica.",
