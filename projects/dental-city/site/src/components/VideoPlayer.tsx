@@ -5,9 +5,11 @@ import { useRef, useState } from "react";
 interface VideoPlayerProps {
   src: string;
   className?: string;
+  aspect?: string;
+  contain?: boolean;
 }
 
-export default function VideoPlayer({ src, className = "" }: VideoPlayerProps) {
+export default function VideoPlayer({ src, className = "", aspect = "aspect-video", contain = false }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -33,13 +35,14 @@ export default function VideoPlayer({ src, className = "" }: VideoPlayerProps) {
       className={`relative group cursor-pointer rounded-2xl overflow-hidden shadow-xl ${className}`}
       onClick={togglePlay}
     >
-      <div className="aspect-video">
+      <div className={aspect}>
         <video
           ref={videoRef}
           src={src}
           onEnded={handleEnded}
           playsInline
-          className="w-full h-full object-cover"
+          preload="none"
+          className={`w-full h-full ${contain ? "object-contain bg-black" : "object-cover"}`}
         />
       </div>
 

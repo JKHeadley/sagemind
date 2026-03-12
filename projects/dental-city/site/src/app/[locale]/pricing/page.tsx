@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { i18n, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import GatedPriceTable from "@/components/GatedPriceTable";
+import EstimateSection from "@/components/EstimateSection";
 
 export async function generateMetadata({
   params,
@@ -16,41 +16,33 @@ export async function generateMetadata({
     return {
       title: "Precios | Dental City Costa Rica — Ahorre 50–70%",
       description:
-        "Compare precios de tratamientos dentales en EE.UU. vs Costa Rica. Implantes desde $1,200, All-on-4 desde $7,500. Paquetes de turismo dental disponibles.",
+        "Ahorre 50–70% en tratamientos dentales en Costa Rica. Suba su cotización de EE.UU. y obtenga un estimado gratuito con IA.",
     };
   }
 
   return {
     title: "Pricing | Dental City Costa Rica — Save 50–70%",
     description:
-      "Compare US vs Costa Rica dental prices. Implants from $1,200, All-on-4 from $7,500. Dental tourism packages available.",
+      "Save 50–70% on dental treatment in Costa Rica. Upload your US quote and get a free AI-powered estimate.",
   };
 }
 
-const pricingData = {
+const savingsCategories = {
   en: [
-    { procedure: "Dental Implant (with crown)", us: "$3,500–$6,000", ours: "$1,200–$1,800", save: "60–70%" },
-    { procedure: "All-on-4 Full Arch", us: "$20,000–$35,000", ours: "$7,500–$12,000", save: "55–65%" },
-    { procedure: "Dental Crown (porcelain)", us: "$1,000–$2,000", ours: "$350–$600", save: "60–70%" },
-    { procedure: "Veneer (per tooth)", us: "$800–$2,500", ours: "$400–$700", save: "50–70%" },
-    { procedure: "Root Canal", us: "$700–$1,500", ours: "$290–$500", save: "55–65%" },
-    { procedure: "Orthodontics (full)", us: "$4,000–$8,000", ours: "$1,500–$3,000", save: "55–65%" },
-    { procedure: "Teeth Whitening (BEYOND POLUS)", us: "$400–$800", ours: "$200–$350", save: "50–65%" },
-    { procedure: "Dental Bridge (3 unit)", us: "$2,500–$5,000", ours: "$900–$1,800", save: "55–65%" },
-    { procedure: "Composite Filling", us: "$150–$450", ours: "$50–$120", save: "60–75%" },
-    { procedure: "Full Denture (per arch)", us: "$1,000–$3,000", ours: "$500–$1,000", save: "50–65%" },
+    { category: "Dental Implants", savings: "50–65%", icon: "🦷", desc: "Single implants, All-on-4, full-arch rehabilitation" },
+    { category: "Crowns & Veneers", savings: "50–75%", icon: "✨", desc: "Porcelain, zirconia, and premium crowns and veneers" },
+    { category: "Root Canals", savings: "60–75%", icon: "🔧", desc: "Anterior, premolar, and molar endodontics" },
+    { category: "Orthodontics", savings: "70–80%", icon: "😁", desc: "Traditional braces and clear aligners" },
+    { category: "Oral Surgery", savings: "55–75%", icon: "⚕️", desc: "Extractions, wisdom teeth, bone grafts" },
+    { category: "Cosmetic Dentistry", savings: "45–65%", icon: "💎", desc: "Whitening, smile design, aesthetic treatments" },
   ],
   es: [
-    { procedure: "Implante Dental (con corona)", us: "$3,500–$6,000", ours: "$1,200–$1,800", save: "60–70%" },
-    { procedure: "All-on-4 Arcada Completa", us: "$20,000–$35,000", ours: "$7,500–$12,000", save: "55–65%" },
-    { procedure: "Corona Dental (porcelana)", us: "$1,000–$2,000", ours: "$350–$600", save: "60–70%" },
-    { procedure: "Carilla (por diente)", us: "$800–$2,500", ours: "$400–$700", save: "50–70%" },
-    { procedure: "Endodoncia", us: "$700–$1,500", ours: "$290–$500", save: "55–65%" },
-    { procedure: "Ortodoncia (completa)", us: "$4,000–$8,000", ours: "$1,500–$3,000", save: "55–65%" },
-    { procedure: "Blanqueamiento (BEYOND POLUS)", us: "$400–$800", ours: "$200–$350", save: "50–65%" },
-    { procedure: "Puente Dental (3 unidades)", us: "$2,500–$5,000", ours: "$900–$1,800", save: "55–65%" },
-    { procedure: "Relleno Compuesto", us: "$150–$450", ours: "$50–$120", save: "60–75%" },
-    { procedure: "Dentadura Completa (por arcada)", us: "$1,000–$3,000", ours: "$500–$1,000", save: "50–65%" },
+    { category: "Implantes Dentales", savings: "50–65%", icon: "🦷", desc: "Implantes individuales, All-on-4, rehabilitación completa" },
+    { category: "Coronas y Carillas", savings: "50–75%", icon: "✨", desc: "Coronas y carillas de porcelana, zirconio y premium" },
+    { category: "Endodoncias", savings: "60–75%", icon: "🔧", desc: "Endodoncia anterior, premolar y molar" },
+    { category: "Ortodoncia", savings: "70–80%", icon: "😁", desc: "Brackets tradicionales y alineadores transparentes" },
+    { category: "Cirugía Oral", savings: "55–75%", icon: "⚕️", desc: "Extracciones, cordales, injertos óseos" },
+    { category: "Estética Dental", savings: "45–65%", icon: "💎", desc: "Blanqueamiento, diseño de sonrisa, tratamientos estéticos" },
   ],
 };
 
@@ -61,21 +53,21 @@ const packagesData = {
       icon: "✨",
       includes: ["6–10 porcelain veneers", "Professional teeth whitening", "Digital smile design", "Follow-up adjustments"],
       duration: "5–7 days",
-      startingAt: "$3,500",
+      startingAt: "$3,090",
     },
     {
       name: "Implant Package",
       icon: "🦷",
       includes: ["Dental implant (titanium)", "Porcelain crown", "CBCT 3D scan", "All follow-up visits"],
       duration: "2 visits (3–4 months apart)",
-      startingAt: "$1,500",
+      startingAt: "$1,765",
     },
     {
       name: "Full Rehabilitation",
       icon: "⭐",
       includes: ["All-on-4 or All-on-6 implants", "Full-arch prosthesis", "CBCT + digital planning", "Temporary prosthesis included"],
       duration: "2–3 visits over 4–6 months",
-      startingAt: "$7,500",
+      startingAt: "$10,850",
     },
   ],
   es: [
@@ -84,21 +76,21 @@ const packagesData = {
       icon: "✨",
       includes: ["6–10 carillas de porcelana", "Blanqueamiento profesional", "Diseño digital de sonrisa", "Ajustes de seguimiento"],
       duration: "5–7 días",
-      startingAt: "$3,500",
+      startingAt: "$3,090",
     },
     {
       name: "Paquete de Implantes",
       icon: "🦷",
       includes: ["Implante dental (titanio)", "Corona de porcelana", "Escaneo CBCT 3D", "Todas las visitas de seguimiento"],
       duration: "2 visitas (3–4 meses de diferencia)",
-      startingAt: "$1,500",
+      startingAt: "$1,765",
     },
     {
       name: "Rehabilitación Completa",
       icon: "⭐",
       includes: ["Implantes All-on-4 o All-on-6", "Prótesis de arcada completa", "CBCT + planificación digital", "Prótesis temporal incluida"],
       duration: "2–3 visitas en 4–6 meses",
-      startingAt: "$7,500",
+      startingAt: "$10,850",
     },
   ],
 };
@@ -111,8 +103,8 @@ export default async function PricingPage({
   const { locale: rawLocale } = await params;
   const locale = (i18n.locales.includes(rawLocale as Locale) ? rawLocale : i18n.defaultLocale) as Locale;
   const dict = await getDictionary(locale);
-  const pricing = pricingData[locale];
   const packages = packagesData[locale];
+  const savings = savingsCategories[locale];
   const prefix = `/${locale}`;
   const isEs = locale === "es";
 
@@ -138,96 +130,80 @@ export default async function PricingPage({
             {dict.common.backToHome}
           </Link>
           <h1 className="text-3xl md:text-5xl font-bold mb-4">
-            {isEs ? "Precios y Paquetes" : "Pricing & Packages"}
+            {isEs ? "Ahorre 50–70% en Tratamientos Dentales" : "Save 50–70% on Dental Treatment"}
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto text-lg">
             {isEs
-              ? "Precios transparentes. Sin sorpresas. Ahorre 50–70% comparado con EE.UU. y Canadá."
-              : "Transparent pricing. No surprises. Save 50–70% compared to US and Canada."}
+              ? "Suba su cotización dental de EE.UU. y descubra al instante cuánto puede ahorrar en Dental City, Costa Rica."
+              : "Upload your US dental quote and instantly discover how much you can save at Dental City, Costa Rica."}
           </p>
+          <a
+            href="#estimate"
+            className="inline-block mt-6 bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+          >
+            {isEs ? "Obtener Estimado Gratis" : "Get Free Estimate"}
+          </a>
         </div>
       </section>
 
-      {/* Price Comparison Table */}
+      {/* Savings by Category */}
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-3">
-            {isEs ? "Comparación de Precios" : "Price Comparison"}
+            {isEs ? "Cuánto Puede Ahorrar" : "How Much You Can Save"}
           </h2>
-          <p className="text-text-light text-center mb-8 max-w-2xl mx-auto">
+          <p className="text-text-light text-center mb-10 max-w-2xl mx-auto">
             {isEs
-              ? "Vea cuánto puede ahorrar en los procedimientos dentales más comunes."
-              : "See how much you can save on the most common dental procedures."}
+              ? "Pacientes de EE.UU. y Canadá ahorran significativamente en todos los procedimientos dentales."
+              : "Patients from the US and Canada save significantly across all dental procedures."}
           </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b-2 border-navy/10">
-                  <th className="py-3 pr-4 text-navy font-semibold text-sm">
-                    {isEs ? "Procedimiento" : "Procedure"}
-                  </th>
-                  <th className="py-3 px-4 text-navy font-semibold text-sm text-right">
-                    {isEs ? "Precio EE.UU." : "US Price"}
-                  </th>
-                  <th className="py-3 px-4 text-navy font-semibold text-sm text-right">
-                    {isEs ? "Nuestro Precio" : "Our Price"}
-                  </th>
-                  <th className="py-3 pl-4 text-primary font-semibold text-sm text-right">
-                    {isEs ? "Ahorro" : "You Save"}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="text-sm">
-                {pricing.map((row) => (
-                  <tr key={row.procedure} className="border-b border-navy/5 hover:bg-surface/50 transition-colors">
-                    <td className="py-3 pr-4 font-medium text-navy">{row.procedure}</td>
-                    <td className="py-3 px-4 text-text-light text-right line-through decoration-red-300">{row.us}</td>
-                    <td className="py-3 px-4 text-navy font-semibold text-right">{row.ours}</td>
-                    <td className="py-3 pl-4 text-primary font-bold text-right">{row.save}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {savings.map((item) => (
+              <div key={item.category} className="bg-surface rounded-xl p-6 text-center hover:shadow-md transition-shadow">
+                <div className="text-3xl mb-3">{item.icon}</div>
+                <h3 className="font-semibold text-navy text-lg mb-1">{item.category}</h3>
+                <p className="text-3xl font-bold text-primary mb-2">{item.savings}</p>
+                <p className="text-sm text-text-light">{item.desc}</p>
+              </div>
+            ))}
           </div>
-          <p className="text-xs text-text-light text-center mt-4">
+          <p className="text-xs text-text-light text-center mt-6">
             {isEs
-              ? "* Los precios son estimados y varían según el caso. Contáctenos para una cotización personalizada."
-              : "* Prices are estimates and vary by case. Contact us for a personalized quote."}
+              ? "* Los porcentajes de ahorro son comparados con precios promedio en EE.UU. y pueden variar según el caso."
+              : "* Savings percentages are compared to average US prices and may vary based on individual cases."}
           </p>
         </div>
       </section>
 
-      {/* Dental City Actual Prices (Gated) */}
-      <section className="py-12 md:py-20 bg-surface">
-        <div className="max-w-5xl mx-auto px-4">
+      {/* Estimate Tool */}
+      <section id="estimate" className="py-12 md:py-20 bg-surface">
+        <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-3">
-            {isEs ? "Lista de Precios de Dental City" : "Dental City Price List"}
+            {isEs ? "Obtenga su Estimado con IA" : "Get Your AI-Powered Estimate"}
           </h2>
           <p className="text-text-light text-center mb-8 max-w-2xl mx-auto">
             {isEs
-              ? "Nuestra lista completa de precios con 16 procedimientos. Cree una cuenta gratuita para ver los precios exactos."
-              : "Our full price list with 16 procedures. Create a free account to see exact prices."}
+              ? "Suba una foto o PDF de su cotización dental de EE.UU. y nuestra IA calculará un estimado aproximado de sus ahorros."
+              : "Upload a photo or PDF of your US dental quote and our AI will calculate an approximate estimate of your savings."}
           </p>
-          <div className="bg-white rounded-xl shadow-sm p-4 md:p-8">
-            <GatedPriceTable />
-          </div>
+          <EstimateSection />
         </div>
       </section>
 
       {/* Treatment Packages */}
-      <section className="py-12 md:py-20 bg-surface">
+      <section className="py-12 md:py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-3">
-            {isEs ? "Paquetes de Tratamiento" : "Treatment Packages"}
+            {isEs ? "Paquetes Todo Incluido" : "All-Inclusive Packages"}
           </h2>
           <p className="text-text-light text-center mb-10 max-w-2xl mx-auto">
             {isEs
-              ? "Paquetes populares para pacientes internacionales. Todo incluido, sin costos ocultos."
-              : "Popular packages for international patients. All-inclusive, no hidden costs."}
+              ? "Paquetes populares para pacientes internacionales. Precio fijo, sin costos ocultos."
+              : "Popular packages for international patients. Fixed price, no hidden costs."}
           </p>
           <div className="grid md:grid-cols-3 gap-6">
             {packages.map((pkg) => (
-              <div key={pkg.name} className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+              <div key={pkg.name} className="bg-surface rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col">
                 <div className="text-3xl mb-3">{pkg.icon}</div>
                 <h3 className="text-xl font-bold text-navy mb-3">{pkg.name}</h3>
                 <ul className="space-y-2 mb-6 flex-grow">
@@ -265,7 +241,7 @@ export default async function PricingPage({
       </section>
 
       {/* How It Works */}
-      <section className="py-12 md:py-20 bg-white">
+      <section className="py-12 md:py-20 bg-surface">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-navy text-center mb-10">
             {isEs ? "¿Cómo Funciona?" : "How It Works"}
@@ -274,31 +250,31 @@ export default async function PricingPage({
             {[
               {
                 step: "1",
-                title: isEs ? "Envíe sus radiografías" : "Send Your X-Rays",
+                title: isEs ? "Suba su cotización" : "Upload Your Quote",
                 desc: isEs
-                  ? "Envíenos sus radiografías o fotos por WhatsApp. Es gratis y sin compromiso."
-                  : "Send us your X-rays or photos via WhatsApp. It's free and no-obligation.",
+                  ? "Suba una foto o PDF de su cotización dental de EE.UU. Nuestra IA la analiza al instante."
+                  : "Upload a photo or PDF of your US dental quote. Our AI analyzes it instantly.",
               },
               {
                 step: "2",
-                title: isEs ? "Reciba su plan" : "Get Your Plan",
+                title: isEs ? "Vea sus ahorros" : "See Your Savings",
                 desc: isEs
-                  ? "En 24 horas recibirá un plan de tratamiento detallado con costos claros."
-                  : "Within 24 hours you'll receive a detailed treatment plan with clear costs.",
+                  ? "Reciba un estimado aproximado de cuánto puede ahorrar en Dental City."
+                  : "Get an approximate estimate of how much you can save at Dental City.",
               },
               {
                 step: "3",
-                title: isEs ? "Reserve su viaje" : "Book Your Trip",
+                title: isEs ? "Consulta gratuita" : "Free Consultation",
                 desc: isEs
-                  ? "Reserve sus vuelos y alojamiento. Le ayudamos con recomendaciones locales."
-                  : "Book your flights and accommodation. We'll help with local recommendations.",
+                  ? "Nuestro equipo revisa su caso y le envía un plan de tratamiento detallado."
+                  : "Our team reviews your case and sends you a detailed treatment plan.",
               },
               {
                 step: "4",
                 title: isEs ? "Transforme su sonrisa" : "Transform Your Smile",
                 desc: isEs
-                  ? "Reciba tratamiento de clase mundial y disfrute Costa Rica."
-                  : "Get world-class treatment and enjoy Costa Rica.",
+                  ? "Viaje a Costa Rica y reciba tratamiento de clase mundial."
+                  : "Travel to Costa Rica and receive world-class treatment.",
               },
             ].map((item) => (
               <div key={item.step} className="text-center">
@@ -317,27 +293,27 @@ export default async function PricingPage({
       <section className="bg-primary py-16 text-white text-center">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4">
-            {isEs ? "¿Listo para Ahorrar en Su Tratamiento Dental?" : "Ready to Save on Your Dental Treatment?"}
+            {isEs ? "¿Listo para Ahorrar?" : "Ready to Save?"}
           </h2>
           <p className="text-white/80 mb-8">
             {isEs
-              ? "Envíenos sus radiografías por WhatsApp y recibirá una cotización personalizada en menos de 24 horas."
-              : "Send us your X-rays via WhatsApp and receive a personalized quote within 24 hours."}
+              ? "Suba su cotización arriba para un estimado instantáneo, o envíenos sus radiografías por WhatsApp para una cotización personalizada."
+              : "Upload your quote above for an instant estimate, or send us your X-rays via WhatsApp for a personalized quote."}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#estimate"
+              className="bg-white text-primary font-semibold px-8 py-3 rounded-lg hover:bg-white/90 transition-colors"
+            >
+              {isEs ? "Subir Cotización" : "Upload Your Quote"}
+            </a>
             <a
               href="https://wa.me/50683398833?text=Hi%2C%20I%27d%20like%20a%20free%20quote%20for%20dental%20treatment."
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white text-primary font-semibold px-8 py-3 rounded-lg hover:bg-white/90 transition-colors"
-            >
-              {isEs ? "Cotización por WhatsApp" : "Get a Quote via WhatsApp"}
-            </a>
-            <a
-              href="tel:+50624740415"
               className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white/10 transition-colors"
             >
-              {dict.hero.callUs}
+              {isEs ? "Cotización por WhatsApp" : "Quote via WhatsApp"}
             </a>
           </div>
         </div>

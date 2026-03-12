@@ -94,9 +94,13 @@
   },
   "gallery": {
     "pageTitle": "Galería",
-    "pageSubtitle": "Resultados reales, pacientes reales. Deslice el control para comparar las transformaciones.",
+    "pageSubtitle": "Resultados reales, pacientes reales. Vea videos de tratamientos, compare transformaciones antes y después, y explore nuestros mejores casos estéticos.",
+    "treatmentVideos": "Videos de Tratamientos",
+    "treatmentVideosDesc": "Vea procedimientos y resultados reales en acción — los videos hablan más que las fotos.",
     "beforeAfter": "Antes y Después",
     "beforeAfterDesc": "Deslice el control para comparar los resultados. Pacientes reales, transformaciones reales.",
+    "cosmeticShowcase": "Galería de Odontología Estética",
+    "cosmeticShowcaseDesc": "Explore nuestros mejores casos de odontología estética — diseños de sonrisa, carillas y restauraciones completas.",
     "ctaTitle": "¿Listo para Su Transformación?",
     "ctaText": "Los resultados hablan por sí solos. Agende una consulta y permítanos crear un plan personalizado para su sonrisa."
   },

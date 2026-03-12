@@ -94,9 +94,13 @@
   },
   "gallery": {
     "pageTitle": "Gallery",
-    "pageSubtitle": "Real results, real patients. Drag the slider to compare before and after transformations.",
+    "pageSubtitle": "Real results, real patients. Watch treatment videos, compare before-and-after transformations, and browse our best cosmetic cases.",
+    "treatmentVideos": "Treatment Videos",
+    "treatmentVideosDesc": "See real procedures and results in action — videos speak louder than photos.",
     "beforeAfter": "Before & After",
     "beforeAfterDesc": "Drag the slider to compare results. Real patients, real transformations.",
+    "cosmeticShowcase": "Cosmetic Dentistry Showcase",
+    "cosmeticShowcaseDesc": "Browse our best cosmetic dentistry cases — smile makeovers, veneers, and full restorations.",
     "ctaTitle": "Ready for Your Transformation?",
     "ctaText": "These results speak for themselves. Schedule a consultation and let us create a personalized plan for your smile."
   },

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import FacebookPageEmbed from "@/components/FacebookPageEmbed";
 import { i18n, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -208,21 +207,79 @@ export default async function TestimonialsPage({
           <p className="text-text-light text-center mb-8 max-w-2xl mx-auto">
             {dict.testimonialsPage.followFacebookDesc}
           </p>
-          <div className="flex flex-col items-center gap-6">
-            <div className="w-full max-w-lg mx-auto">
-              <FacebookPageEmbed locale={locale} />
+
+          {/* Side-by-side: team photo + Facebook info */}
+          <div className="bg-white rounded-2xl shadow-sm overflow-hidden max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2">
+              {/* Team photo */}
+              <div className="relative aspect-[3/4] md:aspect-auto">
+                <Image
+                  src="/images/team-hero.jpg"
+                  alt="Dental City team"
+                  fill
+                  className="object-cover object-[center_25%]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+
+              {/* Info panel */}
+              <div className="flex flex-col justify-center p-8 md:p-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <Image
+                    src="/images/logos/logo-blue-icon-only.png"
+                    alt="Dental City logo"
+                    width={48}
+                    height={48}
+                    className="rounded-full border border-navy/10 bg-white"
+                  />
+                  <div>
+                    <h3 className="font-bold text-navy text-lg">Dental City Aguas Zarcas</h3>
+                    <p className="text-text-light text-sm">
+                      {locale === "es" ? "Clínica Dental" : "Dental Clinic"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-navy">4K+</p>
+                    <p className="text-xs text-text-light">{locale === "es" ? "Seguidores" : "Followers"}</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-navy">5.0</p>
+                    <div className="flex justify-center gap-0.5 mt-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <svg key={i} className="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-navy">59+</p>
+                    <p className="text-xs text-text-light">{locale === "es" ? "Reseñas" : "Reviews"}</p>
+                  </div>
+                </div>
+
+                <p className="text-text-light text-sm leading-relaxed mb-8">
+                  {locale === "es"
+                    ? "Síganos en Facebook para ver actualizaciones de la clínica, historias de pacientes, consejos dentales y ofertas especiales."
+                    : "Follow us on Facebook for clinic updates, patient stories, dental tips, and special offers."}
+                </p>
+
+                <a
+                  href="https://www.facebook.com/dentalcityaz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 bg-[#1877F2] hover:bg-[#166FE5] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  {dict.testimonialsPage.likeFacebook}
+                </a>
+              </div>
             </div>
-            <a
-              href="https://www.facebook.com/dentalcityaz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#1877F2] hover:bg-[#166FE5] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-              {dict.testimonialsPage.likeFacebook}
-            </a>
           </div>
         </div>
       </section>

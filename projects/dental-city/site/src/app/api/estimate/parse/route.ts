@@ -69,17 +69,52 @@ export async function POST(request: NextRequest) {
   const buffer = Buffer.from(await file.arrayBuffer());
   const base64 = buffer.toString("base64");
 
-  // Parse with Claude
-  const result = await parseEstimateDocument(base64, file.type);
+  // Parse with Claude (with timeout)
+  try {
+    const timeoutMs = 30_000;
+    const result = await Promise.race([
+      parseEstimateDocument(base64, file.type),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("AI analysis timed out")), timeoutMs)
+      ),
+    ]);
 
-  // Map extracted items to known procedures
-  const mappedItems = result.items.map((item) => ({
-    ...item,
-    matchedSlug: matchProcedure(item.procedureName),
-  }));
+    // Map extracted items to known procedures
+    const mappedItems = result.items.map((item) => ({
+      ...item,
+      matchedSlug: matchProcedure(item.procedureName),
+    }));
 
-  return NextResponse.json({
-    items: mappedItems,
-    warnings: result.warnings,
-  });
+    if (mappedItems.length === 0) {
+      return NextResponse.json(
+        {
+          items: [],
+          warnings: [
+            "We couldn't identify any dental procedures in this document. Please try a clearer image or PDF of your dental estimate.",
+          ],
+        },
+        { status: 200 }
+      );
+    }
+
+    return NextResponse.json({
+      items: mappedItems,
+      warnings: result.warnings,
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+
+    if (message.includes("timed out")) {
+      return NextResponse.json(
+        { error: "Analysis took too long. Please try a smaller or clearer file." },
+        { status: 504 }
+      );
+    }
+
+    console.error("Estimate parse error:", message);
+    return NextResponse.json(
+      { error: "Failed to analyze your document. Please try again." },
+      { status: 500 }
+    );
+  }
 }

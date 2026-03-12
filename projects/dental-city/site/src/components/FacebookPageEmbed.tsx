@@ -69,7 +69,7 @@ export default function FacebookPageEmbed({ locale }: FacebookPageEmbedProps) {
           data-href="https://www.facebook.com/dentalcityaz"
           data-tabs="timeline"
           data-width={String(containerWidth)}
-          data-height="600"
+          data-height="800"
           data-small-header="false"
           data-adapt-container-width="true"
           data-hide-cover="false"

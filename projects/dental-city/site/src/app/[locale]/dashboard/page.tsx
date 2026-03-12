@@ -52,12 +52,12 @@ export default function DashboardPage() {
             </svg>
           </div>
           <h2 className="font-semibold text-navy text-lg mb-1">
-            {isEs ? "Lista de Precios" : "Price List"}
+            {isEs ? "Precios y Ahorros" : "Pricing & Savings"}
           </h2>
           <p className="text-text-light text-sm">
             {isEs
-              ? "Vea nuestra lista completa de precios para todos los procedimientos."
-              : "View our full price list for all procedures."}
+              ? "Vea cuánto puede ahorrar y suba su cotización de EE.UU."
+              : "See how much you can save and upload your US quote."}
           </p>
         </Link>
       </div>

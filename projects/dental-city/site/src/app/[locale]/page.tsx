@@ -369,13 +369,13 @@ export default async function Home({
           <p className="text-xs text-text-light text-center mb-4">{dict.savings.disclaimer}</p>
           <div className="text-center mb-8">
             <Link
-              href={`${prefix}/auth/register`}
+              href={`${prefix}/pricing#estimate`}
               className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
-              {locale === "es" ? "Cree una Cuenta Gratis para Ver Nuestros Precios Exactos" : "Create a Free Account to See Our Exact Prices"}
+              {locale === "es" ? "Suba su Cotización y Vea Cuánto Puede Ahorrar" : "Upload Your Quote & See How Much You Can Save"}
             </Link>
           </div>
           <div className="max-w-2xl mx-auto grid sm:grid-cols-3 gap-4">

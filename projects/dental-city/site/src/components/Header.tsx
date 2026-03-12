@@ -27,7 +27,7 @@ function LanguageSwitcher({ locale }: { locale: Locale }) {
       <Link
         href={switchLocale("es")}
         onClick={() => setLocaleCookie("es")}
-        className={`px-2 py-1 rounded transition-colors ${
+        className={`px-3 py-2 rounded transition-colors ${
           locale === "es"
             ? "bg-primary text-white font-semibold"
             : "text-white/60 hover:text-white"
@@ -39,7 +39,7 @@ function LanguageSwitcher({ locale }: { locale: Locale }) {
       <Link
         href={switchLocale("en")}
         onClick={() => setLocaleCookie("en")}
-        className={`px-2 py-1 rounded transition-colors ${
+        className={`px-3 py-2 rounded transition-colors ${
           locale === "en"
             ? "bg-primary text-white font-semibold"
             : "text-white/60 hover:text-white"
@@ -130,7 +130,7 @@ export default function Header({
             <span className="font-bold text-lg tracking-wide">
               DENTAL CITY
             </span>
-            <span className="block text-[10px] text-primary-light tracking-[0.2em] uppercase">
+            <span className="block text-[11px] text-primary-light tracking-[0.2em] uppercase">
               Costa Rica
             </span>
           </div>

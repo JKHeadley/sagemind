@@ -18,9 +18,10 @@ interface ParseResult {
 
 interface Props {
   onItemsParsed: (items: ParsedItem[]) => void;
+  onAuthRequired?: () => void;
 }
 
-export default function EstimateUpload({ onItemsParsed }: Props) {
+export default function EstimateUpload({ onItemsParsed, onAuthRequired }: Props) {
   const params = useParams();
   const locale = (params.locale as string) || "en";
   const isEs = locale === "es";
@@ -55,6 +56,11 @@ export default function EstimateUpload({ onItemsParsed }: Props) {
       const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
+        if (onAuthRequired) {
+          onAuthRequired();
+          setStatus("idle");
+          return;
+        }
         setStatus("error");
         setErrorMsg(isEs ? "Sesión expirada. Inicie sesión de nuevo." : "Session expired. Please log in again.");
         return;
@@ -81,19 +87,45 @@ export default function EstimateUpload({ onItemsParsed }: Props) {
 
       const data: ParseResult = await response.json();
       setResult(data);
-      setStatus("done");
 
-      // Auto-populate the calculator with matched items
-      if (data.items.length > 0) {
-        onItemsParsed(data.items);
+      if (data.items.length === 0) {
+        setStatus("error");
+        setErrorMsg(
+          isEs
+            ? "No pudimos identificar procedimientos dentales en este documento. Intente con una imagen más clara o un PDF de su cotización."
+            : "We couldn't identify dental procedures in this document. Try a clearer image or PDF of your dental estimate."
+        );
+        return;
       }
+
+      setStatus("done");
+      onItemsParsed(data.items);
     } catch (err) {
       setStatus("error");
-      setErrorMsg(err instanceof Error ? err.message : "Something went wrong");
+      const msg = err instanceof Error ? err.message : "";
+      if (msg.includes("timed out") || msg.includes("took too long")) {
+        setErrorMsg(
+          isEs
+            ? "El análisis tardó demasiado. Intente con un archivo más pequeño o más claro."
+            : "Analysis took too long. Please try a smaller or clearer file."
+        );
+      } else if (msg.includes("Rate limit")) {
+        setErrorMsg(
+          isEs
+            ? "Ha alcanzado el límite diario de 5 estimados. Intente de nuevo mañana."
+            : "You've reached the daily limit of 5 estimates. Please try again tomorrow."
+        );
+      } else {
+        setErrorMsg(
+          isEs
+            ? "No se pudo analizar el documento. Por favor, inténtelo de nuevo."
+            : "Failed to analyze your document. Please try again."
+        );
+      }
     } finally {
       setUploading(false);
     }
-  }, [isEs, onItemsParsed]);
+  }, [isEs, onItemsParsed, onAuthRequired]);
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -106,12 +138,6 @@ export default function EstimateUpload({ onItemsParsed }: Props) {
     const file = e.target.files?.[0];
     if (file) processFile(file);
   }, [processFile]);
-
-  const confidenceColor = (c: string) => {
-    if (c === "high") return "text-green-600 bg-green-50";
-    if (c === "medium") return "text-yellow-600 bg-yellow-50";
-    return "text-red-600 bg-red-50";
-  };
 
   return (
     <div className="space-y-4">
@@ -163,54 +189,14 @@ export default function EstimateUpload({ onItemsParsed }: Props) {
 
       {/* Error */}
       {status === "error" && (
-        <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg">
-          {errorMsg}
-        </div>
-      )}
-
-      {/* Results */}
-      {result && result.items.length > 0 && (
-        <div className="bg-white rounded-xl shadow-sm p-4 md:p-5">
-          <h4 className="font-semibold text-navy mb-3 flex items-center gap-2">
-            <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            {isEs
-              ? `${result.items.length} procedimientos encontrados`
-              : `${result.items.length} procedures found`}
-          </h4>
-          <div className="space-y-2">
-            {result.items.map((item, i) => (
-              <div key={i} className="flex items-center justify-between text-sm py-2 border-b border-navy/5 last:border-0">
-                <div className="flex items-center gap-2">
-                  <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${confidenceColor(item.confidence)}`}>
-                    {item.confidence}
-                  </span>
-                  <span className="text-navy">{item.procedureName}</span>
-                  {item.matchedSlug && (
-                    <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  )}
-                </div>
-                <span className="font-medium text-navy">
-                  {item.amount ? `$${item.amount.toLocaleString()}` : "—"}
-                </span>
-              </div>
-            ))}
-          </div>
-          {result.warnings.length > 0 && (
-            <div className="mt-3 text-xs text-text-light">
-              {result.warnings.map((w, i) => (
-                <p key={i}>* {w}</p>
-              ))}
-            </div>
-          )}
-          <p className="text-xs text-primary mt-3 font-medium">
-            {isEs
-              ? "Los procedimientos encontrados se agregaron al calculador abajo."
-              : "Found procedures have been added to the calculator below."}
-          </p>
+        <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg flex items-start justify-between gap-3">
+          <span>{errorMsg}</span>
+          <button
+            onClick={() => { setStatus("idle"); setErrorMsg(""); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+            className="text-red-600 hover:text-red-800 font-medium whitespace-nowrap text-sm underline"
+          >
+            {isEs ? "Reintentar" : "Try again"}
+          </button>
         </div>
       )}
     </div>
