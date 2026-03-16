@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: var(--site-primary, #2563EB);
+  --color-primary-dark: var(--site-primary-dark, #1D4ED8);
+  --color-primary-light: var(--site-primary-light, #93C5FD);
+  --color-secondary: var(--site-secondary, #F59E0B);
+  --color-bg: var(--site-background, #FFFFFF);
+  --color-surface: var(--site-surface, #F8FAFC);
+  --color-surface-alt: var(--site-surface-alt, #F1F5F9);
+  --color-header-bg: var(--site-header-bg, #0F172A);
+  --color-footer-bg: var(--site-footer-bg, #0F172A);
+  --color-text: var(--site-text, #1E293B);
+  --color-text-light: var(--site-text-light, #64748B);
+  --color-text-on-primary: var(--site-text-on-primary, #FFFFFF);
+  --font-heading: var(--site-font-heading, "Inter");
+  --font-body: var(--site-font-body, "DM Sans");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), system-ui, sans-serif;
+}
+
+section {
+  scroll-margin-top: 80px;
+}
+
+/* Scroll animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-on-scroll.delay-100 { transition-delay: 0.1s; }
+.animate-on-scroll.delay-200 { transition-delay: 0.2s; }
+.animate-on-scroll.delay-300 { transition-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Mobile menu animation */
+.mobile-menu-enter {
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, var(--site-primary), var(--site-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effect on primary buttons */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(var(--site-primary), 0.3);
+}
+
+/* Pulse animation for CTA */
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+.pulse-soft:hover { animation: pulse-soft 1.5s ease-in-out infinite; }
+
+/* Float animation for hero elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+/* Slide in from left/right */
+.animate-on-scroll.from-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+.animate-on-scroll.from-right {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.animate-on-scroll.from-left.is-visible,
+.animate-on-scroll.from-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale up reveal */
+.animate-on-scroll.scale-up {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.animate-on-scroll.scale-up.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger children animation */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.stagger-children.is-visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+.stagger-children.is-visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.stagger-children.is-visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+.stagger-children.is-visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+.stagger-children.is-visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+.stagger-children.is-visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+
+/* Smooth card hover lift */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* Hero parallax-like subtle scroll effect */
+.hero-parallax {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Shimmer effect for loading/accent */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer-accent {
+  background: linear-gradient(90deg, transparent 0%, var(--site-primary-light) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Chat widget animations */
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3) translateY(20px); }
+  50% { transform: scale(1.05) translateY(-4px); }
+  70% { transform: scale(0.95) translateY(2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.chat-enter { animation: bounceIn 0.4s ease-out; }
+
+@keyframes typingDot {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+.typing-dot { animation: typingDot 1.4s ease-in-out infinite; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }

@@ -45,13 +45,41 @@ if [ -n "$INSTAR_TELEGRAM_TOPIC" ]; then
         echo "$TOPIC_CTX" | python3 -c "
 import sys, json
 d = json.load(sys.stdin)
-for m in d.get('recentMessages', []):
+msgs = d.get('recentMessages', [])
+for m in msgs:
     sender = 'User' if m.get('fromUser') else 'Agent'
     ts = m.get('timestamp', '')[:16].replace('T', ' ')
     text = m.get('text', '')
     if len(text) > 500:
         text = text[:500] + '...'
     print(f'[{ts}] {sender}: {text}')
+
+# Detect unanswered user messages
+pending_user = []
+for m in msgs:
+    text = m.get('text', '').strip()
+    if not text:
+        continue
+    if m.get('fromUser'):
+        pending_user.append(m)
+    else:
+        pending_user = []
+
+if pending_user:
+    print()
+    print('!' * 60)
+    print('UNANSWERED MESSAGE(S) FROM USER:')
+    for pm in pending_user:
+        pm_text = pm.get('text', '')[:200]
+        pm_ts = pm.get('timestamp', '')[:16].replace('T', ' ')
+        print(f'  [{pm_ts}] \"{pm_text}\"')
+    print()
+    print('You MUST address these messages substantively. Do NOT respond')
+    print('with just a greeting or generic reply. If the latest message')
+    print('is a follow-up like \"hello?\" or \"please respond\", address')
+    print('the EARLIER unanswered message — that is what the user is')
+    print('waiting for.')
+    print('!' * 60)
 " 2>/dev/null
         echo ""
         echo "Search past conversations: curl http://localhost:${PORT}/topic/search?topic=${TOPIC_ID}&q=QUERY"

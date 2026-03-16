@@ -128,6 +128,10 @@ if [ -f "$INSTAR_DIR/config.json" ]; then
   if [ "$HEALTH" = "200" ]; then
     echo ""
     echo "Instar server: RUNNING on port ${PORT}"
+    # Reset scope coherence state — prevents accumulated counts from prior sessions
+    # leaking into this session and causing false-positive hook triggers.
+    # Endpoint: POST /scope-coherence/reset (routes.ts)
+    curl -s -X POST "http://localhost:${PORT}/scope-coherence/reset" -o /dev/null 2>/dev/null || true
     # Load full capabilities for tunnel + feature guide
     CAPS=$(curl -s "http://localhost:${PORT}/capabilities" 2>/dev/null)
     TUNNEL_URL=$(echo "$CAPS" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('tunnel',{}).get('url',''))" 2>/dev/null)

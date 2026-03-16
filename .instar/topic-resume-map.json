@@ -1,1 +1,17 @@
-{}
+{
+  "30": {
+    "uuid": "f8bb21f2-fa00-4b8f-af06-df4720ae5229",
+    "savedAt": "2026-03-15T11:39:51.227Z",
+    "sessionName": "sagemind-lifeline"
+  },
+  "358": {
+    "uuid": "e1c798e5-ba2f-4eed-88ae-1d15e0a388be",
+    "savedAt": "2026-03-15T09:33:50.131Z",
+    "sessionName": "sagemind-agent-updates"
+  },
+  "1050": {
+    "uuid": "b06e59a7-370b-4218-b64d-c1b52c69f346",
+    "savedAt": "2026-03-15T06:57:35.313Z",
+    "sessionName": "sagemind-dashboard"
+  }
+}

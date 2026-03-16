@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .instar/hooks/session-start.sh",
+            "command": "bash .instar/hooks/instar/session-start.sh",
             "timeout": 5
           }
         ]
@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .instar/hooks/session-start.sh",
+            "command": "bash .instar/hooks/instar/session-start.sh",
             "timeout": 5
           }
         ]
@@ -41,7 +41,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .instar/hooks/session-start.sh",
+            "command": "bash .instar/hooks/instar/session-start.sh",
             "timeout": 5
           }
         ]
@@ -53,8 +53,20 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node .instar/hooks/external-operation-gate.js",
+            "command": "node .instar/hooks/instar/external-operation-gate.js",
             "blocking": true,
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .instar/hooks/instar/telegram-topic-context.sh",
             "timeout": 5000
           }
         ]

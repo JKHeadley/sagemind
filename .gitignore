@@ -30,3 +30,33 @@ Thumbs.db
 
 # Logs
 logs/
+# Paste files (may contain sensitive content)
+.instar/paste/
+
+# Instar runtime databases and ephemeral state
+.instar/semantic.db
+.instar/semantic.db-shm
+.instar/semantic.db-wal
+.instar/topic-memory.db
+.instar/topic-memory.db-shm
+.instar/topic-memory.db-wal
+.instar/sessions/
+.instar/episodes/
+.instar/ledger/
+.instar/shadow-install/
+.instar/threadline/
+.instar/worktree-monitor/
+.instar/config.json.backup
+.instar/doctor-dead-letter.jsonl
+.instar/lifeline-queue.json
+.instar/lifeline.lock
+.instar/self-knowledge-tree.json
+.instar/instar-boot.sh
+
+# MCP config (machine-specific)
+.mcp.json
+
+# Raw client assets (not for version control)
+projects/dental-city/Pictures*/
+node_modules/
+.next/

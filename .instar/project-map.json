@@ -3,17 +3,17 @@
   "projectDir": "/Users/amrch/Documents/Projects/sagemind",
   "gitRemote": "https://github.com/JKHeadley/sagemind.git",
   "gitBranch": "main",
-  "totalFiles": 150,
+  "totalFiles": 168,
   "directories": [
     {
       "name": "projects",
       "description": "Project directory",
-      "fileCount": 202
+      "fileCount": 256
     },
     {
       "name": "project_sandbox",
       "description": "Project directory",
-      "fileCount": 20
+      "fileCount": 21
     },
     {
       "name": "docs",
@@ -47,5 +47,5 @@
   ],
   "projectType": "unknown",
   "deploymentTargets": [],
-  "generatedAt": "2026-03-04T20:10:26.067Z"
+  "generatedAt": "2026-03-15T07:03:47.001Z"
 }

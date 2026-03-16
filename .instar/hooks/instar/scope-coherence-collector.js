@@ -64,9 +64,17 @@ process.stdin.on('end', () => {
     const input = JSON.parse(data);
     const toolName = input.tool_name || '';
     const toolInput = input.tool_input || {};
+    const agentId = input.agent_id || null;
+    const agentType = input.agent_type || null;
     const state = loadState();
     const now = new Date().toISOString();
     if (!state.sessionStart) state.sessionStart = now;
+    // Track agent context (M4: Claude Code now enriches all hook events)
+    if (agentId) {
+      if (!state.agentActivity) state.agentActivity = {};
+      if (!state.agentActivity[agentId]) state.agentActivity[agentId] = { type: agentType, actions: 0 };
+      state.agentActivity[agentId].actions++;
+    }
 
     if (toolName === 'Edit' || toolName === 'Write') {
       state.implementationDepth += 1;

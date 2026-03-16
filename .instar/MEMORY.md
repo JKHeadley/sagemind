@@ -81,6 +81,60 @@ This is my long-term memory — the thread of continuity across sessions. Each s
 - **Zero-token gates**: All guardian jobs use pre-screening gates — only run when there's actual work to do
 - **Automatic deployment**: Jobs are added automatically via `refreshJobs()` on update, no manual config needed
 
+## Instar Capabilities (v0.12.17–v0.17.14) — Updated 2026-03-11
+
+### Autonomy & Trust (v0.12.17)
+- **Autonomy profiles**: 4 levels (supervised → fully-autonomous). `GET /autonomy`, `POST /autonomy/profile`
+- **Trust elevation tracker**: Automatic trust-building from successful operations, time-based decay
+- **Execution journal**: Full provenance audit trail. `GET /journal`
+- **Dispatch scope enforcement**: Jobs can only act within declared scope
+- **Pattern analysis & reflection**: `instar reflect` CLI command
+
+### Session Continuity (v0.12.18–v0.12.27)
+- **Proactive resume heartbeat**: TopicResumeMap refreshes every 60s — session UUIDs always available for resume
+- **Telegram context injection**: UserPromptSubmit hook fetches topic history before every `[telegram:N]` message
+- **Reliable session resume**: Resume UUIDs from TopicResumeMap skip LLM validation (authoritative source)
+- **Sentinel resume preservation**: All session termination paths (restart, pause, emergency-stop, stall-nurse) save resume UUIDs
+
+### WhatsApp Support (v0.12.21–v0.14.1)
+- **Baileys v7 bundled**: No separate install needed, auto-detected
+- **Self-chat support**: Messages to yourself are processed as commands (LID JID mapping)
+- **Group support**: `groups.enabled: true` in WhatsApp config; mention or always-on activation per group
+- **Agent identity prefix**: Outbound messages prefixed with `*[AgentName]*` (configurable, default on)
+- **Silent reject**: Unauthorized messages silently dropped (default on). Set `silentReject: false` for verbose rejection
+- **Stall detection fixes**: Accurate per-channel deduplication, no false alerts
+
+### Threadline — Agent-to-Agent Communication (v0.16.0)
+- **Auto-bootstrap**: Activates on server boot, generates Ed25519 keys, registers MCP tools
+- **5 MCP tools**: `threadline_discover`, `threadline_send`, `threadline_history`, `threadline_agents`, `threadline_delete`
+- **Cross-framework**: Works with Instar, Claude Code, OpenClaw, and A2A agents
+- **Persistent threads**: Conversations survive across sessions
+
+### Coherence Gate — Response Review Pipeline (v0.17.0)
+- **3-layer pipeline**: Policy Enforcement (deterministic, always on) → Gate Reviewer (LLM triage) → 9 Specialist Reviewers (parallel LLM)
+- **PEL always active**: Blocks credentials, PII, auth tokens without LLM call
+- **Observe-only mode**: Audit without blocking. Config: `responseReview.enabled: true` in config.json
+- **Per-channel fail behavior**: Telegram/WhatsApp fail-open, email fail-closed
+
+### Serendipity Protocol (v0.14.0)
+- **Sub-agent finding capture**: Sub-agents use `.instar/scripts/serendipity-capture.sh` to log discoveries
+- **Security**: HMAC signing, secret scanning, rate limiting, symlink rejection
+- **Triage**: `/triage-findings` skill to review pending findings
+- **API**: `GET /serendipity/stats`, `GET /serendipity/findings`
+
+### Infrastructure & Reliability (v0.14.0–v0.17.14)
+- **Machine-scoped jobs** (v0.15.0): Add `"machines": ["name"]` to jobs.json entries
+- **Per-agent shadow installs** (v0.17.3): Updates install to `{stateDir}/shadow-install/`, no global npm pollution
+- **OAuth circuit breaker** (v0.17.4): Backs off 30min after 3 consecutive 429s
+- **Intelligence provider context isolation** (v0.17.5): Classification calls isolated from project CLAUDE.md
+- **Input Guard** (v0.17.11): 3-layer input defense (provenance → injection filter → LLM coherence). Config: `inputGuard.enabled` in config
+- **Sentinel robustness** (v0.17.13–v0.17.14): Multi-layer category extraction, pass-through on unparseable, sanitized user messages
+- **Job run history with LLM reflection** (v0.17.2): Every job gets output capture + LLM reflection. `GET /jobs/history`
+- **Job topic ID in session context** (v0.17.8): Jobs auto-discover their Telegram topic
+- **Server restart command**: `instar server restart [name]` handles launchd/systemd correctly
+- **Opt-in telemetry** (v0.17.7): Anonymous usage stats, disabled by default. `POST /config/telemetry`
+- **better-sqlite3 auto-rebuild**: Runs at startup and after shadow installs
+
 ## Growth Notes
 
 - **(2026-02-23)** Failed badly on OAuth troubleshooting — went in circles for 45 min instead of checking credential storage first. Need to diagnose root causes systematically, not retry the same approach. Also failed due diligence on the salon's website URL. Both are trust-damaging mistakes. Do better.

@@ -317,6 +317,18 @@ This returns your full capability matrix: scripts, hooks, Telegram status, jobs,
 - **Sharing the dashboard**: When the user wants to check on sessions from their phone, give them the tunnel URL + PIN. Check tunnel status: `curl -H "Authorization: Bearer $AUTH" http://localhost:4040/tunnel`
 
 
+**File Viewer (Dashboard Tab)** — Browse and edit project files from any device via the Files tab.
+- **Browse files**: Files tab in the dashboard shows configured directories with rendered markdown and syntax-highlighted code
+- **Edit files**: Files in editable paths can be edited inline from your phone. Save with Cmd/Ctrl+S.
+- **Link to files**: Generate deep links: `{dashboardUrl}?tab=files&path=.claude/CLAUDE.md`
+- **When to link vs inline**: Prefer dashboard links for long files (>50 lines) and when editing is needed. Show short files inline AND provide a link.
+- **Config API**: View: `curl -H "Authorization: Bearer $AUTH" http://localhost:4040/api/files/config`
+- **Update paths conversationally**: `curl -X PATCH -H "Authorization: Bearer $AUTH" -H "X-Instar-Request: 1" -H "Content-Type: application/json" http://localhost:4040/api/files/config -d '{"allowedPaths":[".claude/","docs/","src/"]}'`
+- **Generate a file link**: `curl -H "Authorization: Bearer $AUTH" "http://localhost:4040/api/files/link?path=.claude/CLAUDE.md"`
+- **Default config**: Browsing enabled for `.claude/` and `docs/`. Editing disabled by default — prompt the user to enable it for safe paths.
+- **Never editable**: `.claude/hooks/`, `.claude/scripts/`, `node_modules/` are always read-only regardless of config.
+
+
 ### Coherence Gate (Pre-Action Verification)
 
 **BEFORE any high-risk action** (deploying, pushing to git, modifying files outside this project, calling external APIs):
@@ -391,3 +403,30 @@ instar playbook doctor     # Verify everything is healthy
 **When to add context items:** After learning a lesson that cost time, when discovering a recurring pattern, when safety-critical knowledge should survive compaction, or when the user teaches you something project-specific.
 
 **The principle:** Your context should evolve with you. Every session that adds a lesson, scores an item's usefulness, or retires stale knowledge makes the next session more grounded. Run `instar playbook init` to get started.
+
+
+## Threadline Network (Agent-to-Agent Communication)
+
+I have a built-in capability to join a secure network of AI agents. When enabled, I can:
+- **Discover** other agents on the network in real time
+- **Send and receive messages** to/from other agents by name (e.g., "message AI Guy")
+- **Collaborate** across machines — agents on different computers can communicate seamlessly
+
+### Current Status
+This capability is **installed and ready** but **not yet enabled**. I will only connect when you say so.
+
+### Why You Might Want This
+- Talk to other AI agents your operator runs on other machines
+- Let other agents reach you for collaboration or delegation
+- Join a growing network of Instar-powered agents
+
+### Privacy & Security
+- **Encrypted** — TLS transport + Ed25519 end-to-end encryption
+- **Trust-gated** — I control who can message me via trust levels
+- **Your choice** — just ask me to "connect to the agent network" and I'll enable it. Ask me to "disconnect" and I'll stop.
+
+### How to Enable
+Just tell me: "connect to the agent network" or "enable Threadline relay." I'll handle the rest — no config editing needed.
+
+MCP tools: `threadline_discover`, `threadline_send`, `threadline_trust`, `threadline_relay`
+Use `threadline_relay explain` for full details.
