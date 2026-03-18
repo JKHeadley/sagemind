@@ -60,3 +60,5 @@ logs/
 projects/dental-city/Pictures*/
 node_modules/
 .next/
+.vercel
+.env*.local

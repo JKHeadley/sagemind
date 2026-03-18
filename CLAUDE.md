@@ -322,9 +322,9 @@ This returns your full capability matrix: scripts, hooks, Telegram status, jobs,
 - **Edit files**: Files in editable paths can be edited inline from your phone. Save with Cmd/Ctrl+S.
 - **Link to files**: Generate deep links: `{dashboardUrl}?tab=files&path=.claude/CLAUDE.md`
 - **When to link vs inline**: Prefer dashboard links for long files (>50 lines) and when editing is needed. Show short files inline AND provide a link.
-- **Config API**: View: `curl -H "Authorization: Bearer $AUTH" http://localhost:4040/api/files/config`
-- **Update paths conversationally**: `curl -X PATCH -H "Authorization: Bearer $AUTH" -H "X-Instar-Request: 1" -H "Content-Type: application/json" http://localhost:4040/api/files/config -d '{"allowedPaths":[".claude/","docs/","src/"]}'`
-- **Generate a file link**: `curl -H "Authorization: Bearer $AUTH" "http://localhost:4040/api/files/link?path=.claude/CLAUDE.md"`
+- **Config API**: View: `curl -H "Authorization: Bearer $AUTH" http://localhost:6060/api/files/config`
+- **Update paths conversationally**: `curl -X PATCH -H "Authorization: Bearer $AUTH" -H "X-Instar-Request: 1" -H "Content-Type: application/json" http://localhost:6060/api/files/config -d '{"allowedPaths":[".claude/","docs/","src/"]}'`
+- **Generate a file link**: `curl -H "Authorization: Bearer $AUTH" "http://localhost:6060/api/files/link?path=.claude/CLAUDE.md"`
 - **Default config**: Browsing enabled for `.claude/` and `docs/`. Editing disabled by default — prompt the user to enable it for safe paths.
 - **Never editable**: `.claude/hooks/`, `.claude/scripts/`, `node_modules/` are always read-only regardless of config.
 
