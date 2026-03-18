@@ -48,7 +48,7 @@ const dentists = [
     image: "/images/team-francisco.jpg",
   },
   {
-    name: "Dra. Zaidy Mariela Hernandez Bonilla",
+    name: "Dra. Mariela Hernandez Bonilla",
     role: "Founder & Periodontist -- Dental Implants & Oral Rehabilitation",
     image: "/images/team-dra-hernandez.jpg",
   },
@@ -157,9 +157,9 @@ export default function Home() {
             </h2>
             <p className="text-text-light leading-relaxed mb-4">
               Founded by two graduates of the University of Costa Rica (UCR),
-              Dr. Francisco Rodriguez Chaves and Dr. Zaidy Mariela Hernandez
+              Dr. Francisco Rodriguez Chaves and Dra. Mariela Hernandez
               Bonilla, Dental City Costa Rica has grown into a trusted name in
-              dental care with over 26 combined years of clinical experience.
+              dental care with over 30 combined years of clinical experience.
             </p>
             <p className="text-text-light leading-relaxed mb-4">
               Located in Aguas Zarcas, we offer a comprehensive range of services from

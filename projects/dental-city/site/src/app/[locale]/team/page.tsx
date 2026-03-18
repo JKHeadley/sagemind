@@ -36,7 +36,7 @@ const teamData = {
       bio: "A UCR-trained orthodontist with 11 years of dedicated practice and over 1,500 completed cases, Dr. Rodriguez Chaves co-founded Dental City to bring world-class orthodontic care to patients at a fraction of North American prices. His personalized approach means every treatment plan is crafted specifically for you, using the same modern techniques and technology you'd find in any top US clinic. Patients travel from across the Americas knowing they're in expert hands.",
     },
     {
-      name: "Dra. Zaidy Mariela Hernandez Bonilla",
+      name: "Dra. Mariela Hernandez Bonilla",
       role: "Founder & Oral Surgeon",
       specialty: "Dental Implants, Oral Surgery & Facial Harmonization",
       image: "/images/team-dra-hernandez.jpg",
@@ -80,7 +80,7 @@ const teamData = {
       bio: "Ortodoncista graduado de la UCR con 11 años de práctica dedicada y más de 1,500 casos completados, el Dr. Rodriguez Chaves cofundó Dental City para brindar atención ortodóntica de primer nivel a una fracción de los precios en Norteamérica. Su enfoque personalizado significa que cada plan de tratamiento está diseñado específicamente para usted, utilizando las mismas técnicas modernas y tecnología que encontraría en cualquier clínica de primer nivel en EE.UU. Pacientes viajan desde toda América sabiendo que están en manos expertas.",
     },
     {
-      name: "Dra. Zaidy Mariela Hernandez Bonilla",
+      name: "Dra. Mariela Hernandez Bonilla",
       role: "Fundadora y Cirujana Oral",
       specialty: "Implantes Dentales, Cirugía Oral y Armonización Facial",
       image: "/images/team-dra-hernandez.jpg",

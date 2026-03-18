@@ -85,7 +85,7 @@ const dentistsData = {
       image: "/images/team-francisco.jpg",
     },
     {
-      name: "Dr. Zaidy Mariela Hernandez Bonilla",
+      name: "Dr. Mariela Hernandez Bonilla",
       role: "Founder & Oral Surgeon -- Dental Implants, Oral Surgery & Facial Harmonization",
       image: "/images/team-dra-hernandez.jpg",
     },
@@ -102,7 +102,7 @@ const dentistsData = {
       image: "/images/team-francisco.jpg",
     },
     {
-      name: "Dra. Zaidy Mariela Hernandez Bonilla",
+      name: "Dra. Mariela Hernandez Bonilla",
       role: "Fundadora y Cirujana Oral -- Implantes Dentales, Cirugía Oral y Armonización Facial",
       image: "/images/team-dra-hernandez.jpg",
     },

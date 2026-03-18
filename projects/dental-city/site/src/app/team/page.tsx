@@ -16,7 +16,7 @@ const team = [
     bio: "A UCR-trained orthodontist with 11 years of dedicated practice and over 1,500 completed cases, Dr. Rodriguez Chaves co-founded Dental City to bring world-class orthodontic care to patients at a fraction of North American prices. His personalized approach means every treatment plan is crafted specifically for you, using the same modern techniques and technology you'd find in any top US clinic. Patients travel from across the Americas knowing they're in expert hands.",
   },
   {
-    name: "Dra. Zaidy Mariela Hernandez Bonilla",
+    name: "Dra. Mariela Hernandez Bonilla",
     role: "Founder & Oral Surgeon",
     specialty: "Dental Implants, Oral Surgery & Facial Harmonization",
     image: "/images/team-dra-hernandez.jpg",
@@ -66,7 +66,7 @@ export default function TeamPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Team</h1>
           <p className="text-white/70 max-w-2xl mx-auto text-lg">
-            UCR-trained professionals with over 26 combined years of experience,
+            UCR-trained professionals with over 30 combined years of experience,
             dedicated to your comfort and care.
           </p>
         </div>
