@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "0d621ca3-9c72-4ddf-961c-bdff8054f7e9",
+    "from": {
+      "agent": "deep-signal",
+      "session": "e2e-test",
+      "machine": "local"
+    },
+    "to": {
+      "agent": "sagemind",
+      "session": "any",
+      "machine": "local"
+    },
+    "type": "query",
+    "priority": "high",
+    "subject": "Bidirectional relay test",
+    "body": "Testing DeepSignal to SageMind. Should auto-create a thread.",
+    "createdAt": "2026-02-28T18:50:10.739Z",
+    "ttlMinutes": 30,
+    "threadId": "c48c884e-96e4-4a7f-b957-fbcb0dcdab46"
+  },
+  "transport": {
+    "relayChain": [],
+    "originServer": "http://localhost:5050",
+    "nonce": "c9f5b45f-05da-4dd2-9fe6-23151ca7354a:2026-02-28T18:50:10.739Z",
+    "timestamp": "2026-02-28T18:50:10.739Z"
+  },
+  "delivery": {
+    "phase": "dead-lettered",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "sent",
+        "at": "2026-02-28T18:50:10.739Z"
+      },
+      {
+        "from": "sent",
+        "to": "received",
+        "at": "2026-02-28T18:50:10.744Z"
+      },
+      {
+        "from": "failed",
+        "to": "dead-lettered",
+        "at": "2026-03-01T03:48:03.343Z",
+        "reason": "TTL expired"
+      }
+    ],
+    "attempts": 0,
+    "failureReason": "TTL expired"
+  }
+}

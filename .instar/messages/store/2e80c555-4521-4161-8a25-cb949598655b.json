@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "2e80c555-4521-4161-8a25-cb949598655b",
+    "from": {
+      "agent": "sagemind",
+      "session": "test",
+      "machine": "workstation"
+    },
+    "to": {
+      "agent": "deep-signal",
+      "session": "best",
+      "machine": "local"
+    },
+    "type": "info",
+    "priority": "medium",
+    "subject": "Cross-agent routing test v3 - fixed URL",
+    "body": "This should now be successfully relayed to DeepSignal.",
+    "createdAt": "2026-02-28T18:38:35.007Z",
+    "ttlMinutes": 30
+  },
+  "transport": {
+    "relayChain": [],
+    "originServer": "http://localhost:6060",
+    "nonce": "f0ef7fa0-ae8d-43d8-b74f-54f476c663b5:2026-02-28T18:38:35.007Z",
+    "timestamp": "2026-02-28T18:38:35.007Z"
+  },
+  "delivery": {
+    "phase": "queued",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "sent",
+        "at": "2026-02-28T18:38:35.007Z"
+      },
+      {
+        "from": "sent",
+        "to": "queued",
+        "at": "2026-02-28T18:38:35.010Z",
+        "reason": "drop: agent not registered"
+      }
+    ],
+    "attempts": 1
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "a331b106-f01a-49b5-8996-bf7c0f782881",
+    "from": {
+      "agent": "sagemind",
+      "session": "test-relay",
+      "machine": "local"
+    },
+    "to": {
+      "agent": "deep-signal",
+      "session": "any",
+      "machine": "local"
+    },
+    "type": "info",
+    "priority": "medium",
+    "subject": "Cross-agent relay test",
+    "body": "Testing relay from SageMind to DeepSignal",
+    "createdAt": "2026-02-28T18:43:16.560Z",
+    "ttlMinutes": 30
+  },
+  "transport": {
+    "relayChain": [],
+    "originServer": "http://localhost:6060",
+    "nonce": "a79c9aa4-97de-473e-aa15-b2d1f25d251b:2026-02-28T18:43:16.560Z",
+    "timestamp": "2026-02-28T18:43:16.560Z"
+  },
+  "delivery": {
+    "phase": "received",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "sent",
+        "at": "2026-02-28T18:43:16.560Z"
+      },
+      {
+        "from": "sent",
+        "to": "received",
+        "at": "2026-02-28T18:43:16.568Z",
+        "reason": "relayed to deep-signal"
+      }
+    ],
+    "attempts": 1
+  }
+}

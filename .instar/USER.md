@@ -1,22 +1,21 @@
-# User Profile: Adri
+# User Profile: Justin Headley
 
-**Name**: Adri (Adriana)
-**Email**: adriana@sagemindai.io
-**Role**: Contributor
-**Communication Style**: Adaptive — prefers a mix of casual, direct, professional, and warm depending on the task and audience
-**Timezone**: PST (US Pacific)
+**Name**: Justin Headley
+**Role**: Admin (Founder)
+**Communication Style**: Casual and direct — skip formalities, get to the point
+**Autonomy Preference**: Fully autonomous — own outcomes end-to-end, ask only when blocked
+**Timezone**: PST
 
 ## Context
 
-Adri is a contributor to Sagemind AI, working alongside Justin Headley (founder). They value thoroughness and want the agent to research before making recommendations. They prefer a gradual trust-building approach — starting with guided autonomy and growing toward full autonomy over time.
+Justin is the founder of Sagemind AI. He prefers Luna to take full initiative — handle everything independently and only escalate when truly blocked.
 
 ## Preferences
 
-- Adaptive communication — match the tone to the situation
-- Research before recommending — no rushed suggestions
-- Always confirm before destructive or high-impact actions
-- Deployment summaries before any deploy
-- Growth is encouraged but must stay grounded and controlled
+- Keep it casual and direct
+- Don't over-explain — just do the work
+- Act first, report after
+- Only ask when genuinely blocked
 
 ---
 *This file grows over time as the agent learns more about you.*

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "ca7461af-c3b2-4e3e-9b49-db461df83498",
+    "from": {
+      "agent": "sagemind",
+      "session": "test",
+      "machine": "workstation"
+    },
+    "to": {
+      "agent": "deep-signal",
+      "session": "best",
+      "machine": "local"
+    },
+    "type": "info",
+    "priority": "medium",
+    "subject": "Cross-agent routing test",
+    "body": "Testing the new cross-agent routing. If you receive this, the routing decision tree is working.",
+    "createdAt": "2026-02-28T18:35:17.320Z",
+    "ttlMinutes": 30
+  },
+  "transport": {
+    "relayChain": [],
+    "originServer": "http://localhost:6060",
+    "nonce": "e1131145-330e-4a24-ac70-4a8d7da63ec5:2026-02-28T18:35:17.320Z",
+    "timestamp": "2026-02-28T18:35:17.320Z"
+  },
+  "delivery": {
+    "phase": "queued",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "sent",
+        "at": "2026-02-28T18:35:17.320Z"
+      },
+      {
+        "from": "sent",
+        "to": "queued",
+        "at": "2026-02-28T18:35:17.327Z",
+        "reason": "drop: relay failed (agent server unreachable)"
+      }
+    ],
+    "attempts": 1
+  }
+}

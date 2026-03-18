@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "machines": {
+    "m_7768b653c8f6661e05a2c79576ba14d2": {
+      "name": "justin-mbp",
+      "status": "active",
+      "role": "awake",
+      "pairedAt": "2026-03-09T19:34:19.743Z",
+      "lastSeen": "2026-03-18T02:38:59.669Z"
+    }
+  }
+}

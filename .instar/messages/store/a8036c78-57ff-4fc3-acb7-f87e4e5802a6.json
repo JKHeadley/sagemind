@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "a8036c78-57ff-4fc3-acb7-f87e4e5802a6",
+    "from": {
+      "agent": "echo",
+      "machine": "local",
+      "session": "test"
+    },
+    "to": {
+      "agent": "sagemind",
+      "machine": "local"
+    },
+    "type": "chat",
+    "priority": "normal",
+    "subject": "Threadline test",
+    "body": "Hey sagemind! Echo here testing local delivery. Can you hear me?",
+    "createdAt": "2026-03-17T05:11:50.470Z"
+  },
+  "transport": {
+    "relayChain": [],
+    "originServer": "http://localhost:4042",
+    "nonce": "7e94a13f-0d9e-4057-a3a9-2e5ca2cdc23a:2026-03-17T05:11:50.470Z",
+    "timestamp": "2026-03-17T05:11:50.470Z"
+  },
+  "delivery": {
+    "phase": "received",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "sent",
+        "at": "2026-03-17T05:11:50.470Z"
+      },
+      {
+        "from": "sent",
+        "to": "received",
+        "at": "2026-03-17T05:11:50.474Z"
+      }
+    ],
+    "attempts": 0
+  }
+}

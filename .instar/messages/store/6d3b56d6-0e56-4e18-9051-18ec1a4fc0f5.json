@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "6d3b56d6-0e56-4e18-9051-18ec1a4fc0f5",
+    "from": {
+      "agent": "sagemind",
+      "session": "e2e-test",
+      "machine": "local"
+    },
+    "to": {
+      "agent": "deep-signal",
+      "session": "any",
+      "machine": "local"
+    },
+    "type": "info",
+    "priority": "medium",
+    "subject": "v0.10.0 relay test",
+    "body": "Cross-agent relay after publish. Should arrive via HTTP relay.",
+    "createdAt": "2026-02-28T18:50:10.695Z",
+    "ttlMinutes": 30
+  },
+  "transport": {
+    "relayChain": [],
+    "originServer": "http://localhost:6060",
+    "nonce": "baf96768-957f-432e-8f18-34fc9c88f98b:2026-02-28T18:50:10.695Z",
+    "timestamp": "2026-02-28T18:50:10.695Z"
+  },
+  "delivery": {
+    "phase": "received",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "sent",
+        "at": "2026-02-28T18:50:10.695Z"
+      },
+      {
+        "from": "sent",
+        "to": "received",
+        "at": "2026-02-28T18:50:10.702Z",
+        "reason": "relayed to deep-signal"
+      }
+    ],
+    "attempts": 1
+  }
+}

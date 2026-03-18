@@ -43,33 +43,86 @@ This is my long-term memory — the thread of continuity across sessions. Each s
 
 ## Infrastructure Notes
 
-- **Dashboard** available at `http://localhost:4040/dashboard`, PIN: `482916` (set in config.json). Can be exposed via Cloudflare tunnel for remote access.
-- **Upgrade guides** are now delivered automatically on update. Process them, message user via topic 358 (Agent Updates), then acknowledge with `instar upgrade-ack`.
+- **Dashboard** available at `http://localhost:6060/dashboard`, PIN: `012906`. Exposed via Cloudflare tunnel for remote access.
+- **Upgrade guides** delivered automatically on update. Process them, message user via topic 6 (Agent Updates), then acknowledge with `instar upgrade-ack`.
 
-## Capabilities Added in v0.8.23–v0.9.3
+## Capabilities
 
-**Topic Memory (v0.9.1)** — Automatic persistent memory of all Telegram conversations
-- Every message in every topic thread is stored in SQLite with full-text search
-- Rolling summaries generated when a topic has enough messages (default: 20+)
-- At session start, I automatically load the topic summary + recent messages (appears before AGENT.md)
-- Search past conversations: POST `/topic/search?q=keyword` or GET `/topic/search?q=keyword&topic=N`
-- API endpoints: `/topic/context/:topicId`, `/topic/list`, `/topic/stats`, `/topic/summarize`
-- **Behavioral change:** I ALWAYS relay responses back to Telegram after finishing work — this is now structural, not optional
+**Topic Memory** — Persistent conversational memory per topic thread
+- SQLite DB with full-text search across all topics. Rolling summaries auto-generated.
+- API: `/topic/search?q=keyword`, `/topic/context/:topicId`, `/topic/list`, `/topic/stats`
+- Context loaded automatically at session start (summary + recent messages)
 
-**Backup & Restore (v0.8.23)** — Snapshot and recover agent state
-- Commands: `instar backup create` (snapshot), `instar backup list`, `instar backup restore <id>`
-- Captures AGENT.md, MEMORY.md, config, jobs, relationships
+**Stall Triage Nurse** — LLM-powered session recovery
+- Auto-detects unanswered messages (2+ min), diagnoses via LLM, applies treatments
+- 5-action chain: status_update → nudge → interrupt → unstick → restart
+- Escalates automatically, sends user status messages at each step
+- Config: `monitoring.triage` in config.json. API: `/triage/status`, `/triage/history`, `POST /triage/trigger`
 
-**Memory Search (v0.8.23)** — Full-text search of MEMORY.md across all sessions
-- Commands: `instar memory search "query"`, `instar memory index`, `instar memory stats`
+**Session Monitor** — Proactive health monitoring
+- Polls all active sessions every 60s for dead, unresponsive, or idle states
+- Config: `monitoring.sessionMonitor` in config.json
 
-**Photo Messages (v0.8.23)** — I can now view photos sent via Telegram
-- Received as `[image:/path/to/file]` in message input — can pass directly to Claude for viewing
+**Promise Tracking** — Detects "give me a minute" patterns, triggers recovery if no follow-through
+- Default timeout: 10 min. Config: `telegram.promiseTimeoutMinutes` (0 to disable)
 
-**Git-Backed State (v0.8.23)** — Standalone agents can sync state via git
-- Commands: `instar git init`, `instar git status`, `instar git sync`
+**External Operation Safety** — Structural guardrails for MCP tool calls
+- PreToolUse hook classifies all `mcp__*` calls by mutability/reversibility
+- Gate API evaluates risk: allow/block/show-plan/suggest-alternative
+- Emergency stop: "stop everything" halts operations immediately (MessageSentinel)
+- Trust levels per service. API: `/trust`, `/operations/log`, `POST /operations/evaluate`
 
-## Instar Capabilities (v0.9.38)
+**MessageSentinel** — Word count gate prevents false emergency stops
+- 4 or fewer words → fast-path regex. 5+ words → LLM classification. Slash commands always processed.
+
+**Anti-Confabulation** — Convergence check pipeline before external messages
+- 6-category quality gate: URL provenance, capability claims, experiential fabrication, etc.
+- Identity injection + convergence check runs automatically before every outgoing message
+
+**HMAC Tamper Protection** (v0.10.2) — Secure offline message drops
+- Fixed critical bug in HMAC-SHA256 signatures: serializer now properly includes full message content (body, subject, from, to, etc.)
+- Automatic — all new drops have correct HMAC coverage. Tampering with message content is now reliably detected.
+- 223 messaging tests added (37 unit + 38 E2E + 15 integration) to prevent regression
+
+**LLM-Supervised Execution** — Shared intelligence provider wired throughout
+- Sentinel, stall alerts, session watchdog all use LLM for critical decisions (fail-open)
+
+**Intent Engineering** — Organizational alignment infrastructure
+- Dispatch approval gate: security/behavioral dispatches require human approval
+- `instar intent org-init`, `instar intent validate`, `instar intent drift`
+- API: `/dispatches/pending-approval`, `/intent/validate`, `/intent/drift`, `/intent/alignment`
+
+**System Self-Monitoring (v0.10.7)** — Automated health probes across all subsystems
+- SystemReviewer now fully wired at server startup (was previously 503/unreachable)
+- 14 Tier 1 probes: session management, job scheduling, Telegram messaging, lifeline/crash recovery
+- Alert callback routes critical failures to Telegram automatically
+- Auto-submits probe failures as feedback via FeedbackManager
+- On-demand: `instar review` CLI or `POST /system-reviews` API
+- `/health` endpoint (authenticated) includes `systemReview` section with pass/fail counts and health classification
+- Config: `monitoring.systemReview` in config.json (enabled by default, 6h schedule, alert on critical)
+- Can disable individual probes: `monitoring.systemReview.disabledProbes: ["probe.id"]`
+
+**Guardian Jobs** — 5 self-monitoring background jobs (auto-added)
+- degradation-digest (4h), state-integrity-check (6h), memory-hygiene (12h), guardian-pulse (8h), session-continuity-check (4h)
+
+**Orphan Process Reaper** — Auto-detects stale Claude processes outside managed sessions
+
+**Cloud Backup** — GitHub backup during setup wizard, restore on new machines
+- `instar nuke <name>` for complete agent removal with final backup push
+
+**Git Sync** — Enabled by default. Gate silently skips if no git remote.
+
+**Infrastructure:**
+- Backup & Restore: `instar backup create/list/restore`
+- Memory Search: `instar memory search/index/stats`
+- Photo Messages: `[image:/path]` in Telegram
+- Git-Backed State: `instar git init/status/sync`
+- Lifeline alert suppression during updates (flag-based coordination)
+- Robust auto-restart: 5-strategy binary resolution, service manager detection
+- Duplicate topic prevention: `findOrCreateForumTopic`
+- Setup wizard ships with npm package
+
+## Instar Capabilities (v0.23.7 — current)
 
 ### Guardian Job Network — Self-Monitoring Background Jobs
 - **5 new guardian jobs** run automatically in the background to maintain agent coherence:
@@ -81,7 +134,7 @@ This is my long-term memory — the thread of continuity across sessions. Each s
 - **Zero-token gates**: All guardian jobs use pre-screening gates — only run when there's actual work to do
 - **Automatic deployment**: Jobs are added automatically via `refreshJobs()` on update, no manual config needed
 
-## Instar Capabilities (v0.12.17–v0.17.14) — Updated 2026-03-11
+## Instar Capabilities (v0.12.17–v0.23.7) — Updated 2026-03-17
 
 ### Autonomy & Trust (v0.12.17)
 - **Autonomy profiles**: 4 levels (supervised → fully-autonomous). `GET /autonomy`, `POST /autonomy/profile`
@@ -121,6 +174,15 @@ This is my long-term memory — the thread of continuity across sessions. Each s
 - **Security**: HMAC signing, secret scanning, rate limiting, symlink rejection
 - **Triage**: `/triage-findings` skill to review pending findings
 - **API**: `GET /serendipity/stats`, `GET /serendipity/findings`
+
+### Registry & Relay Reliability (v0.23.6–v0.23.7)
+- **Registry lock auto-recovery** (v0.23.6): After a crash, stale lock files on registry.json auto-clear after 3 consecutive heartbeat failures. Self-healing, no manual intervention.
+- **Threadline local delivery** (v0.23.7): Same-machine agents deliver messages directly via HTTP, bypassing the cloud relay. Eliminates silent delivery failures after server restarts.
+- **Threadline reply fix** (v0.23.7): Spawned sessions correctly use `threadline_send` MCP tool for replies (was referencing nonexistent command).
+- **Relay auth backoff** (v0.23.7): Rate-limited auth retries use ~32s backoff, preventing retry storms during rapid restarts.
+- **Job execution history** (v0.23.7): `instar job history [job-slug]` — inspect what ran between sessions.
+- **Job handoff inspection** (v0.23.7): `instar job handoff [job-slug]` — cross-execution continuity notes.
+- **Usage-based reflection metrics** (v0.23.7): Tracks reflection frequency automatically during operation.
 
 ### Infrastructure & Reliability (v0.14.0–v0.17.14)
 - **Machine-scoped jobs** (v0.15.0): Add `"machines": ["name"]` to jobs.json entries

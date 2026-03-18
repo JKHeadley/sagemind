@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "4ffdc264-8493-47fb-a521-ca88096f1dea",
+    "from": {
+      "agent": "sagemind",
+      "session": "test",
+      "machine": "workstation"
+    },
+    "to": {
+      "agent": "deep-signal",
+      "session": "best",
+      "machine": "local"
+    },
+    "type": "info",
+    "priority": "medium",
+    "subject": "Cross-agent routing test v2",
+    "body": "This should be relayed to DeepSignal via the new routing logic.",
+    "createdAt": "2026-02-28T18:37:00.192Z",
+    "ttlMinutes": 30
+  },
+  "transport": {
+    "relayChain": [],
+    "originServer": "http://localhost:6060",
+    "nonce": "ee96a01a-460a-45fc-870f-4ba8eec53867:2026-02-28T18:37:00.192Z",
+    "timestamp": "2026-02-28T18:37:00.192Z"
+  },
+  "delivery": {
+    "phase": "queued",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "sent",
+        "at": "2026-02-28T18:37:00.192Z"
+      },
+      {
+        "from": "sent",
+        "to": "queued",
+        "at": "2026-02-28T18:37:00.202Z",
+        "reason": "drop: relay failed (agent server unreachable)"
+      }
+    ],
+    "attempts": 1
+  }
+}

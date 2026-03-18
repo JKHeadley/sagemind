@@ -1,19 +1,19 @@
 {
   "projectName": "Sagemind AI - Claude Code Context",
-  "projectDir": "/Users/amrch/Documents/Projects/sagemind",
+  "projectDir": "/Users/justin/Documents/Projects/sagemind",
   "gitRemote": "https://github.com/JKHeadley/sagemind.git",
   "gitBranch": "main",
-  "totalFiles": 168,
+  "totalFiles": 169,
   "directories": [
     {
       "name": "projects",
       "description": "Project directory",
-      "fileCount": 256
+      "fileCount": 235
     },
     {
       "name": "project_sandbox",
       "description": "Project directory",
-      "fileCount": 21
+      "fileCount": 27
     },
     {
       "name": "docs",
@@ -46,6 +46,8 @@
     "README.md"
   ],
   "projectType": "unknown",
-  "deploymentTargets": [],
-  "generatedAt": "2026-03-15T07:03:47.001Z"
+  "deploymentTargets": [
+    "vercel"
+  ],
+  "generatedAt": "2026-03-17T22:25:00.054Z"
 }

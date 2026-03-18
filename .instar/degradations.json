@@ -1,11 +1,31 @@
 [
   {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: Could not locate the bindings file. Tried:\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/out/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/out/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/default/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/compiled/20.20.0/darwin/arm64/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/release/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/debug/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/default/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/lib/binding/node-v115-darwin-arm64/better_sqlite3.node",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-02-26T01:26:19.944Z",
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nFrom https://github.com/JKHeadley/sagemind\n   2e6591b..8d0b9fd  main       -> origin/main\nerror: The following untracked working tree files would be overwritten by merge:\n\t.instar/context/architecture.md\n\t.instar/hooks/instar/claim-intercept-response.js\n\t.instar/hooks/instar/claim-intercept.js\n\t.instar/hooks/instar/compaction-recovery.sh\n\t.instar/hooks/instar/dangerous-command-guard.sh\n\t.instar/hooks/instar/deferral-detector.js\n\t.instar/hooks/instar/external-communication-guard.js\n\t.instar/hooks/instar/external-operation-gate.js\n\t.instar/hooks/instar/grounding-before-messaging.sh\n\t.instar/hooks/instar/post-action-reflection.js\n\t.instar/hooks/instar/scope-coherence-checkpoint.js\n\t.instar/hooks/instar/scope-coherence-collector.js\n\t.instar/hooks/instar/session-start.sh\n\t.instar/review-history.jsonl\n\t.instar/scripts/convergence-check.sh\n\t.instar/topic-resume-map.json\nPlease move or remove them before you merge.\nAborting\nApplied autostash.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-09T19:34:51.485Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: The following untracked working tree files would be overwritten by merge:\n\t.instar/context/architecture.md\n\t.instar/hooks/instar/claim-intercept-response.js\n\t.instar/hooks/instar/claim-intercept.js\n\t.instar/hooks/instar/compaction-recovery.sh\n\t.instar/hooks/instar/dangerous-command-guard.sh\n\t.instar/hooks/instar/deferral-detector.js\n\t.instar/hooks/instar/external-communication-guard.js\n\t.instar/hooks/instar/external-operation-gate.js\n\t.instar/hooks/instar/grounding-before-messaging.sh\n\t.instar/hooks/instar/post-action-reflection.js\n\t.instar/hooks/instar/scope-coherence-checkpoint.js\n\t.instar/hooks/instar/scope-coherence-collector.js\n\t.instar/hooks/instar/session-start.sh\n\t.instar/review-history.jsonl\n\t.instar/scripts/convergence-check.sh\n\t.instar/topic-resume-map.json\nPlease move or remove them before you merge.\nAborting\nApplied autostash.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-09T19:35:08.677Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: The following untracked working tree files would be overwritten by merge:\n\t.instar/context/architecture.md\n\t.instar/hooks/instar/claim-intercept-response.js\n\t.instar/hooks/instar/claim-intercept.js\n\t.instar/hooks/instar/compaction-recovery.sh\n\t.instar/hooks/instar/dangerous-command-guard.sh\n\t.instar/hooks/instar/deferral-detector.js\n\t.instar/hooks/instar/external-communication-guard.js\n\t.instar/hooks/instar/external-operation-gate.js\n\t.instar/hooks/instar/grounding-before-messaging.sh\n\t.instar/hooks/instar/post-action-reflection.js\n\t.instar/hooks/instar/scope-coherence-checkpoint.js\n\t.instar/hooks/instar/scope-coherence-collector.js\n\t.instar/hooks/instar/session-start.sh\n\t.instar/review-history.jsonl\n\t.instar/scripts/convergence-check.sh\n\t.instar/topic-resume-map.json\nPlease move or remove them before you merge.\nAborting\nApplied autostash.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-09T19:35:24.496Z",
     "reported": true,
     "alerted": true
   },
@@ -196,6 +216,166 @@
     "reason": "Why: Command failed: instar migrate\n",
     "impact": "Agent configuration may be stale after update",
     "timestamp": "2026-02-27T01:57:13.130Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-03-14T00:02:59.752Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "SemanticMemory",
+    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
+    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
+    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 137. This version of Node.js requires\nNODE_MODULE_VERSION 127. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
+    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
+    "timestamp": "2026-03-14T00:02:59.754Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-03-14T00:04:00.761Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "SemanticMemory",
+    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
+    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
+    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 137. This version of Node.js requires\nNODE_MODULE_VERSION 127. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
+    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
+    "timestamp": "2026-03-14T00:04:00.763Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Manual resolution required",
+    "reason": "Why: Untracked local files would be overwritten by incoming commits. Command failed: git pull --rebase --autostash\nFrom https://github.com/JKHeadley/sagemind\n   8d0b9fd..8b6a2c7  main       -> origin/main\nerror: The following untracked working tree files would be overw",
+    "impact": "Git pull blocked. To fix: either (1) commit the local files to your repo, or (2) add them to .gitignore and remove them from your working tree, then retry.",
+    "timestamp": "2026-03-16T04:23:06.725Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Manual resolution required",
+    "reason": "Why: Untracked local files would be overwritten by incoming commits. Command failed: git pull --rebase --autostash\nerror: The following untracked working tree files would be overwritten by merge:\n\t.instar/hooks/instar/response-review.js\n\t.instar/hooks/instar/telegram-t",
+    "impact": "Git pull blocked. To fix: either (1) commit the local files to your repo, or (2) add them to .gitignore and remove them from your working tree, then retry.",
+    "timestamp": "2026-03-16T15:04:21.075Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: The following untracked working tree files would be overwritten by merge:\n\t.instar/hooks/instar/response-review.js\n\t.instar/hooks/instar/telegram-topic-context.sh\nPlease move or remove them before you merge.\nAborting\nApplied autostash.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-16T19:39:48.779Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-17T04:58:04.232Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-17T05:01:10.262Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "Telegram.Lifeline",
+    "primary": "Verified lifeline topic for emergency agent communication",
+    "fallback": "Using unverified (possibly stale) lifeline topic ID",
+    "reason": "Lifeline topic check failed after retry: fetch failed",
+    "impact": "Lifeline may be unreachable — messages to agent could fail silently.",
+    "timestamp": "2026-03-17T05:01:13.885Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-17T05:03:51.764Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-17T05:09:10.775Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-17T05:36:27.208Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-17T05:38:15.202Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-17T07:19:27.454Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-03-17T22:24:59.425Z",
     "reported": true,
     "alerted": true
   }

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "1b1623f6-3065-491e-9932-0bd811933807",
+    "from": {
+      "agent": "sagemind",
+      "session": "test",
+      "machine": "local"
+    },
+    "to": {
+      "agent": "deep-signal",
+      "session": "test",
+      "machine": "local"
+    },
+    "type": "query",
+    "priority": "medium",
+    "subject": "Messaging test",
+    "body": "Hello from SageMind. First inter-agent message.",
+    "createdAt": "2026-02-28T17:34:35.959Z",
+    "ttlMinutes": 30,
+    "threadId": "703081d3-0ac3-4dc1-8e62-9f65b9406d02"
+  },
+  "transport": {
+    "relayChain": [],
+    "originServer": "http://localhost:6060",
+    "nonce": "94b31742-dd7e-48fd-ba4c-1651f318f5c3:2026-02-28T17:34:35.959Z",
+    "timestamp": "2026-02-28T17:34:35.959Z"
+  },
+  "delivery": {
+    "phase": "sent",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "sent",
+        "at": "2026-02-28T17:34:35.959Z"
+      }
+    ],
+    "attempts": 0
+  }
+}

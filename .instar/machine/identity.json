@@ -1,0 +1,14 @@
+{
+  "machineId": "m_7768b653c8f6661e05a2c79576ba14d2",
+  "signingPublicKey": "MCowBQYDK2VwAyEAo+DktWxeTMm8UokWMmM8X1imkND3S57ylmyhbm09BSo=",
+  "encryptionPublicKey": "MCowBQYDK2VuAyEAHPnhy8EHIPwM4g6ZIfoQ8OoMgPgNzH2neBI76tIk+x8=",
+  "name": "justin-mbp",
+  "platform": "darwin-arm64",
+  "createdAt": "2026-03-09T19:34:19.742Z",
+  "capabilities": [
+    "sessions",
+    "jobs",
+    "telegram",
+    "tunnel"
+  ]
+}

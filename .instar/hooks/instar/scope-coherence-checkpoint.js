@@ -36,7 +36,7 @@ function saveState(state) {
 
 function fetchActiveJob() {
   return new Promise((resolve) => {
-    const req = http.get('http://localhost:4040/context/active-job', { timeout: 2000 }, (res) => {
+    const req = http.get('http://localhost:6060/context/active-job', { timeout: 2000 }, (res) => {
       let body = '';
       res.on('data', chunk => body += chunk);
       res.on('end', () => {

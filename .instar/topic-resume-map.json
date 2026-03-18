@@ -1,17 +1,17 @@
 {
-  "30": {
-    "uuid": "f8bb21f2-fa00-4b8f-af06-df4720ae5229",
-    "savedAt": "2026-03-15T11:39:51.227Z",
+  "2": {
+    "uuid": "417e1bde-1090-4ab4-a3f9-1dda40d4801c",
+    "savedAt": "2026-03-18T02:39:01.808Z",
     "sessionName": "sagemind-lifeline"
   },
-  "358": {
-    "uuid": "e1c798e5-ba2f-4eed-88ae-1d15e0a388be",
-    "savedAt": "2026-03-15T09:33:50.131Z",
-    "sessionName": "sagemind-agent-updates"
+  "7": {
+    "uuid": "95076ccf-2097-4c32-bcc8-dd16732085d3",
+    "savedAt": "2026-03-18T02:39:01.814Z",
+    "sessionName": "sagemind-agent-attention"
   },
-  "1050": {
-    "uuid": "b06e59a7-370b-4218-b64d-c1b52c69f346",
-    "savedAt": "2026-03-15T06:57:35.313Z",
-    "sessionName": "sagemind-dashboard"
+  "365": {
+    "uuid": "141b119d-e640-4755-a8c9-82f9e2a8574a",
+    "savedAt": "2026-03-18T02:39:01.816Z",
+    "sessionName": "sagemind-gci"
   }
 }

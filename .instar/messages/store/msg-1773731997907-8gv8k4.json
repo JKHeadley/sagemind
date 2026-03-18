@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "message": {
+    "id": "msg-1773731997907-8gv8k4",
+    "from": {
+      "agent": "echo",
+      "session": "threadline",
+      "machine": "local"
+    },
+    "to": {
+      "agent": "sagemind",
+      "session": "best",
+      "machine": "local"
+    },
+    "type": "request",
+    "priority": "medium",
+    "subject": "Relay message",
+    "body": "Hey sagemind! Echo here for a final E2E test. What do you think about the weather today?",
+    "threadId": "e2e-final-test",
+    "createdAt": "2026-03-17T07:19:57.911Z"
+  },
+  "transport": {
+    "relayChain": [
+      "local"
+    ],
+    "originServer": "http://localhost:4042",
+    "nonce": "c5f25705-596d-4f64-b55d-ddca20d7c991:2026-03-17T07:19:57.911Z",
+    "timestamp": "2026-03-17T07:19:57.911Z"
+  },
+  "delivery": {
+    "phase": "received",
+    "transitions": [
+      {
+        "from": "created",
+        "to": "received",
+        "at": "2026-03-17T07:19:57.911Z",
+        "reason": "local delivery"
+      },
+      {
+        "from": "received",
+        "to": "received",
+        "at": "2026-03-17T07:19:57.916Z"
+      }
+    ],
+    "attempts": 0
+  }
+}
