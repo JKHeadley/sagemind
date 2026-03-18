@@ -81,34 +81,34 @@ const dentistsData = {
   en: [
     {
       name: "Dr. Francisco Rodríguez Chaves",
-      role: "Founder & CEO -- Orthodontics & Dentofacial Orthopedics",
+      role: "Founder & CEO |Orthodontics & Dentofacial Orthopedics",
       image: "/images/team-francisco.jpg",
     },
     {
       name: "Dra. Mariela Hernández Bonilla",
-      role: "Founder & Oral Surgeon -- Dental Implants, Oral Surgery & Facial Harmonization",
+      role: "Founder & Oral Surgeon |Dental Implants, Oral Surgery & Facial Harmonization",
       image: "/images/team-dra-hernandez.jpg",
     },
     {
       name: "Dr. Luis Alejandro Carvajal Chavarría",
-      role: "General Dentist -- Preventive Dentistry",
+      role: "General Dentist |Preventive Dentistry",
       image: "/images/team-dr-carvajal.jpg",
     },
   ],
   es: [
     {
       name: "Dr. Francisco Rodríguez Chaves",
-      role: "Fundador y Director -- Ortodoncia y Ortopedia Dentofacial",
+      role: "Fundador y Director |Ortodoncia y Ortopedia Dentofacial",
       image: "/images/team-francisco.jpg",
     },
     {
       name: "Dra. Mariela Hernández Bonilla",
-      role: "Fundadora y Cirujana Oral -- Implantes Dentales, Cirugía Oral y Armonización Facial",
+      role: "Fundadora y Cirujana Oral |Implantes Dentales, Cirugía Oral y Armonización Facial",
       image: "/images/team-dra-hernandez.jpg",
     },
     {
       name: "Dr. Luis Alejandro Carvajal Chavarría",
-      role: "Odontólogo General -- Odontología Preventiva",
+      role: "Odontólogo General |Odontología Preventiva",
       image: "/images/team-dr-carvajal.jpg",
     },
   ],
@@ -565,8 +565,8 @@ export default async function Home({
           <h2 className="text-2xl md:text-4xl font-bold text-center mb-8 md:mb-12">
             {dict.contact.title}
           </h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Location 1 - Aguas Zarcas */}
+          <div className="max-w-xl mx-auto">
+            {/* Location - Aguas Zarcas */}
             <div className="bg-navy-light rounded-xl p-5 md:p-8">
               <h3 className="text-xl font-bold text-primary-light mb-6">
                 Aguas Zarcas ({dict.contact.main})

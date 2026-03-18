@@ -27,8 +27,8 @@ export function getLocalBusinessSchema(locale: Locale) {
         longitude: -84.3283,
       },
       openingHoursSpecification: [
-        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Friday"], opens: "07:30", closes: "18:00" },
-        { "@type": "OpeningHoursSpecification", dayOfWeek: "Thursday", opens: "08:00", closes: "18:00" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Wednesday", "Thursday"], opens: "08:30", closes: "17:00" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Tuesday", "Friday"], opens: "09:00", closes: "18:00" },
         { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "07:00", closes: "13:00" },
       ],
       priceRange: "$$",

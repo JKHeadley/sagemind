@@ -11,7 +11,7 @@
   },
   "header": {
     "bookAppointment": "Agendar Cita",
-    "hours": "Lun-Vie 7:30AM-6PM | Sáb 7AM-1PM"
+    "hours": "Lun-Vie 8:30AM-6PM | Sáb 7AM-1PM"
   },
   "hero": {
     "tagline": "Ahorre 50–70% en Atención Dental en Costa Rica",
@@ -74,8 +74,8 @@
     "email": "Correo",
     "hours": "Horario",
     "main": "Principal",
-    "hoursAZ1": "Lun / Mar / Mié / Vie: 7:30AM - 6PM",
-    "hoursAZ2": "Jueves: 8AM - 6PM",
+    "hoursAZ1": "Lun / Mié / Jue: 8:30AM - 5PM",
+    "hoursAZ2": "Mar / Vie: 9AM - 6PM",
     "hoursAZ3": "Sábado: 7AM - 1PM",
     "hoursAZ4": "Domingo: Cerrado"
   },

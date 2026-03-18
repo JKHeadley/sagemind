@@ -44,17 +44,17 @@ const stats = [
 const dentists = [
   {
     name: "Dr. Francisco Rodríguez Chaves",
-    role: "Founder & CEO -- Orthodontics & Dentofacial Orthopedics",
+    role: "Founder & CEO |Orthodontics & Dentofacial Orthopedics",
     image: "/images/team-francisco.jpg",
   },
   {
     name: "Dra. Mariela Hernández Bonilla",
-    role: "Founder & Periodontist -- Dental Implants & Oral Rehabilitation",
+    role: "Founder & Periodontist |Dental Implants & Oral Rehabilitation",
     image: "/images/team-dra-hernandez.jpg",
   },
   {
     name: "Dr. Luis Alejandro Carvajal Chavarría",
-    role: "General Dentist -- Preventive Dentistry",
+    role: "General Dentist |Preventive Dentistry",
     image: "/images/team-dr-carvajal.jpg",
   },
 ];
@@ -334,8 +334,8 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Contact Us
           </h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Location 1 - Aguas Zarcas */}
+          <div className="max-w-xl mx-auto">
+            {/* Location - Aguas Zarcas */}
             <div className="bg-navy-light rounded-xl p-8">
               <h3 className="text-xl font-bold text-primary-light mb-6">
                 Aguas Zarcas (Main)
@@ -379,8 +379,8 @@ export default function Home() {
                 <div>
                   <h4 className="font-semibold text-white/90 mb-1">Hours</h4>
                   <div className="text-white/60 space-y-1 text-sm">
-                    <p>Mon / Tue / Wed / Fri: 7:30AM - 6PM</p>
-                    <p>Thursday: 8AM - 6PM</p>
+                    <p>Mon / Wed / Thu: 8:30AM - 5PM</p>
+                    <p>Tue / Fri: 9AM - 6PM</p>
                     <p>Saturday: 7AM - 1PM</p>
                     <p>Sunday: Closed</p>
                   </div>

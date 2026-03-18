@@ -11,7 +11,7 @@
   },
   "header": {
     "bookAppointment": "Book Appointment",
-    "hours": "Mon-Fri 7:30AM-6PM | Sat 7AM-1PM"
+    "hours": "Mon-Fri 8:30AM-6PM | Sat 7AM-1PM"
   },
   "hero": {
     "tagline": "Save 50–70% on Dental Care in Costa Rica",
@@ -74,8 +74,8 @@
     "email": "Email",
     "hours": "Hours",
     "main": "Main",
-    "hoursAZ1": "Mon / Tue / Wed / Fri: 7:30AM - 6PM",
-    "hoursAZ2": "Thursday: 8AM - 6PM",
+    "hoursAZ1": "Mon / Wed / Thu: 8:30AM - 5PM",
+    "hoursAZ2": "Tue / Fri: 9AM - 6PM",
     "hoursAZ3": "Saturday: 7AM - 1PM",
     "hoursAZ4": "Sunday: Closed"
   },

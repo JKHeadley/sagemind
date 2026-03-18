@@ -13,7 +13,7 @@ const team = [
     role: "Founder & CEO",
     specialty: "Orthodontics & Dentofacial Orthopedics",
     image: "/images/team-francisco.jpg",
-    bio: "With over 15 years of experience and more than 1,500 orthodontic cases completed, Dr. Rodríguez Chaves is one of Costa Rica's most dedicated orthodontic specialists. A graduate of the University of Costa Rica with advanced diplomados in orthodontics from both Costa Rica and Brazil's UniCPO Faculty, he holds an international Pitts 21 certification and has devoted 17 years exclusively to transforming smiles. As co-founder and CEO of Dental City, he brings precision, modern techniques, and a genuinely personal approach to every treatment plan — the same level of care you'd expect at a top North American clinic, at a fraction of the cost. His mission: to eliminate the fear of the dental visit and help every patient rediscover their confidence through a beautiful smile.",
+    bio: "With over 15 years of experience and more than 1,500 orthodontic cases completed, Dr. Rodríguez Chaves is one of Costa Rica's most dedicated orthodontic specialists. A graduate of the University of Costa Rica with advanced certifications in orthodontics from both Costa Rica and Brazil's UniCPO Faculty, he holds an international Pitts 21 certification and has devoted 17 years exclusively to transforming smiles. As co-founder and CEO of Dental City, he brings precision, modern techniques, and a genuinely personal approach to every treatment plan — the same level of care you'd expect at a top North American clinic, at a fraction of the cost. His mission: to eliminate the fear of the dental visit and help every patient rediscover their confidence through a beautiful smile.",
   },
   {
     name: "Dra. Mariela Hernández Bonilla",
@@ -110,7 +110,7 @@ export default function TeamPage() {
                   {member.specialty && (
                     <span className="text-text-light">
                       {" "}
-                      -- {member.specialty}
+                      | {member.specialty}
                     </span>
                   )}
                 </p>
