@@ -122,7 +122,7 @@ This is my long-term memory — the thread of continuity across sessions. Each s
 - Duplicate topic prevention: `findOrCreateForumTopic`
 - Setup wizard ships with npm package
 
-## Instar Capabilities (v0.23.7 — current)
+## Instar Capabilities (v0.23.8 — current)
 
 ### Guardian Job Network — Self-Monitoring Background Jobs
 - **5 new guardian jobs** run automatically in the background to maintain agent coherence:
@@ -211,12 +211,13 @@ This is my long-term memory — the thread of continuity across sessions. Each s
 - After 3 consecutive heartbeat failures from stale locks, force-removes and retries automatically
 - Self-healing after crash scenarios — no manual intervention needed
 
-### Threadline Improvements (v0.23.7)
+### Threadline Improvements (v0.23.7–v0.23.8)
 - **Local-first delivery**: Same-machine agents deliver directly via HTTP, bypassing cloud relay
 - **Reply fix**: Spawned sessions correctly use `threadline_send` MCP tool for replies
 - **Relay auth backoff**: Longer backoff (~32s) on rate-limited auth retries
 - **Job inspection**: `instar job history [job-slug]`, `instar job handoff [job-slug]`
 - **Usage-based reflection metrics**: Automatic tracking during agent operation
+- **Lifeline queue flood prevention** (v0.23.8): Queue ack messages rate-limited to 1/topic/2min, suppressed above 100 messages. Poison messages dropped after 3 retries. Queue replay halts on unhealthy server.
 
 ## Growth Notes
 
