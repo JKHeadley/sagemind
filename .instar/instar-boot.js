@@ -14,11 +14,11 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const SHADOW = "/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/instar/dist/cli.js";
-const SHADOW_DIR = "/Users/justin/Documents/Projects/sagemind/.instar/shadow-install";
-const CRASH_FILE = "/Users/justin/Documents/Projects/sagemind/.instar/state/boot-crashes.txt";
-const NODE_SYMLINK = "/Users/justin/Documents/Projects/sagemind/.instar/bin/node";
-const NODE_CANDIDATES_FILE = "/Users/justin/Documents/Projects/sagemind/.instar/bin/node-candidates.json";
+const SHADOW = "/Users/amrch/Documents/Projects/sagemind/.instar/shadow-install/node_modules/instar/dist/cli.js";
+const SHADOW_DIR = "/Users/amrch/Documents/Projects/sagemind/.instar/shadow-install";
+const CRASH_FILE = "/Users/amrch/Documents/Projects/sagemind/.instar/state/boot-crashes.txt";
+const NODE_SYMLINK = "/Users/amrch/Documents/Projects/sagemind/.instar/bin/node";
+const NODE_CANDIDATES_FILE = "/Users/amrch/Documents/Projects/sagemind/.instar/bin/node-candidates.json";
 
 // ── Self-heal node symlink ──
 // Update the stable node symlink to point at the node binary that's
@@ -65,7 +65,7 @@ selfHealNodeSymlink();
 // Verify shadow install exists
 if (!fs.existsSync(SHADOW)) {
   process.stderr.write('ERROR: Shadow install not found at ' + SHADOW + '\n');
-  process.stderr.write('Run: npm install instar --prefix ' + "/Users/justin/Documents/Projects/sagemind/.instar/shadow-install" + '\n');
+  process.stderr.write('Run: npm install instar --prefix ' + "/Users/amrch/Documents/Projects/sagemind/.instar/shadow-install" + '\n');
   process.exit(1);
 }
 
