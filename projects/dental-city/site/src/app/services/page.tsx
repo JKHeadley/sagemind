@@ -53,7 +53,7 @@ const services = [
   {
     name: "Orthodontics",
     description:
-      "Led by Dr. Francisco Rodriguez Chaves with 11 years of exclusive orthodontic practice and over 1,500 completed cases. Our orthodontic treatments straighten teeth and correct bite issues using the latest techniques. Whether you need traditional braces or modern aligners, a personalized treatment plan will be created to give you a perfect smile.",
+      "Led by Dr. Francisco Rodríguez Chaves with over 15 years of exclusive orthodontic practice and over 1,500 completed cases. Our orthodontic treatments straighten teeth and correct bite issues using the latest techniques. Whether you need traditional braces or modern aligners, a personalized treatment plan will be created to give you a perfect smile.",
     icon: "😁",
   },
   {
@@ -71,13 +71,13 @@ const services = [
   {
     name: "Oral Surgery",
     description:
-      "Led by Dra. Mariela Hernandez Bonilla with 20 years of surgical experience, advanced implant training from the University of Miami, and membership in the International Congress of Oral Implantologists (ICOI). From wisdom tooth extractions to complex surgical procedures, you're in the hands of one of the most experienced oral surgeons in the region.\n\nHer philosophy is simple: every detail matters when it comes to your comfort and well-being. Patients trust her with their most complex cases knowing they'll receive world-class care at a fraction of what they'd pay back home.",
+      "Led by Dra. Mariela Hernández Bonilla with 20 years of surgical experience, advanced implant training from the University of Miami, and membership in the International Congress of Oral Implantologists (ICOI). From wisdom tooth extractions to complex surgical procedures, you're in the hands of one of the most experienced oral surgeons in the region.\n\nHer philosophy is simple: every detail matters when it comes to your comfort and well-being. Patients trust her with their most complex cases knowing they'll receive world-class care at a fraction of what they'd pay back home.",
     icon: "⚕️",
   },
   {
     name: "Facial Harmonization",
     description:
-      "Dra. Hernandez Bonilla combines her deep expertise in oral surgery with advanced training in orofacial harmonization to offer treatments that go beyond the smile. Using collagen biostimulators and the latest non-surgical techniques, she enhances facial balance and aesthetics for a naturally refreshed appearance.\n\nThis unique combination of dental and facial expertise means your treatment plan considers the complete picture — your smile, your facial structure, and your confidence — all under one roof.",
+      "Dra. Hernández Bonilla combines her deep expertise in oral surgery with advanced training in orofacial harmonization to offer treatments that go beyond the smile. Using collagen biostimulators and the latest non-surgical techniques, she enhances facial balance and aesthetics for a naturally refreshed appearance.\n\nThis unique combination of dental and facial expertise means your treatment plan considers the complete picture — your smile, your facial structure, and your confidence — all under one roof.",
     icon: "✨",
   },
   {

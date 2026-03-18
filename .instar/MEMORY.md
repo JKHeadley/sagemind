@@ -197,6 +197,27 @@ This is my long-term memory — the thread of continuity across sessions. Each s
 - **Opt-in telemetry** (v0.17.7): Anonymous usage stats, disabled by default. `POST /config/telemetry`
 - **better-sqlite3 auto-rebuild**: Runs at startup and after shadow installs
 
+## Instar Capabilities (v0.23.2–v0.23.7) — Updated 2026-03-17
+
+### Session Respawn Reliability (v0.23.2)
+- **Spawn-in-progress guard**: Per-topic lock prevents duplicate spawn attempts from rapid messages
+- **Failure reporting**: User receives Telegram message explaining why restart failed (session limit, etc.)
+
+### MessageSentinel Fix (v0.23.4)
+- Conversational phrases ("hold on let me think") no longer misclassified as pause commands
+- LLM classifier prompt updated with clearer directive-only pause examples
+
+### Registry Lock Auto-Recovery (v0.23.6)
+- After 3 consecutive heartbeat failures from stale locks, force-removes and retries automatically
+- Self-healing after crash scenarios — no manual intervention needed
+
+### Threadline Improvements (v0.23.7)
+- **Local-first delivery**: Same-machine agents deliver directly via HTTP, bypassing cloud relay
+- **Reply fix**: Spawned sessions correctly use `threadline_send` MCP tool for replies
+- **Relay auth backoff**: Longer backoff (~32s) on rate-limited auth retries
+- **Job inspection**: `instar job history [job-slug]`, `instar job handoff [job-slug]`
+- **Usage-based reflection metrics**: Automatic tracking during agent operation
+
 ## Growth Notes
 
 - **(2026-02-23)** Failed badly on OAuth troubleshooting — went in circles for 45 min instead of checking credential storage first. Need to diagnose root causes systematically, not retry the same approach. Also failed due diligence on the salon's website URL. Both are trust-damaging mistakes. Do better.

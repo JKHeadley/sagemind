@@ -83,8 +83,8 @@ const categories = [
       },
       {
         src: "/images/team-francisco.jpg",
-        alt: "Dr. Francisco Rodriguez Chaves",
-        caption: "Dr. Francisco Rodriguez Chaves",
+        alt: "Dr. Francisco Rodríguez Chaves",
+        caption: "Dr. Francisco Rodríguez Chaves",
       },
       {
         src: "/images/team-dr-carvajal.jpg",

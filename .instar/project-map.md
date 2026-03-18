@@ -1,16 +1,15 @@
 # Project Map: Sagemind AI - Claude Code Context
 
 **Type**: unknown
-**Path**: /Users/justin/Documents/Projects/sagemind
+**Path**: /Users/amrch/Documents/Projects/sagemind
 **Git Remote**: https://github.com/JKHeadley/sagemind.git
 **Branch**: main
 **Total Files**: 183
-**Deployment Targets**: vercel
 
 ## Directory Structure
 
-- **projects/** (249 files) — Project directory
-- **project_sandbox/** (27 files) — Project directory
+- **projects/** (256 files) — Project directory
+- **project_sandbox/** (21 files) — Project directory
 - **docs/** (3 files) — Documentation
 - **brand/** (2 files) — Project directory
 - **logs/** (1 files) — Project directory
@@ -22,4 +21,4 @@
 - CLAUDE.md
 - README.md
 
-*Generated: 2026-03-18T02:39:59.091Z*
+*Generated: 2026-03-18T17:50:11.757Z*

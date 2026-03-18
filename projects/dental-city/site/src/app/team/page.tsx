@@ -9,18 +9,18 @@ export const metadata: Metadata = {
 
 const team = [
   {
-    name: "Dr. Francisco Rodriguez Chaves",
+    name: "Dr. Francisco Rodríguez Chaves",
     role: "Founder & CEO",
     specialty: "Orthodontics & Dentofacial Orthopedics",
     image: "/images/team-francisco.jpg",
-    bio: "A UCR-trained orthodontist with 11 years of dedicated practice and over 1,500 completed cases, Dr. Rodriguez Chaves co-founded Dental City to bring world-class orthodontic care to patients at a fraction of North American prices. His personalized approach means every treatment plan is crafted specifically for you, using the same modern techniques and technology you'd find in any top US clinic. Patients travel from across the Americas knowing they're in expert hands.",
+    bio: "With over 15 years of experience and more than 1,500 orthodontic cases completed, Dr. Rodríguez Chaves is one of Costa Rica's most dedicated orthodontic specialists. A graduate of the University of Costa Rica with advanced diplomados in orthodontics from both Costa Rica and Brazil's UniCPO Faculty, he holds an international Pitts 21 certification and has devoted 17 years exclusively to transforming smiles. As co-founder and CEO of Dental City, he brings precision, modern techniques, and a genuinely personal approach to every treatment plan — the same level of care you'd expect at a top North American clinic, at a fraction of the cost. His mission: to eliminate the fear of the dental visit and help every patient rediscover their confidence through a beautiful smile.",
   },
   {
-    name: "Dra. Mariela Hernandez Bonilla",
+    name: "Dra. Mariela Hernández Bonilla",
     role: "Founder & Oral Surgeon",
     specialty: "Dental Implants, Oral Surgery & Facial Harmonization",
     image: "/images/team-dra-hernandez.jpg",
-    bio: "With two decades of clinical excellence, Dra. Hernandez Bonilla is the driving force behind Dental City and the specialist international patients trust with their most complex cases. A UCR graduate with advanced implant training from the University of Miami and an active member of the International Congress of Oral Implantologists (ICOI), she brings a rare combination of surgical precision and artistic vision to every procedure. Her expertise spans dental implants, full-mouth rehabilitations, and orofacial harmonization — blending oral health with facial aesthetics for results that go beyond the smile. Patients describe her philosophy best: every detail matters when it comes to your comfort and well-being.",
+    bio: "With two decades of clinical excellence, Dra. Hernández Bonilla is the driving force behind Dental City and the specialist international patients trust with their most complex cases. A UCR graduate with advanced implant training from the University of Miami and an active member of the International Congress of Oral Implantologists (ICOI), she brings a rare combination of surgical precision and artistic vision to every procedure. Her expertise spans dental implants, full-mouth rehabilitations, and orofacial harmonization — blending oral health with facial aesthetics for results that go beyond the smile. Patients describe her philosophy best: every detail matters when it comes to your comfort and well-being.",
   },
   {
     name: "Dra. Angie Arcia Umaña",
@@ -66,7 +66,7 @@ export default function TeamPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Our Team</h1>
           <p className="text-white/70 max-w-2xl mx-auto text-lg">
-            UCR-trained professionals with over 30 combined years of experience,
+            UCR-trained professionals with over 35 combined years of experience,
             dedicated to your comfort and care.
           </p>
         </div>

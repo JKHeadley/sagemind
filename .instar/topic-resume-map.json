@@ -1,17 +1,12 @@
 {
-  "2": {
-    "uuid": "417e1bde-1090-4ab4-a3f9-1dda40d4801c",
-    "savedAt": "2026-03-18T07:27:59.330Z",
-    "sessionName": "sagemind-lifeline"
+  "358": {
+    "uuid": "96f4a6d6-bd45-4a03-bb10-40c3aebb698b",
+    "savedAt": "2026-03-18T06:03:12.658Z",
+    "sessionName": "sagemind-agent-updates"
   },
-  "7": {
-    "uuid": "417e1bde-1090-4ab4-a3f9-1dda40d4801c",
-    "savedAt": "2026-03-18T06:52:59.215Z",
-    "sessionName": "sagemind-agent-attention"
-  },
-  "365": {
-    "uuid": "95076ccf-2097-4c32-bcc8-dd16732085d3",
-    "savedAt": "2026-03-18T07:25:59.345Z",
-    "sessionName": "sagemind-gci"
+  "411": {
+    "uuid": "80193ed4-6f00-41bc-a8f8-0b0b46bc0dce",
+    "savedAt": "2026-03-18T06:04:12.652Z",
+    "sessionName": "sagemind-dental-city-website"
   }
 }

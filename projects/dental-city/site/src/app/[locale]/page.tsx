@@ -80,12 +80,12 @@ const statsData = {
 const dentistsData = {
   en: [
     {
-      name: "Dr. Francisco Rodriguez Chaves",
+      name: "Dr. Francisco Rodríguez Chaves",
       role: "Founder & CEO -- Orthodontics & Dentofacial Orthopedics",
       image: "/images/team-francisco.jpg",
     },
     {
-      name: "Dr. Mariela Hernandez Bonilla",
+      name: "Dra. Mariela Hernández Bonilla",
       role: "Founder & Oral Surgeon -- Dental Implants, Oral Surgery & Facial Harmonization",
       image: "/images/team-dra-hernandez.jpg",
     },
@@ -97,12 +97,12 @@ const dentistsData = {
   ],
   es: [
     {
-      name: "Dr. Francisco Rodriguez Chaves",
+      name: "Dr. Francisco Rodríguez Chaves",
       role: "Fundador y Director -- Ortodoncia y Ortopedia Dentofacial",
       image: "/images/team-francisco.jpg",
     },
     {
-      name: "Dra. Mariela Hernandez Bonilla",
+      name: "Dra. Mariela Hernández Bonilla",
       role: "Fundadora y Cirujana Oral -- Implantes Dentales, Cirugía Oral y Armonización Facial",
       image: "/images/team-dra-hernandez.jpg",
     },
@@ -213,7 +213,7 @@ export default async function Home({
       <section className="relative min-h-[70vh] md:min-h-[90vh] flex items-center bg-navy">
         <Image
           src="/images/hero-francisco.jpg"
-          alt="Dr. Francisco Rodriguez treating a patient at Dental City"
+          alt="Dr. Francisco Rodríguez treating a patient at Dental City"
           fill
           className="object-cover opacity-30 object-right md:object-center"
           priority
