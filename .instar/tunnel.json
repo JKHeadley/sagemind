@@ -1,11 +1,7 @@
 {
   "url": null,
   "type": "quick",
-<<<<<<< Updated upstream
-  "startedAt": null
-=======
   "startedAt": null,
-  "connectionId": "e6b01a45-c981-4df2-b70f-2016474f15c5",
-  "connectionLocation": "sjc01"
->>>>>>> Stashed changes
+  "connectionId": "a7230a63-43b0-402f-ae2d-baad31a46874",
+  "connectionLocation": "sjc05"
 }
