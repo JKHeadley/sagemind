@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website Development Agreement — Portfolio Program | Sagemind AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #f4f6f8;
+      color: #1a2b30;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 56px 64px;
+      box-shadow: 0 4px 24px rgba(2, 34, 46, 0.10);
+      border-top: 6px solid #08f1c7;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 28px;
+      border-bottom: 2px solid #e2e8ec;
+      margin-bottom: 32px;
+    }
+
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-name {
+      font-family: 'Arial', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #02222e;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-tagline {
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      color: #008276;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .doc-title-block {
+      text-align: right;
+    }
+
+    .doc-title {
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #02222e;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .doc-subtitle {
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      color: #08f1c7;
+      background: #02222e;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    /* Parties banner */
+    .parties-banner {
+      background: #02222e;
+      color: #fff;
+      border-radius: 6px;
+      padding: 20px 28px;
+      margin-bottom: 32px;
+    }
+
+    .parties-banner h2 {
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #08f1c7;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .parties-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .party-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(8, 241, 199, 0.2);
+      border-radius: 4px;
+      padding: 12px 16px;
+    }
+
+    .party-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: #08f1c7;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .party-name {
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .party-detail {
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 2px;
+    }
+
+    .party-fill {
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+
+    /* Overview */
+    .overview {
+      background: #f0fdf9;
+      border-left: 4px solid #08f1c7;
+      border-radius: 0 6px 6px 0;
+      padding: 18px 22px;
+      margin-bottom: 32px;
+      font-size: 15px;
+      color: #02222e;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-number {
+      background: #02222e;
+      color: #08f1c7;
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #02222e;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .section p {
+      color: #2c3e45;
+      margin-bottom: 10px;
+    }
+
+    ul.checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.checklist li {
+      padding: 5px 0 5px 24px;
+      position: relative;
+      color: #2c3e45;
+      border-bottom: 1px solid #f0f4f6;
+    }
+
+    ul.checklist li:last-child {
+      border-bottom: none;
+    }
+
+    ul.checklist li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #08f1c7;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    ul.dotlist {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.dotlist li {
+      padding: 4px 0 4px 20px;
+      position: relative;
+      color: #2c3e45;
+    }
+
+    ul.dotlist li::before {
+      content: '·';
+      position: absolute;
+      left: 6px;
+      color: #02222e;
+      font-size: 18px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    .cost-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .cost-table th {
+      background: #02222e;
+      color: #08f1c7;
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .cost-table td {
+      padding: 8px 12px;
+      font-size: 14px;
+      color: #2c3e45;
+      border-bottom: 1px solid #e8edf0;
+    }
+
+    .cost-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .cost-table tr:nth-child(even) td {
+      background: #f8fafb;
+    }
+
+    .cost-none {
+      color: #008276;
+      font-weight: 600;
+    }
+
+    .note-box {
+      background: #fef9ec;
+      border: 1px solid #f0d078;
+      border-radius: 5px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #5a4500;
+      margin-top: 12px;
+    }
+
+    .note-box strong {
+      color: #3d2e00;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e2e8ec;
+      margin: 28px 0;
+    }
+
+    /* Signature block */
+    .signatures {
+      margin-top: 36px;
+    }
+
+    .signatures-title {
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #02222e;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #08f1c7;
+    }
+
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .sig-block {
+      padding: 20px 0 0 0;
+    }
+
+    .sig-party {
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #08f1c7;
+      background: #02222e;
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .sig-line {
+      border-bottom: 1px solid #02222e;
+      height: 36px;
+      margin-bottom: 6px;
+    }
+
+    .sig-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      color: #7a8e94;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+    }
+
+    /* Footer */
+    .doc-footer {
+      margin-top: 36px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8ec;
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      color: #a0b0b6;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        padding: 32px 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-block">
+        <svg class="logo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="24" fill="#02222e"/>
+          <circle cx="24" cy="12" r="3" fill="#08f1c7"/>
+          <line x1="24" y1="15" x2="24" y2="20" stroke="#08f1c7" stroke-width="1.5"/>
+          <circle cx="24" cy="24" r="4" fill="#08f1c7" opacity="0.9"/>
+          <line x1="20" y1="24" x2="12" y2="30" stroke="#08f1c7" stroke-width="1.5"/>
+          <line x1="28" y1="24" x2="36" y2="30" stroke="#08f1c7" stroke-width="1.5"/>
+          <line x1="24" y1="28" x2="24" y2="36" stroke="#08f1c7" stroke-width="1.5"/>
+          <circle cx="12" cy="32" r="2.5" fill="#008276"/>
+          <circle cx="36" cy="32" r="2.5" fill="#008276"/>
+          <circle cx="24" cy="38" r="2.5" fill="#008276"/>
+          <line x1="12" y1="29.5" x2="9" y2="24" stroke="#08f1c7" stroke-width="1" opacity="0.5"/>
+          <line x1="36" y1="29.5" x2="39" y2="24" stroke="#08f1c7" stroke-width="1" opacity="0.5"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">Sagemind AI</span>
+          <span class="logo-tagline">AI Solutions &amp; SaaS Development</span>
+        </div>
+      </div>
+      <div class="doc-title-block">
+        <div class="doc-title">Website Development Agreement</div>
+        <div class="doc-subtitle">Portfolio Program</div>
+      </div>
+    </div>
+
+    <!-- Parties -->
+    <div class="parties-banner">
+      <h2>Parties to This Agreement</h2>
+      <div class="parties-grid">
+        <div class="party-box">
+          <div class="party-label">Developer</div>
+          <div class="party-name">Sagemind AI LLC</div>
+          <div class="party-detail">sagemindai.io &nbsp;·&nbsp; Bay Area, CA</div>
+        </div>
+        <div class="party-box">
+          <div class="party-label">Client</div>
+          <div class="party-name party-fill">___________________________</div>
+          <div class="party-detail party-fill">Business: ___________________</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overview -->
+    <div class="overview">
+      <strong>Here's the deal in plain English:</strong> Sagemind AI is building you a custom website at no charge — a $1,999 value — as part of our Portfolio Program. In return, you agree to provide a testimonial about your experience and give us permission to feature your site as an example of our work. That's it. No monthly fees, no strings, no surprises. You own your website completely.
+    </div>
+
+    <!-- Section 1: What Sagemind Provides -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title">What Sagemind Will Build For You</div>
+      </div>
+      <ul class="checklist">
+        <li>Custom 5-page website (Homepage, Services, About, Contact, FAQ) — designed around your business</li>
+        <li>Mobile-responsive design — looks great on phones, tablets, and desktops</li>
+        <li>AI chatbot setup, trained on your business information</li>
+        <li>SEO foundation — Schema markup, meta tags, and sitemap so Google can find you</li>
+        <li>Google Maps integration, click-to-call button, and contact form</li>
+        <li>2 rounds of revisions based on your feedback</li>
+        <li>Domain setup and deployment assistance — we'll walk you through it</li>
+        <li>Complete source code and documentation delivered at handoff</li>
+        <li>Permanent backup of your website kept on our end</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Section 2: What the Client Agrees To -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title">What You Agree To</div>
+      </div>
+      <ul class="checklist">
+        <li>Provide a written or video testimonial within <strong>30 days</strong> of your site going live</li>
+        <li>Allow Sagemind to display your website as a portfolio example on sagemindai.io and in marketing materials</li>
+        <li>Allow Sagemind to mention your business name and logo in portfolio-related marketing</li>
+        <li>Deliver all required content (photos, business info, copy, logos) within <strong>30 days</strong> of signing this agreement</li>
+        <li>Set up and maintain your own accounts for domain registration, hosting, and the AI chatbot API (see Section 5 for cost estimates)</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Section 3: Ownership -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title">Ownership &amp; Rights</div>
+      </div>
+      <ul class="dotlist">
+        <li><strong>You own your website.</strong> The source code, design, and all content created specifically for you belong to you — fully and permanently.</li>
+        <li><strong>Portfolio rights.</strong> Sagemind retains the right to showcase the completed website in our portfolio and marketing materials.</li>
+        <li><strong>Removal option.</strong> Either party may request removal of the portfolio display with 30 days' written notice. (Note: removing a portfolio listing does not affect your ownership of the website in any way.)</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Section 4: Client Ongoing Costs -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title">Your Ongoing Costs (After Handoff)</div>
+      </div>
+      <p>Sagemind's work is completely free. After handoff, your only costs are the third-party services you control:</p>
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Cost Estimate</th>
+            <th>Paid To</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Domain registration &amp; annual renewal</td>
+            <td>~$10–15 / year</td>
+            <td>Your registrar (e.g., Namecheap, GoDaddy)</td>
+          </tr>
+          <tr>
+            <td>Website hosting (Vercel free tier)</td>
+            <td class="cost-none">$0 / month</td>
+            <td>Vercel (vercel.com)</td>
+          </tr>
+          <tr>
+            <td>AI chatbot API usage</td>
+            <td>~$2–3 / month</td>
+            <td>Anthropic / OpenAI (usage-based)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note-box">
+        <strong>Note:</strong> Sagemind has zero ongoing costs or obligations to you after the website is handed off. We help you set everything up, then it's yours to run.
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Section 5: Content Deadline -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title">Content Deadline</div>
+      </div>
+      <ul class="dotlist">
+        <li>All content (photos, business details, copy, logos, etc.) must be delivered within <strong>30 days</strong> of signing.</li>
+        <li>If content is not received within 30 days, the project may be placed on hold until it arrives.</li>
+        <li>If content is not received within <strong>60 days</strong>, Sagemind reserves the right to cancel this agreement. No hard feelings — life happens — but we need the material to do the work.</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Section 6: Revisions -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <div class="section-title">Revisions</div>
+      </div>
+      <ul class="dotlist">
+        <li><strong>2 rounds of revisions</strong> are included at no charge.</li>
+        <li>A "round" means a consolidated set of feedback — please gather all your notes before submitting each round.</li>
+        <li>Additional revisions beyond the 2 included rounds are available at <strong>$75–150/hr</strong>, billed in 30-minute increments.</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Section 7: After Handoff -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <div class="section-title">After Handoff</div>
+      </div>
+      <ul class="dotlist">
+        <li>Sagemind delivers your website in fully working condition — tested and ready to go live.</li>
+        <li>After handoff, <strong>you are responsible</strong> for ongoing maintenance, updates, and any technical issues that arise.</li>
+        <li>Optional support is available from Sagemind on an hourly basis if you ever need help down the road. Just reach out.</li>
+      </ul>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Signature Block -->
+    <div class="signatures">
+      <div class="signatures-title">Agreement &amp; Signatures</div>
+      <p style="margin-bottom:20px; font-size:14px; color:#3a4f57;">By signing below, both parties agree to the terms of this agreement. This document becomes effective on the date of the last signature.</p>
+      <div class="sig-grid">
+        <!-- Developer -->
+        <div class="sig-block">
+          <div class="sig-party">Sagemind AI LLC</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Signature</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Printed Name</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Date</div>
+        </div>
+        <!-- Client -->
+        <div class="sig-block">
+          <div class="sig-party">Client</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Signature</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Printed Name</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Business Name</div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Date</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="doc-footer">
+      <span>Sagemind AI LLC &nbsp;·&nbsp; sagemindai.io &nbsp;·&nbsp; justin@sagemindai.io</span>
+      <span>Portfolio Program Agreement &nbsp;·&nbsp; v1.0</span>
+    </div>
+
+  </div>
+</body>
+</html>

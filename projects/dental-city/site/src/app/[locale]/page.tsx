@@ -86,7 +86,7 @@ const dentistsData = {
     },
     {
       name: "Dr. Zaidy Mariela Hernandez Bonilla",
-      role: "Founder & Periodontist -- Dental Implants & Oral Rehabilitation",
+      role: "Founder & Oral Surgeon -- Dental Implants, Oral Surgery & Facial Harmonization",
       image: "/images/team-dra-hernandez.jpg",
     },
     {
@@ -103,7 +103,7 @@ const dentistsData = {
     },
     {
       name: "Dra. Zaidy Mariela Hernandez Bonilla",
-      role: "Fundadora y Periodoncista -- Implantes Dentales y Rehabilitación Oral",
+      role: "Fundadora y Cirujana Oral -- Implantes Dentales, Cirugía Oral y Armonización Facial",
       image: "/images/team-dra-hernandez.jpg",
     },
     {
@@ -637,54 +637,6 @@ export default async function Home({
               </div>
             </div>
 
-            {/* Location 2 - Sarapiqui */}
-            <div className="bg-navy-light rounded-xl p-5 md:p-8">
-              <h3 className="text-xl font-bold text-primary-light mb-6">
-                La Virgen, Sarapiqui
-              </h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-white/90 mb-1">{dict.contact.address}</h4>
-                  <p className="text-white/60 text-sm">
-                    Edificio Dental City Frente a la Plaza de Deportes, La Virgen, Sarapiqui, Costa Rica, 41002
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white/90 mb-1">{dict.contact.phone}</h4>
-                  <a
-                    href="tel:+50683883535"
-                    className="text-white/60 hover:text-primary-light transition-colors text-sm"
-                  >
-                    +506 8388 3535
-                  </a>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white/90 mb-1">{dict.contact.email}</h4>
-                  <a
-                    href="mailto:dentalcitycostarica@gmail.com"
-                    className="text-white/60 hover:text-primary-light transition-colors text-sm"
-                  >
-                    dentalcitycostarica@gmail.com
-                  </a>
-                </div>
-                <div className="pt-2 flex flex-wrap gap-3">
-                  <a
-                    href="tel:+50683883535"
-                    className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
-                  >
-                    {dict.common.callToBook}
-                  </a>
-                  <a
-                    href="https://www.facebook.com/dentalcitysarapiqui"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block border border-white/30 hover:border-primary-light text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
-                  >
-                    {dict.common.facebook}
-                  </a>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

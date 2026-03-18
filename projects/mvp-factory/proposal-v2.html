@@ -1,0 +1,361 @@
+<html>
+<head>
+<style>
+body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1a1a2e; line-height: 1.6; margin: 40px; }
+h1 { color: #02222e; font-size: 28pt; margin-bottom: 4px; }
+h2 { color: #02222e; font-size: 18pt; border-bottom: 3px solid #08f1c7; padding-bottom: 8px; margin-top: 36px; }
+h3 { color: #014f4f; font-size: 14pt; margin-top: 24px; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 10pt; }
+th { background-color: #02222e; color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+td { border: 1px solid #e0e0e0; padding: 8px 14px; }
+tr:nth-child(even) { background-color: #f8fafa; }
+.subtitle { color: #666; font-size: 11pt; margin-top: 0; }
+.highlight { background-color: #e6fff9; padding: 16px 20px; border-left: 4px solid #08f1c7; margin: 16px 0; }
+.stat-box { display: inline-block; background-color: #02222e; color: white; padding: 12px 20px; margin: 4px 8px 4px 0; text-align: center; min-width: 120px; }
+.stat-number { font-size: 20pt; font-weight: bold; color: #08f1c7; }
+.stat-label { font-size: 9pt; color: #ccc; }
+.section-divider { border: none; border-top: 2px solid #08f1c7; margin: 32px 0; }
+ul { padding-left: 20px; }
+li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div style="text-align: center; margin-bottom: 40px;">
+<img src="https://sagemindai.io/logo-dark.png" width="180" height="50" alt="Sagemind AI" style="margin-bottom: 16px;" />
+<h1>MVP Factory Proposal</h1>
+<p class="subtitle">Prepared by Adriana &nbsp;|&nbsp; For Justin Headley &nbsp;|&nbsp; March 16, 2026</p>
+<p class="subtitle" style="color: #999; font-size: 9pt;">CONFIDENTIAL &mdash; Sagemind AI LLC</p>
+</div>
+
+<hr class="section-divider" />
+
+<!-- EXECUTIVE SUMMARY -->
+<h2>Executive Summary</h2>
+
+<p>We've built <strong>15 fully functional, production-ready websites</strong> for Bay Area small businesses that currently have <strong>no website</strong>. Each site is custom-designed, mobile-responsive, SEO-optimized, and includes an AI chatbot &mdash; all running from a single Next.js application.</p>
+
+<div class="highlight">
+<strong>The model:</strong> We deploy a sample site at <code>business-name.sagemindai.io</code>, cold-pitch the owner with a direct link, and close them on a <strong>premium, one-time website build</strong>. They pay once, they own it outright. No monthly fees. No subscriptions. No strings attached.
+</div>
+
+<p><strong>Why this works:</strong></p>
+<ul>
+<li>Small business owners are tired of monthly fees &mdash; they want to <strong>own</strong> their website</li>
+<li>27% of US small businesses (~8-10M) still have no website</li>
+<li>The spec site makes the pitch concrete &mdash; they see <em>their</em> business live before spending a dollar</li>
+<li>Our build cost per site is near zero (single codebase, config-driven) &mdash; the margin on each sale is <strong>85-90%+</strong></li>
+<li>No ongoing support burden means we can focus entirely on building and selling</li>
+</ul>
+
+<!-- KEY METRICS -->
+<div style="text-align: center; margin: 24px 0;">
+<div class="stat-box"><div class="stat-number">15</div><div class="stat-label">SITES BUILT</div></div>
+<div class="stat-box"><div class="stat-number">85%+</div><div class="stat-label">GROSS MARGIN</div></div>
+<div class="stat-box"><div class="stat-number">$1.5K&ndash;3K</div><div class="stat-label">PER SALE</div></div>
+<div class="stat-box"><div class="stat-number">$75K+</div><div class="stat-label">YEAR 1 POTENTIAL</div></div>
+</div>
+
+<hr class="section-divider" />
+
+<!-- WHAT WE BUILT -->
+<h2>What We Built</h2>
+
+<h3>15 Custom Websites &mdash; Single Codebase</h3>
+
+<p>A single Next.js 16 app serves all 15 sites using dynamic routing. Each business gets a unique site with:</p>
+
+<ul>
+<li><strong>5 pages:</strong> Homepage, Services, About, Contact, FAQ</li>
+<li><strong>Unique design:</strong> Different color palettes, typography, hero layouts, and visual styles</li>
+<li><strong>AI chatbot:</strong> Answers questions about the business (hours, services, location, pricing)</li>
+<li><strong>Click-to-call:</strong> Floating phone button on mobile</li>
+<li><strong>Google Maps:</strong> Embedded on contact page</li>
+<li><strong>Schema markup:</strong> LocalBusiness + FAQPage + BreadcrumbList for SEO</li>
+<li><strong>Contact form:</strong> Email notifications to the business owner</li>
+</ul>
+
+<p>These 15 demo sites serve as the <strong>spec pitch</strong> &mdash; live proof of what we can build. The final client site is polished with their real photos, content, and branding.</p>
+
+<h3>Target Businesses</h3>
+
+<table>
+<tr><th>#</th><th>Business</th><th>Industry</th><th>Location</th></tr>
+<tr><td>1</td><td>K &amp; C Auto Service</td><td>European Auto Repair</td><td>San Francisco</td></tr>
+<tr><td>2</td><td>Best Auto Care</td><td>Auto Repair</td><td>San Francisco</td></tr>
+<tr><td>3</td><td>1701 Auto Care</td><td>Auto Repair</td><td>Alameda</td></tr>
+<tr><td>4</td><td>Community Auto Center</td><td>Auto Repair</td><td>Oakland</td></tr>
+<tr><td>5</td><td>Glenview Automotive</td><td>Auto Repair</td><td>Oakland</td></tr>
+<tr><td>6</td><td>Fruitvale Collision Center</td><td>Auto Body</td><td>Oakland</td></tr>
+<tr><td>7</td><td>Supreme Blends Barber Shop</td><td>Barber</td><td>Oakland</td></tr>
+<tr><td>8</td><td>Aguachiles El Tamarindo</td><td>Restaurant</td><td>Oakland</td></tr>
+<tr><td>9</td><td>Taqueria El Chacho</td><td>Restaurant</td><td>San Jose</td></tr>
+<tr><td>10</td><td>La Parrilla Loca</td><td>Restaurant</td><td>Oakland</td></tr>
+<tr><td>11</td><td>Pipirin</td><td>Restaurant</td><td>Oakland</td></tr>
+<tr><td>12</td><td>Pena's Bakery</td><td>Bakery</td><td>Oakland</td></tr>
+<tr><td>13</td><td>Panaderia La Favorita</td><td>Bakery</td><td>Oakland</td></tr>
+<tr><td>14</td><td>Panaderia Sevilla</td><td>Bakery</td><td>Oakland</td></tr>
+<tr><td>15</td><td>Green Eagle Plumbing</td><td>Plumbing</td><td>Berkeley</td></tr>
+</table>
+
+<p><em>All are real Bay Area businesses with active Google Business Profiles but no website or a broken/placeholder site.</em></p>
+
+<hr class="section-divider" />
+
+<!-- HOW IT WORKS -->
+<h2>How It Works &mdash; The Client Journey</h2>
+
+<p>A simple, 6-step process from first contact to handoff:</p>
+
+<table>
+<tr><th>Step</th><th>What Happens</th><th>Timeline</th></tr>
+<tr><td><strong>1. Spec Pitch</strong></td><td>We email the business owner a link to their live demo site on sagemindai.io. They see their business name, address, and services on a real, professional website.</td><td>Day 1</td></tr>
+<tr><td><strong>2. Discovery Call</strong></td><td>15-minute call to walk them through the site, understand their vision, and close the sale. We collect a 50% deposit.</td><td>Days 2&ndash;7</td></tr>
+<tr><td><strong>3. Client Provides Content</strong></td><td>They send us their real photos, logo, menu/service list, story, and any specific requests. We provide a simple content checklist to make this easy.</td><td>Days 7&ndash;14</td></tr>
+<tr><td><strong>4. We Build v1</strong></td><td>We build their polished, production-ready site using their real content. Custom design, AI chatbot trained on their actual business data, full SEO setup.</td><td>Days 14&ndash;21</td></tr>
+<tr><td><strong>5. Review &amp; Revise</strong></td><td>Client reviews the site. We do up to <strong>2 rounds of revisions</strong> to get everything perfect.</td><td>Days 21&ndash;28</td></tr>
+<tr><td><strong>6. Handoff</strong></td><td>Site goes live on their domain. We hand over everything &mdash; they own it. Final 50% payment collected.</td><td>Day 28&ndash;30</td></tr>
+</table>
+
+<div class="highlight">
+<strong>Total turnaround: ~4 weeks from yes to live site.</strong> The client gets a premium, custom website they fully own &mdash; no monthly fees, no lock-in, no vendor dependency.
+</div>
+
+<hr class="section-divider" />
+
+<!-- MARKET OPPORTUNITY -->
+<h2>Market Opportunity</h2>
+
+<h3>The Problem</h3>
+<ul>
+<li><strong>27% of US small businesses have no website</strong> (8-10 million businesses)</li>
+<li><strong>81% of consumers</strong> research businesses online before buying</li>
+<li><strong>97% of consumers</strong> search online to find local businesses</li>
+<li>Businesses without websites lose customers to competitors who have one</li>
+</ul>
+
+<p>Most small business owners don't get a website because:</p>
+<ol>
+<li><strong>&ldquo;Too expensive&rdquo;</strong> &mdash; they imagine $3,000-$10,000</li>
+<li><strong>&ldquo;I don't want another monthly bill&rdquo;</strong> &mdash; subscription fatigue is real</li>
+<li><strong>&ldquo;I don't have time to manage it&rdquo;</strong> &mdash; they need done-for-you</li>
+<li><strong>&ldquo;I got burned before&rdquo;</strong> &mdash; bad freelancer experience</li>
+</ol>
+
+<div class="highlight">
+Our pitch addresses <strong>every single objection</strong>: it's affordable ($1,500&ndash;$3,000 vs. $5K&ndash;$10K), it's one-time (no monthly fees), it's completely done-for-you (they just send photos), and they can see the quality before committing (the spec site).
+</div>
+
+<h3>The Competitive Landscape</h3>
+
+<table>
+<tr><th>Competitor Type</th><th>Price</th><th>Ownership</th><th>Ongoing Fees</th></tr>
+<tr><td>DIY (Wix, Squarespace)</td><td>$25-40/mo forever</td><td>No &mdash; locked to platform</td><td>Yes, forever</td></tr>
+<tr><td>AI Builders (Durable, 10Web)</td><td>$12-25/mo forever</td><td>No &mdash; locked to platform</td><td>Yes, forever</td></tr>
+<tr><td>Freelancers (Fiverr/Upwork)</td><td>$500-3,500 one-time</td><td>Yes (usually)</td><td>None (but no support)</td></tr>
+<tr><td>Local Agencies</td><td>$3,000-10,000+ one-time</td><td>Yes</td><td>Optional maintenance</td></tr>
+<tr><td>Done-for-you (Hibu, Thryv)</td><td>$300-1,500/mo</td><td>No &mdash; they own it</td><td>Yes, forever</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>Sagemind AI</strong></td><td><strong>$1,500-3,000 one-time</strong></td><td><strong>Yes &mdash; fully yours</strong></td><td><strong>None</strong></td></tr>
+</table>
+
+<p><strong>Our positioning:</strong> Agency-quality work at a fraction of the price. Full ownership. No lock-in. No monthly drain. And unlike a random freelancer &mdash; we show you the site <em>before</em> you pay.</p>
+
+<hr class="section-divider" />
+
+<!-- PRICING -->
+<h2>Pricing</h2>
+
+<h3>Three Tiers</h3>
+
+<table>
+<tr><th>Tier</th><th>Price</th><th>What They Get</th></tr>
+<tr><td><strong>Essential</strong></td><td><strong>$1,499</strong></td><td>5-page custom website, mobile-responsive, SEO foundation (Schema markup, meta tags, sitemap), Google Maps integration, contact form, 2 rounds of revisions, domain setup assistance</td></tr>
+<tr><td><strong>Professional</strong></td><td><strong>$2,499</strong></td><td>Everything in Essential + AI chatbot trained on their business, Google Business Profile optimization, click-to-call, online booking/scheduling integration, content writing assistance</td></tr>
+<tr><td><strong>Premium</strong></td><td><strong>$2,999</strong></td><td>Everything in Professional + custom branding/logo refinement, advanced SEO (local keyword targeting, competitor analysis), social media starter kit, 90-day post-launch support window</td></tr>
+</table>
+
+<h3>Payment Structure</h3>
+
+<table>
+<tr><th>When</th><th>Amount</th><th>Details</th></tr>
+<tr><td>At signing</td><td><strong>50% deposit</strong></td><td>Secures the project, we begin building</td></tr>
+<tr><td>At handoff</td><td><strong>50% final</strong></td><td>Site goes live, client owns everything</td></tr>
+</table>
+
+<h3>What &ldquo;You Own It&rdquo; Means</h3>
+<ul>
+<li>We hand over the complete site code &mdash; they can host it anywhere</li>
+<li>No platform lock-in, no proprietary CMS, no &ldquo;you lose your site if you leave&rdquo;</li>
+<li>Built on modern, open-source technology (Next.js, React, Tailwind)</li>
+<li>We assist with domain registration and initial hosting setup</li>
+<li>They get full documentation on how to make basic updates</li>
+</ul>
+
+<h3>Optional Add-Ons (After Handoff)</h3>
+
+<table>
+<tr><th>Service</th><th>Price</th><th>Details</th></tr>
+<tr><td>Site updates / changes</td><td>$75-150/hr</td><td>Come back anytime for updates</td></tr>
+<tr><td>Managed hosting</td><td>$19/mo</td><td>We host and maintain &mdash; totally optional</td></tr>
+<tr><td>Advanced SEO campaign</td><td>$500-1,500 one-time</td><td>Deep keyword research + optimization</td></tr>
+<tr><td>Google Ads setup</td><td>$499 one-time</td><td>Campaign setup + 30 days of management</td></tr>
+<tr><td>Additional pages</td><td>$200-400/page</td><td>Gallery, team bios, testimonials, etc.</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- UNIT ECONOMICS -->
+<h2>Unit Economics</h2>
+
+<h3>Our Costs Per Build</h3>
+
+<table>
+<tr><th>Item</th><th>Cost Per Client</th><th>Notes</th></tr>
+<tr><td>Development time</td><td>~4-8 hours</td><td>Config-driven &mdash; site structure is templated, we customize</td></tr>
+<tr><td>Content gathering / communication</td><td>~2-3 hours</td><td>Checklist-driven intake, review calls</td></tr>
+<tr><td>Revisions (2 rounds)</td><td>~2-4 hours</td><td>Budgeted at 2 rounds max</td></tr>
+<tr><td>Domain / hosting setup</td><td>~1 hour</td><td>DNS, deployment, SSL</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>Total Time Per Client</strong></td><td><strong>~10-16 hours</strong></td><td></td></tr>
+<tr><td>Hard costs (hosting, AI API, tools)</td><td>~$10-20 total</td><td>Near-zero marginal cost</td></tr>
+</table>
+
+<h3>Margins by Tier</h3>
+
+<table>
+<tr><th>Tier</th><th>Price</th><th>Estimated Hours</th><th>Effective Rate</th><th>Margin</th></tr>
+<tr><td>Essential ($1,499)</td><td>$1,499</td><td>~10 hrs</td><td>$150/hr</td><td>~85%</td></tr>
+<tr><td>Professional ($2,499)</td><td>$2,499</td><td>~13 hrs</td><td>$192/hr</td><td>~88%</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>Premium ($2,999)</strong></td><td><strong>$2,999</strong></td><td><strong>~16 hrs</strong></td><td><strong>$187/hr</strong></td><td><strong>~87%</strong></td></tr>
+</table>
+
+<h3>Revenue Projections</h3>
+
+<table>
+<tr><th>Timeline</th><th>Clients Closed</th><th>Avg Sale</th><th>Total Revenue</th><th>Cumulative</th></tr>
+<tr><td>Month 1 (initial 15 pitch)</td><td>3-5</td><td>$2,000</td><td>$6,000-10,000</td><td>$6K-10K</td></tr>
+<tr><td>Months 2-3 (expand to 50 targets)</td><td>5-8</td><td>$2,000</td><td>$10,000-16,000</td><td>$16K-26K</td></tr>
+<tr><td>Months 4-6 (referrals kick in)</td><td>8-12</td><td>$2,200</td><td>$17,600-26,400</td><td>$34K-52K</td></tr>
+<tr><td>Months 7-12 (scaled pipeline)</td><td>15-25</td><td>$2,200</td><td>$33,000-55,000</td><td>$67K-107K</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>Year 1 Total</strong></td><td><strong>31-50 clients</strong></td><td></td><td></td><td><strong>$67,000-107,000</strong></td></tr>
+</table>
+
+<p><em>Assumptions: 20% close rate on cold pitches, average sale of $2,000-$2,200 (mix of tiers), referral rate of 1 referral per 3 happy clients starting month 4.</em></p>
+
+<hr class="section-divider" />
+
+<!-- SPEC PITCH STRATEGY -->
+<h2>The &ldquo;Spec Pitch&rdquo; Strategy</h2>
+
+<h3>Why This Beats Normal Cold Outreach</h3>
+
+<table>
+<tr><th>Approach</th><th>Response Rate</th><th>Close Rate</th></tr>
+<tr><td>Generic cold email</td><td>~9%</td><td>~1-2%</td></tr>
+<tr><td>Personalized cold email</td><td>~18%</td><td>~3-5%</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>Spec site + personalized email</strong></td><td><strong>25-35% (est.)</strong></td><td><strong>15-25% (est.)</strong></td></tr>
+</table>
+
+<div class="highlight">
+The spec site triggers <strong>ownership psychology</strong> &mdash; they see <em>their</em> business name, <em>their</em> address, <em>their</em> reviews on a professional website. It's no longer abstract. And because our model is one-time with no strings, the ask is simple: <strong>&ldquo;Want us to make this yours? One price, you own it forever.&rdquo;</strong>
+</div>
+
+<h3>Outreach Timeline</h3>
+
+<table>
+<tr><th>Days</th><th>Action</th></tr>
+<tr><td>Day 1-2</td><td>Deploy all 15 spec sites, verify functionality</td></tr>
+<tr><td>Day 3-4</td><td>Research owner names, emails, phone numbers</td></tr>
+<tr><td>Day 5-6</td><td>Send first round of personalized pitch emails (stagger 5/day)</td></tr>
+<tr><td>Day 10-11</td><td>Follow-up email to non-responders</td></tr>
+<tr><td>Day 15</td><td>Phone call follow-up to remaining non-responders</td></tr>
+<tr><td>Day 20+</td><td>Discovery calls with interested leads, collect deposits, begin builds</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- TECHNICAL ARCHITECTURE -->
+<h2>Technical Architecture</h2>
+
+<ul>
+<li><strong>Framework:</strong> Next.js 16, React 19, TypeScript, Tailwind CSS v4</li>
+<li><strong>Architecture:</strong> Single app, dynamic routing &mdash; one codebase serves all spec/demo sites</li>
+<li><strong>Client sites:</strong> Each client gets their own standalone deployment (clean separation)</li>
+<li><strong>Config-driven:</strong> Each business = one TypeScript config file (~200 lines)</li>
+<li><strong>Performance:</strong> Targeting Lighthouse 90+ across all sites</li>
+<li><strong>Handoff-ready:</strong> Clean codebase the client (or any developer) can maintain</li>
+</ul>
+
+<h3>What the Client Receives at Handoff</h3>
+<ul>
+<li>Complete source code (GitHub repo or zip)</li>
+<li>Deployed, live website on their domain</li>
+<li>Documentation for basic content updates</li>
+<li>All assets (images, fonts, icons)</li>
+<li>SEO configuration and sitemap</li>
+</ul>
+
+<hr class="section-divider" />
+
+<!-- RISKS -->
+<h2>Risks &amp; Mitigations</h2>
+
+<table>
+<tr><th>Risk</th><th>Likelihood</th><th>Mitigation</th></tr>
+<tr><td>Low close rate (&lt;10%)</td><td>Medium</td><td>Costs are near-zero per pitch; expand target list to 50-100 businesses</td></tr>
+<tr><td>Scope creep during revisions</td><td>Medium</td><td>Contract clearly defines 2 rounds of revisions; additional work billed hourly</td></tr>
+<tr><td>Client never sends content</td><td>Medium</td><td>50% deposit is non-refundable; content checklist with 14-day deadline</td></tr>
+<tr><td>Client wants ongoing management</td><td>Low</td><td>Offer optional managed hosting ($19/mo) or hourly updates</td></tr>
+<tr><td>Legal concerns about spec sites</td><td>Low</td><td>Publicly available info only; sites are complimentary; remove immediately upon request</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- DECISIONS -->
+<h2>Key Decisions Required</h2>
+
+<table>
+<tr><th>#</th><th>Decision</th><th>Options to Consider</th></tr>
+<tr><td>1</td><td><strong>Pricing tiers</strong></td><td>Confirm $1,499 / $2,499 / $2,999 or adjust?</td></tr>
+<tr><td>2</td><td><strong>Outreach ownership</strong></td><td>Adriana, Justin, or both?</td></tr>
+<tr><td>3</td><td><strong>Client handoff format</strong></td><td>GitHub repo, zip file, or deployed + code?</td></tr>
+<tr><td>4</td><td><strong>Hosting recommendation</strong></td><td>Vercel free tier, Netlify, or our managed option?</td></tr>
+<tr><td>5</td><td><strong>Sagemind website</strong></td><td>Add a services/pricing page or keep pitch-only?</td></tr>
+<tr><td>6</td><td><strong>Contract &amp; payment</strong></td><td>Stripe invoicing? 50/50 split? Full upfront discount?</td></tr>
+<tr><td>7</td><td><strong>Domain strategy</strong></td><td>Help them buy a domain, or they come with one?</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- NEXT STEPS -->
+<h2>Next Steps</h2>
+
+<table>
+<tr><th>Status</th><th>Action Item</th></tr>
+<tr><td style="color: #08f1c7; font-weight: bold; font-size: 14pt;">&#10003;</td><td>Build 15 spec websites</td></tr>
+<tr><td style="color: #08f1c7; font-weight: bold; font-size: 14pt;">&#10003;</td><td>AI chatbot on every site</td></tr>
+<tr><td style="color: #08f1c7; font-weight: bold; font-size: 14pt;">&#10003;</td><td>Sagemind branding on every site</td></tr>
+<tr><td style="color: #08f1c7; font-weight: bold; font-size: 14pt;">&#10003;</td><td>Market research &amp; pricing analysis</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td><strong>Justin reviews &amp; approves this proposal</strong></td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Finalize pricing tiers and contract template</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Deploy all 15 spec sites to Vercel with subdomains</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Set up DNS records (15 CNAME entries)</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Research owner contact info for all 15 businesses</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Draft personalized pitch emails</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Set up Stripe for invoicing / deposits</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Begin outreach</td></tr>
+</table>
+
+<br />
+<hr class="section-divider" />
+
+<p style="text-align: center; color: #666; font-size: 10pt; margin-top: 24px;">
+<em>This proposal represents near-zero hard costs invested with potential for $67,000&ndash;$107,000+ in revenue within 12 months. Each closed client generates $1,500&ndash;$3,000 with 85-90% margins and no ongoing support obligation.</em>
+</p>
+
+<p style="text-align: center; color: #999; font-size: 9pt; margin-top: 32px;">
+Sagemind AI LLC &nbsp;|&nbsp; sagemindai.io &nbsp;|&nbsp; Confidential
+</p>
+
+</body>
+</html>

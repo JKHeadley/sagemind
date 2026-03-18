@@ -82,6 +82,14 @@ export default function ServiceIcon({ name }: { name: string }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.384-5.383a1.5 1.5 0 010-2.121l.707-.707a1.5 1.5 0 012.121 0L12 10.086l3.136-3.127a1.5 1.5 0 012.121 0l.707.707a1.5 1.5 0 010 2.121L12.58 15.17a.75.75 0 01-1.06.1l-.1-.1z" />
         </svg>
       );
+    case "Facial Harmonization":
+    case "Armonización Facial":
+      return (
+        <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75z" />
+        </svg>
+      );
     case "Dental Prosthetics":
     case "Prótesis Dentales":
       return (

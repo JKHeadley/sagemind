@@ -42,7 +42,7 @@ function FullscreenHero({ config }: { config: SiteConfig }) {
       {config.hero.backgroundImage && (
         <Image src={config.hero.backgroundImage} alt={config.businessName} fill className="object-cover opacity-25" priority sizes="100vw" />
       )}
-      <div className="absolute inset-0 bg-header-bg/70" />
+      <div className="absolute inset-0 bg-header-bg/80" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-24 text-center text-white">
         <HeroContent config={config} />
       </div>
@@ -73,6 +73,7 @@ function DiagonalHero({ config }: { config: SiteConfig }) {
       {config.hero.backgroundImage && (
         <Image src={config.hero.backgroundImage} alt={config.businessName} fill className="object-cover opacity-20" priority sizes="100vw" />
       )}
+      <div className="absolute inset-0 bg-header-bg/80" />
       <div className="absolute inset-0 bg-header-bg" style={{ clipPath: "polygon(0 0, 65% 0, 50% 100%, 0 100%)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-24 text-white">
         <div className="max-w-xl">
@@ -126,6 +127,7 @@ function CenteredHero({ config }: { config: SiteConfig }) {
       {config.hero.backgroundImage && (
         <Image src={config.hero.backgroundImage} alt={config.businessName} fill className="object-cover opacity-30" priority sizes="100vw" />
       )}
+      <div className="absolute inset-0 bg-header-bg/50" />
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-24 text-center text-white">
         <HeroContent config={config} />
       </div>

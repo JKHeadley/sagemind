@@ -5,7 +5,7 @@ function ServiceCard({ service, index }: { service: ServiceItem; index: number }
   return (
     <AnimateOnScroll delay={index < 3 ? ((index * 100) as 100 | 200 | 300) : undefined}>
       <div
-        className="bg-white p-6 shadow-sm card-hover h-full"
+        className="bg-bg p-6 shadow-sm card-hover h-full"
         style={{ borderRadius: "var(--site-radius, 12px)" }}
       >
         <h3 className="font-semibold text-lg mb-2 text-primary-dark">

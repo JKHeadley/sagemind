@@ -7,7 +7,7 @@ function FAQAccordionItem({ item }: { item: FAQItem }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-200">
+    <div className="border-b border-surface-alt">
       <button
         className="w-full text-left py-4 flex items-center justify-between gap-4"
         onClick={() => setOpen(!open)}
@@ -41,7 +41,7 @@ export default function FAQSection({
   title?: string;
 }) {
   return (
-    <section className="py-12 md:py-20 bg-white">
+    <section className="py-12 md:py-20 bg-bg">
       <div className="max-w-3xl mx-auto px-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center mb-8 text-text">
           {title}

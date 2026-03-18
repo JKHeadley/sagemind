@@ -188,7 +188,12 @@ const servicesData = {
     {
       name: "Oral Surgery",
       description:
-        "From wisdom tooth extractions to complex surgical procedures, our team provides expert oral surgery in a comfortable, modern environment. We prioritize your safety and comfort throughout every procedure.",
+        "Led by Dra. Mariela Hernandez Bonilla with 20 years of surgical experience, advanced implant training from the University of Miami, and membership in the International Congress of Oral Implantologists (ICOI). From wisdom tooth extractions to complex surgical procedures, you're in the hands of one of the most experienced oral surgeons in the region.\n\nHer philosophy is simple: every detail matters when it comes to your comfort and well-being. Patients trust her with their most complex cases knowing they'll receive world-class care at a fraction of what they'd pay back home.",
+    },
+    {
+      name: "Facial Harmonization",
+      description:
+        "Dra. Hernandez Bonilla combines her deep expertise in oral surgery with advanced training in orofacial harmonization to offer treatments that go beyond the smile. Using collagen biostimulators and the latest non-surgical techniques, she enhances facial balance and aesthetics for a naturally refreshed appearance.\n\nThis unique combination of dental and facial expertise means your treatment plan considers the complete picture — your smile, your facial structure, and your confidence — all under one roof.",
     },
     {
       name: "Dental Prosthetics",
@@ -255,7 +260,12 @@ const servicesData = {
     {
       name: "Cirugía Oral",
       description:
-        "Desde extracciones de muelas del juicio hasta procedimientos quirúrgicos complejos, nuestro equipo brinda cirugía oral experta en un entorno cómodo y moderno. Priorizamos su seguridad y comodidad durante cada procedimiento.",
+        "Liderada por la Dra. Mariela Hernandez Bonilla con 20 años de experiencia quirúrgica, formación avanzada en implantes de la Universidad de Miami y membresía en el International Congress of Oral Implantologists (ICOI). Desde extracciones de muelas del juicio hasta procedimientos quirúrgicos complejos, está en manos de una de las cirujanas orales más experimentadas de la región.\n\nSu filosofía es simple: cada detalle importa cuando se trata de su comodidad y bienestar. Los pacientes confían en ella para sus casos más complejos sabiendo que recibirán atención de clase mundial a una fracción de lo que pagarían en su país.",
+    },
+    {
+      name: "Armonización Facial",
+      description:
+        "La Dra. Hernandez Bonilla combina su amplia experiencia en cirugía oral con formación avanzada en armonización orofacial para ofrecer tratamientos que van más allá de la sonrisa. Utilizando bioestimuladores de colágeno y las técnicas no quirúrgicas más avanzadas, mejora el equilibrio y la estética facial para una apariencia naturalmente rejuvenecida.\n\nEsta combinación única de experiencia dental y facial significa que su plan de tratamiento considera el panorama completo — su sonrisa, su estructura facial y su confianza — todo bajo un mismo techo.",
     },
     {
       name: "Prótesis Dentales",

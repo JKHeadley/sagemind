@@ -114,35 +114,6 @@ export default function Footer({
             </div>
           </div>
 
-          {/* Location 2 -- Sarapiqui */}
-          <div>
-            <h4 className="font-semibold mb-4">La Virgen, Sarapiqui</h4>
-            <div className="space-y-3 text-sm text-white/60">
-              <p>
-                Edificio Dental City Frente a la Plaza de Deportes, La Virgen, Sarapiqui, Costa Rica
-              </p>
-              <a
-                href="tel:+50683883535"
-                className="block hover:text-primary-light transition-colors"
-              >
-                +506 8388 3535
-              </a>
-              <a
-                href="mailto:dentalcitycostarica@gmail.com"
-                className="block hover:text-primary-light transition-colors"
-              >
-                dentalcitycostarica@gmail.com
-              </a>
-              <a
-                href="https://www.facebook.com/dentalcitysarapiqui"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block hover:text-primary-light transition-colors"
-              >
-                Facebook: Dental City Sarapiqui
-              </a>
-            </div>
-          </div>
         </div>
 
         <div className="border-t border-white/10 mt-10 pt-6 text-center text-white/40 text-xs">

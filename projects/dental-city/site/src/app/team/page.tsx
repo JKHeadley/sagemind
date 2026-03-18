@@ -17,10 +17,10 @@ const team = [
   },
   {
     name: "Dra. Zaidy Mariela Hernandez Bonilla",
-    role: "Founder & Periodontist",
-    specialty: "Dental Implants & Oral Rehabilitation",
+    role: "Founder & Oral Surgeon",
+    specialty: "Dental Implants, Oral Surgery & Facial Harmonization",
     image: "/images/team-dra-hernandez.jpg",
-    bio: "With 15 years of experience in implant dentistry and aesthetic restorations, Dra. Hernandez Bonilla is the specialist international patients trust for complex dental work. A UCR graduate with advanced training in dental implants, she is known for finding the most effective treatment path for every patient while keeping costs accessible. Her meticulous, compassionate approach has made Dental City a destination for patients seeking implant procedures, full rehabilitations, and smile makeovers they simply couldn't afford back home.",
+    bio: "With two decades of clinical excellence, Dra. Hernandez Bonilla is the driving force behind Dental City and the specialist international patients trust with their most complex cases. A UCR graduate with advanced implant training from the University of Miami and an active member of the International Congress of Oral Implantologists (ICOI), she brings a rare combination of surgical precision and artistic vision to every procedure. Her expertise spans dental implants, full-mouth rehabilitations, and orofacial harmonization — blending oral health with facial aesthetics for results that go beyond the smile. Patients describe her philosophy best: every detail matters when it comes to your comfort and well-being.",
   },
   {
     name: "Dra. Angie Arcia Umaña",

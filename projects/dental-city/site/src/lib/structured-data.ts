@@ -48,26 +48,6 @@ export function getLocalBusinessSchema(locale: Locale) {
       ],
       availableLanguage: ["Spanish", "English"],
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "Dentist",
-      name: "Dental City Costa Rica - Sarapiquí",
-      description: isEs
-        ? "Sucursal de Dental City en La Virgen de Sarapiquí."
-        : "Dental City branch in La Virgen de Sarapiquí.",
-      url: `https://dentalcitycr.com/${locale}`,
-      telephone: "+506-8388-3535",
-      email: "dentalcitycostarica@gmail.com",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Frente a la Plaza de Deportes",
-        addressLocality: "La Virgen, Sarapiquí",
-        postalCode: "41002",
-        addressCountry: "CR",
-      },
-      priceRange: "$$",
-      availableLanguage: ["Spanish", "English"],
-    },
   ];
 }
 

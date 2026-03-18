@@ -162,8 +162,7 @@ export default function Home() {
               dental care with over 26 combined years of clinical experience.
             </p>
             <p className="text-text-light leading-relaxed mb-4">
-              With two locations serving Aguas Zarcas and La Virgen de
-              Sarapiqui, we offer a comprehensive range of services from
+              Located in Aguas Zarcas, we offer a comprehensive range of services from
               routine care and orthodontics to advanced implant procedures,
               full-mouth rehabilitation, and in-house 3D diagnostic imaging.
             </p>
@@ -407,54 +406,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Location 2 - Sarapiqui */}
-            <div className="bg-navy-light rounded-xl p-8">
-              <h3 className="text-xl font-bold text-primary-light mb-6">
-                La Virgen, Sarapiqui
-              </h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-white/90 mb-1">Address</h4>
-                  <p className="text-white/60 text-sm">
-                    Edificio Dental City Frente a la Plaza de Deportes, La Virgen, Sarapiqui, Costa Rica, 41002
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white/90 mb-1">Phone</h4>
-                  <a
-                    href="tel:+50683883535"
-                    className="text-white/60 hover:text-primary-light transition-colors text-sm"
-                  >
-                    +506 8388 3535
-                  </a>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white/90 mb-1">Email</h4>
-                  <a
-                    href="mailto:dentalcitycostarica@gmail.com"
-                    className="text-white/60 hover:text-primary-light transition-colors text-sm"
-                  >
-                    dentalcitycostarica@gmail.com
-                  </a>
-                </div>
-                <div className="pt-2 flex flex-wrap gap-3">
-                  <a
-                    href="tel:+50683883535"
-                    className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
-                  >
-                    Call to Book
-                  </a>
-                  <a
-                    href="https://www.facebook.com/dentalcitysarapiqui"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block border border-white/30 hover:border-primary-light text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
-                  >
-                    Facebook
-                  </a>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

@@ -1,0 +1,344 @@
+<html>
+<head>
+<style>
+body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1a1a2e; line-height: 1.6; margin: 40px; }
+h1 { color: #02222e; font-size: 28pt; margin-bottom: 4px; }
+h2 { color: #02222e; font-size: 18pt; border-bottom: 3px solid #08f1c7; padding-bottom: 8px; margin-top: 36px; }
+h3 { color: #014f4f; font-size: 14pt; margin-top: 24px; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 10pt; }
+th { background-color: #02222e; color: white; padding: 10px 14px; text-align: left; font-weight: 600; }
+td { border: 1px solid #e0e0e0; padding: 8px 14px; }
+tr:nth-child(even) { background-color: #f8fafa; }
+.subtitle { color: #666; font-size: 11pt; margin-top: 0; }
+.highlight { background-color: #e6fff9; padding: 16px 20px; border-left: 4px solid #08f1c7; margin: 16px 0; }
+.stat-box { display: inline-block; background-color: #02222e; color: white; padding: 12px 20px; margin: 4px 8px 4px 0; text-align: center; min-width: 120px; }
+.stat-number { font-size: 20pt; font-weight: bold; color: #08f1c7; }
+.stat-label { font-size: 9pt; color: #ccc; }
+.section-divider { border: none; border-top: 2px solid #08f1c7; margin: 32px 0; }
+.checkmark { color: #08f1c7; font-weight: bold; }
+.pending { color: #999; }
+ul { padding-left: 20px; }
+li { margin-bottom: 6px; }
+.page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div style="text-align: center; margin-bottom: 40px;">
+<img src="https://sagemindai.io/logo-dark.png" width="200" alt="Sagemind AI" style="margin-bottom: 16px;" />
+<h1>MVP Factory Proposal</h1>
+<p class="subtitle">Prepared by Adriana &nbsp;|&nbsp; For Justin Headley &nbsp;|&nbsp; March 15, 2026</p>
+<p class="subtitle" style="color: #999; font-size: 9pt;">CONFIDENTIAL — Sagemind AI LLC</p>
+</div>
+
+<hr class="section-divider" />
+
+<!-- EXECUTIVE SUMMARY -->
+<h2>Executive Summary</h2>
+
+<p>We've built <strong>15 fully functional, production-ready websites</strong> for Bay Area small businesses that currently have <strong>no website</strong>. Each site is custom-designed, mobile-responsive, SEO-optimized, and includes an AI chatbot &mdash; all running from a single Next.js application.</p>
+
+<div class="highlight">
+<strong>The play:</strong> Deploy them live under <code>business-name.sagemindai.io</code>, cold-pitch the business owners with a link to their site, and close them on a <strong>$499 setup + $49/mo</strong> managed website package.
+</div>
+
+<p><strong>Why this works:</strong></p>
+<ul>
+<li>The business owner sees <em>their own site</em>, live, before spending a dollar</li>
+<li>27% of US small businesses (~8-10M) still have no website</li>
+<li>58% of those plan to get one in 2026</li>
+<li>Our cost per client is ~$3-4/month; we charge $49/month = <strong>92% margins</strong></li>
+<li>One person can manage 20-25 clients at this service level</li>
+</ul>
+
+<!-- KEY METRICS -->
+<div style="text-align: center; margin: 24px 0;">
+<div class="stat-box"><div class="stat-number">15</div><div class="stat-label">SITES BUILT</div></div>
+<div class="stat-box"><div class="stat-number">92%</div><div class="stat-label">GROSS MARGIN</div></div>
+<div class="stat-box"><div class="stat-number">$49</div><div class="stat-label">MONTHLY/CLIENT</div></div>
+<div class="stat-box"><div class="stat-number">$72K</div><div class="stat-label">ARR POTENTIAL</div></div>
+</div>
+
+<hr class="section-divider" />
+
+<!-- WHAT WE BUILT -->
+<h2>What We Built</h2>
+
+<h3>15 Custom Websites &mdash; Single Codebase</h3>
+
+<p>A single Next.js 16 app serves all 15 sites using dynamic routing. Each business gets a unique site with:</p>
+
+<ul>
+<li><strong>5 pages:</strong> Homepage, Services, About, Contact, FAQ</li>
+<li><strong>Unique design:</strong> Different color palettes, typography, hero layouts, and visual styles</li>
+<li><strong>AI chatbot:</strong> Answers questions about the business (hours, services, location, pricing)</li>
+<li><strong>Click-to-call:</strong> Floating phone button on mobile</li>
+<li><strong>Google Maps:</strong> Embedded on contact page</li>
+<li><strong>Schema markup:</strong> LocalBusiness + FAQPage + BreadcrumbList for SEO</li>
+<li><strong>Contact form:</strong> Email notifications to a central inbox</li>
+<li><strong>&ldquo;Built with AI by Sagemind AI&rdquo;</strong> branding in footer and chatbot</li>
+</ul>
+
+<h3>Target Businesses</h3>
+
+<table>
+<tr><th>#</th><th>Business</th><th>Industry</th><th>Location</th></tr>
+<tr><td>1</td><td>K &amp; C Auto Service</td><td>European Auto Repair</td><td>San Francisco</td></tr>
+<tr><td>2</td><td>Best Auto Care</td><td>Auto Repair</td><td>San Francisco</td></tr>
+<tr><td>3</td><td>1701 Auto Care</td><td>Auto Repair</td><td>Alameda</td></tr>
+<tr><td>4</td><td>Community Auto Center</td><td>Auto Repair</td><td>Oakland</td></tr>
+<tr><td>5</td><td>Glenview Automotive</td><td>Auto Repair</td><td>Oakland</td></tr>
+<tr><td>6</td><td>Fruitvale Collision Center</td><td>Auto Body</td><td>Oakland</td></tr>
+<tr><td>7</td><td>Supreme Blends Barber Shop</td><td>Barber</td><td>Oakland</td></tr>
+<tr><td>8</td><td>Aguachiles El Tamarindo</td><td>Restaurant</td><td>Oakland</td></tr>
+<tr><td>9</td><td>Taqueria El Chacho</td><td>Restaurant</td><td>San Jose</td></tr>
+<tr><td>10</td><td>La Parrilla Loca</td><td>Restaurant</td><td>Oakland</td></tr>
+<tr><td>11</td><td>Pipirin</td><td>Restaurant</td><td>Oakland</td></tr>
+<tr><td>12</td><td>Pena's Bakery</td><td>Bakery</td><td>Oakland</td></tr>
+<tr><td>13</td><td>Panaderia La Favorita</td><td>Bakery</td><td>Oakland</td></tr>
+<tr><td>14</td><td>Panaderia Sevilla</td><td>Bakery</td><td>Oakland</td></tr>
+<tr><td>15</td><td>Green Eagle Plumbing</td><td>Plumbing</td><td>Berkeley</td></tr>
+</table>
+
+<p><em>Selection criteria: All are real Bay Area businesses found via Google Maps that either have no website at all, or have a broken/placeholder site. They all have active Google Business Profiles with reviews.</em></p>
+
+<hr class="section-divider" />
+
+<!-- MARKET OPPORTUNITY -->
+<h2>Market Opportunity</h2>
+
+<h3>The Problem</h3>
+<ul>
+<li><strong>27% of US small businesses have no website</strong> (8-10 million businesses)</li>
+<li><strong>81% of consumers</strong> research businesses online before buying</li>
+<li><strong>97% of consumers</strong> search online to find local businesses</li>
+<li>Businesses without websites lose customers to competitors who do have one</li>
+</ul>
+
+<p>Most small business owners don't get a website because:</p>
+<ol>
+<li>&ldquo;Too expensive&rdquo; (they imagine $3,000-10,000)</li>
+<li>&ldquo;I don't have time to manage it&rdquo;</li>
+<li>&ldquo;I tried before and it didn't work&rdquo; (burned by a bad freelancer)</li>
+<li>&ldquo;Social media is enough&rdquo; (it's not &mdash; Google ranks websites, not Instagram)</li>
+</ol>
+
+<h3>The Competitive Landscape</h3>
+
+<table>
+<tr><th>Competitor Type</th><th>Price</th><th>What They Get</th></tr>
+<tr><td>DIY (Wix, Squarespace)</td><td>$25-40/mo</td><td>Build it yourself, no support</td></tr>
+<tr><td>AI Builders (Durable, 10Web)</td><td>$12-25/mo</td><td>Generic AI-generated, no customization</td></tr>
+<tr><td>Freelancers (Fiverr/Upwork)</td><td>$500-3,500 one-time</td><td>Hit or miss quality, no ongoing support</td></tr>
+<tr><td>Local Agencies</td><td>$3,000-10,000+ one-time</td><td>High quality but unaffordable for most</td></tr>
+<tr><td>Done-for-you (Hibu, Thryv, Scorpion)</td><td>$300-1,500/mo</td><td>Enterprise pricing, long contracts</td></tr>
+</table>
+
+<div class="highlight">
+<strong>Where Sagemind Fits:</strong> We undercut agencies by 10x and out-quality DIY platforms. A business owner who can't afford $5,000 for an agency site and doesn't have time for Wix is our ideal customer. We give them a professional, custom site for $499 setup + $49/month &mdash; and we've already built it before they even said yes.
+</div>
+
+<hr class="section-divider" />
+
+<!-- PRICING -->
+<h2>Pricing &amp; Offer</h2>
+
+<h3>What We Charge</h3>
+
+<table>
+<tr><th>Charge Type</th><th>Price</th><th>Details</th></tr>
+<tr><td><strong>Setup Fee</strong> (One-Time)</td><td><strong>$499</strong></td><td>Site is already built &mdash; we customize with their real photos/content</td></tr>
+<tr><td><strong>Monthly Fee</strong></td><td><strong>$49/mo</strong></td><td>Hosting, maintenance, AI chatbot, basic SEO, content updates</td></tr>
+<tr><td><strong>Annual Option</strong></td><td><strong>$39/mo</strong></td><td>$468/year paid upfront &mdash; saves the client $120</td></tr>
+</table>
+
+<h3>What's Included</h3>
+
+<table>
+<tr><th>Category</th><th>Setup ($499)</th><th>Monthly ($49/mo)</th></tr>
+<tr><td><strong>Website</strong></td><td>Custom 5-page site, mobile-responsive, domain setup</td><td>Hosting, SSL, technical maintenance, security updates</td></tr>
+<tr><td><strong>Marketing</strong></td><td>Google Maps, Schema markup for SEO</td><td>Basic local SEO, GBP optimization, monthly performance report</td></tr>
+<tr><td><strong>Support</strong></td><td>Contact form with email notifications</td><td>AI chatbot (24/7), monthly content updates, click-to-call</td></tr>
+</table>
+
+<h3>Future Upsell Opportunities</h3>
+
+<table>
+<tr><th>Add-On Service</th><th>Monthly Price</th><th>Estimated Margin</th></tr>
+<tr><td>Advanced SEO package</td><td>+$150-300/mo</td><td>~60%</td></tr>
+<tr><td>Review management &amp; generation</td><td>+$75-150/mo</td><td>~65%</td></tr>
+<tr><td>Social media management</td><td>+$299-500/mo</td><td>~70%</td></tr>
+<tr><td>Google Ads management</td><td>+$199/mo + ad spend</td><td>~60%</td></tr>
+<tr><td>Online booking/scheduling</td><td>+$25-50/mo</td><td>~50%</td></tr>
+<tr><td>Custom AI chatbot (full AI)</td><td>+$50-100/mo</td><td>~80%</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- UNIT ECONOMICS -->
+<h2>Unit Economics</h2>
+
+<h3>Our Costs Per Client</h3>
+
+<table>
+<tr><th>Item</th><th>Monthly Cost</th><th>Notes</th></tr>
+<tr><td>Hosting (Vercel or Hetzner)</td><td>~$1</td><td>All sites on one server</td></tr>
+<tr><td>SSL</td><td>$0</td><td>Free (Let's Encrypt / Vercel)</td></tr>
+<tr><td>AI Chatbot (API costs)</td><td>~$1-2</td><td>GPT-4o mini, ~$0.004/conversation</td></tr>
+<tr><td>SEO Tools (SE Ranking)</td><td>~$1</td><td>$55/mo split across clients</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>Total Hard Cost</strong></td><td><strong>~$3-4/client</strong></td><td></td></tr>
+</table>
+
+<h3>Margins</h3>
+
+<table>
+<tr><th>Metric</th><th>Value</th><th>Notes</th></tr>
+<tr><td>Monthly Revenue</td><td>$49</td><td>Per client</td></tr>
+<tr><td>Monthly Cost</td><td>~$4</td><td>Hard costs only</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>Gross Margin</strong></td><td><strong>$45 (92%)</strong></td><td>Before labor</td></tr>
+<tr><td>Time per Client</td><td>3-4 hrs/mo</td><td>Content updates + basic SEO + comms</td></tr>
+<tr><td>Effective Hourly Rate</td><td>$11-15/hr</td><td>At current service level, per person</td></tr>
+</table>
+
+<p><em>Note on labor: With automation (admin panel for client self-service, automated SEO reports, AI-generated content), time per client drops to 1-2 hrs/month, making the effective rate $22-45/hr.</em></p>
+
+<h3>Revenue Projections</h3>
+
+<table>
+<tr><th>Timeline</th><th>Clients</th><th>Setup Revenue</th><th>Monthly Recurring</th><th>Annual Recurring</th></tr>
+<tr><td>Initial Pitch (15 targets)</td><td>3-5</td><td>$1,497-2,495</td><td>$147-245/mo</td><td>$1,764-2,940/yr</td></tr>
+<tr><td>6 Months</td><td>15-20</td><td>$7,485-9,980</td><td>$735-980/mo</td><td>$8,820-11,760/yr</td></tr>
+<tr><td>12 Months</td><td>40-50</td><td>$19,960-24,950</td><td>$1,960-2,450/mo</td><td>$23,520-29,400/yr</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>18 Months (with upsells)</strong></td><td><strong>50+</strong></td><td>&mdash;</td><td><strong>$4,000-6,000/mo</strong></td><td><strong>$48,000-72,000/yr</strong></td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- SPEC PITCH STRATEGY -->
+<h2>The &ldquo;Spec Pitch&rdquo; Strategy</h2>
+
+<h3>How It Works</h3>
+
+<ol>
+<li><strong>We've already built the sites.</strong> The hardest part is done.</li>
+<li><strong>Deploy all 15 live</strong> under <code>business-name.sagemindai.io</code></li>
+<li><strong>Research owner contact info</strong> &mdash; name, email, phone</li>
+<li><strong>Send personalized cold email</strong> with a link to their live site + a scheduler link</li>
+<li><strong>Follow up</strong> 3-5 days later (3+ touches = 90% higher response rate)</li>
+<li><strong>On the call:</strong> Walk them through their site, explain the offer, close</li>
+</ol>
+
+<h3>Why This Beats Normal Cold Outreach</h3>
+
+<table>
+<tr><th>Approach</th><th>Response Rate</th><th>Close Rate</th></tr>
+<tr><td>Generic cold email</td><td>~9%</td><td>~1-2%</td></tr>
+<tr><td>Personalized cold email</td><td>~18%</td><td>~3-5%</td></tr>
+<tr style="background-color: #e6fff9;"><td><strong>Spec site + personalized email</strong></td><td><strong>25-35% (est.)</strong></td><td><strong>15-25% (est.)</strong></td></tr>
+</table>
+
+<div class="highlight">
+The spec site triggers <strong>ownership psychology</strong> &mdash; they see <em>their</em> business name, <em>their</em> address, <em>their</em> reviews on a professional website. It's no longer abstract. It's real.
+</div>
+
+<h3>Outreach Timeline</h3>
+
+<table>
+<tr><th>Days</th><th>Action</th></tr>
+<tr><td>Day 1-2</td><td>Deploy all 15 sites, verify they work</td></tr>
+<tr><td>Day 3-4</td><td>Research owner names, emails, phone numbers</td></tr>
+<tr><td>Day 5-6</td><td>Send first round of emails (stagger 5/day)</td></tr>
+<tr><td>Day 10-11</td><td>Follow-up email to non-responders</td></tr>
+<tr><td>Day 15</td><td>Phone call follow-up to non-responders</td></tr>
+<tr><td>Day 20+</td><td>Close interested leads, onboard new clients</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- TECHNICAL ARCHITECTURE -->
+<h2>Technical Architecture</h2>
+
+<ul>
+<li><strong>Framework:</strong> Next.js 16, React 19, TypeScript, Tailwind CSS v4</li>
+<li><strong>Architecture:</strong> Single app, dynamic routing &mdash; one codebase serves all 15 sites</li>
+<li><strong>Hosting:</strong> Vercel (single project, subdomain rewrites via middleware)</li>
+<li><strong>Config-driven:</strong> Each business = one TypeScript config file (~200 lines)</li>
+<li><strong>Performance:</strong> Targeting Lighthouse 90+ across all sites</li>
+</ul>
+
+<h3>Scaling Path</h3>
+
+<table>
+<tr><th>Clients</th><th>Infrastructure</th><th>Monthly Cost</th></tr>
+<tr><td>1-50</td><td>Vercel Pro</td><td>$20/mo</td></tr>
+<tr><td>50-100</td><td>Vercel Pro or Hetzner + Coolify</td><td>$40-50/mo</td></tr>
+<tr><td>100-500</td><td>Dedicated server(s) + Coolify</td><td>$80-200/mo</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- RISKS -->
+<h2>Risks &amp; Mitigations</h2>
+
+<table>
+<tr><th>Risk</th><th>Likelihood</th><th>Mitigation</th></tr>
+<tr><td>Low close rate (&lt;10%)</td><td>Medium</td><td>Costs are near-zero; expand target list to 50-100 businesses</td></tr>
+<tr><td>Client churn after 3 months</td><td>Medium</td><td>Provide ongoing value (SEO results, reports); bundle services</td></tr>
+<tr><td>Time investment too high per client</td><td>Medium</td><td>Build admin panel for self-service; automate reports</td></tr>
+<tr><td>Legal concerns about using business info</td><td>Low</td><td>Publicly available info; sites are complimentary; remove if asked</td></tr>
+<tr><td>Competitor copies approach</td><td>Low</td><td>First-mover advantage + relationship building + upsells</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- DECISIONS -->
+<h2>Key Decisions Required</h2>
+
+<p>To move forward, we need alignment on these 8 items:</p>
+
+<table>
+<tr><th>#</th><th>Decision</th><th>Options to Consider</th></tr>
+<tr><td>1</td><td><strong>Pricing</strong></td><td>$499 setup + $49/mo &mdash; confirm or adjust?</td></tr>
+<tr><td>2</td><td><strong>Outreach ownership</strong></td><td>Adriana, Justin, or both?</td></tr>
+<tr><td>3</td><td><strong>Client management</strong></td><td>Who handles monthly updates, SEO, communication?</td></tr>
+<tr><td>4</td><td><strong>Pricing page on sagemindai.io</strong></td><td>Public pricing page or pitch-only for now?</td></tr>
+<tr><td>5</td><td><strong>Domain strategy</strong></td><td>Custom domains at launch or sagemindai.io subdomains only?</td></tr>
+<tr><td>6</td><td><strong>Contract terms</strong></td><td>Month-to-month? 3-month minimum? Annual discount?</td></tr>
+<tr><td>7</td><td><strong>Payment processing</strong></td><td>Stripe, invoicing, or other?</td></tr>
+<tr><td>8</td><td><strong>Email routing</strong></td><td>Which email for contact form notifications? Per-client forwarding?</td></tr>
+</table>
+
+<hr class="section-divider" />
+
+<!-- NEXT STEPS -->
+<h2>Next Steps</h2>
+
+<table>
+<tr><th>Status</th><th>Action Item</th></tr>
+<tr><td style="color: #08f1c7; font-weight: bold; font-size: 14pt;">&#10003;</td><td>Build 15 websites</td></tr>
+<tr><td style="color: #08f1c7; font-weight: bold; font-size: 14pt;">&#10003;</td><td>AI chatbot on every site</td></tr>
+<tr><td style="color: #08f1c7; font-weight: bold; font-size: 14pt;">&#10003;</td><td>Sagemind branding on every site</td></tr>
+<tr><td style="color: #08f1c7; font-weight: bold; font-size: 14pt;">&#10003;</td><td>Market research &amp; pricing analysis</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td><strong>Justin reviews &amp; approves this proposal</strong></td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Deploy all 15 sites to Vercel with subdomains</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Set up DNS records (15 CNAME entries)</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Configure contact form email routing</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Research owner contact info for all 15 businesses</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Draft personalized pitch emails</td></tr>
+<tr><td style="color: #999;">&#9744;</td><td>Begin outreach</td></tr>
+</table>
+
+<br />
+<hr class="section-divider" />
+
+<p style="text-align: center; color: #666; font-size: 10pt; margin-top: 24px;">
+<em>This proposal represents approximately $0 in hard costs invested (aside from development time) with potential for $24,000&ndash;$72,000+ in annual recurring revenue within 12&ndash;18 months.</em>
+</p>
+
+<p style="text-align: center; color: #999; font-size: 9pt; margin-top: 32px;">
+Sagemind AI LLC &nbsp;|&nbsp; sagemindai.io &nbsp;|&nbsp; Confidential
+</p>
+
+</body>
+</html>

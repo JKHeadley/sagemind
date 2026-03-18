@@ -71,8 +71,14 @@ const services = [
   {
     name: "Oral Surgery",
     description:
-      "From wisdom tooth extractions to complex surgical procedures, our team provides expert oral surgery in a comfortable, modern environment. We prioritize your safety and comfort throughout every procedure.",
+      "Led by Dra. Mariela Hernandez Bonilla with 20 years of surgical experience, advanced implant training from the University of Miami, and membership in the International Congress of Oral Implantologists (ICOI). From wisdom tooth extractions to complex surgical procedures, you're in the hands of one of the most experienced oral surgeons in the region.\n\nHer philosophy is simple: every detail matters when it comes to your comfort and well-being. Patients trust her with their most complex cases knowing they'll receive world-class care at a fraction of what they'd pay back home.",
     icon: "⚕️",
+  },
+  {
+    name: "Facial Harmonization",
+    description:
+      "Dra. Hernandez Bonilla combines her deep expertise in oral surgery with advanced training in orofacial harmonization to offer treatments that go beyond the smile. Using collagen biostimulators and the latest non-surgical techniques, she enhances facial balance and aesthetics for a naturally refreshed appearance.\n\nThis unique combination of dental and facial expertise means your treatment plan considers the complete picture — your smile, your facial structure, and your confidence — all under one roof.",
+    icon: "✨",
   },
   {
     name: "Dental Prosthetics",

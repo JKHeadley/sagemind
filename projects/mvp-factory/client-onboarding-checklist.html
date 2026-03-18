@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Onboarding Checklist — Sagemind AI MVP Factory</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #02222e;
+      --cyan:    #08f1c7;
+      --teal:    #014f4f;
+      --teal-lt: #016b6b;
+      --white:   #ffffff;
+      --off-white: #f4fafa;
+      --text:    #1a2e35;
+      --muted:   #5a7a84;
+      --border:  #d0e8e8;
+      --step-1:  #08f1c7;
+      --step-2:  #06d4ae;
+      --step-3:  #04b896;
+      --step-4:  #029c7e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--off-white);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    .page-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+      color: var(--white);
+      padding: 48px 24px 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2308f1c7' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .page-header .logo-wrap { margin-bottom: 28px; }
+    .page-header .logo-wrap img { display: inline-block; }
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .page-header h1 span { color: var(--cyan); }
+    .page-header .subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── PROGRESS BAR ───────────────────────────────────────── */
+    .progress-strip {
+      background: var(--navy);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+    .progress-step {
+      flex: 1;
+      max-width: 200px;
+      text-align: center;
+      padding: 14px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      border-top: 3px solid transparent;
+      transition: color 0.2s;
+    }
+    .progress-step.s1 { border-color: var(--step-1); color: var(--step-1); }
+    .progress-step.s2 { border-color: var(--step-2); color: var(--step-2); }
+    .progress-step.s3 { border-color: var(--step-3); color: var(--step-3); }
+    .progress-step.s4 { border-color: var(--step-4); color: var(--step-4); }
+
+    /* ── MAIN LAYOUT ────────────────────────────────────────── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── WELCOME CARD ───────────────────────────────────────── */
+    .welcome-card {
+      background: var(--white);
+      border-left: 5px solid var(--cyan);
+      border-radius: 12px;
+      padding: 36px 40px;
+      margin: 40px auto;
+      max-width: 860px;
+      box-shadow: 0 2px 16px rgba(2,34,46,0.07);
+    }
+    .welcome-card h2 {
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+    .welcome-card p {
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .welcome-card p:last-child { margin-bottom: 0; }
+    .welcome-card .highlight {
+      display: inline-block;
+      background: rgba(8,241,199,0.12);
+      color: var(--teal);
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* ── DEADLINE BANNER ────────────────────────────────────── */
+    .deadline-banner {
+      background: linear-gradient(135deg, #02222e 0%, #014f4f 100%);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 18px 28px;
+      margin: 0 auto 40px;
+      max-width: 860px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 12px rgba(2,34,46,0.15);
+    }
+    .deadline-banner .icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .deadline-banner strong { color: var(--cyan); }
+
+    /* ── STEP SECTIONS ──────────────────────────────────────── */
+    .step-section {
+      background: var(--white);
+      border-radius: 14px;
+      margin: 0 auto 32px;
+      max-width: 860px;
+      box-shadow: 0 2px 16px rgba(2,34,46,0.07);
+      overflow: hidden;
+    }
+    .step-header {
+      padding: 22px 32px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .step-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: var(--navy);
+    }
+    .s1 .step-number { background: var(--step-1); }
+    .s2 .step-number { background: var(--step-2); }
+    .s3 .step-number { background: var(--step-3); }
+    .s4 .step-number { background: var(--step-4); }
+
+    .step-header-text h2 {
+      font-size: 1.25rem;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .step-header-text .step-meta {
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .step-body { padding: 8px 32px 28px; }
+
+    /* ── CHECKLIST ──────────────────────────────────────────── */
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.96rem;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist .cb {
+      font-size: 1.15rem;
+      color: var(--teal);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .checklist .item-text { flex: 1; }
+    .checklist .item-label {
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .checklist .item-note {
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── ACCOUNT CARDS ──────────────────────────────────────── */
+    .account-cards { display: grid; gap: 18px; }
+    .account-card {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      transition: border-color 0.2s;
+    }
+    .account-card:hover { border-color: var(--cyan); }
+    .account-card .acc-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .acc-badge {
+      background: var(--navy);
+      color: var(--cyan);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+    .acc-badge.free { background: rgba(8,241,199,0.12); color: var(--teal); }
+    .account-card h3 {
+      font-size: 1rem;
+      color: var(--navy);
+    }
+    .account-card p, .account-card ol li {
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .account-card ol {
+      padding-left: 18px;
+      margin-top: 8px;
+    }
+    .account-card ol li { margin-bottom: 4px; }
+    .account-card a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .account-card a:hover { text-decoration: underline; }
+    .account-card .note {
+      margin-top: 10px;
+      font-size: 0.83rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── AI TABLE ───────────────────────────────────────────── */
+    .ai-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 0.88rem;
+    }
+    .ai-table th {
+      background: var(--navy);
+      color: var(--cyan);
+      text-align: left;
+      padding: 9px 14px;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .ai-table th:first-child { border-radius: 7px 0 0 0; }
+    .ai-table th:last-child { border-radius: 0 7px 0 0; }
+    .ai-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .ai-table tr:last-child td { border-bottom: none; }
+    .ai-table tr:nth-child(even) td { background: var(--off-white); }
+    .ai-table a { color: var(--teal); font-weight: 600; text-decoration: none; }
+    .ai-table a:hover { text-decoration: underline; }
+
+    /* ── REVIEW STEPS ───────────────────────────────────────── */
+    .review-steps { display: grid; gap: 14px; }
+    .review-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--off-white);
+      border-radius: 9px;
+    }
+    .review-step .rs-num {
+      width: 32px;
+      height: 32px;
+      background: var(--teal);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .review-step .rs-text h4 { font-size: 0.95rem; color: var(--navy); margin-bottom: 3px; }
+    .review-step .rs-text p { font-size: 0.85rem; color: var(--muted); }
+    .extra-revisions {
+      margin-top: 16px;
+      padding: 14px 18px;
+      background: rgba(8,241,199,0.07);
+      border: 1px solid rgba(8,241,199,0.3);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+    .extra-revisions strong { color: var(--navy); }
+
+    /* ── LAUNCH GRID ────────────────────────────────────────── */
+    .launch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 600px) { .launch-grid { grid-template-columns: 1fr; } }
+    .launch-col {
+      background: var(--off-white);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .launch-col h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .launch-col ul { list-style: none; }
+    .launch-col ul li {
+      display: flex;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .launch-col ul li:last-child { border-bottom: none; }
+    .launch-col ul li::before {
+      content: "✓";
+      color: var(--cyan);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── TIMELINE ───────────────────────────────────────────── */
+    .timeline-section {
+      background: var(--white);
+      border-radius: 14px;
+      margin: 0 auto 32px;
+      max-width: 860px;
+      box-shadow: 0 2px 16px rgba(2,34,46,0.07);
+      overflow: hidden;
+    }
+    .timeline-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+      padding: 22px 32px;
+    }
+    .timeline-header h2 {
+      color: var(--white);
+      font-size: 1.2rem;
+    }
+    .timeline-header p {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.88rem;
+      margin-top: 4px;
+    }
+    .timeline-body { padding: 28px 32px; }
+    .timeline-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+    }
+    @media (max-width: 640px) {
+      .timeline-track { grid-template-columns: 1fr; gap: 0; }
+      .timeline-connector { display: none; }
+    }
+    .timeline-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    .timeline-node::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      right: -50%;
+      height: 3px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .timeline-node:last-child::before { display: none; }
+    .tl-dot {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--cyan);
+      z-index: 1;
+      position: relative;
+    }
+    .tl-label {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+    .tl-sublabel {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 3px;
+      line-height: 1.3;
+    }
+
+    /* ── AFTER LAUNCH ───────────────────────────────────────── */
+    .after-launch {
+      background: var(--white);
+      border-radius: 14px;
+      margin: 0 auto 32px;
+      max-width: 860px;
+      box-shadow: 0 2px 16px rgba(2,34,46,0.07);
+      overflow: hidden;
+    }
+    .after-launch-header {
+      background: var(--navy);
+      padding: 20px 32px;
+    }
+    .after-launch-header h2 { color: var(--cyan); font-size: 1.15rem; }
+    .after-launch-header p { color: rgba(255,255,255,0.65); font-size: 0.85rem; margin-top: 4px; }
+    .after-launch-body { padding: 24px 32px; }
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .cost-card {
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      padding: 16px 18px;
+      text-align: center;
+    }
+    .cost-card .cost-label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .cost-card .cost-amount { font-size: 1.5rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .cost-card .cost-amount span { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+    .cost-card .cost-detail { font-size: 0.78rem; color: var(--muted); margin-top: 5px; }
+    .cost-card.highlight-cost { border-color: var(--cyan); background: rgba(8,241,199,0.04); }
+    .services-note {
+      background: var(--off-white);
+      border-radius: 9px;
+      padding: 18px 22px;
+    }
+    .services-note p { font-size: 0.9rem; color: var(--text); margin-bottom: 8px; }
+    .services-note p:last-child { margin-bottom: 0; }
+    .services-note strong { color: var(--navy); }
+
+    /* ── CONTACT ────────────────────────────────────────────── */
+    .contact-section {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+      border-radius: 14px;
+      margin: 0 auto 48px;
+      max-width: 860px;
+      padding: 40px 40px;
+      text-align: center;
+      color: var(--white);
+      box-shadow: 0 4px 24px rgba(2,34,46,0.18);
+    }
+    .contact-section h2 { font-size: 1.5rem; margin-bottom: 10px; }
+    .contact-section p { color: rgba(255,255,255,0.75); margin-bottom: 24px; font-size: 0.95rem; }
+    .contact-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .contact-pill {
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(8,241,199,0.4);
+      border-radius: 40px;
+      padding: 12px 24px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .contact-pill:hover { background: rgba(8,241,199,0.15); border-color: var(--cyan); }
+    .contact-pill .pill-icon { font-size: 1.1rem; }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 24px 20px 40px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+
+    /* ── PRINT ──────────────────────────────────────────────── */
+    @media print {
+      body { background: white; }
+      .step-section, .timeline-section, .after-launch, .contact-section { box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────────── -->
+  <header class="page-header">
+    <div class="logo-wrap">
+      <img src="https://sagemindai.io/logo-dark.png" width="180" height="50" alt="Sagemind AI" />
+    </div>
+    <h1>Client Onboarding <span>Checklist</span></h1>
+    <p class="subtitle">Everything you need to do to get your MVP website live — step by step, in plain English.</p>
+  </header>
+
+  <!-- ── PROGRESS STRIP ─────────────────────────────────────── -->
+  <div class="progress-strip">
+    <div class="progress-step s1">Step 1<br>Your Content</div>
+    <div class="progress-step s2">Step 2<br>Your Accounts</div>
+    <div class="progress-step s3">Step 3<br>Review</div>
+    <div class="progress-step s4">Step 4<br>Launch</div>
+  </div>
+
+  <div style="padding: 0 20px;">
+
+    <!-- ── WELCOME ──────────────────────────────────────────── -->
+    <div class="welcome-card">
+      <h2>Welcome to the MVP Factory! 🎉</h2>
+      <p>
+        We're excited to build your website. This checklist walks you through everything you need to do from
+        today through launch. We've designed the process to be as simple as possible — you handle the content
+        and a couple of free accounts; we handle everything else.
+      </p>
+      <p>
+        The full process takes about <span class="highlight">4–6 weeks</span> once we have your content. Most
+        of that time is us building and refining your site. Your biggest job right now is gathering your content
+        and sending it to us within <span class="highlight">30 days</span>.
+      </p>
+      <p>
+        If you have questions at any point, reach out — we're here to help, not to leave you guessing.
+      </p>
+    </div>
+
+    <!-- ── DEADLINE BANNER ─────────────────────────────────── -->
+    <div class="deadline-banner">
+      <div class="icon">⏰</div>
+      <div>
+        <strong>Important: 30-Day Content Window</strong><br>
+        <span style="font-size:0.9rem; color:rgba(255,255,255,0.8);">
+          Please send us your content within <strong>30 days</strong> of signing up. If we haven't heard from you
+          by then, your project will be placed on hold until content is received. Your 50% deposit is
+          non-refundable per our agreement — so let's keep things moving!
+        </span>
+      </div>
+    </div>
+
+    <!-- ── STEP 1: CONTENT ──────────────────────────────────── -->
+    <section class="step-section s1">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-header-text">
+          <h2>Content We Need From You</h2>
+          <div class="step-meta">Complete within 30 days · Send to your project manager via email or Google Drive</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:18px;">
+          This is the most important step. Check off each item as you gather it, then send everything together.
+          Don't worry about perfection — we'll work with what you have.
+        </p>
+        <ul class="checklist">
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Business Name</div>
+              <div class="item-note">Exactly as you want it displayed on the website and in search results.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Business Address</div>
+              <div class="item-note">Full address (street, city, state, zip). If you're home-based and prefer privacy, let us know and we'll handle it appropriately.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Phone Number</div>
+              <div class="item-note">The number customers should use to reach you.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Email Address (for contact form)</div>
+              <div class="item-note">When someone fills out your website's contact form, their message gets sent here. Can be any email you check regularly.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Business Hours</div>
+              <div class="item-note">Days and hours you're open. Include any seasonal variations or closures if relevant.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Logo</div>
+              <div class="item-note">High resolution preferred. PNG or SVG files work best. If you have multiple versions (dark/light background), send them all.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Photos (at least 5–10)</div>
+              <div class="item-note">High-quality photos of your business, team, products, or services. Smartphone photos are fine as long as they're well-lit and in focus. More is better!</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Services / Menu List</div>
+              <div class="item-note">List each service or menu item with a short description. Include prices if you want them shown on the site (or let us know if you prefer "call for pricing").</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">About Your Business</div>
+              <div class="item-note">1–3 paragraphs about your story, your mission, how long you've been in business, and what makes you different. Write it in your own voice — we'll polish it if needed.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">FAQ (5–10 Questions)</div>
+              <div class="item-note">Common questions your customers ask. Think: "Do you take appointments?", "What areas do you serve?", "How long does it take?", etc. Your AI chatbot will also use these.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Social Media Links</div>
+              <div class="item-note">Instagram, Facebook, Yelp, Google Business, TikTok, or any other profiles you want linked on your site.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Any Special Requests or Preferences</div>
+              <div class="item-note">Color preferences, examples of websites you like, features you want, anything you definitely don't want. The more you share, the better we can tailor the site to you.</div>
+            </div>
+          </li>
+          <li>
+            <span class="cb">☐</span>
+            <div class="item-text">
+              <div class="item-label">Google Business Profile Login <span style="font-weight:400; color:var(--muted);">(optional)</span></div>
+              <div class="item-note">If you have a Google Business Profile, share your login credentials securely. This lets us optimize your listing for better local search results — completely optional but recommended.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── STEP 2: ACCOUNTS ─────────────────────────────────── -->
+    <section class="step-section s2">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-header-text">
+          <h2>Accounts You Need to Create</h2>
+          <div class="step-meta">Do this while we're building · These are yours — we never purchase anything on your behalf</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:20px;">
+          You'll need to create three accounts yourself. Each one is straightforward, and we've written
+          step-by-step instructions below. <strong style="color:var(--navy);">Important:</strong> We will never
+          buy anything on your behalf. These accounts are yours to own and control.
+        </p>
+        <div class="account-cards">
+
+          <!-- Domain -->
+          <div class="account-card">
+            <div class="acc-header">
+              <span class="acc-badge">~$10–15/year</span>
+              <h3>🌐 Your Domain Name (e.g., yourbusiness.com)</h3>
+            </div>
+            <p>Your domain is your website's address on the internet. You purchase and own it directly — we just help point it to your site.</p>
+            <ol>
+              <li>Go to <a href="https://www.namecheap.com" target="_blank">namecheap.com</a> or <a href="https://domains.google" target="_blank">domains.google</a></li>
+              <li>Type your business name in the search box and hit Search</li>
+              <li>Pick your domain — a <strong>.com</strong> is strongly preferred (e.g., <em>joesbakery.com</em>)</li>
+              <li>Add it to your cart and complete the purchase (usually $10–15/year)</li>
+              <li>Create an account and save your login — you'll need it later</li>
+            </ol>
+            <p class="note">Once you have it, send us your domain name. We'll handle all the technical setup (DNS configuration) so it points to your website.</p>
+          </div>
+
+          <!-- Vercel -->
+          <div class="account-card">
+            <div class="acc-header">
+              <span class="acc-badge free">Free</span>
+              <h3>☁️ Vercel Account (your website hosting)</h3>
+            </div>
+            <p>Vercel is where your website will live. It's free, reliable, and used by millions of businesses. You don't need to do anything technical with it — we handle the setup.</p>
+            <ol>
+              <li>Go to <a href="https://vercel.com/signup" target="_blank">vercel.com/signup</a></li>
+              <li>Click <strong>"Continue with Email"</strong> and create an account</li>
+              <li>Verify your email address</li>
+              <li>Send us your Vercel login email — we'll connect your site to your account</li>
+            </ol>
+            <p class="note">The free tier (Hobby plan) is all you need. Your site will be fast, secure, and always on — at no monthly cost.</p>
+          </div>
+
+          <!-- AI API Key -->
+          <div class="account-card">
+            <div class="acc-header">
+              <span class="acc-badge">~$1–3/month</span>
+              <h3>🤖 AI Chatbot API Key</h3>
+            </div>
+            <p>Your site includes an AI-powered chatbot that answers customer questions 24/7. You sign up with an AI provider, and we build the chatbot. You pay the provider directly based on usage — typically a few dollars a month for a small business.</p>
+            <p style="margin-top: 10px;"><strong>Choose one provider and sign up:</strong></p>
+            <table class="ai-table">
+              <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>Typical Cost</th>
+                  <th>Sign Up</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>OpenAI (ChatGPT)</strong></td>
+                  <td>~$2–3/mo</td>
+                  <td><a href="https://platform.openai.com/signup" target="_blank">platform.openai.com</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Anthropic (Claude)</strong></td>
+                  <td>~$2–3/mo</td>
+                  <td><a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></td>
+                </tr>
+                <tr>
+                  <td><strong>Google AI (Gemini)</strong></td>
+                  <td>~$1–2/mo</td>
+                  <td><a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="note">Not sure which to pick? OpenAI or Anthropic are great choices for most businesses. Once you've signed up, generate an API key in your account and send it to us — we'll handle the rest.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STEP 3: REVIEW ───────────────────────────────────── -->
+    <section class="step-section s3">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div class="step-header-text">
+          <h2>Review &amp; Revisions</h2>
+          <div class="step-meta">~2 weeks after we receive your content · 2 revision rounds included</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:20px;">
+          Once we have your content, we build your site and walk you through a structured review process. You'll
+          have two full rounds to request changes — take your time and be thorough.
+        </p>
+        <div class="review-steps">
+          <div class="review-step">
+            <div class="rs-num">1</div>
+            <div class="rs-text">
+              <h4>We Build Your Site (1–2 weeks)</h4>
+              <p>We use your content to build a fully functional website with your real text, photos, branding, and AI chatbot. No placeholder lorem ipsum — your actual site.</p>
+            </div>
+          </div>
+          <div class="review-step">
+            <div class="rs-num">2</div>
+            <div class="rs-text">
+              <h4>Preview Link Sent to You</h4>
+              <p>We send you a private preview link. Take your time reviewing every page. Write down everything you'd like changed — nothing is too small to mention.</p>
+            </div>
+          </div>
+          <div class="review-step">
+            <div class="rs-num">3</div>
+            <div class="rs-text">
+              <h4>Round 1 Revisions</h4>
+              <p>Send us your feedback (list format is best). We make all requested changes and send an updated preview. This round is for the big stuff — layout, content, features.</p>
+            </div>
+          </div>
+          <div class="review-step">
+            <div class="rs-num">4</div>
+            <div class="rs-text">
+              <h4>Round 2 Revisions (Final)</h4>
+              <p>Last chance for tweaks. This round is for fine-tuning — wording, photo choices, color adjustments, small additions. After this, we move to launch.</p>
+            </div>
+          </div>
+        </div>
+        <div class="extra-revisions">
+          <strong>Additional revisions beyond 2 rounds</strong> are billed at <strong>$75–150/hour</strong> depending on the scope. To avoid extra charges, use your revision rounds thoroughly. Our goal is to get it right within the included rounds — we're on your side.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STEP 4: LAUNCH ───────────────────────────────────── -->
+    <section class="step-section s4">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <div class="step-header-text">
+          <h2>Launch &amp; Handoff</h2>
+          <div class="step-meta">Final 50% payment collected at launch · Everything you need to own and run your site</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:20px;">
+          Once revisions are complete and the final payment is received, we go live. Here's exactly what happens
+          and what you walk away owning.
+        </p>
+        <div class="launch-grid">
+          <div class="launch-col">
+            <h3>What Happens at Launch</h3>
+            <ul>
+              <li>Site goes live on your domain</li>
+              <li>SSL certificate installed (https://)</li>
+              <li>AI chatbot activated on your API key</li>
+              <li>You receive a zip file with all your code &amp; assets</li>
+              <li>You receive your documentation guide</li>
+              <li>We keep a permanent backup of your site</li>
+              <li>Final 50% payment collected via Stripe</li>
+            </ul>
+          </div>
+          <div class="launch-col">
+            <h3>What You Own</h3>
+            <ul>
+              <li>Complete website source code</li>
+              <li>All images, fonts, and design assets</li>
+              <li>SEO configuration and sitemap</li>
+              <li>AI chatbot codebase &amp; configuration</li>
+              <li>Full documentation for making updates</li>
+              <li>No lock-in — move anywhere, anytime</li>
+            </ul>
+          </div>
+        </div>
+        <div style="background:rgba(8,241,199,0.07); border:1px solid rgba(8,241,199,0.3); border-radius:9px; padding:16px 20px; font-size:0.88rem; color:var(--text);">
+          <strong style="color:var(--navy);">Your site is truly yours.</strong> We don't retain any rights to
+          your code or content. You can host it anywhere, modify it freely, or hire any developer to work on it
+          in the future. We build it for you — you own it completely.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TIMELINE ─────────────────────────────────────────── -->
+    <section class="timeline-section">
+      <div class="timeline-header">
+        <h2>📅 Timeline Summary</h2>
+        <p>From sign-up to live site — approximately 6–8 weeks total</p>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-track">
+          <div class="timeline-node">
+            <div class="tl-dot">D1</div>
+            <div class="tl-label">Day 1</div>
+            <div class="tl-sublabel">Sign up &amp;<br>deposit paid</div>
+          </div>
+          <div class="timeline-node">
+            <div class="tl-dot" style="border-color:var(--step-2);">D30</div>
+            <div class="tl-label">Day 1–30</div>
+            <div class="tl-sublabel">You send<br>content &amp; create accounts</div>
+          </div>
+          <div class="timeline-node">
+            <div class="tl-dot" style="border-color:var(--step-3);">2wk</div>
+            <div class="tl-label">Weeks 5–6</div>
+            <div class="tl-sublabel">We build<br>your site</div>
+          </div>
+          <div class="timeline-node">
+            <div class="tl-dot" style="border-color:var(--step-4);">Rev</div>
+            <div class="tl-label">Weeks 7–8</div>
+            <div class="tl-sublabel">Review &amp;<br>2 revisions</div>
+          </div>
+          <div class="timeline-node">
+            <div class="tl-dot" style="border-color:#02b585; background:#02b585; color:#fff;">🚀</div>
+            <div class="tl-label">Week 8–9</div>
+            <div class="tl-sublabel">Launch &amp;<br>handoff</div>
+          </div>
+        </div>
+        <p style="font-size:0.8rem; color:var(--muted); text-align:center; margin-top:22px;">
+          Timeline starts once your content is received. Delays in content submission shift all subsequent dates.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── AFTER LAUNCH ─────────────────────────────────────── -->
+    <section class="after-launch">
+      <div class="after-launch-header">
+        <h2>After Launch — Ongoing Costs &amp; Support</h2>
+        <p>Here's what it costs to keep your site running. No surprises.</p>
+      </div>
+      <div class="after-launch-body">
+        <div class="cost-grid">
+          <div class="cost-card highlight-cost">
+            <div class="cost-label">Sagemind Monthly Fee</div>
+            <div class="cost-amount">$0 <span>/mo</span></div>
+            <div class="cost-detail">No monthly retainer from us</div>
+          </div>
+          <div class="cost-card highlight-cost">
+            <div class="cost-label">Vercel Hosting</div>
+            <div class="cost-amount">$0 <span>/mo</span></div>
+            <div class="cost-detail">Free tier covers most small businesses</div>
+          </div>
+          <div class="cost-card">
+            <div class="cost-label">AI Chatbot</div>
+            <div class="cost-amount">~$2 <span>–3/mo</span></div>
+            <div class="cost-detail">Paid directly to your AI provider</div>
+          </div>
+          <div class="cost-card">
+            <div class="cost-label">Domain Renewal</div>
+            <div class="cost-amount">~$12 <span>/yr</span></div>
+            <div class="cost-detail">You manage this with your registrar</div>
+          </div>
+        </div>
+        <div class="services-note">
+          <p>
+            <strong>Need changes after launch?</strong> We're happy to help at our standard rate of
+            <strong>$75–150/hour</strong> depending on scope. Small updates (text changes, new photos) are quick
+            and affordable. You can also use your documentation to make simple changes yourself.
+          </p>
+          <p>
+            <strong>Want us to handle the technical side?</strong> Our optional <strong>Managed Hosting plan
+            is $19/month</strong> and includes security updates, performance monitoring, uptime checks, and
+            priority support. Completely optional — your site runs fine without it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ──────────────────────────────────────────── -->
+    <section class="contact-section">
+      <h2>Questions? We're Here.</h2>
+      <p>
+        Don't hesitate to reach out at any point in the process. There are no dumb questions,
+        and we'd rather hear from you early than have something slow down your project.
+      </p>
+      <div class="contact-grid">
+        <a href="mailto:hello@sagemindai.io" class="contact-pill">
+          <span class="pill-icon">✉️</span>
+          hello@sagemindai.io
+        </a>
+        <a href="https://sagemindai.io" class="contact-pill" target="_blank">
+          <span class="pill-icon">🌐</span>
+          sagemindai.io
+        </a>
+        <a href="https://calendly.com/sagemindai" class="contact-pill" target="_blank">
+          <span class="pill-icon">📅</span>
+          Schedule a Call
+        </a>
+      </div>
+    </section>
+
+  </div><!-- /padding wrapper -->
+
+  <footer>
+    <p>© 2025 Sagemind AI LLC · Bay Area, CA · <a href="https://sagemindai.io">sagemindai.io</a></p>
+    <p style="margin-top:6px;">This document is for onboarding clients of the Sagemind AI MVP Factory program.</p>
+  </footer>
+
+</body>
+</html>

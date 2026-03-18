@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVP Factory Proposal — Sagemind AI</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #02222e;
+      --cyan: #08f1c7;
+      --teal: #014f4f;
+      --dark-teal: #008276;
+      --light-bg: #f4f8f9;
+      --mid-bg: #e8f3f5;
+      --text: #1a2e35;
+      --muted: #5a7a85;
+      --white: #ffffff;
+      --border: #c8dde3;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--light-bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--white);
+      box-shadow: 0 4px 32px rgba(2,34,46,0.10);
+    }
+
+    /* ── HEADER ────────────────────────────────────────────────── */
+    .header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 48px 56px 40px;
+      text-align: center;
+      position: relative;
+    }
+    .header .confidential-badge {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: rgba(8,241,199,0.15);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+    .header .logo-wrap {
+      margin-bottom: 24px;
+    }
+    .header .logo-wrap img {
+      height: 50px;
+      width: 180px;
+      object-fit: contain;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .header h1 span {
+      color: var(--cyan);
+    }
+    .header .subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 10px;
+    }
+    .header .tagline {
+      font-size: 17px;
+      color: rgba(255,255,255,0.85);
+      margin-top: 4px;
+    }
+    .header .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--cyan);
+      margin: 20px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ── CONTENT WRAPPER ───────────────────────────────────────── */
+    .content {
+      padding: 0 56px;
+    }
+
+    /* ── SECTIONS ──────────────────────────────────────────────── */
+    .section {
+      padding: 44px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type {
+      border-bottom: none;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2 .section-num {
+      background: var(--cyan);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 800;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark-teal);
+      margin: 22px 0 10px;
+    }
+
+    p { margin-bottom: 14px; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+    li { margin-bottom: 6px; }
+
+    strong { color: var(--navy); }
+
+    /* ── CALLOUT BOXES ─────────────────────────────────────────── */
+    .callout {
+      background: #f0fdfb;
+      border-left: 4px solid var(--cyan);
+      padding: 16px 20px;
+      border-radius: 0 6px 6px 0;
+      margin: 20px 0;
+    }
+    .callout.warn {
+      background: #fffbf0;
+      border-left-color: #f0a500;
+    }
+    .callout p { margin: 0; }
+
+    .callout-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--dark-teal);
+      margin-bottom: 6px;
+    }
+    .callout.warn .callout-title { color: #b07800; }
+
+    /* ── STAT BOXES ────────────────────────────────────────────── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .stat-box {
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .stat-box .stat-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--cyan);
+      line-height: 1.1;
+    }
+    .stat-box .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    /* ── TABLES ────────────────────────────────────────────────── */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    thead tr {
+      background: var(--navy);
+      color: var(--white);
+    }
+    thead th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+    tbody tr:nth-child(even) { background: var(--mid-bg); }
+    tbody tr:nth-child(odd) { background: var(--white); }
+    tbody td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    .highlight-row td {
+      background: rgba(8,241,199,0.12) !important;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* ── STEPS ─────────────────────────────────────────────────── */
+    .steps {
+      display: grid;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--light-bg);
+      border-radius: 8px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+    }
+    .step-num {
+      background: var(--teal);
+      color: var(--cyan);
+      font-weight: 800;
+      font-size: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .step-body p {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── CHECKLIST ─────────────────────────────────────────────── */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      padding: 8px 0 8px 32px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+    }
+    .checklist li.done::before {
+      background: var(--cyan);
+      content: '✓';
+      color: var(--navy);
+      font-weight: 900;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checklist li.pending::before {
+      border: 2px solid var(--border);
+      background: var(--white);
+    }
+
+    /* ── PACKAGE CARD ──────────────────────────────────────────── */
+    .package-card {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 36px 40px;
+      margin: 24px 0;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .package-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(8,241,199,0.07);
+    }
+    .package-card .price-badge {
+      display: inline-block;
+      background: var(--cyan);
+      color: var(--navy);
+      font-size: 42px;
+      font-weight: 900;
+      padding: 8px 24px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+    .package-card .price-note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 20px;
+    }
+    .package-card h3 {
+      color: var(--cyan);
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .package-card ul {
+      columns: 2;
+      column-gap: 32px;
+    }
+    .package-card li {
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 8px;
+      font-size: 14px;
+      break-inside: avoid;
+    }
+    .package-card li::marker { color: var(--cyan); }
+
+    /* ── FEATURE GRID ──────────────────────────────────────────── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+    }
+    .feature-item {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .feature-item .fi-icon {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+    .feature-item .fi-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 2px;
+    }
+    .feature-item .fi-desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ────────────────────────────────────────────────── */
+    .footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.65);
+      text-align: center;
+      padding: 32px 56px;
+      font-size: 13px;
+    }
+    .footer p { margin-bottom: 4px; }
+    .footer .footer-brand {
+      color: var(--cyan);
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    .footer .footer-tag {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-top: 12px;
+    }
+
+    /* ── UTILS ─────────────────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      background: rgba(8,241,199,0.15);
+      color: var(--dark-teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 20px 0; }
+    .col-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .col-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .col-card ul { padding-left: 18px; margin: 0; }
+    .col-card li { font-size: 13px; margin-bottom: 5px; }
+
+    .badge-green {
+      display: inline-block;
+      background: #d4f7ee;
+      color: #006b4f;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .badge-red {
+      display: inline-block;
+      background: #ffe4e4;
+      color: #b00000;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .badge-yellow {
+      display: inline-block;
+      background: #fff4cc;
+      color: #8a6000;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 680px) {
+      .content { padding: 0 20px; }
+      .header { padding: 40px 20px 32px; }
+      .package-card ul { columns: 1; }
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════════════════
+       1. HEADER
+  ══════════════════════════════════════════════════════════ -->
+  <div class="header">
+    <span class="confidential-badge">Confidential</span>
+    <div class="logo-wrap">
+      <img src="https://sagemindai.io/logo-dark.png" width="180" height="50" alt="Sagemind AI" />
+    </div>
+    <h1>MVP <span>Factory</span> Proposal</h1>
+    <p class="tagline">Launch-Ready Websites for Local Businesses — Built Once, Owned Forever</p>
+    <p class="subtitle">Prepared by Adriana &nbsp;|&nbsp; For Justin Headley &nbsp;|&nbsp; March 16, 2026</p>
+    <div class="divider"></div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══════════════════════════════════════════════════════════
+         2. EXECUTIVE SUMMARY
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">1</span> Executive Summary</h2>
+
+      <div class="callout">
+        <div class="callout-title">The Pitch in One Paragraph</div>
+        <p>Sagemind AI has pre-built <strong>15 production-ready, spec websites</strong> targeting local service businesses — bakeries, salons, dental practices, and more. Each site is a live demo the prospect can see, touch, and imagine as their own. We sell it to them for a <strong>one-time flat fee of $1,999</strong>, customize it with their content, deploy it on their own free Vercel account, and hand them the keys. Zero ongoing costs for Sagemind. Zero platform lock-in for the client. They own it completely.</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-val">15</div>
+          <div class="stat-label">Spec sites pre-built and live</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">$1,999</div>
+          <div class="stat-label">Single flat-fee price</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">$0</div>
+          <div class="stat-label">Ongoing costs for Sagemind post-handoff</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">~87%</div>
+          <div class="stat-label">Gross margin per build</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">$46K+</div>
+          <div class="stat-label">Projected Year 1 revenue</div>
+        </div>
+      </div>
+
+      <h3>Why This Works</h3>
+      <ul>
+        <li><strong>Spec-first selling:</strong> We show, not tell. Prospects see a real site with their niche's content — not a portfolio screenshot or a proposal.</li>
+        <li><strong>Ownership psychology:</strong> Clients pay to <em>own</em> something, not rent a subscription. That changes the close conversation entirely.</li>
+        <li><strong>Radical simplicity:</strong> One price. One scope. No tiers, no upsell confusion, no ambiguity about what's included.</li>
+        <li><strong>Zero-cost delivery infrastructure:</strong> Next.js + Vercel free tier. Sagemind's total hard cost per build is under $20.</li>
+      </ul>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         3. WHAT WE BUILT
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">2</span> What We Built</h2>
+
+      <p>Using a single shared codebase and a config-driven architecture, we pre-built <strong>15 complete, spec websites</strong> targeting local service business categories. Every site is already live and functional — ready to demo to a prospect on the spot.</p>
+
+      <h3>Feature Set (Every Site Includes)</h3>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="fi-icon">🎨</div>
+          <div class="fi-title">Custom Branding</div>
+          <div class="fi-desc">Logo, colors, fonts matched to business identity</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">📱</div>
+          <div class="fi-title">Fully Responsive</div>
+          <div class="fi-desc">Perfect on mobile, tablet, and desktop</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">🤖</div>
+          <div class="fi-title">AI Chatbot</div>
+          <div class="fi-desc">Answers FAQs, captures leads 24/7</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">📅</div>
+          <div class="fi-title">Online Booking</div>
+          <div class="fi-desc">Appointment scheduling built in</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">⭐</div>
+          <div class="fi-title">Reviews Section</div>
+          <div class="fi-desc">Google review integration and testimonials</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">🖼️</div>
+          <div class="fi-title">Photo Gallery</div>
+          <div class="fi-desc">Optimized image display for products/work</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">📍</div>
+          <div class="fi-title">Google Maps</div>
+          <div class="fi-desc">Embedded map with directions link</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">📧</div>
+          <div class="fi-title">Contact Form</div>
+          <div class="fi-desc">Email-forwarding lead capture</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">🔍</div>
+          <div class="fi-title">SEO Ready</div>
+          <div class="fi-desc">Meta tags, structured data, sitemap</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">⚡</div>
+          <div class="fi-title">Fast Load Times</div>
+          <div class="fi-desc">Static generation, near-instant page loads</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">🔒</div>
+          <div class="fi-title">HTTPS / SSL</div>
+          <div class="fi-desc">Auto-provisioned via Vercel</div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon">📦</div>
+          <div class="fi-title">Full Code Handoff</div>
+          <div class="fi-desc">Client receives zip + deployed live URL</div>
+        </div>
+      </div>
+
+      <h3>The 15 Spec Sites</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Business Name</th>
+              <th>Category</th>
+              <th>Target Prospect Profile</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><strong>Panadería La Favorita</strong></td><td>Mexican Bakery</td><td>Latino-owned bakery, no website or outdated Facebook page</td></tr>
+            <tr><td>2</td><td><strong>Peña's Bakery</strong></td><td>Artisan Bakery</td><td>Family-owned, word-of-mouth only</td></tr>
+            <tr><td>3</td><td><strong>Lotus Nail Studio</strong></td><td>Nail Salon</td><td>Salon relying on Instagram, no booking system</td></tr>
+            <tr><td>4</td><td><strong>Serenity Spa & Beauty</strong></td><td>Day Spa</td><td>Spa using phone-only bookings</td></tr>
+            <tr><td>5</td><td><strong>Golden Scissors Barbershop</strong></td><td>Barbershop</td><td>Established shop with no digital presence</td></tr>
+            <tr><td>6</td><td><strong>Bright Smile Dental</strong></td><td>Dental Practice</td><td>General dentist needing patient acquisition</td></tr>
+            <tr><td>7</td><td><strong>Casa Verde Mexican Grill</strong></td><td>Restaurant</td><td>Family restaurant with no online menu</td></tr>
+            <tr><td>8</td><td><strong>Paws & Claws Pet Grooming</strong></td><td>Pet Grooming</td><td>Solo groomer taking appointments by text</td></tr>
+            <tr><td>9</td><td><strong>Premier Auto Detailing</strong></td><td>Auto Detailing</td><td>Mobile detailer with no web presence</td></tr>
+            <tr><td>10</td><td><strong>HomeBase Realty Group</strong></td><td>Real Estate</td><td>Independent agent needing a credibility site</td></tr>
+            <tr><td>11</td><td><strong>Bay Area Tax Solutions</strong></td><td>Tax / Accounting</td><td>CPA doing word-of-mouth referrals</td></tr>
+            <tr><td>12</td><td><strong>Thriving Roots Therapy</strong></td><td>Therapy / Wellness</td><td>Solo therapist with outdated Psychology Today profile</td></tr>
+            <tr><td>13</td><td><strong>Apex Fitness Studio</strong></td><td>Gym / Personal Training</td><td>Personal trainer operating out of a garage gym</td></tr>
+            <tr><td>14</td><td><strong>Bloom Floral Design</strong></td><td>Florist</td><td>Event florist with no portfolio site</td></tr>
+            <tr><td>15</td><td><strong>Lux Cleaning Services</strong></td><td>House Cleaning</td><td>Cleaning service using flyers and referrals only</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         4. HOW IT WORKS — CLIENT JOURNEY
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">3</span> How It Works — The Client Journey</h2>
+
+      <p>The process is designed to be <strong>fast for us, easy for them</strong>. From first contact to live site typically takes <strong>5–10 business days</strong>, gated almost entirely by how quickly the client sends their content.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>The Spec Pitch</h4>
+            <p>Adriana sends a personalized outreach message with a link to the live spec site. The prospect can see exactly what their site would look like — no imagination required. "Here's your bakery's website. I built it already."</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Discovery Call (30 min)</h4>
+            <p>Justin or Adriana walks the prospect through the demo site, answers questions, and confirms the scope: what's included, what they need to provide, how the handoff works, and the $1,999 flat fee. No proposals, no back-and-forth.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Content Gathering</h4>
+            <p>Client pays the 50% non-refundable deposit via Stripe ($999.50). We send a simple content checklist: business name, logo/photos, menu or service list, contact info, and Google Maps link. <strong>Client has 30 days to send content</strong> — if they don't, the project goes on hold.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Build V1 (4–8 hours dev time)</h4>
+            <p>We update the config file with client content, swap in their photos, and tune the copy. No rebuilding from scratch — we're editing a known-working template. When V1 is ready, we deploy a preview URL for the client to review.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Two Revision Rounds</h4>
+            <p>Client reviews the preview and provides feedback. We incorporate changes. Two rounds of revisions are included in the flat fee. Additional revisions after that are billed at the hourly add-on rate.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <h4>Handoff & Final Payment</h4>
+            <p>Client pays the remaining 50% ($999.50). We deploy the final site to <strong>their own Vercel account</strong>, connect their domain (they buy it; we walk them through it), hand over a zip of the complete codebase, and send a brief "You own it" documentation package. Sagemind keeps a private backup repo forever — that's it. Done.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Important: Sagemind Never Buys Anything for the Client</div>
+        <p>Domains, API keys, Vercel accounts — the client sets these up themselves. We walk them through it, but every account is in <strong>their name, with their payment method</strong>. This protects Sagemind from liability and makes the ownership transfer clean.</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         5. MARKET OPPORTUNITY
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">4</span> Market Opportunity</h2>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-val">73%</div>
+          <div class="stat-label">of small businesses have an inadequate or no website</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">$2,500–$8K</div>
+          <div class="stat-label">Average custom website quote from a local agency</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">$100–300/mo</div>
+          <div class="stat-label">Typical ongoing platform or agency retainer cost</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">46M+</div>
+          <div class="stat-label">Small businesses in the US alone</div>
+        </div>
+      </div>
+
+      <h3>The Core Problem We Solve</h3>
+      <p>Local business owners know they need a website. They don't act on it because every path feels too expensive, too complicated, or too risky. A $150/month Squarespace subscription is a forever bill. A $5,000 agency quote requires them to trust a stranger with their biggest investment. Most give up and stay on Facebook.</p>
+      <p>We eliminate every one of those objections simultaneously.</p>
+
+      <h3>Objections We Address</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Objection</th>
+              <th>Our Answer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><em>"I don't have time to deal with this"</em></td>
+              <td>You send us your info — we handle everything. Takes you maybe 2 hours total.</td>
+            </tr>
+            <tr>
+              <td><em>"I can't afford a website right now"</em></td>
+              <td>One-time $1,999. No monthly fees. Ever. You own it outright.</td>
+            </tr>
+            <tr>
+              <td><em>"I don't want to be locked into a platform"</em></td>
+              <td>You get the code. Host it anywhere. Cancel Vercel tomorrow — the code doesn't disappear.</td>
+            </tr>
+            <tr>
+              <td><em>"I don't know anything about websites"</em></td>
+              <td>We walk you through every step. Domain, setup, everything. You don't need to know anything technical.</td>
+            </tr>
+            <tr>
+              <td><em>"What if I need changes later?"</em></td>
+              <td>The code is yours. Use any developer. Or hire us for hourly updates at a fair rate.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Competitive Landscape</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Upfront Cost</th>
+              <th>Monthly Cost</th>
+              <th>Ownership</th>
+              <th>Ongoing Fees</th>
+              <th>Setup Complexity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Squarespace / Wix</td>
+              <td>$0–$200</td>
+              <td>$20–$50/mo</td>
+              <td>None (rented)</td>
+              <td>Forever</td>
+              <td>Medium (DIY)</td>
+            </tr>
+            <tr>
+              <td>WordPress + Hosting</td>
+              <td>$0–$500</td>
+              <td>$15–$50/mo</td>
+              <td>Partial</td>
+              <td>Ongoing maintenance</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td>Local Agency</td>
+              <td>$2,500–$8,000</td>
+              <td>$100–$300/mo</td>
+              <td>Varies (often locked-in)</td>
+              <td>Retainer forever</td>
+              <td>Low (managed)</td>
+            </tr>
+            <tr>
+              <td>Freelancer (Upwork)</td>
+              <td>$500–$3,000</td>
+              <td>$0 (but no support)</td>
+              <td>Usually yes</td>
+              <td>None / as needed</td>
+              <td>Medium</td>
+            </tr>
+            <tr>
+              <td>DIY Builder (GoDaddy)</td>
+              <td>$0–$100</td>
+              <td>$15–$40/mo</td>
+              <td>None</td>
+              <td>Forever</td>
+              <td>Medium (DIY)</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Sagemind MVP Factory</strong></td>
+              <td><strong>$1,999 flat</strong></td>
+              <td><strong>$0</strong></td>
+              <td><strong>Full — you own the code</strong></td>
+              <td><strong>None</strong></td>
+              <td><strong>Minimal (we do it)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         6. THE PACKAGE
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">5</span> The Package</h2>
+
+      <div class="package-card">
+        <div class="tag" style="background:rgba(8,241,199,0.2); color:var(--cyan);">One Package. One Price. No Confusion.</div>
+        <div class="price-badge">$1,999</div>
+        <p class="price-note">One-time flat fee &nbsp;·&nbsp; No monthly costs &nbsp;·&nbsp; You own everything</p>
+
+        <h3>Everything That's Included</h3>
+        <ul>
+          <li>Custom-configured website built from our proven spec template</li>
+          <li>5–8 pages (Home, About, Services, Gallery, Contact, FAQ, Booking)</li>
+          <li>AI chatbot — you pick your API provider, we set it up</li>
+          <li>Online booking / appointment system</li>
+          <li>Google Maps integration</li>
+          <li>Contact form with email delivery</li>
+          <li>Google Reviews section</li>
+          <li>Photo gallery (you supply photos)</li>
+          <li>Mobile-responsive design (iOS + Android)</li>
+          <li>SEO configuration (meta tags, sitemap, structured data)</li>
+          <li>Deployed live on YOUR Vercel account (free tier)</li>
+          <li>Domain connection guidance (you buy the domain)</li>
+          <li>Zip file of complete codebase for your records</li>
+          <li>Two rounds of revisions included</li>
+          <li>Sagemind keeps a private backup repo forever</li>
+        </ul>
+      </div>
+
+      <h3>Payment Structure</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Payment</th>
+              <th>Amount</th>
+              <th>When</th>
+              <th>Refundable?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Deposit</strong></td>
+              <td><strong>$999.50 (50%)</strong></td>
+              <td>Before we begin any work</td>
+              <td><span class="badge-red">Non-refundable</span></td>
+            </tr>
+            <tr>
+              <td><strong>Final Payment</strong></td>
+              <td><strong>$999.50 (50%)</strong></td>
+              <td>Before final site is deployed</td>
+              <td><span class="badge-yellow">N/A — paid at completion</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warn">
+        <div class="callout-title">30-Day Content Policy</div>
+        <p>After the deposit is paid, the client has <strong>30 days to provide their content</strong> (logo, photos, copy, menu/service list, etc.). If content is not received within 30 days, the project is placed on hold and rescheduled at Sagemind's discretion. The deposit is non-refundable regardless.</p>
+      </div>
+
+      <h3>You Own It — What That Means</h3>
+      <div class="callout">
+        <div class="callout-title">Full Ownership Policy</div>
+        <p>When the project is complete, you receive: <strong>(1)</strong> the site deployed live on your own Vercel account, <strong>(2)</strong> a zip file of the complete codebase, <strong>(3)</strong> documentation for your specific setup. <strong>Sagemind has no ongoing access, no admin keys, no lock-in.</strong> You can take the code to any developer or host anywhere. We keep a private backup copy for our own records — you get a separate copy of everything.</p>
+      </div>
+
+      <h3>Optional Add-Ons</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Add-On Service</th>
+              <th>Price</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Hourly Updates / Maintenance</strong></td>
+              <td>$95/hr</td>
+              <td>Content changes, feature additions, bug fixes after handoff</td>
+            </tr>
+            <tr>
+              <td><strong>Managed Hosting</strong></td>
+              <td>$30/mo</td>
+              <td>We manage the Vercel deployment, renewals, and minor uptime issues</td>
+            </tr>
+            <tr>
+              <td><strong>SEO Package</strong></td>
+              <td>$299 one-time</td>
+              <td>Google Business Profile setup, keyword targeting, local citations</td>
+            </tr>
+            <tr>
+              <td><strong>Additional Pages</strong></td>
+              <td>$150/page</td>
+              <td>Blog, team, menu expansion, or custom landing page</td>
+            </tr>
+            <tr>
+              <td><strong>Photography Prep Guidance</strong></td>
+              <td>$75</td>
+              <td>Shot list and guidance for DIY product/space photography</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--muted);">Note: Discounts are only applied to add-on services, never to the base $1,999 package price.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         7. WHAT THE CLIENT NEEDS
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">6</span> What the Client Needs — Accounts &amp; Setup</h2>
+
+      <p>We keep the client's setup requirements as minimal as possible. Here is everything they need — all free except the domain and the chatbot API usage.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Account / Item</th>
+              <th>Cost</th>
+              <th>Who Sets It Up</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Vercel Account</strong></td>
+              <td><span class="badge-green">Free</span></td>
+              <td>Client (we walk them through it)</td>
+              <td>Free tier is sufficient for all sites we build. Client must sign up with their own email.</td>
+            </tr>
+            <tr>
+              <td><strong>Domain Name</strong></td>
+              <td>~$10–$15/yr</td>
+              <td>Client buys it (we recommend a registrar)</td>
+              <td>Namecheap, Google Domains, or similar. Sagemind never buys the domain for the client — it must be in their name.</td>
+            </tr>
+            <tr>
+              <td><strong>AI Chatbot API Key</strong></td>
+              <td>~$2–$3/mo usage</td>
+              <td>Client signs up (we set up the key in the site)</td>
+              <td>Client chooses their preferred provider: Anthropic (Claude), OpenAI (GPT-4), or others. We configure it. They own the API key and pay their own usage — typically under $3/month for a local business traffic volume.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Total Ongoing Cost for the Client After Handoff</div>
+        <p><strong>~$12–$18/year</strong> (domain renewal) + <strong>~$2–$3/month</strong> (chatbot API, if they use it). Vercel hosting is $0. That's it. Compared to $240–$600/year for a typical website subscription platform.</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         8. UNIT ECONOMICS
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">7</span> Unit Economics</h2>
+
+      <h3>Hours Per Build</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Activity</th>
+              <th>Hours (Low)</th>
+              <th>Hours (High)</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Development (config + customization)</td>
+              <td>4</td>
+              <td>8</td>
+              <td>Editing existing template, not building from scratch</td>
+            </tr>
+            <tr>
+              <td>Content wrangling &amp; client comms</td>
+              <td>2</td>
+              <td>3</td>
+              <td>Intake form, follow-ups, content prep</td>
+            </tr>
+            <tr>
+              <td>Revision rounds</td>
+              <td>2</td>
+              <td>4</td>
+              <td>Two included rounds; most clients use both</td>
+            </tr>
+            <tr>
+              <td>Deployment &amp; handoff</td>
+              <td>1</td>
+              <td>1</td>
+              <td>Vercel deploy, domain DNS, zip + docs</td>
+            </tr>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td><strong>9</strong></td>
+              <td><strong>16</strong></td>
+              <td><strong>~12 hrs average</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Cost Per Build</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cost Item</th>
+              <th>Amount</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Vercel usage</td>
+              <td>$0</td>
+              <td>Free tier, client's account</td>
+            </tr>
+            <tr>
+              <td>Stripe processing fee</td>
+              <td>~$60–$70</td>
+              <td>2.9% + $0.30 per charge (~3% of $1,999)</td>
+            </tr>
+            <tr>
+              <td>AI tooling / Claude usage (build)</td>
+              <td>~$5–$15</td>
+              <td>Cursor, Claude API for chatbot config</td>
+            </tr>
+            <tr>
+              <td>Miscellaneous (email, storage, etc.)</td>
+              <td>~$0–$5</td>
+              <td>Negligible at this volume</td>
+            </tr>
+            <tr>
+              <td><strong>Total Hard Costs</strong></td>
+              <td><strong>~$65–$90</strong></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-val">$1,999</div>
+          <div class="stat-label">Revenue per build</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">~$75</div>
+          <div class="stat-label">Avg hard cost per build</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">~$166/hr</div>
+          <div class="stat-label">Effective rate at 12hr average</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">~96%</div>
+          <div class="stat-label">Gross margin (before labor)</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Labor Cost Reality Check</div>
+        <p>If we value Justin's and Adriana's time at $100/hour combined, a 12-hour average build costs ~$1,200 in internal labor. Net margin after hard costs + imputed labor: approximately <strong>$724/build (~36%)</strong>. As the process gets more templated and the codebase matures, those hours drop and margins improve substantially.</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         9. REVENUE PROJECTIONS
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">8</span> Revenue Projections</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Period</th>
+              <th>Clients</th>
+              <th>Paid Clients</th>
+              <th>Revenue</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Month 1</strong></td>
+              <td>3–5</td>
+              <td>0</td>
+              <td>$0</td>
+              <td>Free clients for portfolio + testimonials. Revenue is deferred goodwill.</td>
+            </tr>
+            <tr>
+              <td><strong>Months 2–3</strong></td>
+              <td>5–8</td>
+              <td>5–8</td>
+              <td>$10K–$16K</td>
+              <td>First paid clients. Referrals from Month 1 free clients begin.</td>
+            </tr>
+            <tr>
+              <td><strong>Months 4–6</strong></td>
+              <td>8–12/mo</td>
+              <td>8–12/mo</td>
+              <td>$16K–$24K/mo</td>
+              <td>Referral flywheel starting. Outreach running steadily via Adriana + Luna.</td>
+            </tr>
+            <tr>
+              <td><strong>Months 7–12</strong></td>
+              <td>15–25/mo</td>
+              <td>15–25/mo</td>
+              <td>$30K–$50K/mo</td>
+              <td>Established portfolio. Possibly hiring additional dev help.</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Year 1 Total</strong></td>
+              <td>—</td>
+              <td>—</td>
+              <td><strong>$46K–$66K</strong></td>
+              <td><strong>Conservative estimate accounting for free Month 1 + ramp-up period</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size:13px;color:var(--muted);">Note: Projections assume consistent outreach effort and do not include revenue from add-on services (hosting, SEO, hourly updates), which could meaningfully increase Year 1 totals. These are directional estimates, not guarantees.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         10. THE SPEC PITCH STRATEGY
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">9</span> The "Spec Pitch" Strategy</h2>
+
+      <p>The spec pitch is our primary competitive advantage. Instead of selling a promise, we deliver a proof. The prospect sees their website before we've had a single conversation.</p>
+
+      <h3>Three Outreach Approaches Compared</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Approach</th>
+              <th>What the Prospect Sees</th>
+              <th>Effort Required</th>
+              <th>Expected Close Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Generic Cold Email</td>
+              <td>"We build websites. Interested?"</td>
+              <td>Low (template)</td>
+              <td>1–3%</td>
+            </tr>
+            <tr>
+              <td>Personalized Pitch</td>
+              <td>"I noticed your bakery has no website…"</td>
+              <td>Medium (research + custom copy)</td>
+              <td>3–8%</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Spec Site Pitch</strong></td>
+              <td><strong>"Here's your bakery's website. I built it already."</strong></td>
+              <td><strong>Medium (demo link + short note)</strong></td>
+              <td><strong>10–20% (estimated)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">The Ownership Psychology Principle</div>
+        <p>When a prospect sees a spec site that looks like their business, something powerful happens: <strong>they start thinking of it as theirs.</strong> The conversation shifts from "should I buy a website?" to "how do I get this website?" That's the mental frame we want. Ownership creates urgency. The spec site is a tangible thing to lose — not an abstract pitch to evaluate.</p>
+      </div>
+
+      <h3>Outreach Plan &amp; Timeline</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Activity</th>
+              <th>Owner</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Week 1</td>
+              <td>Identify 50 target businesses per spec site category (Google Maps scraping)</td>
+              <td>Adriana + Luna</td>
+              <td>750 businesses total across 15 categories</td>
+            </tr>
+            <tr>
+              <td>Week 2</td>
+              <td>Send first batch of spec pitch emails/DMs (bakeries + salons first)</td>
+              <td>Adriana + Luna</td>
+              <td>50–75 outreach messages</td>
+            </tr>
+            <tr>
+              <td>Week 3–4</td>
+              <td>Follow-ups + discovery calls for interested leads. Free client onboarding begins.</td>
+              <td>Justin + Adriana</td>
+              <td>10–20 follow-ups, 2–5 calls</td>
+            </tr>
+            <tr>
+              <td>Month 2+</td>
+              <td>Systematic cadence: new batch outreach weekly, follow-ups ongoing, referral requests from free clients</td>
+              <td>Adriana + Luna (automated where possible)</td>
+              <td>30–50 new outreach/week</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Outreach Operations: Adriana + Luna</div>
+        <p>All outreach is handled by Adriana, supported by Luna (the Instar AI agent). Luna assists with lead list generation, drafting outreach messages, scheduling follow-ups, and tracking status. This keeps the outreach systematic and low-effort for Justin while maintaining the personal touch of human-reviewed messages.</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         11. LAUNCH STRATEGY — FREE CLIENTS FIRST
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">10</span> Launch Strategy — First Clients Are Free</h2>
+
+      <p>The biggest barrier to selling websites is the lack of a real portfolio with real testimonials from real local businesses. The fastest way to solve this is to give the first few sites away — not as a discount, but as a deliberate strategic investment.</p>
+
+      <div class="callout">
+        <div class="callout-title">The Free Client Program</div>
+        <p>The <strong>first 3–5 clients receive their site at no charge</strong>. In exchange, they sign a written agreement providing: <strong>(1)</strong> a written testimonial and permission to use it in marketing, <strong>(2)</strong> permission to display their site as a portfolio example, <strong>(3)</strong> a brief 10-minute video testimonial (optional but requested), and <strong>(4)</strong> agreement to refer at least one other business owner. The agreement is required — no exceptions. This is a business exchange, not charity.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>What Free Clients Get</h4>
+          <ul>
+            <li>Everything in the $1,999 package</li>
+            <li>No charge, permanently</li>
+            <li>Same quality, same process, same handoff</li>
+            <li>Priority support during build</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>What Sagemind Gets</h4>
+          <ul>
+            <li>Written testimonial (usable in marketing)</li>
+            <li>Portfolio permission</li>
+            <li>Video testimonial (if willing)</li>
+            <li>At least one referral ask</li>
+            <li>Process validation + real-world testing</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Transition to Paid</h3>
+      <p>Once 3–5 free sites are live and testimonials are in hand, all new clients pay full price. The free program is time-limited and capacity-limited — the written agreement makes that clear. There is no public "free tier" that persists; the offer is made to selected prospects during Month 1 only.</p>
+
+      <p>After the free cohort, the portfolio speaks for itself: "Here are five local businesses in the Bay Area who are already live on sites we built." That's the close.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         12. TECHNICAL ARCHITECTURE
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">11</span> Technical Architecture</h2>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>Stack</h4>
+          <ul>
+            <li><strong>Framework:</strong> Next.js (App Router)</li>
+            <li><strong>Styling:</strong> Tailwind CSS</li>
+            <li><strong>Language:</strong> TypeScript</li>
+            <li><strong>Hosting:</strong> Vercel (client's account, free tier)</li>
+            <li><strong>Chatbot:</strong> Client's own API key (any provider)</li>
+            <li><strong>Forms:</strong> Email forwarding via Resend or similar</li>
+          </ul>
+        </div>
+        <div class="col-card">
+          <h4>Config-Driven Architecture</h4>
+          <ul>
+            <li>Single shared codebase for all 15 verticals</li>
+            <li>All business-specific content in one config file</li>
+            <li>Updating a site = updating a TypeScript object</li>
+            <li>New verticals added in hours, not days</li>
+            <li>No CMS required — reduces complexity and cost</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>What the Client Receives at Handoff</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Deliverable</th>
+              <th>Format</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Live deployed website</strong></td>
+              <td>URL on client's Vercel account</td>
+              <td>Domain connected, SSL active, fully functional</td>
+            </tr>
+            <tr>
+              <td><strong>Complete codebase</strong></td>
+              <td>ZIP file download</td>
+              <td>All source code, assets, and configuration. No dependencies hidden.</td>
+            </tr>
+            <tr>
+              <td><strong>GitHub repository (optional)</strong></td>
+              <td>Private GitHub repo in client's account</td>
+              <td>Client may optionally request a GitHub repo transfer. We walk them through creating it.</td>
+            </tr>
+            <tr>
+              <td><strong>Site documentation</strong></td>
+              <td>PDF or Notion page</td>
+              <td>What each file does, how to update basic content, how to manage the Vercel dashboard</td>
+            </tr>
+            <tr>
+              <td><strong>Asset folder</strong></td>
+              <td>ZIP file</td>
+              <td>All images, logos, and media assets as delivered/used</td>
+            </tr>
+            <tr>
+              <td><strong>SEO configuration summary</strong></td>
+              <td>PDF</td>
+              <td>What meta tags are set, what keywords were targeted, Google Search Console setup steps</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Sagemind's Private Backup Policy</div>
+        <p>Sagemind keeps a <strong>private backup repository</strong> for every client project — forever. This is for our own protection and records, not for client access. The client receives their own separate copy of all code and assets. This has no cost implications for the client and does not constitute ongoing access or control of their site.</p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         13. RISKS & MITIGATIONS
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">12</span> Risks &amp; Mitigations</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Risk</th>
+              <th>Likelihood</th>
+              <th>Impact</th>
+              <th>Mitigation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Low close rate on outreach</strong></td>
+              <td>Medium</td>
+              <td>Medium</td>
+              <td>Spec site pitch significantly increases conversion vs. generic cold email. Month 1 free clients de-risk the portfolio gap. Iterate messaging based on response data.</td>
+            </tr>
+            <tr>
+              <td><strong>Scope creep from clients</strong></td>
+              <td>High</td>
+              <td>Medium</td>
+              <td>Contract clearly defines scope: 5–8 pages, 2 revision rounds, specific feature list. Any additions are billed at hourly rate. This is stated up front and in writing before deposit.</td>
+            </tr>
+            <tr>
+              <td><strong>Client never sends content</strong></td>
+              <td>Medium</td>
+              <td>Low</td>
+              <td><strong>30-day content deadline</strong> with project hold clause. Non-refundable deposit means Sagemind is compensated for time already spent. Content checklist is sent immediately after deposit.</td>
+            </tr>
+            <tr>
+              <td><strong>Legal / IP concerns</strong></td>
+              <td>Low</td>
+              <td>High</td>
+              <td>Simple service agreement signed before work begins. Client warrants they own rights to all content they provide. Sagemind is not liable for client-supplied assets. Consult with an attorney to finalize the agreement template.</td>
+            </tr>
+            <tr>
+              <td><strong>Vercel free tier limitations</strong></td>
+              <td>Low</td>
+              <td>Low</td>
+              <td>Vercel free tier supports 100GB bandwidth/month and unlimited deployments — more than sufficient for any local business. If a client outgrows free tier, they can upgrade their own account (our scope is complete by then).</td>
+            </tr>
+            <tr>
+              <td><strong>Dependency on AI chatbot providers</strong></td>
+              <td>Low</td>
+              <td>Low</td>
+              <td>Client owns the API key. If they want to switch providers, they swap the key and we can provide a 1-hr paid update. No lock-in.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         14. NEXT STEPS
+    ══════════════════════════════════════════════════════════ -->
+    <div class="section">
+      <h2><span class="section-num">13</span> Next Steps</h2>
+
+      <h3>Status Checklist</h3>
+      <ul class="checklist">
+        <li class="done">15 spec sites built and deployed (live demos ready to send)</li>
+        <li class="done">Config-driven architecture in place — new clients are a config update</li>
+        <li class="done">Pricing decided: $1,999 flat fee, one package, no tiers</li>
+        <li class="done">Payment structure decided: 50/50 Stripe, non-refundable deposit</li>
+        <li class="done">Hosting model decided: client's Vercel free account</li>
+        <li class="done">AI chatbot model decided: client's own API key, any provider</li>
+        <li class="done">Domain policy decided: client buys, we guide</li>
+        <li class="done">Free client strategy decided: first 3–5 with written agreement</li>
+        <li class="done">Outreach ownership decided: Adriana + Luna</li>
+        <li class="pending">Stripe account created and payment links configured</li>
+        <li class="pending">Service agreement template drafted and reviewed</li>
+        <li class="pending">Free client written agreement template drafted</li>
+        <li class="pending">Content intake checklist / onboarding form created</li>
+        <li class="pending">First outreach batch: target list of 50 bakeries and salons compiled</li>
+        <li class="pending">First outreach messages drafted and reviewed with Justin</li>
+        <li class="pending">First 3–5 free clients identified and contacted</li>
+        <li class="pending">Handoff documentation template created</li>
+        <li class="pending">Services page on sagemindai.io (backlog — not priority for launch)</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Immediate Priority (This Week)</div>
+        <p>The three things that unlock everything else: <strong>(1)</strong> Stripe payment links live, <strong>(2)</strong> service agreement signed with first free client, <strong>(3)</strong> first outreach batch sent. Everything else can follow. We can have a paying client within 30 days from today if we move on these now.</p>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- ══════════════════════════════════════════════════════════
+       15. FOOTER
+  ══════════════════════════════════════════════════════════ -->
+  <div class="footer">
+    <p class="footer-brand">Sagemind AI LLC</p>
+    <p>The MVP Factory is a complete, done deal — built once, sold repeatedly, zero ongoing burden.<br />Every site we deliver is a client who owns something real, and a portfolio win we leverage forever.</p>
+    <p style="margin-top:12px;">sagemindai.io &nbsp;·&nbsp; justin@sagemindai.io</p>
+    <p class="footer-tag">Sagemind AI LLC &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; March 16, 2026</p>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

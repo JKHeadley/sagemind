@@ -31,7 +31,7 @@ export default function ReviewsSection({
   totalReviews: number;
 }) {
   return (
-    <section className="py-12 md:py-20 bg-white">
+    <section className="py-12 md:py-20 bg-bg">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-4xl font-bold mb-4 text-text">

@@ -25,7 +25,7 @@ const config: SiteConfig = {
   theme: themes["panaderia-la-favorita"],
 
   layout: {
-    heroVariant: "minimal",
+    heroVariant: "centered",
     headerVariant: "solid",
     servicesLayout: "grid-3",
     ctaVariant: "simple",
