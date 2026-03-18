@@ -38,7 +38,6 @@ const treatmentVideosData = {
     { src: "/videos/anterior-implant.mp4", caption: "Anterior Dental Implant" },
     { src: "/videos/whitening-session.mp4", caption: "Professional Teeth Whitening" },
     { src: "/videos/botox-before-after-1.mp4", caption: "Botox — Before & After" },
-    { src: "/videos/botox-before-after-2.mp4", caption: "Botox Treatment Results" },
   ],
   es: [
     { src: "/videos/cosmetic-results-reel.mp4", caption: "Resultados de Odontología Estética" },
@@ -46,7 +45,6 @@ const treatmentVideosData = {
     { src: "/videos/anterior-implant.mp4", caption: "Implante Dental Anterior" },
     { src: "/videos/whitening-session.mp4", caption: "Blanqueamiento Dental Profesional" },
     { src: "/videos/botox-before-after-1.mp4", caption: "Bótox — Antes y Después" },
-    { src: "/videos/botox-before-after-2.mp4", caption: "Resultados de Tratamiento con Bótox" },
   ],
 };
 
