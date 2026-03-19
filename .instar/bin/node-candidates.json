@@ -1,8 +1,9 @@
 {
-  "primary": "/opt/homebrew/opt/node@20/bin/node",
+  "primary": "/opt/homebrew/bin/node",
   "candidates": [
-    "/opt/homebrew/opt/node@20/bin/node",
-    "/opt/homebrew/Cellar/node@20/20.20.0/bin/node"
+    "/opt/homebrew/bin/node",
+    "/opt/homebrew/Cellar/node/25.6.1/bin/node",
+    "/opt/homebrew/opt/node/bin/node"
   ],
-  "updatedAt": "2026-03-18T23:13:27.685Z"
+  "updatedAt": "2026-03-18T23:31:34.072Z"
 }

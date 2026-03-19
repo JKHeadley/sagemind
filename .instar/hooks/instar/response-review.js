@@ -14,13 +14,13 @@ const path = _r('path');
 const http = _r('http');
 
 // Read config for port and auth token
-let serverPort = 4040;
+let serverPort = 6060;
 let authToken = '';
 try {
   const configPath = path.join(process.env.CLAUDE_PROJECT_DIR || '.', '.instar', 'config.json');
   const raw = fs.readFileSync(configPath, 'utf-8');
   const cfg = JSON.parse(raw);
-  serverPort = cfg.port || 4040;
+  serverPort = cfg.port || 6060;
   authToken = cfg.authToken || '';
 } catch {}
 
