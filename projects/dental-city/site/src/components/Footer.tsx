@@ -100,10 +100,10 @@ export default function Footer({
                 WhatsApp: +506 8339 8833
               </a>
               <a
-                href="mailto:3dradiologico@gmail.com"
+                href="mailto:info@dentalcitycr.com"
                 className="block hover:text-primary-light transition-colors"
               >
-                3dradiologico@gmail.com
+                info@dentalcitycr.com
               </a>
               <div>
                 <p>{dict.contact.hoursAZ1}</p>

@@ -13,7 +13,7 @@ export function getLocalBusinessSchema(locale: Locale) {
         : "Modern dental clinic with 20+ years of experience in implants, orthodontics, and oral rehabilitation.",
       url: `https://dentalcitycr.com/${locale}`,
       telephone: "+506-2474-0415",
-      email: "3dradiologico@gmail.com",
+      email: "info@dentalcitycr.com",
       address: {
         "@type": "PostalAddress",
         streetAddress: "300 oeste del CTP",

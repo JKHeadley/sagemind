@@ -370,10 +370,10 @@ export default function Home() {
                 <div>
                   <h4 className="font-semibold text-white/90 mb-1">Email</h4>
                   <a
-                    href="mailto:3dradiologico@gmail.com"
+                    href="mailto:info@dentalcitycr.com"
                     className="text-white/60 hover:text-primary-light transition-colors text-sm"
                   >
-                    3dradiologico@gmail.com
+                    info@dentalcitycr.com
                   </a>
                 </div>
                 <div>

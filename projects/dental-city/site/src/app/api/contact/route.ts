@@ -21,14 +21,14 @@ export async function POST(request: Request) {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: process.env.GMAIL_USER || "dentalcitycostarica@gmail.com",
+          user: process.env.GMAIL_USER || "info@dentalcitycr.com",
           pass: process.env.GMAIL_APP_PASSWORD,
         },
       });
 
       await transporter.sendMail({
-        from: `"Dental City Website" <${process.env.GMAIL_USER || "dentalcitycostarica@gmail.com"}>`,
-        to: process.env.CONTACT_EMAIL || "dentalcitycostarica@gmail.com",
+        from: `"Dental City Website" <${process.env.GMAIL_USER || "info@dentalcitycr.com"}>`,
+        to: process.env.CONTACT_EMAIL || "info@dentalcitycr.com",
         replyTo: email,
         subject: `New Inquiry from ${name}${country ? ` (${country})` : ""}${service ? ` - ${service}` : ""}`,
         html: `
