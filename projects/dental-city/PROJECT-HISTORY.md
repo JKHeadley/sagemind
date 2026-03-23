@@ -37,7 +37,7 @@ The clinic is led by:
 - **Marlón Granados** — Patient coordinator / office manager (primary contact)
 - **Deinny** — Staff member
 
-**Practice Management System:** Doctor Dent (by Grupo Argus, Costa Rica)
+**Practice Management System:** Nebbia Solutions (by Grupo Argus, grupoargus.co.cr) — used for appointments & electronic invoicing
 
 **Contact:**
 - Phone/WhatsApp: +506 8339 8833
@@ -290,39 +290,54 @@ Documented in detail in `site/CHANGELOG.md`. Four phases:
 
 ---
 
-## Grupo Argus / Doctor Dent Integration Research
+## Grupo Argus / Nebbia Solutions Integration Research
 
 ### Background
 
-Dental City uses **Doctor Dent** by **Grupo Argus** (grupoargus.co.cr) for practice management (patient records, scheduling, billing). We explored integrating the website with Doctor Dent for online booking, digital intake, and automated reminders.
+Dental City uses **Nebbia Solutions** (managed by **Grupo Argus**, grupoargus.co.cr) for practice management — specifically **appointment scheduling and electronic invoicing**. We are exploring API integration to automate clinic workflows.
 
 ### Discovery Questions for Client
 
-A comprehensive set of 24 questions was drafted to understand the clinic's current workflow with Doctor Dent (documented in Instar view `002b88a9`). Categories:
-- Current use of Doctor Dent
+A comprehensive set of 24 questions was drafted to understand the clinic's current workflow (documented in Instar view `002b88a9`). Categories:
+- Current system usage
 - Appointment workflow
 - Patient intake & records
 - Integration wishlist
 - Technical access level
 
-### Email to Grupo Argus
+### Email to Grupo Argus — SENT
 
-A formal email was drafted (English + Spanish versions) to `ventas@grupoargus.co.cr` requesting information about:
+**Sent:** March 21, 2026 at 8:32 PM from info@dentalcitycr.com to ventas@grupoargus.co.cr
+**Subject:** Solicitud de acceso a API — Clínica Dental City (Centro Odontológico Aguas Zarcas)
+**Forwarded to:** adriana@sagemindai.io on March 22, 2026
 
-1. API availability (REST, SOAP) for third-party data access
-2. Webhook/event notification support
-3. Data export options (CSV, reports, database access)
-4. Custom integration development as a service
-5. Existing integrations with scheduling/CRM/communication platforms
+The email (sent in Spanish, from the clinic's own email) requested:
 
-**Specific integrations proposed:**
-- Online appointment booking synced with Doctor Dent calendar
-- Digital patient intake forms pre-populating Doctor Dent records
-- Automated appointment reminders triggered by Doctor Dent events
+1. **Appointment API access:**
+   - Query scheduled appointments by date range
+   - Patient data (name, phone, email)
+   - Assigned doctor, treatment type, time, duration
 
-**Status:** Email drafted but **not yet sent** (as of March 22, 2026). No record of it being sent in either Adriana's or Justin's Gmail. The discovery questions for the client have also not yet been sent.
+2. **Billing/Invoice API access:**
+   - Query electronic invoices (issued and received)
+   - Invoice data (amount, date, sender/receiver, invoice number)
+   - Invoice status
 
-**Next Step:** Send the email to Grupo Argus and the discovery questions to Marlón to advance this integration track.
+3. **Specific questions asked:**
+   - Does Nebbia have a REST API available to clients?
+   - Is there technical documentation we can review?
+   - Is there an additional cost for API access?
+
+**Status:** Sent, **awaiting response** from Grupo Argus as of March 22, 2026.
+
+**Additional clinic contact info revealed:**
+- Landline: +506 2474 0415
+- Official business name: Centro Odontológico Aguas Zarcas
+
+**Next Steps:**
+- Follow up with Grupo Argus if no response within 5-7 business days
+- Send the discovery questions to Marlón to understand current workflow in detail
+- Once API access is confirmed/denied, scope the automation features
 
 ---
 
