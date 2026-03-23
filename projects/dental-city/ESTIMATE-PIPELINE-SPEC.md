@@ -543,7 +543,7 @@ From Gmail inbox analysis:
 4. Mark email as processed (label/archive)
 5. Log the transaction (date, sender, amount, invoice number)
 
-**Dependency:** Grupo Argus API response. If they provide a REST API, we can automate the Nebbia upload directly. If not, we may need browser automation (Puppeteer) or the manual XML upload stays but with pre-downloaded files.
+**Dependency:** ~~Grupo Argus API response.~~ **CONFIRMED (March 23, 2026):** Grupo Argus confirmed REST API is available as a paid add-on. Technical integration spec sent, awaiting pricing quote. Full spec: [ARGUS-INTEGRATION-SPEC.md](./ARGUS-INTEGRATION-SPEC.md)
 
 ### 4.2 Automated Email Triage
 
@@ -684,4 +684,4 @@ site/src/i18n/dictionaries/es.json             — New i18n keys
 | **Phase 1** | Multi-file upload, Drive storage, branded PDF, country-based pricing, email notifications, consent, Supabase schema | Service account ✅, Drive folder ✅ |
 | **Phase 2** | Admin portal (clients.dentalcitycr.com), case management, reply templates, WhatsApp integration | Phase 1, DNS setup |
 | **Phase 3** | Analytics dashboard, automated follow-ups, patient portal enhancements, secure messaging | Phase 2 |
-| **Phase 4** | Clinic workflow automation: invoice processing, email triage, appointment dashboard | Grupo Argus API response, Phase 2 |
+| **Phase 4** | Clinic workflow automation: invoice processing, email triage, appointment dashboard | Grupo Argus API confirmed ✅ (awaiting pricing), Marlón workflow validation (awaiting feedback), Phase 2 |

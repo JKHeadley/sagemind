@@ -231,12 +231,19 @@ Received from Marlón via WhatsApp. These document his **daily manual workflow**
 | **Mar 18** | `0da08a6` | Removed duplicate botox video from gallery. |
 | **Mar 18** | `0ee1f1f` | Updated Francisco's bio from latest staff form submission. Fixed accented characters in names. Updated combined experience to 35+ years. |
 
-### Week 4: Polish & Current (Mar 21 – Mar 22)
+### Week 4: Polish & Pipeline Planning (Mar 21 – Mar 23)
 
 | Date | Commit | What Happened |
 |------|--------|---------------|
 | **Mar 21** | `66b7ac9` | Updated contact email to info@dentalcitycr.com (previously used gmail addresses). Narrowed contact card layout. |
-| **Mar 22** | — | Estimate pipeline spec completed. Google Drive service account created. Drive folder set up and shared. Planning for Phase 1 (estimate submission pipeline). |
+| **Mar 21** | — | Grupo Argus API request email sent from info@dentalcitycr.com to ventas@grupoargus.co.cr. |
+| **Mar 22** | `72114b3` | Estimate pipeline spec completed with Phase 4 (workflow automation), country-based pricing, Sarapiquí removal. Google Drive service account created. Drive folder set up and shared. |
+| **Mar 22** | `2d39872` | Added detailed currency handling spec: multi-currency input, CRC normalization, 10% incidental buffer. |
+| **Mar 22** | — | Spec and project history synced to Google Docs for Adriana's review. |
+| **Mar 23** | `9321c54` | Created Marlón workflow review document (MARLON-WORKFLOW-REVIEW.md) — Spanish-language doc with 3 workflows, flowcharts, and questions for Marlón to validate before automation. |
+| **Mar 23** | `a17971a` | Created Grupo Argus technical integration spec (ARGUS-INTEGRATION-SPEC.md) — 3 API cases: invoice reception (POST), appointment queries (GET), status updates (PATCH). |
+| **Mar 23** | — | **Grupo Argus responded:** API REST confirmed available. Requires technical flow + cost depends on scope. Sent technical integration spec from info@dentalcitycr.com. Awaiting their technical proposal and pricing quote. |
+| **Mar 23** | — | Marlón workflow review email sent from adriana@sagemindai.io to info@dentalcitycr.com. Awaiting Marlón's feedback on the 3 documented workflows. |
 
 ---
 
@@ -336,16 +343,51 @@ The email (sent in Spanish, from the clinic's own email) requested:
    - Is there technical documentation we can review?
    - Is there an additional cost for API access?
 
-**Status:** Sent, **awaiting response** from Grupo Argus as of March 22, 2026.
-
 **Additional clinic contact info revealed:**
 - Landline: +506 2474 0415
 - Official business name: Centro Odontológico Aguas Zarcas
 
+### Grupo Argus Response — RECEIVED March 23, 2026
+
+**From:** VENTAS GRUPO ARGUS (ventas@grupoargus.co.cr)
+**Date:** March 23, 2026 at 1:07 PM
+**To:** info@dentalcitycr.com
+
+**Key Confirmations:**
+1. **REST API is available** — "Sí, es posible habilitar acceso a API REST de forma controlada para clientes"
+2. **Documentation** provided after scope is defined — "La documentación técnica se entrega una vez definido el alcance de la integración"
+3. **Paid add-on service** — cost depends on scope, volume, and integration level
+
+**What they requested from us:**
+- Flow diagram or detailed description of the process
+- How queries initiate (user, system, automation)
+- What data is requested at each step
+- Query frequency (real-time, periodic, on-demand)
+- Actions performed with the data
+- Use case scenarios
+- Error handling
+
+### Technical Integration Spec — SENT March 23, 2026
+
+**Sent:** From info@dentalcitycr.com to ventas@grupoargus.co.cr
+**Full spec:** [ARGUS-INTEGRATION-SPEC.md](./ARGUS-INTEGRATION-SPEC.md)
+
+Three API integration cases submitted:
+
+| # | Case | Method | Frequency |
+|---|------|--------|-----------|
+| 1 | Invoice reception (XML upload) | POST | ~5-15/day |
+| 2 | Appointment data query | GET | 3-5 queries/day |
+| 3 | Appointment status update | PATCH | ~10-20/day |
+
+**Volume estimate:** ~25-40 requests/day (~500-800/month), business hours only.
+
+**Status:** Awaiting Grupo Argus technical proposal and pricing quote as of March 23, 2026.
+
 **Next Steps:**
-- Follow up with Grupo Argus if no response within 5-7 business days
-- Send the discovery questions to Marlón to understand current workflow in detail
-- Once API access is confirmed/denied, scope the automation features
+- Wait for Grupo Argus pricing quote
+- Wait for Marlón's workflow review feedback
+- Once both are in hand, finalize Phase 4 scope and budget
 
 ---
 
@@ -369,7 +411,13 @@ The email (sent in Spanish, from the clinic's own email) requested:
 - Admin portal (clients.dentalcitycr.com) — Phase 2
 - Analytics & automation — Phase 3
 - Clinic workflow automation (invoice processing, email triage, appointment dashboard) — Phase 4
-- Nebbia Solutions / Grupo Argus API response (sent March 21, awaiting reply)
+- Grupo Argus API pricing quote (technical spec sent March 23, awaiting proposal)
+- Marlón workflow review feedback (email sent March 23, awaiting responses)
+
+### Key Documents
+- [ESTIMATE-PIPELINE-SPEC.md](./ESTIMATE-PIPELINE-SPEC.md) — Full pipeline spec (Phases 1-4)
+- [ARGUS-INTEGRATION-SPEC.md](./ARGUS-INTEGRATION-SPEC.md) — Technical API spec sent to Grupo Argus
+- [MARLON-WORKFLOW-REVIEW.md](./MARLON-WORKFLOW-REVIEW.md) — Workflow validation doc for Marlón (Spanish)
 
 ### Infrastructure
 - **Hosting:** Vercel (sagemind team)
