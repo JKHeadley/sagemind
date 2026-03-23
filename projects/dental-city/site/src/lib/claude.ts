@@ -44,27 +44,48 @@ Guidelines:
 - Add warnings for anything ambiguous
 - Return ONLY the JSON object, no other text`;
 
-  const content: Anthropic.MessageCreateParams["messages"][0]["content"] = isImage
-    ? [
-        {
-          type: "image",
-          source: {
-            type: "base64",
-            media_type: mimeType as "image/jpeg" | "image/png" | "image/gif" | "image/webp",
-            data: base64Data,
-          },
+  const isPdf = mimeType === "application/pdf";
+
+  let content: Anthropic.MessageCreateParams["messages"][0]["content"];
+
+  if (isImage) {
+    content = [
+      {
+        type: "image",
+        source: {
+          type: "base64",
+          media_type: mimeType as "image/jpeg" | "image/png" | "image/gif" | "image/webp",
+          data: base64Data,
         },
-        {
-          type: "text",
-          text: "Extract all dental procedures and their costs from this dental estimate/invoice document.",
+      },
+      {
+        type: "text",
+        text: "Extract all dental procedures and their costs from this dental estimate/invoice document.",
+      },
+    ];
+  } else if (isPdf) {
+    content = [
+      {
+        type: "document",
+        source: {
+          type: "base64",
+          media_type: "application/pdf",
+          data: base64Data,
         },
-      ]
-    : [
-        {
-          type: "text",
-          text: `Extract all dental procedures and their costs from this dental estimate document:\n\n${Buffer.from(base64Data, "base64").toString("utf-8")}`,
-        },
-      ];
+      },
+      {
+        type: "text",
+        text: "Extract all dental procedures and their costs from this dental estimate/invoice document.",
+      },
+    ];
+  } else {
+    content = [
+      {
+        type: "text",
+        text: `Extract all dental procedures and their costs from this dental estimate document:\n\n${Buffer.from(base64Data, "base64").toString("utf-8")}`,
+      },
+    ];
+  }
 
   const response = await anthropic.messages.create({
     model: "claude-sonnet-4-20250514",
