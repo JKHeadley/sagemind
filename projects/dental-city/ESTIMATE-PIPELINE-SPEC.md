@@ -156,11 +156,43 @@ A professional PDF document generated server-side for each submission.
 └─────────────────────────────────────────────────┘
 ```
 
-#### Country-Based Pricing Comparison
-- The "comparison" column header uses the patient's country (e.g., "US Price", "Canada Price", "UK Price")
-- Comparison prices are sourced per-country, not hardcoded to US only
-- Patients come from all over the world — the system must adapt to their country of origin
-- If no country-specific pricing data exists, show "International Average" as fallback
+#### Country-Based Pricing & Currency Handling
+
+**Patient's estimate (input):**
+- Claude detects the currency from the uploaded document (USD, EUR, CAD, GBP, CRC, etc.)
+- If not in USD, the system converts to USD using a live exchange rate (ExchangeRate-API, free tier)
+- Conversion happens in the backend — patient sees their original currency throughout
+
+**Dental City prices (internal):**
+- The procedure catalog (`procedures.ts`) stores all DC prices in USD
+- Some source prices are in CRC (Costa Rican colones) — these are pre-converted to USD at the current exchange rate
+- A **10% incidental buffer** is applied to all DC prices shown to patients. This covers:
+  - CRC/USD exchange rate fluctuations between estimate and treatment date
+  - Minor price adjustments
+  - Incidental costs
+- The buffer is applied in the backend, invisible to the patient — they just see the final DC price
+
+**Display (branded PDF):**
+- All amounts shown in the **patient's local currency**
+- Column headers adapt to country: "Your Cost (€)", "DC Price (€)", "Savings"
+- The CRC→USD conversion is never shown to the patient (internal only)
+- For the patient's currency conversion (USD→EUR, etc.):
+
+```
+* Dental City prices shown in EUR converted from USD at rate 1.08
+  as of March 22, 2026. Final pricing may vary based on exchange
+  rates at time of treatment. Dental City accepts USD, CRC, and
+  major credit cards.
+```
+
+- For US patients: no conversion disclaimer needed — everything is already in USD
+- The "comparison" column uses the patient's country (e.g., "Canada Price", "UK Price")
+- If no country-specific comparison pricing data exists, show "International Average" as fallback
+
+**Exchange rate sources:**
+- CRC/USD: Central Bank of Costa Rica official rate (used internally for DC price normalization)
+- All other currencies: ExchangeRate-API (free tier, 1,500 req/month, daily updates)
+- Rates cached daily — no need to call per-request
 
 #### Technical Approach
 - Use `@react-pdf/renderer` or `pdf-lib` for server-side PDF generation
