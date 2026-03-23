@@ -167,18 +167,26 @@ Organized by treatment category (as sent by Marlón):
 | `tour-waiting-lounge.mp4` | Clinic tour — waiting area |
 | `tour-treatment-room.mp4` | Clinic tour — treatment room |
 
-### WhatsApp Files (Repo Root — Unprocessed)
+### WhatsApp Files from Marlón (March 19, 2026) — Workflow Documentation
 
-Received from Marlón via WhatsApp on March 19, 2026:
+Received from Marlón via WhatsApp. These document his **daily manual workflow** that we plan to automate (Phase 4).
 
-| File | Size | Description |
-|------|------|-------------|
-| `WhatsApp Video 2026-03-19 at 09.09.21.mp4` | 3.7 MB | Video from Marlón |
-| `WhatsApp Video 2026-03-19 at 09.09.31.mp4` | 6.1 MB | Video from Marlón |
-| `WhatsApp Audio 2026-03-19 at 09.15.25.opus` | 72 KB | Audio message from Marlón |
-| `3ca94946-...de.mov` (in dental-city/) | 8.2 MB | Additional video |
+| File | Size | Contents |
+|------|------|----------|
+| `WhatsApp Video 2026-03-19 at 09.09.21.mp4` | 3.7 MB | **Nebbia Solutions walkthrough:** Marlón shows the Nebbia dashboard (sistema.nebbiasolutions.com), navigating modules, then going to Transacciones → Recepción de Documentos Electrónicos to manually upload XML invoice files one by one |
+| `WhatsApp Video 2026-03-19 at 09.09.31.mp4` | 6.1 MB | **Gmail inbox + Nebbia continued:** Shows the info@dentalcitycr.com inbox full of electronic invoice emails (Cajeta Express, ETimbers, Laboratorio Dental, Mediclean, banks, etc.), then back to Nebbia dashboard and recording software |
+| `WhatsApp Audio 2026-03-19 at 09.15.25.opus` | 72 KB | **Email triage explanation:** Marlón explains he manually filters all incoming emails — government (Hacienda, Ministry of Health, CCSS), banks, contracts, payments — classifying into Gmail folders and forwarding informational items to doctors |
+| `3ca94946-...de.mov` (in dental-city/) | 8.2 MB | Before/after facial harmonization case photo (clinical content, not workflow) |
 
-**Status:** Not yet processed or integrated into the site.
+### Reporte.xls — Nebbia Appointment Export
+
+- **File:** `projects/dental-city/Reporte.xls`
+- **Format:** HTML disguised as XLS (exported from Nebbia's `reportesdinamicosGenerales.aspx`)
+- **Content:** Full daily appointment schedule for March 20, 2026
+- **Fields:** Date, time, patient ID/name, doctor, status, treatment reason, phone, email, clinic, created by
+- **Key insight:** This is how they currently view their schedule — a manual export. Automating this into the admin portal would eliminate this step.
+
+**Status:** Reviewed and documented. Automation plan captured in ESTIMATE-PIPELINE-SPEC.md Phase 4.
 
 ### Google Drive Assets
 
@@ -357,11 +365,11 @@ The email (sent in Spanish, from the clinic's own email) requested:
 - Vercel env vars: `GOOGLE_SERVICE_ACCOUNT_KEY`, `GOOGLE_DRIVE_FOLDER_ID`
 
 ### What's Pending
-- Estimate submission pipeline (files → Drive → emails → PDF)
-- Admin portal (clients.dentalcitycr.com)
-- Doctor Dent / Grupo Argus API integration
-- WhatsApp files from Marlón (March 19) — not yet processed
-- Unprocessed `.mov` file in project root
+- Estimate submission pipeline (files → Drive → emails → PDF) — Phase 1
+- Admin portal (clients.dentalcitycr.com) — Phase 2
+- Analytics & automation — Phase 3
+- Clinic workflow automation (invoice processing, email triage, appointment dashboard) — Phase 4
+- Nebbia Solutions / Grupo Argus API response (sent March 21, awaiting reply)
 
 ### Infrastructure
 - **Hosting:** Vercel (sagemind team)

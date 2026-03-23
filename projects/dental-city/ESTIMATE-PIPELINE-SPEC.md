@@ -112,7 +112,7 @@ A professional PDF document generated server-side for each submission.
 ```
 ┌─────────────────────────────────────────────────┐
 │  [Dental City Logo]          DENTAL CITY CR     │
-│  Aguas Zarcas & Sarapiquí, Costa Rica           │
+│  Aguas Zarcas, Costa Rica                       │
 │  info@dentalcitycr.com | dentalcitycr.com       │
 ├─────────────────────────────────────────────────┤
 │                                                 │
@@ -129,7 +129,7 @@ A professional PDF document generated server-side for each submission.
 │                                                 │
 │  Procedures Identified                          │
 │  ┌──────────────┬──────────┬──────────┬───────┐ │
-│  │ Procedure    │ US Price │ DC Price │ Save  │ │
+│  │ Procedure    │ [Country]│ DC Price │ Save  │ │
 │  ├──────────────┼──────────┼──────────┼───────┤ │
 │  │ Dental Impl. │ $3,500   │ $850     │ 76%   │ │
 │  │ Crown (Zirc.)│ $1,500   │ $350     │ 77%   │ │
@@ -156,6 +156,12 @@ A professional PDF document generated server-side for each submission.
 └─────────────────────────────────────────────────┘
 ```
 
+#### Country-Based Pricing Comparison
+- The "comparison" column header uses the patient's country (e.g., "US Price", "Canada Price", "UK Price")
+- Comparison prices are sourced per-country, not hardcoded to US only
+- Patients come from all over the world — the system must adapt to their country of origin
+- If no country-specific pricing data exists, show "International Average" as fallback
+
 #### Technical Approach
 - Use `@react-pdf/renderer` or `pdf-lib` for server-side PDF generation
 - Dental City logo embedded as base64 asset
@@ -180,11 +186,14 @@ Preferred Contact: WhatsApp
 Submitted: March 22, 2026 at 2:34 PM PST
 
 Procedures Detected:
-• Dental Implant — DC Price: $850 (US: $3,500)
-• Zirconia Crown — DC Price: $350 (US: $1,500)
-• Root Canal (Molar) — DC Price: $250 (US: $1,200)
+• Dental Implant — DC Price: $850 (United States: $3,500)
+• Zirconia Crown — DC Price: $350 (United States: $1,500)
+• Root Canal (Molar) — DC Price: $250 (United States: $1,200)
 
 Estimated Total: $1,450 (Savings: $4,750 / 77%)
+
+Note: Pricing comparison is based on the patient's country of origin (United States).
+For patients from other countries, comparison prices will reflect their selected country.
 
 📁 View Case Files: [Google Drive Link]
 
@@ -215,7 +224,7 @@ If you have questions, contact us at info@dentalcitycr.com.
 
 Warm regards,
 The Dental City Team
-Aguas Zarcas & Sarapiquí, Costa Rica
+Aguas Zarcas, Costa Rica
 dentalcitycr.com
 ```
 
@@ -442,6 +451,116 @@ Dental City CR
 
 ---
 
+## Phase 4 — Clinic Workflow Automation (Marlón's Process)
+
+**Goal:** Automate the repetitive manual tasks Marlón performs daily — invoice processing, email triage, and appointment management.
+
+### Background
+
+Marlón (patient coordinator) currently performs these tasks manually every day:
+
+1. **Electronic Invoice Processing:**
+   - Opens Gmail inbox (info@dentalcitycr.com)
+   - Identifies emails containing electronic invoices (Facturas Electrónicas) with XML attachments
+   - Downloads the XML file from each email
+   - Logs into Nebbia Solutions (sistema.nebbiasolutions.com) as RECEPCIONCOAZ
+   - Navigates to Transacciones → Recepción de Documentos Electrónicos
+   - Uploads each XML file one by one → selects "Centro Odontológico" → clicks "Enviar documento"
+   - Repeats for every invoice email
+
+2. **Email Triage & Classification:**
+   - Reads every incoming email to info@dentalcitycr.com
+   - Classifies emails into Gmail folders (left sidebar labels)
+   - Filters emails from: Hacienda (tax authority), Ministry of Health, CCSS (social security), banks
+   - Informational items → forwarded to doctors
+   - Contracts, payments, official notices → classified into appropriate folders
+
+3. **Appointment Schedule Management:**
+   - Exports appointment reports from Nebbia (HTML-based XLS from reportesdinamicosGenerales.aspx)
+   - Report contains: date, time, patient ID, name, doctor, status, treatment type, phone, email, clinic, created by
+   - Uses this for daily scheduling overview
+
+### Nebbia Solutions System Details
+
+- **URL:** sistema.nebbiasolutions.com
+- **Login:** RECEPCIONCOAZ
+- **Modules available:** Administración, Mantenimientos, Pacientes, Transacciones, Agenda, Reportes, Solicitar Soporte
+- **Quick access:** Patients, Appointments, Clinical History, Invoicing, Reports
+- **Company:** Centro Odontológico Aguas Zarcas S.A.
+- **Currency display:** TC Dólar/Venta 469.94, Compra 461.81
+
+### Invoice Senders (Known)
+
+From Gmail inbox analysis:
+- Cajeta Express (Enrique Ramírez Vargas)
+- ETimbers
+- Laboratorio Dental
+- globaldebitcard (payment processor)
+- Mediclean
+- Blano Studio
+- Refraccionaria
+- Corporación de Supermercados Unidos S.R.L.
+
+### 4.1 Automated Invoice Processing
+
+**Approach:** Gmail API + automation script (Apps Script or n8n/Make)
+
+1. Monitor info@dentalcitycr.com for emails containing "Factura Electrónica" or XML attachments
+2. Automatically download XML attachments
+3. Upload to Nebbia via their web interface (if no API available) or API (pending Grupo Argus response)
+4. Mark email as processed (label/archive)
+5. Log the transaction (date, sender, amount, invoice number)
+
+**Dependency:** Grupo Argus API response. If they provide a REST API, we can automate the Nebbia upload directly. If not, we may need browser automation (Puppeteer) or the manual XML upload stays but with pre-downloaded files.
+
+### 4.2 Automated Email Triage
+
+**Approach:** Gmail API + AI classification
+
+1. Monitor incoming emails to info@dentalcitycr.com
+2. AI classifies each email into categories:
+   - Electronic invoice → auto-process (4.1)
+   - Government/regulatory (Hacienda, CCSS, Ministry of Health) → label + forward to doctors
+   - Banking/financial → label + flag if action required
+   - Patient inquiries → route to patient management
+   - Informational/newsletters → label only
+3. Apply Gmail labels automatically
+4. Forward urgent/actionable items to appropriate staff
+
+### 4.3 Appointment Dashboard Integration
+
+**Approach:** If Nebbia API is available, pull appointment data directly. Otherwise, automate the report export.
+
+1. Daily automated export of appointment schedule
+2. Parse the HTML report into structured data
+3. Display in the admin portal (clients.dentalcitycr.com) alongside patient estimates
+4. Enable: daily agenda view per doctor, appointment reminders via WhatsApp, no-show tracking
+
+### 4.4 Reporte.xls Data Structure (Reference)
+
+The Nebbia appointment export contains these fields:
+| Field | Description | Example |
+|-------|-------------|---------|
+| Fecha | Date | 20/03/2026 |
+| Hora | Start time | 09:00:00 a. m. |
+| horafin | End time | 09:15:00 a. m. |
+| Id | Appointment ID | 3078 |
+| No. Expediente | Patient file number | 3078 |
+| Nombre | Patient name | WILSON ALVARADO RODRIGUEZ |
+| Doctor | Assigned doctor | Dr. Francisco Rodríguez |
+| estadocita | Status | Sin Confirmar / Confirmada |
+| Comentario | Comments | (free text) |
+| Observaciones | Notes | confirmada, REGENERACION, etc. |
+| Ubicación | Location/chair | Dr. Francisco Rodríguez / Silla # 2 |
+| motivocita | Appointment reason | CONTROL DE ORTODONCIA |
+| Tels | Phone numbers | tel: 83642944 |
+| Correo | Email | walvaradorodriguez@gmail.com |
+| Clínica | Clinic | Centro Odontológico Aguas Zarcas S.A |
+| creadopor | Created by | RECEPCIONCOAZ / drrodriguez |
+| OrigenCita | Origin | Sistema |
+
+---
+
 ## Technical Dependencies
 
 ### NPM Packages (New)
@@ -530,6 +649,7 @@ site/src/i18n/dictionaries/es.json             — New i18n keys
 
 | Phase | Scope | Depends On |
 |-------|-------|------------|
-| **Phase 1** | Multi-file upload, Drive storage, branded PDF, email notifications, consent, Supabase schema | Service account ✅, Drive folder ✅ |
+| **Phase 1** | Multi-file upload, Drive storage, branded PDF, country-based pricing, email notifications, consent, Supabase schema | Service account ✅, Drive folder ✅ |
 | **Phase 2** | Admin portal (clients.dentalcitycr.com), case management, reply templates, WhatsApp integration | Phase 1, DNS setup |
 | **Phase 3** | Analytics dashboard, automated follow-ups, patient portal enhancements, secure messaging | Phase 2 |
+| **Phase 4** | Clinic workflow automation: invoice processing, email triage, appointment dashboard | Grupo Argus API response, Phase 2 |
