@@ -30,6 +30,7 @@ export default function AuthForm({ mode, locale, dict }: AuthFormProps) {
     fullName: "",
     phone: "",
     country: "",
+    preferredContact: "whatsapp",
     confirmPassword: "",
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -94,6 +95,7 @@ export default function AuthForm({ mode, locale, dict }: AuthFormProps) {
               full_name: formData.fullName,
               phone: formData.phone,
               country: formData.country,
+              preferred_contact: formData.preferredContact,
               locale,
             },
             emailRedirectTo: `${window.location.origin}${prefix}/auth/callback`,
@@ -251,6 +253,20 @@ export default function AuthForm({ mode, locale, dict }: AuthFormProps) {
               ))}
             </select>
             {fieldErrors.country && <p className={errorCls}>{fieldErrors.country}</p>}
+          </div>
+          <div>
+            <label className={labelCls}>
+              {locale === "es" ? "Método de contacto preferido" : "Preferred contact method"}
+            </label>
+            <select
+              value={formData.preferredContact}
+              onChange={(e) => updateField("preferredContact", e.target.value)}
+              className={inputCls}
+            >
+              <option value="whatsapp">WhatsApp</option>
+              <option value="email">{locale === "es" ? "Correo electrónico" : "Email"}</option>
+              <option value="phone">{locale === "es" ? "Teléfono" : "Phone"}</option>
+            </select>
           </div>
         </>
       )}

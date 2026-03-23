@@ -1,8 +1,38 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { useParams } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+
+interface Submission {
+  id: string;
+  created_at: string;
+  status: string;
+  total_us_price: number;
+  total_dc_price: number;
+  savings_percentage: number;
+  procedures: { name: string }[];
+}
+
+const statusColors: Record<string, string> = {
+  new: "bg-red-100 text-red-700",
+  contacted: "bg-yellow-100 text-yellow-700",
+  in_progress: "bg-blue-100 text-blue-700",
+  booked: "bg-green-100 text-green-700",
+  closed: "bg-gray-100 text-gray-500",
+  cancelled: "bg-gray-100 text-gray-400",
+};
+
+const statusLabels: Record<string, { en: string; es: string }> = {
+  new: { en: "Under Review", es: "En Revisión" },
+  contacted: { en: "Contacted", es: "Contactado" },
+  in_progress: { en: "In Progress", es: "En Proceso" },
+  booked: { en: "Booked", es: "Reservado" },
+  closed: { en: "Closed", es: "Cerrado" },
+  cancelled: { en: "Cancelled", es: "Cancelado" },
+};
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -10,6 +40,24 @@ export default function DashboardPage() {
   const locale = (params.locale as string) || "en";
   const isEs = locale === "es";
   const prefix = `/${locale}`;
+
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchSubmissions() {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from("submissions")
+        .select("id, created_at, status, total_us_price, total_dc_price, savings_percentage, procedures")
+        .order("created_at", { ascending: false })
+        .limit(5);
+
+      if (data) setSubmissions(data);
+      setLoading(false);
+    }
+    fetchSubmissions();
+  }, []);
 
   return (
     <div>
@@ -22,7 +70,7 @@ export default function DashboardPage() {
           : `Welcome, ${user?.user_metadata?.full_name || user?.email}`}
       </p>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
         <Link
           href={`${prefix}/dashboard/estimate`}
           className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow group"
@@ -37,8 +85,8 @@ export default function DashboardPage() {
           </h2>
           <p className="text-text-light text-sm">
             {isEs
-              ? "Seleccione procedimientos y compare precios de EE.UU. con los de Dental City."
-              : "Select procedures and compare US prices with Dental City pricing."}
+              ? "Suba su cotización y reciba una comparación personalizada de ahorro."
+              : "Upload your estimate and receive a personalized savings comparison."}
           </p>
         </Link>
 
@@ -56,11 +104,53 @@ export default function DashboardPage() {
           </h2>
           <p className="text-text-light text-sm">
             {isEs
-              ? "Vea cuánto puede ahorrar y suba su cotización de EE.UU."
-              : "See how much you can save and upload your US quote."}
+              ? "Vea cuánto puede ahorrar y explore nuestros precios."
+              : "See how much you can save and explore our pricing."}
           </p>
         </Link>
       </div>
+
+      {/* Submission History */}
+      {!loading && submissions.length > 0 && (
+        <div>
+          <h2 className="text-lg font-semibold text-navy mb-4">
+            {isEs ? "Mis Cotizaciones" : "My Submissions"}
+          </h2>
+          <div className="space-y-3">
+            {submissions.map((sub) => (
+              <div key={sub.id} className="bg-white rounded-xl shadow-sm p-4 flex items-center justify-between">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusColors[sub.status] || statusColors.new}`}>
+                      {statusLabels[sub.status]?.[isEs ? "es" : "en"] || sub.status}
+                    </span>
+                    <span className="text-xs text-text-light">
+                      {new Date(sub.created_at).toLocaleDateString(isEs ? "es" : "en", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
+                  <p className="text-sm text-navy truncate">
+                    {Array.isArray(sub.procedures)
+                      ? sub.procedures.map((p) => p.name).join(", ")
+                      : "—"}
+                  </p>
+                </div>
+                <div className="text-right ml-4 shrink-0">
+                  <p className="text-sm font-semibold text-green-600">
+                    {sub.savings_percentage}% {isEs ? "ahorro" : "savings"}
+                  </p>
+                  <p className="text-xs text-text-light">
+                    ${sub.total_dc_price?.toLocaleString()} vs ${sub.total_us_price?.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
