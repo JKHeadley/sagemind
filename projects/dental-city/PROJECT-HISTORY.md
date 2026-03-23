@@ -16,7 +16,7 @@
 4. [Asset Inventory](#asset-inventory)
 5. [Website Development Timeline](#website-development-timeline)
 6. [Features Built](#features-built)
-7. [Grupo Argus / Doctor Dent Integration Research](#grupo-argus--doctor-dent-integration-research)
+7. [Grupo Argus / Nebbia Solutions Integration Research](#grupo-argus--nebbia-solutions-integration-research)
 8. [Current State](#current-state)
 9. [Next Phase: Estimate Pipeline](#next-phase-estimate-pipeline)
 
