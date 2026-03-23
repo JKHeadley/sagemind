@@ -30,7 +30,7 @@ if [ -z "$MSG" ]; then
   exit 1
 fi
 
-PORT="${INSTAR_PORT:-6060}"
+PORT="${INSTAR_PORT:-4040}"
 
 # Read auth token from config (if present)
 AUTH_TOKEN=""
