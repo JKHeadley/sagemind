@@ -423,10 +423,10 @@ export default function EstimateSubmitFlow() {
           : "Our medical team will review your documents and contact you within 48-72 business hours. Check your email for confirmation."}
       </p>
       <a
-        href={`/${locale}/dashboard`}
+        href={`/${locale}/dashboard/submission/${submissionId}`}
         className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-2.5 px-6 rounded-lg transition-colors"
       >
-        {isEs ? "Ir al Panel" : "Go to Dashboard"}
+        {isEs ? "Ver Mi Cotización" : "View My Estimate"}
       </a>
     </div>
   );

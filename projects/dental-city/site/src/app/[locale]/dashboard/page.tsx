@@ -118,7 +118,7 @@ export default function DashboardPage() {
           </h2>
           <div className="space-y-3">
             {submissions.map((sub) => (
-              <div key={sub.id} className="bg-white rounded-xl shadow-sm p-4 flex items-center justify-between">
+              <Link key={sub.id} href={`${prefix}/dashboard/submission/${sub.id}`} className="bg-white rounded-xl shadow-sm p-4 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer block">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusColors[sub.status] || statusColors.new}`}>
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                     ${sub.total_dc_price?.toLocaleString()} vs ${sub.total_us_price?.toLocaleString()}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
