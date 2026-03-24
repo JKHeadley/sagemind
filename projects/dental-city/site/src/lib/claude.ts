@@ -25,7 +25,7 @@ export async function parseEstimateDocument(
   mimeType: string
 ): Promise<ParseResult> {
   const genAI = getClient();
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const systemPrompt = `You are a dental estimate document parser. Extract dental procedure names and their costs from the provided document.
 
