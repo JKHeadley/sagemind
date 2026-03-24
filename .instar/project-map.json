@@ -46,6 +46,13 @@
     "README.md"
   ],
   "projectType": "unknown",
+<<<<<<< Updated upstream
   "deploymentTargets": [],
   "generatedAt": "2026-03-18T23:15:54.921Z"
+=======
+  "deploymentTargets": [
+    "vercel"
+  ],
+  "generatedAt": "2026-03-19T22:28:45.044Z"
+>>>>>>> Stashed changes
 }
