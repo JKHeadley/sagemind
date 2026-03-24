@@ -125,14 +125,16 @@ export default function EstimateSubmitFlow() {
             body: formData,
           });
 
+          const data = await response.json();
           if (response.ok) {
-            const data = await response.json();
             if (data.items?.length > 0) {
               allItems.push(...data.items);
             }
+          } else {
+            console.error("Parse API error:", response.status, data);
           }
-        } catch {
-          // Skip files that fail to parse — they might be X-rays
+        } catch (err) {
+          console.error("Parse fetch error:", err);
         }
       }
 
