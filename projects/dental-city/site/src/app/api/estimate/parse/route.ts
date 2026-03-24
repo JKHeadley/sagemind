@@ -24,21 +24,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Rate limit: max 5 AI uploads per user per day
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const { count } = await supabase
-    .from("estimates")
-    .select("*", { count: "exact", head: true })
-    .eq("user_id", user.id)
-    .eq("source_type", "ai_upload")
-    .gte("created_at", today.toISOString());
+  // Rate limit: max 10 submissions per user per day
+  try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const { count } = await supabase
+      .from("submissions")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .gte("created_at", today.toISOString());
 
-  if ((count || 0) >= 5) {
-    return NextResponse.json(
-      { error: "Rate limit exceeded. Maximum 5 AI uploads per day." },
-      { status: 429 }
-    );
+    if ((count || 0) >= 10) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded. Maximum 10 uploads per day." },
+        { status: 429 }
+      );
+    }
+  } catch {
+    // Rate limit check failed — continue anyway
   }
 
   // Parse multipart form data

@@ -125,13 +125,16 @@ export default function EstimateSubmitFlow() {
             body: formData,
           });
 
+          if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            console.error("Parse API error:", response.status, errData);
+            setErrorMsg(errData.error || `Analysis failed (${response.status})`);
+            setParsing(false);
+            return;
+          }
           const data = await response.json();
-          if (response.ok) {
-            if (data.items?.length > 0) {
-              allItems.push(...data.items);
-            }
-          } else {
-            console.error("Parse API error:", response.status, data);
+          if (data.items?.length > 0) {
+            allItems.push(...data.items);
           }
         } catch (err) {
           console.error("Parse fetch error:", err);
