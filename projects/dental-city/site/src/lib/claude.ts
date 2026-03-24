@@ -1,11 +1,11 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 function getClient() {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error("ANTHROPIC_API_KEY is not set");
+    throw new Error("GEMINI_API_KEY is not set");
   }
-  return new Anthropic({ apiKey });
+  return new GoogleGenerativeAI(apiKey);
 }
 
 interface ExtractedItem {
@@ -24,7 +24,8 @@ export async function parseEstimateDocument(
   base64Data: string,
   mimeType: string
 ): Promise<ParseResult> {
-  const isImage = mimeType.startsWith("image/");
+  const genAI = getClient();
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
   const systemPrompt = `You are a dental estimate document parser. Extract dental procedure names and their costs from the provided document.
 
@@ -42,6 +43,7 @@ Return a JSON object with this exact structure:
 
 Guidelines:
 - Extract ALL dental procedures mentioned with their costs
+- Use the "Fee" column amount (total fee before insurance), NOT the patient responsibility amount
 - If a cost is a range, use the higher number
 - Common procedures: implant, crown, veneer, root canal, extraction, bridge, denture, cleaning, whitening, orthodontics, bone graft, x-ray, CBCT, filling, sealant, pulpotomy
 - Mark confidence "high" if both name and cost are clear
@@ -50,61 +52,21 @@ Guidelines:
 - Add warnings for anything ambiguous
 - Return ONLY the JSON object, no other text`;
 
-  const isPdf = mimeType === "application/pdf";
+  const parts = [
+    {
+      inlineData: {
+        mimeType,
+        data: base64Data,
+      },
+    },
+    {
+      text: systemPrompt + "\n\nExtract all dental procedures and their costs from this dental estimate/invoice document.",
+    },
+  ];
 
-  let content: Anthropic.MessageCreateParams["messages"][0]["content"];
-
-  if (isImage) {
-    content = [
-      {
-        type: "image",
-        source: {
-          type: "base64",
-          media_type: mimeType as "image/jpeg" | "image/png" | "image/gif" | "image/webp",
-          data: base64Data,
-        },
-      },
-      {
-        type: "text",
-        text: "Extract all dental procedures and their costs from this dental estimate/invoice document.",
-      },
-    ];
-  } else if (isPdf) {
-    content = [
-      {
-        type: "document",
-        source: {
-          type: "base64",
-          media_type: "application/pdf",
-          data: base64Data,
-        },
-      },
-      {
-        type: "text",
-        text: "Extract all dental procedures and their costs from this dental estimate/invoice document.",
-      },
-    ];
-  } else {
-    content = [
-      {
-        type: "text",
-        text: `Extract all dental procedures and their costs from this dental estimate document:\n\n${Buffer.from(base64Data, "base64").toString("utf-8")}`,
-      },
-    ];
-  }
-
-  const anthropic = getClient();
-  const response = await anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
-    max_tokens: 2048,
-    system: systemPrompt,
-    messages: [{ role: "user", content }],
-  });
-
-  const text = response.content
-    .filter((block): block is Anthropic.TextBlock => block.type === "text")
-    .map((block) => block.text)
-    .join("");
+  const result = await model.generateContent(parts);
+  const response = result.response;
+  const text = response.text();
 
   // Parse JSON from response
   const jsonMatch = text.match(/\{[\s\S]*\}/);
@@ -123,9 +85,9 @@ Guidelines:
 // Slugs must match those in src/lib/procedures.ts
 const knownProcedures = [
   // General & Diagnostics
-  { slug: "consultation", keywords: ["consultation", "consulta", "exam", "checkup"] },
-  { slug: "dental-cleaning", keywords: ["cleaning", "limpieza", "prophy", "prophylaxis"] },
-  { slug: "intraoral-xray", keywords: ["intraoral", "periapical", "bitewing"] },
+  { slug: "consultation", keywords: ["consultation", "consulta", "exam", "checkup", "evaluation"] },
+  { slug: "dental-cleaning", keywords: ["cleaning", "limpieza", "prophy", "prophylaxis", "scaling"] },
+  { slug: "intraoral-xray", keywords: ["intraoral", "periapical", "bitewing", "complete series"] },
   { slug: "panoramic-xray", keywords: ["panoramic", "panorámica", "x-ray", "xray"] },
   { slug: "cbct-sextant", keywords: ["cbct", "3d scan", "cone beam", "tomograf", "ct scan"] },
   { slug: "cbct-full-arch", keywords: ["cbct full", "full arch scan", "full arch cbct"] },
@@ -137,11 +99,11 @@ const knownProcedures = [
   { slug: "porcelain-inlay", keywords: ["inlay", "onlay", "incrustación"] },
 
   // Crowns & Prosthetics
-  { slug: "crown-porcelain", keywords: ["porcelain crown", "corona porcelana"] },
+  { slug: "crown-porcelain", keywords: ["porcelain crown", "corona porcelana", "crown - porcelain", "crown porcelain"] },
   { slug: "crown-zirconia", keywords: ["zirconia crown", "corona zirconio"] },
   { slug: "crown-premium", keywords: ["premium crown", "corona premium", "emax crown", "e-max"] },
   { slug: "veneer-porcelain", keywords: ["veneer", "carilla", "porcelain veneer"] },
-  { slug: "full-denture", keywords: ["full denture", "complete denture", "dentadura", "prótesis total"] },
+  { slug: "full-denture", keywords: ["full denture", "complete denture", "complete upper denture", "complete lower denture", "dentadura", "prótesis total"] },
   { slug: "partial-denture", keywords: ["partial denture", "partial", "parcial", "chrome cobalt"] },
   { slug: "flexible-prosthesis", keywords: ["flexible", "valplast"] },
   { slug: "hybrid-prosthesis-acrylic", keywords: ["hybrid acrylic", "all-on-4 acrylic", "all on 4", "full arch acrylic"] },
@@ -162,8 +124,8 @@ const knownProcedures = [
   { slug: "endopost", keywords: ["post and core", "endopost", "post & core", "fiber post"] },
 
   // Implants
-  { slug: "dental-implant", keywords: ["implant only", "implant fixture", "implant body"] },
-  { slug: "implant-crown-porcelain", keywords: ["implant with crown", "implant + crown", "implant and crown", "implant crown", "implant"] },
+  { slug: "dental-implant", keywords: ["endosseous implant", "implant only", "implant fixture", "implant body"] },
+  { slug: "implant-crown-porcelain", keywords: ["implant with crown", "implant + crown", "implant and crown", "implant crown"] },
   { slug: "bone-graft-membrane", keywords: ["bone graft", "injerto", "grafting", "membrane", "regeneration"] },
   { slug: "surgical-guide", keywords: ["surgical guide", "guía quirúrgica", "guided surgery"] },
 
@@ -180,6 +142,9 @@ const knownProcedures = [
   // Aesthetics
   { slug: "botox-full-face", keywords: ["botox", "botulinum", "toxina botulínica"] },
   { slug: "lip-fillers", keywords: ["filler", "lip filler", "hyaluronic", "ácido hialurónico", "relleno labio"] },
+
+  // Abutments (map to implant)
+  { slug: "implant-crown-porcelain", keywords: ["abutment"] },
 ];
 
 export function matchProcedure(name: string): string | null {
