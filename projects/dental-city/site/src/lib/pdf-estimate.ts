@@ -1,20 +1,35 @@
-import PDFDocument from "pdfkit";
-import path from "path";
-import fs from "fs";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 
-// Brand colors
-const NAVY = "#0c1e2b";
-const PRIMARY_DARK = "#155e75";
-const ACCENT = "#06b6d4";
-const TEXT_COLOR = "#1e293b";
-const TEXT_LIGHT = "#64748b";
-const SURFACE = "#f0fdfa";
-const WHITE = "#ffffff";
-const LIGHT_BORDER = "#e2e8f0";
-const GREEN = "#059669";
-const GREEN_LIGHT = "#ecfdf5";
+const LOGO_URL = "https://dentalcitycr.com/images/logos/logo-blue-full.png";
+let cachedLogo: Uint8Array | null = null;
 
-const BUFFER_MULTIPLIER = 1.10; // 10% incidental buffer on DC prices
+async function fetchLogo(): Promise<Uint8Array | null> {
+  if (cachedLogo) return cachedLogo;
+  try {
+    const res = await fetch(LOGO_URL);
+    if (!res.ok) return null;
+    cachedLogo = new Uint8Array(await res.arrayBuffer());
+    return cachedLogo;
+  } catch {
+    return null;
+  }
+}
+
+const BUFFER_MULTIPLIER = 1.10;
+
+// Colors as RGB (0-1 range)
+const NAVY = rgb(12 / 255, 30 / 255, 43 / 255);
+const PRIMARY_DARK = rgb(21 / 255, 94 / 255, 117 / 255);
+const ACCENT = rgb(6 / 255, 182 / 255, 212 / 255);
+const TEXT_COLOR = rgb(30 / 255, 41 / 255, 59 / 255);
+const TEXT_LIGHT = rgb(100 / 255, 116 / 255, 139 / 255);
+const WHITE = rgb(1, 1, 1);
+const GREEN = rgb(5 / 255, 150 / 255, 105 / 255);
+const SURFACE_BG = rgb(240 / 255, 253 / 255, 250 / 255);
+const GREEN_LIGHT_BG = rgb(236 / 255, 253 / 255, 245 / 255);
+const YELLOW_BG = rgb(254 / 255, 252 / 255, 232 / 255);
+const STRIPE_BG = rgb(248 / 255, 250 / 255, 252 / 255);
+const BORDER_LIGHT = rgb(226 / 255, 232 / 255, 240 / 255);
 
 export interface EstimateProcedure {
   name: string;
@@ -35,17 +50,11 @@ function formatUSD(amount: number): string {
   return "$" + amount.toLocaleString("en-US");
 }
 
-/**
- * Generate a branded Dental City estimate PDF.
- * Returns a Buffer containing the PDF data.
- */
 export async function generateEstimatePdf(
   patient: EstimatePatient,
   procedures: EstimateProcedure[]
 ): Promise<Buffer> {
-  // Calculate totals
   const totalUs = procedures.reduce((sum, p) => sum + p.usPrice, 0);
-
   const displayProcedures = procedures.map((p) => ({
     ...p,
     dcPriceDisplay: Math.round(p.dcPrice * BUFFER_MULTIPLIER),
@@ -54,189 +63,205 @@ export async function generateEstimatePdf(
   const totalSavingsDisplay = totalUs - totalDcDisplay;
   const savingsPctDisplay = totalUs > 0 ? Math.round((totalSavingsDisplay / totalUs) * 100) : 0;
 
-  // Format date
   const dateStr = new Date().toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
-  // Logo path — works in both dev and production (Vercel)
-  const logoPath = path.join(process.cwd(), "public/images/logos/logo-blue-full.png");
-  const hasLogo = fs.existsSync(logoPath);
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([612, 792]); // Letter size
+  const { width, height } = page.getSize();
 
-  return new Promise((resolve, reject) => {
-    const doc = new PDFDocument({
-      size: "LETTER",
-      margins: { top: 30, bottom: 30, left: 50, right: 50 },
-      info: {
-        Title: `Dental City Estimate - ${patient.name}`,
-        Author: "Dental City Costa Rica",
-        Subject: "Preliminary Dental Estimate",
-      },
+  const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+
+  const marginLeft = 50;
+  const marginRight = 50;
+  const pageWidth = width - marginLeft - marginRight;
+
+  // Helper: draw filled rect
+  function drawRect(x: number, y: number, w: number, h: number, color: ReturnType<typeof rgb>) {
+    page.drawRectangle({ x, y, width: w, height: h, color });
+  }
+
+  // Helper: draw text
+  function drawText(
+    text: string,
+    x: number,
+    y: number,
+    opts: { font?: typeof helvetica; size?: number; color?: ReturnType<typeof rgb>; maxWidth?: number } = {}
+  ) {
+    page.drawText(text, {
+      x,
+      y,
+      font: opts.font || helvetica,
+      size: opts.size || 8,
+      color: opts.color || TEXT_COLOR,
+      maxWidth: opts.maxWidth,
     });
+  }
 
-    const chunks: Buffer[] = [];
-    doc.on("data", (chunk: Buffer) => chunks.push(chunk));
-    doc.on("end", () => resolve(Buffer.concat(chunks)));
-    doc.on("error", reject);
+  // Helper: right-aligned text
+  function drawTextRight(
+    text: string,
+    rightX: number,
+    y: number,
+    opts: { font?: typeof helvetica; size?: number; color?: ReturnType<typeof rgb> } = {}
+  ) {
+    const font = opts.font || helvetica;
+    const size = opts.size || 8;
+    const tw = font.widthOfTextAtSize(text, size);
+    drawText(text, rightX - tw, y, { ...opts, font, size });
+  }
 
-    const pageWidth = doc.page.width - doc.page.margins.left - doc.page.margins.right;
-    let y = doc.page.margins.top;
+  // Helper: centered text
+  function drawTextCenter(
+    text: string,
+    y: number,
+    opts: { font?: typeof helvetica; size?: number; color?: ReturnType<typeof rgb> } = {}
+  ) {
+    const font = opts.font || helvetica;
+    const size = opts.size || 8;
+    const tw = font.widthOfTextAtSize(text, size);
+    drawText(text, marginLeft + (pageWidth - tw) / 2, y, { ...opts, font, size });
+  }
 
-    // ── HEADER BAR ──
-    doc.rect(0, 0, doc.page.width, 72).fill(NAVY);
+  let y = height;
 
-    if (hasLogo) {
-      doc.image(logoPath, 50, 10, { height: 52 });
-    }
+  // ── HEADER BAR ──
+  const headerH = 90;
+  drawRect(0, y - headerH, width, headerH, NAVY);
 
-    doc.font("Helvetica-Bold").fontSize(16).fillColor(WHITE)
-      .text("DENTAL CITY", 320, 14, { width: 230, align: "right" });
-    doc.font("Helvetica").fontSize(8).fillColor(ACCENT)
-      .text("Let Your Smile Change the World", 320, 33, { width: 230, align: "right" });
-    doc.fontSize(7.5).fillColor("#94a3b8")
-      .text("Aguas Zarcas, Costa Rica", 320, 46, { width: 230, align: "right" })
-      .text("info@dentalcitycr.com  |  dentalcitycr.com", 320, 57, { width: 230, align: "right" });
+  // Embed logo
+  const logoBytes = await fetchLogo();
+  if (logoBytes) {
+    try {
+      const logoImage = await pdfDoc.embedPng(logoBytes);
+      const logoDims = logoImage.scale(68 / logoImage.height);
+      page.drawImage(logoImage, { x: marginLeft, y: y - 80, width: logoDims.width, height: logoDims.height });
+    } catch { /* skip logo if embed fails */ }
+  }
 
-    y = 82;
+  drawText("DENTAL CITY", width - marginRight - 180, y - 28, { font: helveticaBold, size: 20, color: WHITE });
+  drawText("Let Your Smile Change the World", width - marginRight - 180, y - 44, { size: 9, color: ACCENT });
+  drawText("Aguas Zarcas, Costa Rica", width - marginRight - 180, y - 58, { size: 8, color: rgb(148 / 255, 163 / 255, 184 / 255) });
+  drawText("info@dentalcitycr.com  |  dentalcitycr.com", width - marginRight - 180, y - 70, { size: 8, color: rgb(148 / 255, 163 / 255, 184 / 255) });
+  y -= headerH + 24;
 
-    // ── TITLE ──
-    doc.font("Helvetica-Bold").fontSize(13).fillColor(PRIMARY_DARK)
-      .text("PRELIMINARY DENTAL ESTIMATE", 50, y, { width: pageWidth, align: "center" });
-    y += 18;
-    doc.font("Helvetica").fontSize(8).fillColor(TEXT_LIGHT)
-      .text(dateStr, 50, y, { width: pageWidth, align: "center" });
-    y += 18;
+  // ── TITLE ──
+  drawTextCenter("PRELIMINARY DENTAL ESTIMATE", y, { font: helveticaBold, size: 16, color: PRIMARY_DARK });
+  y -= 20;
+  drawTextCenter(dateStr, y, { size: 9, color: TEXT_LIGHT });
+  y -= 26;
 
-    // ── PATIENT INFO BOX ──
-    const boxLeft = 50;
-    const boxWidth = pageWidth;
-    doc.roundedRect(boxLeft, y, boxWidth, 72, 4).fill(SURFACE);
-    doc.roundedRect(boxLeft, y, boxWidth, 72, 4).stroke(LIGHT_BORDER);
+  // ── PATIENT INFO BOX ──
+  const boxH = 82;
+  drawRect(marginLeft, y - boxH, pageWidth, boxH, SURFACE_BG);
+  page.drawRectangle({ x: marginLeft, y: y - boxH, width: pageWidth, height: boxH, borderColor: BORDER_LIGHT, borderWidth: 1 });
 
-    const col1 = boxLeft + 12;
-    const col2 = boxLeft + boxWidth / 2 + 10;
-    const infoY = y + 8;
+  const col1 = marginLeft + 14;
+  const col2 = marginLeft + pageWidth / 2 + 10;
+  let infoY = y - 18;
 
-    doc.font("Helvetica-Bold").fontSize(8.5).fillColor(PRIMARY_DARK)
-      .text("Patient Information", col1, infoY);
+  drawText("Patient Information", col1, infoY, { font: helveticaBold, size: 10, color: PRIMARY_DARK });
+  infoY -= 18;
 
-    doc.font("Helvetica").fontSize(8).fillColor(TEXT_LIGHT);
-    doc.text("Name:", col1, infoY + 16);
-    doc.text("Email:", col1, infoY + 28);
-    doc.text("Phone:", col1, infoY + 40);
-    doc.text("Country:", col2, infoY + 16);
-    doc.text("Preferred Contact:", col2, infoY + 28);
+  drawText("Name:", col1, infoY, { size: 9, color: TEXT_LIGHT });
+  drawText(patient.name, col1 + 48, infoY, { font: helveticaBold, size: 9 });
+  drawText("Country:", col2, infoY, { size: 9, color: TEXT_LIGHT });
+  drawText(patient.country || "N/A", col2 + 65, infoY, { font: helveticaBold, size: 9 });
+  infoY -= 15;
 
-    doc.font("Helvetica-Bold").fontSize(8).fillColor(TEXT_COLOR);
-    doc.text(patient.name, col1 + 42, infoY + 16);
-    doc.text(patient.email, col1 + 42, infoY + 28);
-    doc.text(patient.phone, col1 + 42, infoY + 40);
-    doc.text(patient.country, col2 + 95, infoY + 16);
-    doc.text(patient.preferredContact, col2 + 95, infoY + 28);
+  drawText("Email:", col1, infoY, { size: 9, color: TEXT_LIGHT });
+  drawText(patient.email, col1 + 48, infoY, { font: helveticaBold, size: 9 });
+  drawText("Preferred Contact:", col2, infoY, { size: 9, color: TEXT_LIGHT });
+  drawText(patient.preferredContact, col2 + 100, infoY, { font: helveticaBold, size: 9 });
+  infoY -= 15;
 
-    y += 82;
+  drawText("Phone:", col1, infoY, { size: 9, color: TEXT_LIGHT });
+  drawText(patient.phone || "N/A", col1 + 48, infoY, { font: helveticaBold, size: 9 });
 
-    // ── PROCEDURES TABLE ──
-    doc.font("Helvetica-Bold").fontSize(9).fillColor(PRIMARY_DARK)
-      .text("Procedures Identified", 50, y);
-    y += 16;
+  y -= boxH + 18;
 
-    const colWidths = [220, 90, 90, 110];
-    const colX = [50, 270, 360, 450];
+  // ── PROCEDURES TABLE ──
+  drawText("Procedures Identified", marginLeft, y, { font: helveticaBold, size: 11, color: PRIMARY_DARK });
+  y -= 20;
 
-    doc.rect(50, y, pageWidth, 20).fill(PRIMARY_DARK);
-    doc.font("Helvetica-Bold").fontSize(8).fillColor(WHITE);
-    doc.text("Procedure", colX[0] + 10, y + 5, { width: colWidths[0] });
-    doc.text("US Price", colX[1], y + 5, { width: colWidths[1], align: "right" });
-    doc.text("DC Price", colX[2], y + 5, { width: colWidths[2], align: "right" });
-    doc.text("You Save", colX[3], y + 5, { width: colWidths[3] - 10, align: "right" });
-    y += 20;
+  const colX = [marginLeft, marginLeft + 250, marginLeft + 340, marginLeft + 420];
+  const colEnd = [marginLeft + 240, marginLeft + 330, marginLeft + 410, width - marginRight - 10];
+  const rowH = 24;
 
-    // Table rows
-    displayProcedures.forEach((proc, i) => {
-      const rowBg = i % 2 === 0 ? WHITE : "#f8fafc";
-      const savings = proc.usPrice - proc.dcPriceDisplay;
-      const savePct = proc.usPrice > 0 ? Math.round((savings / proc.usPrice) * 100) : 0;
-      const rowHeight = 20;
+  // Table header
+  drawRect(marginLeft, y - rowH, pageWidth, rowH, PRIMARY_DARK);
+  drawText("Procedure", colX[0] + 10, y - 16, { font: helveticaBold, size: 9, color: WHITE });
+  drawTextRight("US Price", colEnd[1], y - 16, { font: helveticaBold, size: 9, color: WHITE });
+  drawTextRight("DC Price", colEnd[2], y - 16, { font: helveticaBold, size: 9, color: WHITE });
+  drawTextRight("You Save", colEnd[3], y - 16, { font: helveticaBold, size: 9, color: WHITE });
+  y -= rowH;
 
-      doc.rect(50, y, pageWidth, rowHeight).fill(rowBg);
+  // Table rows
+  for (let i = 0; i < displayProcedures.length; i++) {
+    const proc = displayProcedures[i];
+    const savings = proc.usPrice - proc.dcPriceDisplay;
+    const savePct = proc.usPrice > 0 ? Math.round((savings / proc.usPrice) * 100) : 0;
+    const bgColor = i % 2 === 0 ? WHITE : STRIPE_BG;
 
-      doc.font("Helvetica").fontSize(8).fillColor(TEXT_COLOR);
-      doc.text(proc.name, colX[0] + 10, y + 5, { width: colWidths[0] - 10 });
+    drawRect(marginLeft, y - rowH, pageWidth, rowH, bgColor);
+    drawText(proc.name, colX[0] + 10, y - 16, { size: 9 });
+    drawTextRight(formatUSD(proc.usPrice), colEnd[1], y - 16, { size: 9, color: TEXT_LIGHT });
+    drawTextRight(formatUSD(proc.dcPriceDisplay), colEnd[2], y - 16, { font: helveticaBold, size: 9, color: PRIMARY_DARK });
+    drawTextRight(`${formatUSD(savings)} (${savePct}%)`, colEnd[3], y - 16, { font: helveticaBold, size: 9, color: GREEN });
+    y -= rowH;
+  }
 
-      doc.fillColor(TEXT_LIGHT);
-      doc.text(formatUSD(proc.usPrice), colX[1], y + 5, { width: colWidths[1], align: "right" });
+  // Table footer (totals)
+  const totalRowH = 26;
+  drawRect(marginLeft, y - totalRowH, pageWidth, totalRowH, NAVY);
+  drawText("TOTAL", colX[0] + 10, y - 17, { font: helveticaBold, size: 10, color: WHITE });
+  drawTextRight(formatUSD(totalUs), colEnd[1], y - 17, { font: helveticaBold, size: 10, color: WHITE });
+  drawTextRight(formatUSD(totalDcDisplay), colEnd[2], y - 17, { font: helveticaBold, size: 10, color: ACCENT });
+  drawTextRight(`${formatUSD(totalSavingsDisplay)} (${savingsPctDisplay}%)`, colEnd[3], y - 17, { font: helveticaBold, size: 10, color: rgb(52 / 255, 211 / 255, 153 / 255) });
+  y -= totalRowH + 14;
 
-      doc.font("Helvetica-Bold").fillColor(PRIMARY_DARK);
-      doc.text(formatUSD(proc.dcPriceDisplay), colX[2], y + 5, { width: colWidths[2], align: "right" });
+  // ── SAVINGS HIGHLIGHT BOX ──
+  const savingsBoxH = 42;
+  drawRect(marginLeft, y - savingsBoxH, pageWidth, savingsBoxH, GREEN_LIGHT_BG);
+  page.drawRectangle({ x: marginLeft, y: y - savingsBoxH, width: pageWidth, height: savingsBoxH, borderColor: rgb(167 / 255, 243 / 255, 208 / 255), borderWidth: 1 });
+  drawTextCenter(`Total Estimated Savings: ${formatUSD(totalSavingsDisplay)}`, y - 16, { font: helveticaBold, size: 14, color: GREEN });
+  drawTextCenter(`That's ${savingsPctDisplay}% less than typical US pricing`, y - 33, { size: 10, color: rgb(6 / 255, 95 / 255, 70 / 255) });
+  y -= savingsBoxH + 14;
 
-      doc.font("Helvetica-Bold").fillColor(GREEN);
-      doc.text(`${formatUSD(savings)} (${savePct}%)`, colX[3], y + 5, { width: colWidths[3] - 10, align: "right" });
+  // ── DISCLAIMER BOX ──
+  const disclaimerH = 58;
+  drawRect(marginLeft, y - disclaimerH, pageWidth, disclaimerH, YELLOW_BG);
+  page.drawRectangle({ x: marginLeft, y: y - disclaimerH, width: pageWidth, height: disclaimerH, borderColor: rgb(253 / 255, 230 / 255, 138 / 255), borderWidth: 1 });
+  drawText("IMPORTANT DISCLAIMER", marginLeft + 14, y - 16, { font: helveticaBold, size: 8.5, color: rgb(146 / 255, 64 / 255, 14 / 255) });
+  drawText(
+    "This is a preliminary estimate based on AI analysis of the documents you provided. Final treatment plans and pricing",
+    marginLeft + 14, y - 30, { size: 8, color: rgb(120 / 255, 53 / 255, 15 / 255) }
+  );
+  drawText(
+    "will be determined after an in-person evaluation by our dental team. We accept USD, CRC, and major credit cards.",
+    marginLeft + 14, y - 42, { size: 8, color: rgb(120 / 255, 53 / 255, 15 / 255) }
+  );
+  y -= disclaimerH + 14;
 
-      y += rowHeight;
-    });
+  // ── WHAT'S NEXT BOX ──
+  const nextH = 70;
+  drawRect(marginLeft, y - nextH, pageWidth, nextH, SURFACE_BG);
+  page.drawRectangle({ x: marginLeft, y: y - nextH, width: pageWidth, height: nextH, borderColor: rgb(153 / 255, 246 / 255, 228 / 255), borderWidth: 1 });
+  drawText("What Happens Next?", marginLeft + 14, y - 16, { font: helveticaBold, size: 10, color: PRIMARY_DARK });
+  drawText("•  Our team will review your documents within 48-72 business hours", marginLeft + 18, y - 32, { size: 8.5 });
+  drawText(`•  We'll contact you via ${patient.preferredContact}`, marginLeft + 18, y - 45, { size: 8.5 });
+  drawText("•  After evaluation, we'll provide a final treatment plan and pricing", marginLeft + 18, y - 58, { size: 8.5 });
 
-    // Table footer (totals)
-    doc.rect(50, y, pageWidth, 22).fill(NAVY);
-    doc.font("Helvetica-Bold").fontSize(8.5).fillColor(WHITE);
-    doc.text("TOTAL", colX[0] + 10, y + 6, { width: colWidths[0] });
-    doc.text(formatUSD(totalUs), colX[1], y + 6, { width: colWidths[1], align: "right" });
+  // ── FOOTER BAR ──
+  const footerH = 42;
+  drawRect(0, 0, width, footerH, NAVY);
+  drawTextCenter("Dental City CR  |  Let Your Smile Change the World", 26, { font: helveticaBold, size: 8, color: ACCENT });
+  drawTextCenter("Tel: +506 8339 8833   |   Email: info@dentalcitycr.com   |   Web: dentalcitycr.com", 12, { size: 7.5, color: rgb(148 / 255, 163 / 255, 184 / 255) });
 
-    doc.fillColor(ACCENT);
-    doc.text(formatUSD(totalDcDisplay), colX[2], y + 6, { width: colWidths[2], align: "right" });
-
-    doc.fillColor("#34d399");
-    doc.text(`${formatUSD(totalSavingsDisplay)} (${savingsPctDisplay}%)`, colX[3], y + 6, { width: colWidths[3] - 10, align: "right" });
-    y += 22;
-
-    // ── SAVINGS HIGHLIGHT BOX ──
-    y += 10;
-    doc.roundedRect(50, y, pageWidth, 36, 4).fill(GREEN_LIGHT);
-    doc.roundedRect(50, y, pageWidth, 36, 4).stroke("#a7f3d0");
-
-    doc.font("Helvetica-Bold").fontSize(12).fillColor(GREEN)
-      .text(`Total Estimated Savings: ${formatUSD(totalSavingsDisplay)}`, 50, y + 6, { width: pageWidth, align: "center" });
-    doc.font("Helvetica").fontSize(9).fillColor("#065f46")
-      .text(`That's ${savingsPctDisplay}% less than typical US pricing`, 50, y + 22, { width: pageWidth, align: "center" });
-    y += 46;
-
-    // ── DISCLAIMER BOX ──
-    doc.roundedRect(50, y, pageWidth, 52, 4).fill("#fefce8");
-    doc.roundedRect(50, y, pageWidth, 52, 4).stroke("#fde68a");
-
-    doc.font("Helvetica-Bold").fontSize(7.5).fillColor("#92400e")
-      .text("IMPORTANT DISCLAIMER", 62, y + 7);
-    doc.font("Helvetica").fontSize(7).fillColor("#78350f")
-      .text(
-        "This is a preliminary estimate based on AI analysis of the documents you provided. " +
-        "Final treatment plans and pricing will be determined after an in-person evaluation " +
-        "by our dental team. We accept USD, CRC, and major credit cards.",
-        62, y + 19, { width: pageWidth - 24, lineGap: 1.5 }
-      );
-    y += 60;
-
-    // ── FOOTER (draw before "What's Next" to prevent page overflow) ──
-    const footerY = doc.page.height - 42;
-    doc.rect(0, footerY, doc.page.width, 42).fill(NAVY);
-
-    doc.font("Helvetica-Bold").fontSize(8).fillColor(ACCENT)
-      .text("Dental City CR  |  Let Your Smile Change the World", 0, footerY + 8, { width: doc.page.width, align: "center", lineBreak: false, height: 12 });
-    doc.font("Helvetica").fontSize(7.5).fillColor("#94a3b8")
-      .text("Tel: +506 8339 8833   |   Email: info@dentalcitycr.com   |   Web: dentalcitycr.com", 0, footerY + 22, { width: doc.page.width, align: "center", lineBreak: false, height: 12 });
-
-    // ── WHAT'S NEXT BOX ──
-    doc.roundedRect(50, y, pageWidth, 52, 4).fill(SURFACE);
-    doc.roundedRect(50, y, pageWidth, 52, 4).stroke("#99f6e4");
-
-    doc.font("Helvetica-Bold").fontSize(8).fillColor(PRIMARY_DARK)
-      .text("What Happens Next?", 62, y + 7, { lineBreak: false, height: 10 });
-    doc.font("Helvetica").fontSize(7.5).fillColor(TEXT_COLOR);
-    doc.text("  •  Our team will review your documents within 48-72 business hours", 62, y + 20, { lineBreak: false, height: 10 });
-    doc.text(`  •  We'll contact you via ${patient.preferredContact}`, 62, y + 31, { lineBreak: false, height: 10 });
-    doc.text("  •  After evaluation, we'll provide a final treatment plan and pricing", 62, y + 42, { lineBreak: false, height: 10 });
-
-    doc.end();
-  });
+  const pdfBytes = await pdfDoc.save();
+  return Buffer.from(pdfBytes);
 }

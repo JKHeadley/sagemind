@@ -54,6 +54,34 @@ export default function SubmissionDetailPage() {
   const [submission, setSubmission] = useState<Submission | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [downloading, setDownloading] = useState(false);
+
+  async function handleDownloadPdf() {
+    setDownloading(true);
+    try {
+      const supabase = createClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const res = await fetch(`/api/estimate/pdf?id=${submissionId}`, {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+
+      if (!res.ok) throw new Error("Download failed");
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Dental City Estimate - ${submission?.patient_name || "Estimate"}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      // silently fail
+    } finally {
+      setDownloading(false);
+    }
+  }
 
   useEffect(() => {
     async function fetchSubmission() {
@@ -123,6 +151,18 @@ export default function SubmissionDetailPage() {
             </span>
           </div>
         </div>
+        <button
+          onClick={handleDownloadPdf}
+          disabled={downloading}
+          className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm disabled:opacity-50"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+          {downloading
+            ? (isEs ? "Descargando..." : "Downloading...")
+            : (isEs ? "Descargar PDF" : "Download PDF")}
+        </button>
       </div>
 
       {/* Savings summary */}

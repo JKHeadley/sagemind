@@ -119,6 +119,7 @@ export async function POST(request: NextRequest) {
 
   // ── 6. Generate branded PDF ──
   let brandedPdfId = "";
+  let pdfError = "";
   try {
     const patient: EstimatePatient = {
       name: patientName,
@@ -151,7 +152,8 @@ export async function POST(request: NextRequest) {
       });
     }
   } catch (err) {
-    console.error("PDF generation failed:", err);
+    pdfError = err instanceof Error ? err.message : String(err);
+    console.error("PDF generation failed:", pdfError);
   }
 
   // ── 7. Save to Supabase ──
@@ -202,42 +204,58 @@ export async function POST(request: NextRequest) {
     await supabase.from("submission_files").insert(fileRecords);
   }
 
-  // ── 8. Send emails (non-blocking) ──
+  // ── 8. Send emails (must await — Vercel kills the function after response) ──
   const submittedAt = new Date().toLocaleString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
+    timeZone: "America/Costa_Rica",
     timeZoneName: "short",
   });
 
-  sendClinicNotification({
-    patientName,
-    patientEmail,
-    patientPhone,
-    patientCountry,
-    preferredContact,
-    procedures: procedures.map((p) => ({
-      name: p.name,
-      usPrice: p.usPrice,
-      dcPrice: Math.round(p.dcPrice * BUFFER),
-    })),
-    totalUs,
-    totalDc,
-    totalSavings,
-    savingsPercentage,
-    driveFolderUrl,
-    fileCount: uploadedFiles.length,
-    submittedAt,
-  }).catch((err) => console.error("Clinic email failed:", err));
+  let clinicEmailError = "";
+  let patientEmailError = "";
 
-  sendPatientConfirmation(patientEmail, patientName, preferredContact, locale)
-    .catch((err) => console.error("Patient email failed:", err));
+  await Promise.all([
+    sendClinicNotification({
+      patientName,
+      patientEmail,
+      patientPhone,
+      patientCountry,
+      preferredContact,
+      procedures: procedures.map((p) => ({
+        name: p.name,
+        usPrice: p.usPrice,
+        dcPrice: Math.round(p.dcPrice * BUFFER),
+      })),
+      totalUs,
+      totalDc,
+      totalSavings,
+      savingsPercentage,
+      driveFolderUrl,
+      fileCount: uploadedFiles.length,
+      submittedAt,
+    }).catch((err) => {
+      clinicEmailError = err instanceof Error ? err.message : String(err);
+      console.error("Clinic email failed:", clinicEmailError);
+    }),
+    sendPatientConfirmation(patientEmail, patientName, preferredContact, locale)
+      .catch((err) => {
+        patientEmailError = err instanceof Error ? err.message : String(err);
+        console.error("Patient email failed:", patientEmailError);
+      }),
+  ]);
 
   return NextResponse.json({
     success: true,
     submissionId: submission.id,
     driveFolderUrl: driveFolderUrl || null,
+    warnings: {
+      ...(pdfError && { pdf: pdfError }),
+      ...(clinicEmailError && { clinicEmail: clinicEmailError }),
+      ...(patientEmailError && { patientEmail: patientEmailError }),
+    },
   });
 }

@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 
-const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
+const SCOPES = ["https://www.googleapis.com/auth/drive"];
 
 function getAuth() {
   const key = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
@@ -39,6 +39,7 @@ export async function createPatientFolder(patientName: string): Promise<{
       parents: [rootFolderId],
     },
     fields: "id, webViewLink",
+    supportsAllDrives: true,
   });
 
   return {
@@ -69,6 +70,7 @@ export async function uploadFileToDrive(
       body: Readable.from(buffer),
     },
     fields: "id, webViewLink",
+    supportsAllDrives: true,
   });
 
   return {
