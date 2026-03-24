@@ -118,7 +118,7 @@ export async function sendClinicNotification(data: SubmissionEmailData): Promise
   await transporter.sendMail({
     from: `"Dental City Website" <${process.env.GMAIL_USER || "info@dentalcitycr.com"}>`,
     to: "info@dentalcitycr.com",
-    subject: `New Estimate Submission — ${data.patientName} (${data.patientCountry || "Unknown"})`,
+    subject: `[NEW CASE] ${data.patientName} — ${data.patientCountry || "Unknown"} — $${data.totalSavings.toLocaleString()} savings`,
     html,
   });
 }
