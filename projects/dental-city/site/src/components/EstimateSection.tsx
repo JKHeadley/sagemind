@@ -89,25 +89,28 @@ export default function EstimateSection() {
               </svg>
             </div>
             <h3 className="text-xl font-bold text-navy mb-2">
-              {isEs ? "Cree una Cuenta Gratuita" : "Create a Free Account"}
+              {isEs ? "Cree una Cuenta" : "Create an Account"}
             </h3>
-            <p className="text-text-light text-sm mb-6">
+            <p className="text-text-light text-sm mb-1">
               {isEs
-                ? "Regístrese gratis para usar nuestra herramienta de estimados con IA. Solo toma 30 segundos."
-                : "Sign up for free to use our AI estimate tool. It only takes 30 seconds."}
+                ? "Regístrese gratis para usar nuestra herramienta de estimados con IA."
+                : "Sign up for free to use our AI estimate tool."}
+            </p>
+            <p className="text-text-light text-sm mb-6">
+              {isEs ? "Solo toma 30 segundos." : "It only takes 30 seconds."}
             </p>
             <div className="flex flex-col gap-3">
               <Link
                 href={`${prefix}/auth/register`}
                 className="bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
               >
-                {isEs ? "Crear Cuenta Gratis" : "Create Free Account"}
+                {isEs ? "Crear Cuenta" : "Create an Account"}
               </Link>
               <Link
                 href={`${prefix}/auth/login`}
                 className="border border-navy/20 text-navy font-medium px-6 py-2.5 rounded-lg hover:bg-surface transition-colors text-sm"
               >
-                {isEs ? "Ya tengo cuenta" : "I Have an Account"}
+                {isEs ? "Ya tengo cuenta" : "Sign In"}
               </Link>
               <button
                 onClick={() => setShowAuthPrompt(false)}

@@ -234,9 +234,7 @@ export default async function Home({
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
-              href="https://wa.me/50683398833?text=Hi%2C%20I%27d%20like%20a%20free%20quote%20for%20dental%20treatment%20at%20Dental%20City."
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`${prefix}/dashboard/estimate`}
               className="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3.5 rounded-lg text-lg transition-colors"
             >
               {dict.hero.getQuote}
