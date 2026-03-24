@@ -1,6 +1,12 @@
 import Anthropic from "@anthropic-ai/sdk";
 
-const anthropic = new Anthropic();
+function getClient() {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    throw new Error("ANTHROPIC_API_KEY is not set");
+  }
+  return new Anthropic({ apiKey });
+}
 
 interface ExtractedItem {
   procedureName: string;
@@ -87,6 +93,7 @@ Guidelines:
     ];
   }
 
+  const anthropic = getClient();
   const response = await anthropic.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 2048,
