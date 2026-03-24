@@ -2,8 +2,8 @@
   "primary": "/opt/homebrew/bin/node",
   "candidates": [
     "/opt/homebrew/bin/node",
-    "/opt/homebrew/Cellar/node/25.6.1/bin/node",
+    "/Users/justin/.asdf/installs/nodejs/22.18.0/bin/node",
     "/opt/homebrew/opt/node/bin/node"
   ],
-  "updatedAt": "2026-03-24T22:20:57.288Z"
+  "updatedAt": "2026-03-24T22:22:01.340Z"
 }
