@@ -98,11 +98,15 @@ export async function sendClinicNotification(data: SubmissionEmailData): Promise
           </p>
         </div>
 
+        ${data.driveFolderUrl ? `
         <div style="text-align:center;margin:20px 0;">
           <a href="${data.driveFolderUrl}" style="display:inline-block;background:${BRAND.primary};color:white;padding:12px 30px;text-decoration:none;border-radius:6px;font-weight:bold;font-size:14px;">
             View Case Files (${data.fileCount} files)
           </a>
-        </div>
+        </div>` : `
+        <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:6px;padding:12px;margin:20px 0;text-align:center;">
+          <p style="margin:0;font-size:13px;color:#92400e;">Drive upload pending — files will be available shortly.</p>
+        </div>`}
       </div>
 
       <div style="background:${BRAND.navy};padding:15px 30px;text-align:center;">

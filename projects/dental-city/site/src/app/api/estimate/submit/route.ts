@@ -68,11 +68,12 @@ export async function POST(request: NextRequest) {
     .eq("id", user.id)
     .single();
 
-  const patientName = profile?.full_name || user.user_metadata?.full_name || "Patient";
+  const meta = user.user_metadata || {};
+  const patientName = profile?.full_name || meta.full_name || "Patient";
   const patientEmail = user.email || "";
-  const patientPhone = profile?.phone || "";
-  const patientCountry = profile?.country || "";
-  const preferredContact = profile?.preferred_contact || "email";
+  const patientPhone = profile?.phone || meta.phone || "";
+  const patientCountry = profile?.country || meta.country || "";
+  const preferredContact = profile?.preferred_contact || meta.preferred_contact || "email";
 
   // ── 4. Calculate totals (with 10% buffer) ──
   const BUFFER = 1.10;
@@ -112,7 +113,7 @@ export async function POST(request: NextRequest) {
       });
     }
   } catch (err) {
-    console.error("Drive upload failed:", err);
+    console.error("Drive upload failed:", err instanceof Error ? err.message : err);
     // Continue without Drive — still save the submission
   }
 
