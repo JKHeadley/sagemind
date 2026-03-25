@@ -8,17 +8,20 @@
  * User-installed node (homebrew, nvm) is not subject to TCC restrictions.
  *
  * Shadow install is the sole source of truth. No global fallback.
+ * All paths are resolved relative to __dirname for multi-machine portability.
  */
 const { execFileSync, spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const SHADOW = "/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/instar/dist/cli.js";
-const SHADOW_DIR = "/Users/justin/Documents/Projects/sagemind/.instar/shadow-install";
-const CRASH_FILE = "/Users/justin/Documents/Projects/sagemind/.instar/state/boot-crashes.txt";
-const NODE_SYMLINK = "/Users/justin/Documents/Projects/sagemind/.instar/bin/node";
-const NODE_CANDIDATES_FILE = "/Users/justin/Documents/Projects/sagemind/.instar/bin/node-candidates.json";
+// Resolve all paths relative to this script's directory (.instar/)
+const STATE_DIR = __dirname;
+const SHADOW = path.join(STATE_DIR, 'shadow-install', 'node_modules', 'instar', 'dist', 'cli.js');
+const SHADOW_DIR = path.join(STATE_DIR, 'shadow-install');
+const CRASH_FILE = path.join(STATE_DIR, 'state', 'boot-crashes.txt');
+const NODE_SYMLINK = path.join(STATE_DIR, 'bin', 'node');
+const NODE_CANDIDATES_FILE = path.join(STATE_DIR, 'bin', 'node-candidates.json');
 
 // ── Self-heal node symlink ──
 // Update the stable node symlink to point at the node binary that's
@@ -65,7 +68,7 @@ selfHealNodeSymlink();
 // Verify shadow install exists
 if (!fs.existsSync(SHADOW)) {
   process.stderr.write('ERROR: Shadow install not found at ' + SHADOW + '\n');
-  process.stderr.write('Run: npm install instar --prefix ' + "/Users/justin/Documents/Projects/sagemind/.instar/shadow-install" + '\n');
+  process.stderr.write('Run: npm install instar --prefix ' + SHADOW_DIR + '\n');
   process.exit(1);
 }
 
