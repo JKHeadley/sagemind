@@ -1,6 +1,7 @@
 import { createServerSupabase } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import CaseDetail from "@/components/CaseDetail";
 
 export default async function CaseDetailPage({
@@ -36,6 +37,15 @@ export default async function CaseDetailPage({
     <div className="min-h-screen">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center gap-4">
+          <Link href="/" className="shrink-0">
+            <Image
+              src="/images/logo.png"
+              alt="Dental City"
+              width={48}
+              height={35}
+              className="object-contain"
+            />
+          </Link>
           <Link
             href="/"
             className="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1"

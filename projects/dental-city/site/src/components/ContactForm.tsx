@@ -19,6 +19,8 @@ interface ContactFormProps {
       required: string;
       selectCountry: string;
       selectService: string;
+      consentText?: string;
+      privacyLink?: string;
     };
   };
 }
@@ -45,6 +47,7 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
   const [form, setForm] = useState({
     name: "", email: "", phone: "", country: "", service: "", message: "", honey: "",
   });
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const services = locale === "es" ? servicesEs : servicesEn;
@@ -54,6 +57,7 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
     if (!form.name.trim()) errs.name = true;
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = true;
     if (!form.message.trim()) errs.message = true;
+    if (!consent) errs.consent = true;
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -180,13 +184,39 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
         {errors.message && <p className="text-red-400 text-xs mt-1">{d.required}</p>}
       </div>
 
+      {/* Consent */}
+      <div>
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => {
+              setConsent(e.target.checked);
+              if (e.target.checked) setErrors((prev) => ({ ...prev, consent: false }));
+            }}
+            className="mt-1 h-4 w-4 rounded border-navy/10 text-primary focus:ring-primary/30 shrink-0"
+          />
+          <span className={`text-xs leading-relaxed ${errors.consent ? "text-red-400" : "text-text-light"}`}>
+            {d.consentText || "I consent to Dental City processing my personal information to respond to my inquiry. I can request deletion of my data at any time by contacting info@dentalcitycr.com."}
+          </span>
+        </label>
+        <a
+          href={`/${locale}/privacy`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block text-xs text-primary hover:underline ml-7 mt-1"
+        >
+          {d.privacyLink || "Privacy Policy"} →
+        </a>
+      </div>
+
       {status === "error" && (
         <p className="text-red-400 text-sm">{d.error}</p>
       )}
 
       <button
         type="submit"
-        disabled={status === "sending"}
+        disabled={status === "sending" || !consent}
         className="w-full bg-primary hover:bg-primary-dark disabled:opacity-60 text-white font-semibold py-3 rounded-lg transition-colors"
       >
         {status === "sending" ? d.sending : d.submit}

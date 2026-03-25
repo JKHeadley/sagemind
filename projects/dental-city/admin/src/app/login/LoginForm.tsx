@@ -47,8 +47,13 @@ export default function LoginForm() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Dental City</h1>
-          <p className="text-sm text-gray-500 mt-1">Staff Portal</p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/logos/logo-blue-full.png"
+            alt="Dental City"
+            className="h-24 mx-auto mb-3"
+          />
+          <p className="text-sm text-gray-500">Staff Portal</p>
         </div>
 
         <form

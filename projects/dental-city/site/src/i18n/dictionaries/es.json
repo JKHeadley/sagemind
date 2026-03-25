@@ -147,6 +147,8 @@
     "required": "Este campo es obligatorio",
     "selectCountry": "Seleccione su país",
     "selectService": "Seleccione un servicio (opcional)",
+    "consentText": "Autorizo a Dental City a procesar mi información personal para responder a mi consulta. Puedo solicitar la eliminación de mis datos en cualquier momento contactando a info@dentalcitycr.com.",
+    "privacyLink": "Política de Privacidad",
     "formTitle": "Solicite una Cotización Gratis",
     "formSubtitle": "Envíenos su información y le responderemos en menos de 24 horas con un plan de tratamiento personalizado."
   },
@@ -274,7 +276,8 @@
     "personalizedEstimate": "Cotización personalizada con precios detallados por procedimiento",
     "professionalPdf": "PDF profesional con comparación lado a lado",
     "medicalTeamReview": "Revisión por nuestro equipo médico en 48-72 horas",
-    "consentText": "Consiento compartir mis documentos cargados y mi cotización con el equipo médico de Dental City para su revisión.",
+    "consentText": "Autorizo a Dental City a almacenar y procesar de forma segura mi información personal y de salud — incluyendo documentos cargados, datos de contacto e información de cotización — con el propósito de generar una comparación de costos dentales, coordinar un posible tratamiento y dar seguimiento. Entiendo que mis datos serán accesibles únicamente por personal autorizado de la clínica y almacenados en infraestructura segura en la nube. Puedo solicitar acceso, corrección o eliminación de mis datos en cualquier momento contactando a info@dentalcitycr.com.",
+    "consentPrivacyLink": "Leer nuestra Política de Privacidad completa",
     "submitEstimate": "Enviar Mi Cotización",
     "backAndChange": "← Volver y cambiar archivos",
     "submittingEstimate": "Enviando su cotización...",
@@ -377,5 +380,55 @@
     "helpPlan": "Podemos ayudarle a planificar su viaje, alojamiento y citas.",
     "downloading": "Descargando...",
     "downloadPdf": "Descargar PDF"
+  },
+  "privacy": {
+    "title": "Pol\u00edtica de Privacidad",
+    "lastUpdated": "\u00daltima actualizaci\u00f3n: marzo 2026",
+    "sections": [
+      {
+        "heading": "Qui\u00e9nes Somos",
+        "content": "Dental City (Especialidades Dentales S.A.) es una cl\u00ednica dental ubicada en Aguas Zarcas, San Carlos, Costa Rica. Brindamos atenci\u00f3n dental integral a pacientes locales e internacionales, incluyendo servicios de turismo dental para pacientes que viajan desde Estados Unidos, Canad\u00e1 y otros pa\u00edses.\n\nContacto: info@dentalcitycr.com\nTel\u00e9fono: +506 2474 0415\nWhatsApp: +506 8339 8833"
+      },
+      {
+        "heading": "Informaci\u00f3n que Recopilamos",
+        "content": "Recopilamos la siguiente informaci\u00f3n cuando utiliza nuestro sitio web y servicios:\n\n\u2022 Nombre completo\n\u2022 Correo electr\u00f3nico\n\u2022 N\u00famero de tel\u00e9fono\n\u2022 Pa\u00eds de residencia\n\u2022 Documentos dentales que usted sube (radiograf\u00edas, planes de tratamiento, cotizaciones dentales)\n\u2022 Credenciales de cuenta (correo y contrase\u00f1a cifrada)\n\nCuando utiliza nuestra herramienta de estimados con inteligencia artificial, tambi\u00e9n procesamos la informaci\u00f3n dental contenida en sus documentos para generar una comparaci\u00f3n de ahorro."
+      },
+      {
+        "heading": "C\u00f3mo Usamos su Informaci\u00f3n",
+        "content": "Utilizamos la informaci\u00f3n que recopilamos para los siguientes fines:\n\n\u2022 Generar estimados personalizados de costos dentales mediante nuestra herramienta de an\u00e1lisis con IA\n\u2022 Comunicarnos con usted sobre sus necesidades de atenci\u00f3n dental y dar seguimiento a sus consultas\n\u2022 Coordinar la planificaci\u00f3n del tratamiento entre usted y nuestro equipo dental\n\u2022 Enviarle correos de confirmaci\u00f3n relacionados con sus solicitudes\n\u2022 Mantener su cuenta de paciente y el historial de sus cotizaciones\n\u2022 Mejorar nuestros servicios y la experiencia en el sitio web"
+      },
+      {
+        "heading": "C\u00f3mo Almacenamos y Protegemos sus Datos",
+        "content": "Sus datos se almacenan en infraestructura segura en la nube con cifrado est\u00e1ndar de la industria, tanto en reposo como en tr\u00e1nsito. Los documentos dentales que usted sube se guardan en almacenamiento seguro en la nube con acceso restringido.\n\nImplementamos medidas t\u00e9cnicas y organizativas apropiadas para proteger su informaci\u00f3n personal y de salud contra el acceso no autorizado, la alteraci\u00f3n, la divulgaci\u00f3n o la destrucci\u00f3n."
+      },
+      {
+        "heading": "Qui\u00e9n Tiene Acceso a sus Datos",
+        "content": "El acceso a su informaci\u00f3n personal y dental est\u00e1 estrictamente limitado a:\n\n\u2022 Personal autorizado de la cl\u00ednica Dental City (dentistas y personal administrativo) que necesitan la informaci\u00f3n para brindarle atenci\u00f3n\n\u2022 Nuestros proveedores de servicios en la nube, que procesan datos en nuestro nombre bajo acuerdos estrictos de procesamiento de datos\n\nNo vendemos, alquilamos ni compartimos su informaci\u00f3n personal con terceros con fines de mercadeo."
+      },
+      {
+        "heading": "Retenci\u00f3n de Datos",
+        "content": "Conservamos su informaci\u00f3n personal y de salud dental durante la duraci\u00f3n de su relaci\u00f3n de atenci\u00f3n con Dental City, m\u00e1s siete (7) a\u00f1os adicionales de acuerdo con los est\u00e1ndares de conservaci\u00f3n de registros m\u00e9dicos.\n\nSi ya no desea que conservemos sus datos, puede solicitar su eliminaci\u00f3n en cualquier momento (consulte Sus Derechos a continuaci\u00f3n). Eliminaremos su informaci\u00f3n dentro de los 30 d\u00edas posteriores a una solicitud verificada, a menos que estemos legalmente obligados a conservarla."
+      },
+      {
+        "heading": "Sus Derechos",
+        "content": "Usted tiene derecho a:\n\n\u2022 Acceso \u2014 Solicitar una copia de los datos personales que tenemos sobre usted\n\u2022 Correcci\u00f3n \u2014 Pedirnos que corrijamos cualquier informaci\u00f3n inexacta o incompleta\n\u2022 Eliminaci\u00f3n \u2014 Solicitar que eliminemos sus datos personales y documentos subidos\n\u2022 Portabilidad \u2014 Recibir sus datos en un formato estructurado y de uso com\u00fan\n\nPara ejercer cualquiera de estos derechos, env\u00edenos un correo a info@dentalcitycr.com con el asunto \u201cSolicitud de Privacidad.\u201d Responderemos dentro de los 30 d\u00edas."
+      },
+      {
+        "heading": "Cookies",
+        "content": "Nuestro sitio web utiliza \u00fanicamente cookies esenciales necesarias para la autenticaci\u00f3n y el funcionamiento del sitio. No utilizamos cookies de rastreo, cookies publicitarias ni herramientas de an\u00e1lisis de terceros que rastreen su actividad de navegaci\u00f3n en otros sitios web.\n\nLas cookies que utilizamos:\n\u2022 Cookies de sesi\u00f3n de autenticaci\u00f3n \u2014 necesarias para mantener su sesi\u00f3n activa en su cuenta\n\u2022 Preferencia de idioma \u2014 para recordar su selecci\u00f3n de idioma (ingl\u00e9s o espa\u00f1ol)"
+      },
+      {
+        "heading": "Pacientes Internacionales y Legislaci\u00f3n Aplicable",
+        "content": "Dental City opera bajo las leyes de Costa Rica, incluyendo la Ley de Protecci\u00f3n de la Persona Frente al Tratamiento de sus Datos Personales (Ley 8968).\n\nPara nuestros pacientes de Estados Unidos, nos comprometemos a manejar su informaci\u00f3n de salud dental de manera consistente con los principios de privacidad de HIPAA (Health Insurance Portability and Accountability Act), incluyendo la confidencialidad de su informaci\u00f3n de salud protegida y la limitaci\u00f3n de divulgaciones a lo necesario para el tratamiento y la coordinaci\u00f3n de la atenci\u00f3n."
+      },
+      {
+        "heading": "Cambios a Esta Pol\u00edtica",
+        "content": "Podemos actualizar esta pol\u00edtica de privacidad peri\u00f3dicamente para reflejar cambios en nuestras pr\u00e1cticas o en la legislaci\u00f3n aplicable. Cuando hagamos cambios importantes, actualizaremos la fecha de \u201c\u00daltima actualizaci\u00f3n\u201d en la parte superior de esta p\u00e1gina. Le recomendamos revisar esta pol\u00edtica peri\u00f3dicamente."
+      },
+      {
+        "heading": "Cont\u00e1ctenos",
+        "content": "Si tiene preguntas o inquietudes sobre esta pol\u00edtica de privacidad o sobre c\u00f3mo manejamos sus datos, cont\u00e1ctenos:\n\nCorreo: info@dentalcitycr.com\nTel\u00e9fono: +506 2474 0415\nWhatsApp: +506 8339 8833\n\nDental City (Especialidades Dentales S.A.)\nAguas Zarcas, San Carlos\nAlajuela, Costa Rica"
+      }
+    ]
   }
 }

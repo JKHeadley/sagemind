@@ -1,5 +1,6 @@
 import { createServerSupabase } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 import CaseList from "@/components/CaseList";
 import { staffDisplayName } from "@/lib/staff";
 
@@ -34,7 +35,13 @@ function Header({ userEmail }: { userEmail: string }) {
     <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-lg font-bold text-gray-900">Dental City</h1>
+          <Image
+            src="/images/logo.png"
+            alt="Dental City"
+            width={48}
+            height={35}
+            className="object-contain"
+          />
           <span className="text-xs bg-cyan-100 text-cyan-700 font-medium px-2 py-0.5 rounded-full">
             Admin
           </span>

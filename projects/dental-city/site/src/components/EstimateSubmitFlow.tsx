@@ -338,17 +338,27 @@ export default function EstimateSubmitFlow({ dict }: { dict: Dictionary }) {
         </div>
 
         {/* Consent checkbox */}
-        <label className="flex items-start gap-3 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={consent}
-            onChange={(e) => setConsent(e.target.checked)}
-            className="mt-1 h-4 w-4 rounded border-navy/20 text-primary focus:ring-primary/30"
-          />
-          <span className="text-sm text-text-light">
-            {dict.estimateFlow.consentText}
-          </span>
-        </label>
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              className="mt-1 h-4 w-4 rounded border-navy/20 text-primary focus:ring-primary/30 shrink-0"
+            />
+            <span className="text-sm text-text-light leading-relaxed">
+              {dict.estimateFlow.consentText}
+            </span>
+          </label>
+          <a
+            href={`/${locale}/privacy`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block text-xs text-primary hover:underline ml-7"
+          >
+            {dict.estimateFlow.consentPrivacyLink} →
+          </a>
+        </div>
 
         {/* Submit button */}
         <button
