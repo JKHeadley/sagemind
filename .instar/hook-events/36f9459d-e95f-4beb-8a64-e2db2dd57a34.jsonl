@@ -1,0 +1,4 @@
+{"receivedAt":"2026-03-25T17:00:13.579Z","payload":{"event":"PostToolUse","session_id":"36f9459d-e95f-4beb-8a64-e2db2dd57a34","tool_name":"mcp__workspace__search_gmail_messages"}}
+{"receivedAt":"2026-03-25T17:00:16.708Z","payload":{"event":"PostToolUse","session_id":"36f9459d-e95f-4beb-8a64-e2db2dd57a34","tool_name":"mcp__workspace__get_gmail_messages_content_batch"}}
+{"receivedAt":"2026-03-25T17:00:27.641Z","payload":{"event":"Unknown","session_id":"36f9459d-e95f-4beb-8a64-e2db2dd57a34","tool_name":""}}
+{"receivedAt":"2026-03-25T17:00:27.859Z","payload":{"event":"Unknown","session_id":"36f9459d-e95f-4beb-8a64-e2db2dd57a34","tool_name":""}}
