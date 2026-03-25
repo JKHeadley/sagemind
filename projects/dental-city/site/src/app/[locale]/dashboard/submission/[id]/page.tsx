@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { useDict } from "@/i18n/useDict";
 
 interface Procedure {
   name: string;
@@ -50,6 +51,7 @@ export default function SubmissionDetailPage() {
   const submissionId = params.id as string;
   const isEs = locale === "es";
   const prefix = `/${locale}`;
+  const dict = useDict();
 
   const [submission, setSubmission] = useState<Submission | null>(null);
   const [loading, setLoading] = useState(true);
@@ -93,14 +95,14 @@ export default function SubmissionDetailPage() {
         .single();
 
       if (dbError || !data) {
-        setError(isEs ? "Cotización no encontrada." : "Submission not found.");
+        setError(dict.submissionDetail.notFound);
       } else {
         setSubmission(data);
       }
       setLoading(false);
     }
     fetchSubmission();
-  }, [submissionId, isEs]);
+  }, [submissionId, dict]);
 
   if (loading) {
     return (
@@ -115,7 +117,7 @@ export default function SubmissionDetailPage() {
       <div className="text-center py-12">
         <p className="text-text-light mb-4">{error}</p>
         <Link href={`${prefix}/dashboard`} className="text-primary hover:underline text-sm">
-          {isEs ? "← Volver al panel" : "← Back to dashboard"}
+          {dict.submissionDetail.backToDashboard}
         </Link>
       </div>
     );
@@ -133,10 +135,10 @@ export default function SubmissionDetailPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <Link href={`${prefix}/dashboard`} className="text-sm text-primary hover:underline mb-2 inline-block">
-            {isEs ? "← Volver al panel" : "← Back to dashboard"}
+            {dict.submissionDetail.backToDashboard}
           </Link>
           <h1 className="text-2xl font-bold text-navy">
-            {isEs ? "Mi Cotización" : "My Estimate"}
+            {dict.submissionDetail.myEstimate}
           </h1>
           <div className="flex items-center gap-3 mt-1">
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusColors[submission.status] || statusColors.new}`}>
@@ -159,9 +161,7 @@ export default function SubmissionDetailPage() {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
           </svg>
-          {downloading
-            ? (isEs ? "Descargando..." : "Downloading...")
-            : (isEs ? "Descargar PDF" : "Download PDF")}
+          {downloading ? dict.submissionDetail.downloading : dict.submissionDetail.downloadPdf}
         </button>
       </div>
 
@@ -170,7 +170,7 @@ export default function SubmissionDetailPage() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-green-700 font-medium">
-              {isEs ? "Ahorro total estimado" : "Total estimated savings"}
+              {dict.submissionDetail.totalEstimatedSavings}
             </p>
             <p className="text-3xl font-bold text-green-600 mt-1">
               ${totalSavings.toLocaleString()}
@@ -179,7 +179,7 @@ export default function SubmissionDetailPage() {
           <div className="text-right">
             <p className="text-4xl font-bold text-green-600">{savingsPct}%</p>
             <p className="text-xs text-green-600">
-              {isEs ? "ahorro" : "savings"}
+              {dict.submissionDetail.savings}
             </p>
           </div>
         </div>
@@ -189,16 +189,16 @@ export default function SubmissionDetailPage() {
       <div className="bg-white rounded-xl shadow-sm border border-navy/10 overflow-hidden mb-6">
         <div className="px-5 py-4 border-b border-navy/10">
           <h2 className="font-semibold text-navy">
-            {isEs ? "Comparación de Precios" : "Price Comparison"}
+            {dict.submissionDetail.priceComparison}
           </h2>
         </div>
 
         {/* Table header */}
         <div className="grid grid-cols-12 gap-2 px-5 py-3 bg-navy/5 text-xs font-semibold text-navy uppercase tracking-wide">
-          <div className="col-span-5">{isEs ? "Procedimiento" : "Procedure"}</div>
-          <div className="col-span-2 text-right">{isEs ? "Precio EE.UU." : "US Price"}</div>
-          <div className="col-span-3 text-right">{isEs ? "Dental City" : "Dental City"}</div>
-          <div className="col-span-2 text-right">{isEs ? "Ahorro" : "Savings"}</div>
+          <div className="col-span-5">{dict.submissionDetail.procedure}</div>
+          <div className="col-span-2 text-right">{dict.submissionDetail.usPrice}</div>
+          <div className="col-span-3 text-right">{dict.submissionDetail.dentalCity}</div>
+          <div className="col-span-2 text-right">{dict.submissionDetail.savingsCol}</div>
         </div>
 
         {/* Rows */}
@@ -230,7 +230,7 @@ export default function SubmissionDetailPage() {
         {/* Totals */}
         <div className="grid grid-cols-12 gap-2 px-5 py-4 bg-navy/5 font-semibold text-sm">
           <div className="col-span-5 text-navy">
-            {isEs ? "Total" : "Total"}
+            {dict.submissionDetail.total}
           </div>
           <div className="col-span-2 text-right text-text-light line-through">
             ${totalUs.toLocaleString()}
@@ -247,26 +247,20 @@ export default function SubmissionDetailPage() {
       {/* What's next */}
       <div className="bg-white rounded-xl shadow-sm border border-navy/10 p-5">
         <h3 className="font-semibold text-navy mb-3">
-          {isEs ? "¿Qué sigue?" : "What's Next?"}
+          {dict.submissionDetail.whatsNext}
         </h3>
         <ul className="space-y-2 text-sm text-text-light">
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5 font-bold">1.</span>
-            {isEs
-              ? "Nuestro equipo médico revisará su cotización y confirmará los precios finales."
-              : "Our medical team will review your estimate and confirm final pricing."}
+            {dict.submissionDetail.teamReview}
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5 font-bold">2.</span>
-            {isEs
-              ? "Lo contactaremos dentro de 48-72 horas hábiles por su método preferido."
-              : "We'll contact you within 48-72 business hours via your preferred method."}
+            {dict.submissionDetail.contact4872}
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-0.5 font-bold">3.</span>
-            {isEs
-              ? "Podemos ayudarle a planificar su viaje, alojamiento y citas."
-              : "We can help you plan your travel, accommodation, and appointments."}
+            {dict.submissionDetail.helpPlan}
           </li>
         </ul>
       </div>

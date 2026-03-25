@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { procedures, type Procedure } from "@/lib/procedures";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 interface EstimateRow {
   id: string;
@@ -25,7 +26,7 @@ interface InitialItem {
   matchedSlug: string | null;
 }
 
-export default function EstimateCalculator({ initialItems = [] }: { initialItems?: InitialItem[] }) {
+export default function EstimateCalculator({ dict, initialItems = [] }: { dict: Dictionary; initialItems?: InitialItem[] }) {
   const params = useParams();
   const locale = (params.locale as string) || "en";
   const isEs = locale === "es";
@@ -123,14 +124,14 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-3">
                   <div className="md:col-span-5">
                     <label className="block text-xs font-medium text-text-light mb-1">
-                      {isEs ? "Procedimiento" : "Procedure"}
+                      {dict.estimateCalc.procedure}
                     </label>
                     <select
                       value={row.procedureSlug}
                       onChange={(e) => updateRow(row.id, "procedureSlug", e.target.value)}
                       className="w-full border border-navy/15 rounded-lg px-3 py-2 text-sm text-navy focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white"
                     >
-                      <option value="">{isEs ? "Seleccione..." : "Select..."}</option>
+                      <option value="">{dict.estimateCalc.select}</option>
                       {Object.entries(groupedOptions).map(([cat, procs]) => (
                         <optgroup key={cat} label={cat}>
                           {procs.map((p) => (
@@ -144,7 +145,7 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
                   </div>
                   <div className="md:col-span-2">
                     <label className="block text-xs font-medium text-text-light mb-1">
-                      {isEs ? "Cantidad" : "Qty"}
+                      {dict.estimateCalc.qty}
                     </label>
                     <input
                       type="number"
@@ -157,7 +158,7 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
                   </div>
                   <div className="md:col-span-3">
                     <label className="block text-xs font-medium text-text-light mb-1">
-                      {isEs ? "Su cotización EE.UU. (opcional)" : "Your US Quote (optional)"}
+                      {dict.estimateCalc.usQuoteOptional}
                     </label>
                     <input
                       type="text"
@@ -170,7 +171,7 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
                   <div className="md:col-span-2 flex items-end">
                     {proc && (
                       <div className="text-sm">
-                        <span className="text-xs text-text-light block">{isEs ? "Dental City" : "Dental City"}</span>
+                        <span className="text-xs text-text-light block">{dict.estimateCalc.dentalCity}</span>
                         <span className="font-semibold text-navy">
                           {formatCurrency(proc.price * (row.quantity || 1))}
                           {proc.priceMax ? `–${formatCurrency(proc.priceMax * (row.quantity || 1))}` : ""}
@@ -203,14 +204,14 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
-        {isEs ? "Agregar otro procedimiento" : "Add another procedure"}
+        {dict.estimateCalc.addAnother}
       </button>
 
       {/* Results summary */}
       {hasProcedures && (
         <div className="bg-white rounded-xl shadow-sm p-5 md:p-6 border-2 border-primary/20">
           <h3 className="font-semibold text-navy text-lg mb-4">
-            {isEs ? "Resumen de su Estimado" : "Your Estimate Summary"}
+            {dict.estimateCalc.estimateSummary}
           </h3>
 
           {/* Line items */}
@@ -231,7 +232,7 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-red-50 rounded-lg p-4 text-center">
               <p className="text-xs text-text-light mb-1">
-                {isEs ? "Costo en EE.UU." : "US Cost"}
+                {dict.estimateCalc.usCost}
               </p>
               <p className="text-lg font-bold text-red-600 line-through decoration-2">
                 {formatCurrency(totals.usMin)}{totals.usMin !== totals.usMax ? `–${formatCurrency(totals.usMax)}` : ""}
@@ -239,7 +240,7 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
             </div>
             <div className="bg-primary/5 rounded-lg p-4 text-center">
               <p className="text-xs text-text-light mb-1">
-                {isEs ? "Costo en Dental City" : "Dental City Cost"}
+                {dict.estimateCalc.dentalCityCost}
               </p>
               <p className="text-lg font-bold text-navy">
                 {formatCurrency(totals.dcMin)}{totals.dcMin !== totals.dcMax ? `–${formatCurrency(totals.dcMax)}` : ""}
@@ -247,7 +248,7 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
             </div>
             <div className="bg-green-50 rounded-lg p-4 text-center">
               <p className="text-xs text-text-light mb-1">
-                {isEs ? "Su Ahorro Estimado" : "Your Estimated Savings"}
+                {dict.estimateCalc.estimatedSavings}
               </p>
               <p className="text-lg font-bold text-green-600">
                 {formatCurrency(Math.max(0, savingsMin))}{savingsMin !== savingsMax ? `–${formatCurrency(Math.max(0, savingsMax))}` : ""}
@@ -256,9 +257,7 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
           </div>
 
           <p className="text-xs text-text-light mt-4">
-            {isEs
-              ? "* Este es un estimado preliminar. Los precios finales se determinan después de una consulta con nuestro equipo."
-              : "* This is a preliminary estimate. Final prices are determined after a consultation with our team."}
+            {dict.estimateCalc.preliminaryEstimate}
           </p>
 
           {/* Action buttons */}
@@ -273,7 +272,7 @@ export default function EstimateCalculator({ initialItems = [] }: { initialItems
               rel="noopener noreferrer"
               className="flex-1 text-center bg-primary hover:bg-primary-dark text-white font-semibold py-2.5 rounded-lg transition-colors text-sm"
             >
-              {isEs ? "Solicitar Consulta por WhatsApp" : "Get a Consultation via WhatsApp"}
+              {dict.estimateCalc.requestConsultation}
             </a>
           </div>
         </div>

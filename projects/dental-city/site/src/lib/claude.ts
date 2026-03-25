@@ -11,6 +11,7 @@ function getClient() {
 interface ExtractedItem {
   procedureName: string;
   amount: number | null;
+  currency: string; // ISO 4217 code: USD, EUR, CAD, GBP, CRC, etc.
   confidence: "high" | "medium" | "low";
 }
 
@@ -27,7 +28,7 @@ export async function parseEstimateDocument(
   const genAI = getClient();
   const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-  const systemPrompt = `You are a dental estimate document parser. Extract dental procedure names and their costs from the provided document.
+  const systemPrompt = `You are a dental estimate document parser. Extract dental procedure names, their costs, and the currency from the provided document.
 
 Return a JSON object with this exact structure:
 {
@@ -35,6 +36,7 @@ Return a JSON object with this exact structure:
     {
       "procedureName": "the procedure name as written",
       "amount": 1234.56 or null if unclear,
+      "currency": "USD",
       "confidence": "high" | "medium" | "low"
     }
   ],
@@ -45,6 +47,9 @@ Guidelines:
 - Extract ALL dental procedures mentioned with their costs
 - Use the "Fee" column amount (total fee before insurance), NOT the patient responsibility amount
 - If a cost is a range, use the higher number
+- Detect the currency from the document. Look for currency symbols ($, €, £, ₡, C$), ISO codes (USD, EUR, GBP, CAD, CRC), or contextual clues (country, clinic address, language). Use ISO 4217 codes.
+- If the document uses $ without further context, assume USD. If the clinic is clearly in Costa Rica and prices are in the thousands (e.g. 30,000), it's likely CRC (colones).
+- All items from the same document should have the same currency unless the document explicitly mixes currencies.
 - Common procedures: implant, crown, veneer, root canal, extraction, bridge, denture, cleaning, whitening, orthodontics, bone graft, x-ray, CBCT, filling, sealant, pulpotomy
 - Mark confidence "high" if both name and cost are clear
 - Mark "medium" if you had to interpret the name or cost

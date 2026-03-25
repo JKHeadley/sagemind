@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { createPatientFolder, uploadFileToDrive, uploadPdfToDrive } from "@/lib/google-drive";
 import { generateEstimatePdf, type EstimateProcedure, type EstimatePatient } from "@/lib/pdf-estimate";
 import { sendClinicNotification, sendPatientConfirmation } from "@/lib/email-templates";
+import { convertFromUSD, getCurrencySymbol } from "@/lib/currency";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -37,6 +38,7 @@ export async function POST(request: NextRequest) {
   const proceduresJson = formData.get("procedures") as string | null;
   const consentStr = formData.get("consent") as string | null;
   const locale = (formData.get("locale") as string) || "en";
+  const patientCurrency = ((formData.get("currency") as string) || "USD").toUpperCase();
 
   if (consentStr !== "true") {
     return NextResponse.json({ error: "Consent is required" }, { status: 400 });
@@ -117,10 +119,27 @@ export async function POST(request: NextRequest) {
     // Continue without Drive — still save the submission
   }
 
-  // ── 6. Generate branded PDF ──
+  // ── 6. Generate branded PDF (with currency conversion if needed) ──
   let brandedPdfId = "";
   let pdfError = "";
+  let exchangeRate = 1;
   try {
+    // If patient's currency is not USD, convert DC prices for display
+    let currencySymbol = "$";
+    let currencyDisclaimer = "";
+    if (patientCurrency !== "USD") {
+      try {
+        const conversion = await convertFromUSD(1, patientCurrency);
+        exchangeRate = conversion.rate;
+        currencySymbol = getCurrencySymbol(patientCurrency);
+        const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+        currencyDisclaimer = `Prices shown in ${patientCurrency} converted from USD at rate ${exchangeRate.toFixed(2)} as of ${today}. Final pricing may vary based on exchange rates at time of treatment.`;
+      } catch {
+        // If conversion fails, fall back to USD
+        currencyDisclaimer = "";
+      }
+    }
+
     const patient: EstimatePatient = {
       name: patientName,
       email: patientEmail,
@@ -131,12 +150,16 @@ export async function POST(request: NextRequest) {
 
     const pdfProcedures: EstimateProcedure[] = procedures.map((p) => ({
       name: p.name,
-      usPrice: p.usPrice,
-      dcPrice: p.dcPrice,
+      usPrice: patientCurrency !== "USD" ? Math.round(p.usPrice * exchangeRate) : p.usPrice,
+      dcPrice: patientCurrency !== "USD" ? Math.round(p.dcPrice * exchangeRate) : p.dcPrice,
       confidence: p.confidence,
     }));
 
-    const pdfBuffer = await generateEstimatePdf(patient, pdfProcedures);
+    const pdfBuffer = await generateEstimatePdf(patient, pdfProcedures, {
+      currency: patientCurrency,
+      currencySymbol,
+      currencyDisclaimer,
+    });
     const pdfFileName = `Dental City Estimate - ${patientName}.pdf`;
 
     if (driveFolderId) {
@@ -157,40 +180,52 @@ export async function POST(request: NextRequest) {
   }
 
   // ── 7. Save to Supabase ──
-  const { data: submission, error: dbError } = await supabase
+  const baseRecord = {
+    user_id: user.id,
+    patient_name: patientName,
+    patient_email: patientEmail,
+    patient_phone: patientPhone,
+    patient_country: patientCountry,
+    preferred_contact: preferredContact,
+    locale,
+    procedures,
+    total_us_price: totalUs,
+    total_dc_price: totalDc,
+    total_savings: totalSavings,
+    savings_percentage: savingsPercentage,
+    drive_folder_id: driveFolderId || null,
+    drive_folder_url: driveFolderUrl || null,
+    branded_pdf_id: brandedPdfId || null,
+    file_count: uploadedFiles.length,
+    consent_given: true,
+    consent_timestamp: new Date().toISOString(),
+    status: "new",
+    ai_confidence: lowestConfidence,
+  };
+
+  // Try with patient_currency column; fall back without it if migration hasn't run yet
+  let { data: submission, error: dbError } = await supabase
     .from("submissions")
-    .insert({
-      user_id: user.id,
-      patient_name: patientName,
-      patient_email: patientEmail,
-      patient_phone: patientPhone,
-      patient_country: patientCountry,
-      preferred_contact: preferredContact,
-      locale,
-      procedures,
-      total_us_price: totalUs,
-      total_dc_price: totalDc,
-      total_savings: totalSavings,
-      savings_percentage: savingsPercentage,
-      drive_folder_id: driveFolderId || null,
-      drive_folder_url: driveFolderUrl || null,
-      branded_pdf_id: brandedPdfId || null,
-      file_count: uploadedFiles.length,
-      consent_given: true,
-      consent_timestamp: new Date().toISOString(),
-      status: "new",
-      ai_confidence: lowestConfidence,
-    })
+    .insert({ ...baseRecord, patient_currency: patientCurrency })
     .select("id")
     .single();
 
-  if (dbError) {
+  if (dbError?.code === "42703") {
+    // Column doesn't exist yet — insert without it
+    ({ data: submission, error: dbError } = await supabase
+      .from("submissions")
+      .insert(baseRecord)
+      .select("id")
+      .single());
+  }
+
+  if (dbError || !submission) {
     console.error("Supabase insert failed:", dbError);
     return NextResponse.json({ error: "Failed to save submission" }, { status: 500 });
   }
 
   // Insert file records
-  if (uploadedFiles.length > 0 && submission) {
+  if (uploadedFiles.length > 0) {
     const fileRecords = uploadedFiles.map((f) => ({
       submission_id: submission.id,
       file_name: f.name,

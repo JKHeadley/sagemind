@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
 import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { useDict } from "@/i18n/useDict";
 
 interface Submission {
   id: string;
@@ -40,6 +41,7 @@ export default function DashboardPage() {
   const locale = (params.locale as string) || "en";
   const isEs = locale === "es";
   const prefix = `/${locale}`;
+  const dict = useDict();
 
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
@@ -62,12 +64,10 @@ export default function DashboardPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold text-navy mb-1">
-        {isEs ? "Panel de Control" : "Dashboard"}
+        {dict.dashboardPage.dashboard}
       </h1>
       <p className="text-text-light mb-8">
-        {isEs
-          ? `Bienvenido/a, ${user?.user_metadata?.full_name || user?.email}`
-          : `Welcome, ${user?.user_metadata?.full_name || user?.email}`}
+        {dict.dashboardPage.welcome.replace("{name}", user?.user_metadata?.full_name || user?.email || "")}
       </p>
 
       <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -81,12 +81,10 @@ export default function DashboardPage() {
             </svg>
           </div>
           <h2 className="font-semibold text-navy text-lg mb-1">
-            {isEs ? "Herramienta de Estimado" : "Estimate Tool"}
+            {dict.dashboardPage.estimateTool}
           </h2>
           <p className="text-text-light text-sm">
-            {isEs
-              ? "Suba su cotización y reciba una comparación personalizada de ahorro."
-              : "Upload your estimate and receive a personalized savings comparison."}
+            {dict.dashboardPage.estimateDescription}
           </p>
         </Link>
 
@@ -100,12 +98,10 @@ export default function DashboardPage() {
             </svg>
           </div>
           <h2 className="font-semibold text-navy text-lg mb-1">
-            {isEs ? "Precios y Ahorros" : "Pricing & Savings"}
+            {dict.dashboardPage.pricingSavings}
           </h2>
           <p className="text-text-light text-sm">
-            {isEs
-              ? "Vea cuánto puede ahorrar y explore nuestros precios."
-              : "See how much you can save and explore our pricing."}
+            {dict.dashboardPage.pricingDescription}
           </p>
         </Link>
       </div>
@@ -114,7 +110,7 @@ export default function DashboardPage() {
       {!loading && submissions.length > 0 && (
         <div>
           <h2 className="text-lg font-semibold text-navy mb-4">
-            {isEs ? "Mis Cotizaciones" : "My Submissions"}
+            {dict.dashboardPage.mySubmissions}
           </h2>
           <div className="space-y-3">
             {submissions.map((sub) => (
@@ -140,7 +136,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="text-right ml-4 shrink-0">
                   <p className="text-sm font-semibold text-green-600">
-                    {sub.savings_percentage}% {isEs ? "ahorro" : "savings"}
+                    {sub.savings_percentage}% {dict.dashboardPage.savings}
                   </p>
                   <p className="text-xs text-text-light">
                     ${sub.total_dc_price?.toLocaleString()} vs ${sub.total_us_price?.toLocaleString()}

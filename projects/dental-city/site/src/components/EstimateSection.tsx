@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import type { Dictionary } from "@/i18n/dictionaries";
 import { useAuth } from "@/components/AuthProvider";
 import EstimateUpload from "@/components/EstimateUpload";
 import { procedures } from "@/lib/procedures";
@@ -18,7 +19,7 @@ function formatCurrency(n: number) {
   return "$" + Math.round(n).toLocaleString("en-US");
 }
 
-export default function EstimateSection() {
+export default function EstimateSection({ dict }: { dict: Dictionary }) {
   const params = useParams();
   const locale = (params.locale as string) || "en";
   const isEs = locale === "es";
@@ -89,34 +90,32 @@ export default function EstimateSection() {
               </svg>
             </div>
             <h3 className="text-xl font-bold text-navy mb-2">
-              {isEs ? "Cree una Cuenta" : "Create an Account"}
+              {dict.estimateSection.createAccount}
             </h3>
             <p className="text-text-light text-sm mb-1">
-              {isEs
-                ? "Regístrese gratis para usar nuestra herramienta de estimados con IA."
-                : "Sign up for free to use our AI estimate tool."}
+              {dict.estimateSection.signUpFree}
             </p>
             <p className="text-text-light text-sm mb-6">
-              {isEs ? "Solo toma 30 segundos." : "It only takes 30 seconds."}
+              {dict.estimateSection.takes30Seconds}
             </p>
             <div className="flex flex-col gap-3">
               <Link
                 href={`${prefix}/auth/register`}
                 className="bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2.5 rounded-lg transition-colors text-sm"
               >
-                {isEs ? "Crear Cuenta" : "Create an Account"}
+                {dict.estimateSection.createAccountBtn}
               </Link>
               <Link
                 href={`${prefix}/auth/login`}
                 className="border border-navy/20 text-navy font-medium px-6 py-2.5 rounded-lg hover:bg-surface transition-colors text-sm"
               >
-                {isEs ? "Ya tengo cuenta" : "Sign In"}
+                {dict.estimateSection.signIn}
               </Link>
               <button
                 onClick={() => setShowAuthPrompt(false)}
                 className="text-text-light text-sm hover:text-navy transition-colors"
               >
-                {isEs ? "Cancelar" : "Cancel"}
+                {dict.estimateSection.cancel}
               </button>
             </div>
           </div>
@@ -125,6 +124,7 @@ export default function EstimateSection() {
 
       {/* Upload zone */}
       <EstimateUpload
+        dict={dict}
         onItemsParsed={handleItemsParsed}
         onAuthRequired={handleAuthRequired}
       />
@@ -133,14 +133,14 @@ export default function EstimateSection() {
       {estimate && (
         <div className="mt-6 bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-primary/20">
           <h3 className="font-bold text-navy text-xl mb-5 text-center">
-            {isEs ? "Su Estimado de Ahorros" : "Your Estimated Savings"}
+            {dict.estimateSection.yourEstimatedSavings}
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {/* US Cost */}
             <div className="bg-red-50 rounded-xl p-5 text-center">
               <p className="text-xs font-medium text-text-light mb-1 uppercase tracking-wide">
-                {isEs ? "Su cotización EE.UU." : "Your US Quote"}
+                {dict.estimateSection.yourUsQuote}
               </p>
               <p className="text-2xl font-bold text-red-600 line-through decoration-2">
                 {estimate.usTotal > 0 ? formatCurrency(estimate.usTotal) : "—"}
@@ -150,7 +150,7 @@ export default function EstimateSection() {
             {/* DC Estimate */}
             <div className="bg-primary/5 rounded-xl p-5 text-center border-2 border-primary/20">
               <p className="text-xs font-medium text-text-light mb-1 uppercase tracking-wide">
-                {isEs ? "Estimado Dental City" : "Dental City Estimate"}
+                {dict.estimateSection.dentalCityEstimate}
               </p>
               <p className="text-2xl font-bold text-navy">
                 {estimate.matchedCount > 0
@@ -162,7 +162,7 @@ export default function EstimateSection() {
             {/* Savings */}
             <div className="bg-green-50 rounded-xl p-5 text-center">
               <p className="text-xs font-medium text-text-light mb-1 uppercase tracking-wide">
-                {isEs ? "Ahorro estimado" : "Estimated Savings"}
+                {dict.estimateSection.estimatedSavings}
               </p>
               <p className="text-2xl font-bold text-green-600">
                 {estimate.savingsMin > 0
@@ -175,19 +175,17 @@ export default function EstimateSection() {
           {/* Disclaimer */}
           <div className="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-6">
             <p className="text-xs text-amber-800">
-              <strong>{isEs ? "Importante:" : "Important:"}</strong>{" "}
-              {isEs
-                ? "Este es un estimado aproximado generado por IA basado en su cotización. Los precios finales se determinan después de una consulta con nuestro equipo dental, ya que su tratamiento puede requerir procedimientos adicionales según su caso específico. El estimado incluye un 10% de margen para imprevistos."
-                : "This is an approximate AI-generated estimate based on your quote. Final pricing is determined after a consultation with our dental team, as your treatment may require additional procedures based on your specific case. The estimate includes a 10% buffer for incidentals."}
+              <strong>{dict.estimateSection.important}</strong>{" "}
+              {dict.estimateSection.disclaimerText}
             </p>
           </div>
 
           {/* Info line */}
           {estimate.matchedCount < estimate.procedureCount && (
             <p className="text-xs text-text-light text-center mb-4">
-              {isEs
-                ? `${estimate.matchedCount} de ${estimate.procedureCount} procedimientos identificados pudieron ser estimados. Para un estimado completo, solicite una consulta.`
-                : `${estimate.matchedCount} of ${estimate.procedureCount} identified procedures could be estimated. For a complete estimate, request a consultation.`}
+              {dict.estimateSection.partialEstimate
+                .replace("{matched}", String(estimate.matchedCount))
+                .replace("{total}", String(estimate.procedureCount))}
             </p>
           )}
 
@@ -203,13 +201,13 @@ export default function EstimateSection() {
               rel="noopener noreferrer"
               className="flex-1 text-center bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-lg transition-colors text-sm"
             >
-              {isEs ? "Solicitar Cotización Exacta por WhatsApp" : "Get an Exact Quote via WhatsApp"}
+              {dict.estimateSection.requestExactQuote}
             </a>
             <button
               onClick={() => setEstimate(null)}
               className="text-sm text-text-light hover:text-navy transition-colors py-3 px-4"
             >
-              {isEs ? "Subir otra cotización" : "Upload another quote"}
+              {dict.estimateSection.uploadAnotherQuote}
             </button>
           </div>
         </div>

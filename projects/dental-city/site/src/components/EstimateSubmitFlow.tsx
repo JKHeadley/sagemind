@@ -4,24 +4,27 @@ import { useState, useRef, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { procedures as procedureCatalog } from "@/lib/procedures";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 interface ParsedItem {
   procedureName: string;
   amount: number | null;
+  originalAmount: number | null;
+  originalCurrency: string;
   confidence: "high" | "medium" | "low";
   matchedSlug: string | null;
 }
 
 type FlowStep = "upload" | "teaser" | "submitting" | "success";
 
-export default function EstimateSubmitFlow() {
+export default function EstimateSubmitFlow({ dict }: { dict: Dictionary }) {
   const params = useParams();
   const locale = (params.locale as string) || "en";
-  const isEs = locale === "es";
 
   const [step, setStep] = useState<FlowStep>("upload");
   const [files, setFiles] = useState<File[]>([]);
   const [parsedItems, setParsedItems] = useState<ParsedItem[]>([]);
+  const [detectedCurrency, setDetectedCurrency] = useState("USD");
   const [dragOver, setDragOver] = useState(false);
   const [parsing, setParsing] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -106,7 +109,7 @@ export default function EstimateSubmitFlow() {
       const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        setErrorMsg(isEs ? "Sesión expirada. Inicie sesión de nuevo." : "Session expired. Please log in again.");
+        setErrorMsg(dict.estimateFlow.sessionExpiredLogin);
         setParsing(false);
         return;
       }
@@ -133,6 +136,9 @@ export default function EstimateSubmitFlow() {
             return;
           }
           const data = await response.json();
+          if (data.currency && data.currency !== "USD") {
+            setDetectedCurrency(data.currency);
+          }
           if (data.items?.length > 0) {
             allItems.push(...data.items);
           }
@@ -142,11 +148,7 @@ export default function EstimateSubmitFlow() {
       }
 
       if (allItems.length === 0) {
-        setErrorMsg(
-          isEs
-            ? "No pudimos identificar procedimientos dentales. Intente con imágenes más claras de su cotización."
-            : "We couldn't identify dental procedures. Try clearer images of your dental estimate."
-        );
+        setErrorMsg(dict.estimateFlow.noProceduresFound);
         setParsing(false);
         return;
       }
@@ -162,11 +164,7 @@ export default function EstimateSubmitFlow() {
       setParsedItems(unique);
       setStep("teaser");
     } catch {
-      setErrorMsg(
-        isEs
-          ? "Error al analizar los documentos. Inténtelo de nuevo."
-          : "Error analyzing documents. Please try again."
-      );
+      setErrorMsg(dict.estimateFlow.errorAnalyzing);
     } finally {
       setParsing(false);
     }
@@ -181,7 +179,7 @@ export default function EstimateSubmitFlow() {
       const supabase = createClient();
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        setErrorMsg(isEs ? "Sesión expirada." : "Session expired.");
+        setErrorMsg(dict.estimateFlow.sessionExpired);
         setStep("teaser");
         return;
       }
@@ -190,6 +188,7 @@ export default function EstimateSubmitFlow() {
       submitData.append("procedures", JSON.stringify(buildProcedures()));
       submitData.append("consent", "true");
       submitData.append("locale", locale);
+      submitData.append("currency", detectedCurrency);
 
       for (const file of files) {
         submitData.append("files", file);
@@ -243,12 +242,10 @@ export default function EstimateSubmitFlow() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
           </svg>
           <p className="font-medium text-navy mb-1">
-            {isEs ? "Suba sus documentos dentales" : "Upload your dental documents"}
+            {dict.estimateFlow.uploadDocuments}
           </p>
           <p className="text-sm text-text-light">
-            {isEs
-              ? "Cotizaciones, radiografías, planes de tratamiento. JPG, PNG, WebP o PDF (máx 10MB cada uno, hasta 10 archivos)"
-              : "Estimates, X-rays, treatment plans. JPG, PNG, WebP, or PDF (max 10MB each, up to 10 files)"}
+            {dict.estimateFlow.uploadHelp}
           </p>
         </div>
 
@@ -284,10 +281,10 @@ export default function EstimateSubmitFlow() {
             {parsing ? (
               <>
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                {isEs ? "Analizando con IA..." : "Analyzing with AI..."}
+                {dict.estimateFlow.analyzingAi}
               </>
             ) : (
-              isEs ? `Analizar ${files.length} archivo${files.length > 1 ? "s" : ""}` : `Analyze ${files.length} file${files.length > 1 ? "s" : ""}`
+              (files.length > 1 ? dict.estimateFlow.analyzeFiles : dict.estimateFlow.analyzeFile).replace("{count}", String(files.length))
             )}
           </button>
         )}
@@ -306,46 +303,36 @@ export default function EstimateSubmitFlow() {
         {/* Savings teaser */}
         <div className="bg-gradient-to-br from-green-50 to-teal-50 border-2 border-green-200 rounded-2xl p-6 text-center">
           <p className="text-sm font-medium text-green-700 mb-2">
-            {isEs ? "Basado en su cotización, usted podría ahorrar" : "Based on your estimate, you could save"}
+            {dict.estimateFlow.basedOnEstimate}
           </p>
           <p className="text-4xl font-bold text-green-600 mb-1">
             {teaser.low}% – {teaser.high}%
           </p>
           <p className="text-sm text-green-600">
-            {isEs
-              ? `en ${teaser.procedureCount} procedimiento${teaser.procedureCount > 1 ? "s" : ""} identificado${teaser.procedureCount > 1 ? "s" : ""}`
-              : `on ${teaser.procedureCount} procedure${teaser.procedureCount > 1 ? "s" : ""} identified`}
+            {(teaser.procedureCount > 1 ? dict.estimateFlow.onProcedures : dict.estimateFlow.onProcedure).replace("{count}", String(teaser.procedureCount))}
           </p>
           <p className="text-xs text-text-light mt-3">
-            {isEs
-              ? "Los ahorros exactos dependen del plan de tratamiento final"
-              : "Exact savings depend on the final treatment plan"}
+            {dict.estimateFlow.exactSavingsDepend}
           </p>
         </div>
 
         {/* What they get */}
         <div className="bg-white rounded-xl shadow-sm p-5 border border-navy/10">
           <h3 className="font-semibold text-navy mb-3">
-            {isEs ? "Envíe para recibir:" : "Submit to receive:"}
+            {dict.estimateFlow.submitToReceive}
           </h3>
           <ul className="space-y-2 text-sm text-text-light">
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">✓</span>
-              {isEs
-                ? "Cotización personalizada con precios detallados por procedimiento"
-                : "Personalized estimate with detailed per-procedure pricing"}
+              {dict.estimateFlow.personalizedEstimate}
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">✓</span>
-              {isEs
-                ? "PDF profesional con comparación lado a lado"
-                : "Professional PDF with side-by-side comparison"}
+              {dict.estimateFlow.professionalPdf}
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary mt-0.5">✓</span>
-              {isEs
-                ? "Revisión por nuestro equipo médico en 48-72 horas"
-                : "Review by our medical team within 48-72 hours"}
+              {dict.estimateFlow.medicalTeamReview}
             </li>
           </ul>
         </div>
@@ -359,9 +346,7 @@ export default function EstimateSubmitFlow() {
             className="mt-1 h-4 w-4 rounded border-navy/20 text-primary focus:ring-primary/30"
           />
           <span className="text-sm text-text-light">
-            {isEs
-              ? "Consiento compartir mis documentos cargados y mi cotización con el equipo médico de Dental City para su revisión."
-              : "I consent to sharing my uploaded documents and estimate with Dental City's medical team for review."}
+            {dict.estimateFlow.consentText}
           </span>
         </label>
 
@@ -371,7 +356,7 @@ export default function EstimateSubmitFlow() {
           disabled={!consent}
           className="w-full bg-primary hover:bg-primary-dark disabled:bg-navy/20 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-colors"
         >
-          {isEs ? "Enviar Mi Cotización" : "Submit My Estimate"}
+          {dict.estimateFlow.submitEstimate}
         </button>
 
         {/* Go back */}
@@ -379,7 +364,7 @@ export default function EstimateSubmitFlow() {
           onClick={() => { setStep("upload"); setParsedItems([]); setConsent(false); }}
           className="w-full text-sm text-text-light hover:text-navy transition-colors"
         >
-          {isEs ? "← Volver y cambiar archivos" : "← Go back and change files"}
+          {dict.estimateFlow.backAndChange}
         </button>
 
         {errorMsg && (
@@ -395,12 +380,10 @@ export default function EstimateSubmitFlow() {
       <div className="text-center py-12">
         <div className="w-12 h-12 border-3 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
         <p className="font-medium text-navy text-lg">
-          {isEs ? "Enviando su cotización..." : "Submitting your estimate..."}
+          {dict.estimateFlow.submittingEstimate}
         </p>
         <p className="text-sm text-text-light mt-2">
-          {isEs
-            ? "Estamos generando su cotización personalizada y notificando a nuestro equipo."
-            : "We're generating your personalized estimate and notifying our team."}
+          {dict.estimateFlow.generatingEstimate}
         </p>
       </div>
     );
@@ -415,18 +398,16 @@ export default function EstimateSubmitFlow() {
         </svg>
       </div>
       <h2 className="text-xl font-bold text-navy mb-2">
-        {isEs ? "¡Cotización Enviada!" : "Estimate Submitted!"}
+        {dict.estimateFlow.estimateSubmitted}
       </h2>
       <p className="text-text-light mb-6 max-w-md mx-auto">
-        {isEs
-          ? "Nuestro equipo médico revisará sus documentos y se comunicará con usted dentro de 48-72 horas hábiles. Revise su correo electrónico para la confirmación."
-          : "Our medical team will review your documents and contact you within 48-72 business hours. Check your email for confirmation."}
+        {dict.estimateFlow.teamWillReview}
       </p>
       <a
         href={`/${locale}/dashboard/submission/${submissionId}`}
         className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-2.5 px-6 rounded-lg transition-colors"
       >
-        {isEs ? "Ver Mi Cotización" : "View My Estimate"}
+        {dict.estimateFlow.viewEstimate}
       </a>
     </div>
   );

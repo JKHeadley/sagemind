@@ -186,7 +186,7 @@ export default async function PricingPage({
               ? "Suba una foto o PDF de su cotización dental de EE.UU. y nuestra IA calculará un estimado aproximado de sus ahorros."
               : "Upload a photo or PDF of your US dental quote and our AI will calculate an approximate estimate of your savings."}
           </p>
-          <EstimateSection />
+          <EstimateSection dict={dict} />
         </div>
       </section>
 

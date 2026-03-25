@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { parseEstimateDocument, matchProcedure } from "@/lib/claude";
+import { convertToUSD } from "@/lib/currency";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Rate limit: max 10 submissions per user per day
+  // Rate limit: max 5 submissions per user per day
   try {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -34,9 +35,9 @@ export async function POST(request: NextRequest) {
       .eq("user_id", user.id)
       .gte("created_at", today.toISOString());
 
-    if ((count || 0) >= 10) {
+    if ((count || 0) >= 5) {
       return NextResponse.json(
-        { error: "Rate limit exceeded. Maximum 10 uploads per day." },
+        { error: "Rate limit exceeded. Maximum 5 uploads per day." },
         { status: 429 }
       );
     }
@@ -82,16 +83,40 @@ export async function POST(request: NextRequest) {
       ),
     ]);
 
-    // Map extracted items to known procedures
-    const mappedItems = result.items.map((item) => ({
-      ...item,
-      matchedSlug: matchProcedure(item.procedureName),
-    }));
+    // Detect the dominant currency from extracted items
+    const detectedCurrency = result.items[0]?.currency || "USD";
+
+    // Convert non-USD amounts to USD for internal comparison
+    const mappedItems = await Promise.all(
+      result.items.map(async (item) => {
+        let amountUSD = item.amount;
+        if (item.amount && item.currency && item.currency.toUpperCase() !== "USD") {
+          try {
+            const converted = await convertToUSD(item.amount, item.currency);
+            amountUSD = converted.amountUSD;
+          } catch {
+            // If conversion fails, keep original amount and warn
+            result.warnings.push(
+              `Could not convert ${item.currency} to USD for "${item.procedureName}". Using original amount.`
+            );
+          }
+        }
+        return {
+          procedureName: item.procedureName,
+          amount: amountUSD,
+          originalAmount: item.amount,
+          originalCurrency: item.currency || "USD",
+          confidence: item.confidence,
+          matchedSlug: matchProcedure(item.procedureName),
+        };
+      })
+    );
 
     if (mappedItems.length === 0) {
       return NextResponse.json(
         {
           items: [],
+          currency: "USD",
           warnings: [
             "We couldn't identify any dental procedures in this document. Please try a clearer image or PDF of your dental estimate.",
           ],
@@ -102,6 +127,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       items: mappedItems,
+      currency: detectedCurrency,
       warnings: result.warnings,
     });
   } catch (err) {

@@ -46,14 +46,23 @@ export interface EstimatePatient {
   preferredContact: string;
 }
 
-function formatUSD(amount: number): string {
-  return "$" + amount.toLocaleString("en-US");
+export interface CurrencyOptions {
+  currency: string;         // ISO code, e.g. "USD", "EUR", "CAD"
+  currencySymbol: string;   // e.g. "$", "€", "C$"
+  currencyDisclaimer: string; // conversion disclaimer text, empty for USD
+}
+
+function formatAmount(amount: number, symbol: string): string {
+  return symbol + amount.toLocaleString("en-US");
 }
 
 export async function generateEstimatePdf(
   patient: EstimatePatient,
-  procedures: EstimateProcedure[]
+  procedures: EstimateProcedure[],
+  currencyOpts?: CurrencyOptions
 ): Promise<Buffer> {
+  const symbol = currencyOpts?.currencySymbol || "$";
+  const currencyDisclaimer = currencyOpts?.currencyDisclaimer || "";
   const totalUs = procedures.reduce((sum, p) => sum + p.usPrice, 0);
   const displayProcedures = procedures.map((p) => ({
     ...p,
@@ -194,9 +203,10 @@ export async function generateEstimatePdf(
 
   // Table header
   drawRect(marginLeft, y - rowH, pageWidth, rowH, PRIMARY_DARK);
+  const priceLabel = currencyOpts?.currency && currencyOpts.currency !== "USD" ? `Your Price (${symbol})` : "US Price";
   drawText("Procedure", colX[0] + 10, y - 16, { font: helveticaBold, size: 9, color: WHITE });
-  drawTextRight("US Price", colEnd[1], y - 16, { font: helveticaBold, size: 9, color: WHITE });
-  drawTextRight("DC Price", colEnd[2], y - 16, { font: helveticaBold, size: 9, color: WHITE });
+  drawTextRight(priceLabel, colEnd[1], y - 16, { font: helveticaBold, size: 9, color: WHITE });
+  drawTextRight(`DC Price (${symbol})`, colEnd[2], y - 16, { font: helveticaBold, size: 9, color: WHITE });
   drawTextRight("You Save", colEnd[3], y - 16, { font: helveticaBold, size: 9, color: WHITE });
   y -= rowH;
 
@@ -209,9 +219,9 @@ export async function generateEstimatePdf(
 
     drawRect(marginLeft, y - rowH, pageWidth, rowH, bgColor);
     drawText(proc.name, colX[0] + 10, y - 16, { size: 9 });
-    drawTextRight(formatUSD(proc.usPrice), colEnd[1], y - 16, { size: 9, color: TEXT_LIGHT });
-    drawTextRight(formatUSD(proc.dcPriceDisplay), colEnd[2], y - 16, { font: helveticaBold, size: 9, color: PRIMARY_DARK });
-    drawTextRight(`${formatUSD(savings)} (${savePct}%)`, colEnd[3], y - 16, { font: helveticaBold, size: 9, color: GREEN });
+    drawTextRight(formatAmount(proc.usPrice, symbol), colEnd[1], y - 16, { size: 9, color: TEXT_LIGHT });
+    drawTextRight(formatAmount(proc.dcPriceDisplay, symbol), colEnd[2], y - 16, { font: helveticaBold, size: 9, color: PRIMARY_DARK });
+    drawTextRight(`${formatAmount(savings, symbol)} (${savePct}%)`, colEnd[3], y - 16, { font: helveticaBold, size: 9, color: GREEN });
     y -= rowH;
   }
 
@@ -219,21 +229,23 @@ export async function generateEstimatePdf(
   const totalRowH = 26;
   drawRect(marginLeft, y - totalRowH, pageWidth, totalRowH, NAVY);
   drawText("TOTAL", colX[0] + 10, y - 17, { font: helveticaBold, size: 10, color: WHITE });
-  drawTextRight(formatUSD(totalUs), colEnd[1], y - 17, { font: helveticaBold, size: 10, color: WHITE });
-  drawTextRight(formatUSD(totalDcDisplay), colEnd[2], y - 17, { font: helveticaBold, size: 10, color: ACCENT });
-  drawTextRight(`${formatUSD(totalSavingsDisplay)} (${savingsPctDisplay}%)`, colEnd[3], y - 17, { font: helveticaBold, size: 10, color: rgb(52 / 255, 211 / 255, 153 / 255) });
+  drawTextRight(formatAmount(totalUs, symbol), colEnd[1], y - 17, { font: helveticaBold, size: 10, color: WHITE });
+  drawTextRight(formatAmount(totalDcDisplay, symbol), colEnd[2], y - 17, { font: helveticaBold, size: 10, color: ACCENT });
+  drawTextRight(`${formatAmount(totalSavingsDisplay, symbol)} (${savingsPctDisplay}%)`, colEnd[3], y - 17, { font: helveticaBold, size: 10, color: rgb(52 / 255, 211 / 255, 153 / 255) });
   y -= totalRowH + 14;
 
   // ── SAVINGS HIGHLIGHT BOX ──
-  const savingsBoxH = 42;
+  const savingsBoxH = 58;
   drawRect(marginLeft, y - savingsBoxH, pageWidth, savingsBoxH, GREEN_LIGHT_BG);
   page.drawRectangle({ x: marginLeft, y: y - savingsBoxH, width: pageWidth, height: savingsBoxH, borderColor: rgb(167 / 255, 243 / 255, 208 / 255), borderWidth: 1 });
-  drawTextCenter(`Total Estimated Savings: ${formatUSD(totalSavingsDisplay)}`, y - 16, { font: helveticaBold, size: 14, color: GREEN });
-  drawTextCenter(`That's ${savingsPctDisplay}% less than typical US pricing`, y - 33, { size: 10, color: rgb(6 / 255, 95 / 255, 70 / 255) });
+  drawTextCenter(`Dental City Estimate: ${formatAmount(totalDcDisplay, symbol)}`, y - 15, { font: helveticaBold, size: 11, color: PRIMARY_DARK });
+  drawTextCenter(`Total Estimated Savings: ${formatAmount(totalSavingsDisplay, symbol)}`, y - 33, { font: helveticaBold, size: 14, color: GREEN });
+  drawTextCenter(`That's ${savingsPctDisplay}% less than typical US pricing`, y - 49, { size: 10, color: rgb(6 / 255, 95 / 255, 70 / 255) });
   y -= savingsBoxH + 14;
 
   // ── DISCLAIMER BOX ──
-  const disclaimerH = 58;
+  const hasConversionNote = currencyDisclaimer.length > 0;
+  const disclaimerH = hasConversionNote ? 70 : 58;
   drawRect(marginLeft, y - disclaimerH, pageWidth, disclaimerH, YELLOW_BG);
   page.drawRectangle({ x: marginLeft, y: y - disclaimerH, width: pageWidth, height: disclaimerH, borderColor: rgb(253 / 255, 230 / 255, 138 / 255), borderWidth: 1 });
   drawText("IMPORTANT DISCLAIMER", marginLeft + 14, y - 16, { font: helveticaBold, size: 8.5, color: rgb(146 / 255, 64 / 255, 14 / 255) });
@@ -245,6 +257,12 @@ export async function generateEstimatePdf(
     "will be determined after an in-person evaluation by our dental team. We accept USD, CRC, and major credit cards.",
     marginLeft + 14, y - 42, { size: 8, color: rgb(120 / 255, 53 / 255, 15 / 255) }
   );
+  if (hasConversionNote) {
+    drawText(
+      currencyDisclaimer,
+      marginLeft + 14, y - 54, { size: 7.5, color: rgb(120 / 255, 53 / 255, 15 / 255) }
+    );
+  }
   y -= disclaimerH + 14;
 
   // ── WHAT'S NEXT BOX ──
