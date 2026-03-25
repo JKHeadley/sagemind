@@ -4,12 +4,12 @@
 **Path**: /Users/justin/Documents/Projects/sagemind
 **Git Remote**: https://github.com/JKHeadley/sagemind.git
 **Branch**: main
-**Total Files**: 193
+**Total Files**: 202
 **Deployment Targets**: vercel
 
 ## Directory Structure
 
-- **projects/** (262 files) — Project directory
+- **projects/** (279 files) — Project directory
 - **project_sandbox/** (28 files) — Project directory
 - **docs/** (3 files) — Documentation
 - **brand/** (2 files) — Project directory
@@ -22,4 +22,4 @@
 - CLAUDE.md
 - README.md
 
-*Generated: 2026-03-25T02:09:34.818Z*
+*Generated: 2026-03-25T02:10:17.603Z*

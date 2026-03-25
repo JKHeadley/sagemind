@@ -3,12 +3,12 @@
   "projectDir": "/Users/justin/Documents/Projects/sagemind",
   "gitRemote": "https://github.com/JKHeadley/sagemind.git",
   "gitBranch": "main",
-  "totalFiles": 193,
+  "totalFiles": 202,
   "directories": [
     {
       "name": "projects",
       "description": "Project directory",
-      "fileCount": 262
+      "fileCount": 279
     },
     {
       "name": "project_sandbox",
@@ -49,5 +49,5 @@
   "deploymentTargets": [
     "vercel"
   ],
-  "generatedAt": "2026-03-25T02:09:34.818Z"
+  "generatedAt": "2026-03-25T02:10:17.603Z"
 }
