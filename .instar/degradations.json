@@ -1,25 +1,5 @@
 [
   {
-    "feature": "SessionManager.injectMessage",
-    "primary": "Inject Telegram message into tmux session",
-    "fallback": "Message lost — user input never reaches Claude",
-    "reason": "Failed to inject message: Command failed: /opt/homebrew/bin/tmux send-keys -t =topic-748: \u001b[200~\ncan't find session: topic-748\n",
-    "impact": "User message silently dropped",
-    "timestamp": "2026-03-18T19:42:49.783Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-24T20:53:44.208Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
     "feature": "SemanticMemory",
     "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
     "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
@@ -996,6 +976,26 @@
     "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
     "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
     "timestamp": "2026-03-26T17:35:57.338Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-03-26T17:40:02.142Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "SemanticMemory",
+    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
+    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
+    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
+    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
+    "timestamp": "2026-03-26T17:40:02.145Z",
     "reported": false,
     "alerted": false
   }
