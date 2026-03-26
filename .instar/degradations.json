@@ -1,25 +1,5 @@
 [
   {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 137. This version of Node.js requires\nNODE_MODULE_VERSION 127. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-14T00:04:00.763Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
-    "feature": "GitSync.pull",
-    "primary": "Clean git pull",
-    "fallback": "Manual resolution required",
-    "reason": "Why: Untracked local files would be overwritten by incoming commits. Command failed: git pull --rebase --autostash\nFrom https://github.com/JKHeadley/sagemind\n   8d0b9fd..8b6a2c7  main       -> origin/main\nerror: The following untracked working tree files would be overw",
-    "impact": "Git pull blocked. To fix: either (1) commit the local files to your repo, or (2) add them to .gitignore and remove them from your working tree, then retry.",
-    "timestamp": "2026-03-16T04:23:06.725Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
     "feature": "GitSync.pull",
     "primary": "Clean git pull",
     "fallback": "Manual resolution required",
@@ -996,6 +976,26 @@
     "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
     "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
     "timestamp": "2026-03-26T17:10:56.685Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-03-26T17:14:27.029Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "SemanticMemory",
+    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
+    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
+    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
+    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
+    "timestamp": "2026-03-26T17:14:27.031Z",
     "reported": false,
     "alerted": false
   }
