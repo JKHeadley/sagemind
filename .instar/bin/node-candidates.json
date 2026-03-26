@@ -1,9 +1,9 @@
 {
-  "primary": "/Users/justin/.asdf/installs/nodejs/22.18.0/bin/node",
+  "primary": "/opt/homebrew/bin/node",
   "candidates": [
+    "/opt/homebrew/bin/node",
     "/Users/justin/.asdf/installs/nodejs/22.18.0/bin/node",
-    "/opt/homebrew/bin/node"
+    "/opt/homebrew/opt/node/bin/node"
   ],
-  "updatedAt": "2026-03-25T02:11:11.610Z",
-  "updatedBy": "instar-boot.js"
+  "updatedAt": "2026-03-26T17:04:15.664Z"
 }
