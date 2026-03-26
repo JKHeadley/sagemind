@@ -1,25 +1,5 @@
 [
   {
-    "feature": "GitSync.pull",
-    "primary": "Clean git pull",
-    "fallback": "Attempt auto-resolution of conflicts",
-    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
-    "impact": "Conflicts may not auto-resolve correctly",
-    "timestamp": "2026-03-17T04:58:04.232Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
-    "feature": "GitSync.pull",
-    "primary": "Clean git pull",
-    "fallback": "Attempt auto-resolution of conflicts",
-    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: Pulling is not possible because you have unmerged files.\nhint: Fix them up in the work tree, and then use 'git add/rm <file>'\nhint: as appropriate to mark resolution and make a commit.\nfatal: Exiting because of an unresolved conflict.\n",
-    "impact": "Conflicts may not auto-resolve correctly",
-    "timestamp": "2026-03-17T05:01:10.262Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
     "feature": "Telegram.Lifeline",
     "primary": "Verified lifeline topic for emergency agent communication",
     "fallback": "Using unverified (possibly stale) lifeline topic ID",
@@ -996,6 +976,26 @@
     "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
     "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
     "timestamp": "2026-03-26T17:15:06.849Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-03-26T17:19:36.925Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "SemanticMemory",
+    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
+    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
+    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
+    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
+    "timestamp": "2026-03-26T17:19:36.927Z",
     "reported": false,
     "alerted": false
   }
