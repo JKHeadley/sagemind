@@ -1,25 +1,5 @@
 [
   {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: Could not locate the bindings file. Tried:\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/out/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/Debug/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/out/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/Release/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/build/default/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/compiled/20.20.0/darwin/arm64/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/release/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/debug/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/addon-build/default/install-root/better_sqlite3.node\n → /opt/homebrew/lib/node_modules/instar/node_modules/better-sqlite3/lib/binding/node-v115-darwin-arm64/better_sqlite3.node",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-02-26T04:23:07.475Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
-    "feature": "UpdateChecker.postUpdateMigration",
-    "primary": "Run post-update migrations",
-    "fallback": "Migration skipped — data may not be upgraded",
-    "reason": "Why: Command failed: instar migrate --dir /Users/amrch/Documents/Projects/sagemind\nerror: unknown option '--dir'\n",
-    "impact": "Agent configuration may be stale after update",
-    "timestamp": "2026-02-26T05:36:03.060Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
     "feature": "UpdateChecker.postUpdateMigration",
     "primary": "Run post-update migrations",
     "fallback": "Migration skipped — data may not be upgraded",
@@ -996,6 +976,26 @@
     "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
     "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
     "timestamp": "2026-03-26T00:23:47.275Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-03-26T00:53:47.819Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "SemanticMemory",
+    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
+    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
+    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
+    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
+    "timestamp": "2026-03-26T00:53:47.822Z",
     "reported": false,
     "alerted": false
   }
