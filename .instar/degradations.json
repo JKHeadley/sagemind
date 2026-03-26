@@ -1,25 +1,5 @@
 [
   {
-    "feature": "GitSync.pull",
-    "primary": "Clean git pull",
-    "fallback": "Attempt auto-resolution of conflicts",
-    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: The following untracked working tree files would be overwritten by merge:\n\t.instar/context/architecture.md\n\t.instar/hooks/instar/claim-intercept-response.js\n\t.instar/hooks/instar/claim-intercept.js\n\t.instar/hooks/instar/compaction-recovery.sh\n\t.instar/hooks/instar/dangerous-command-guard.sh\n\t.instar/hooks/instar/deferral-detector.js\n\t.instar/hooks/instar/external-communication-guard.js\n\t.instar/hooks/instar/external-operation-gate.js\n\t.instar/hooks/instar/grounding-before-messaging.sh\n\t.instar/hooks/instar/post-action-reflection.js\n\t.instar/hooks/instar/scope-coherence-checkpoint.js\n\t.instar/hooks/instar/scope-coherence-collector.js\n\t.instar/hooks/instar/session-start.sh\n\t.instar/review-history.jsonl\n\t.instar/scripts/convergence-check.sh\n\t.instar/topic-resume-map.json\nPlease move or remove them before you merge.\nAborting\nApplied autostash.\n",
-    "impact": "Conflicts may not auto-resolve correctly",
-    "timestamp": "2026-03-09T19:35:08.677Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "GitSync.pull",
-    "primary": "Clean git pull",
-    "fallback": "Attempt auto-resolution of conflicts",
-    "reason": "Why: Command failed: git pull --rebase --autostash\nerror: The following untracked working tree files would be overwritten by merge:\n\t.instar/context/architecture.md\n\t.instar/hooks/instar/claim-intercept-response.js\n\t.instar/hooks/instar/claim-intercept.js\n\t.instar/hooks/instar/compaction-recovery.sh\n\t.instar/hooks/instar/dangerous-command-guard.sh\n\t.instar/hooks/instar/deferral-detector.js\n\t.instar/hooks/instar/external-communication-guard.js\n\t.instar/hooks/instar/external-operation-gate.js\n\t.instar/hooks/instar/grounding-before-messaging.sh\n\t.instar/hooks/instar/post-action-reflection.js\n\t.instar/hooks/instar/scope-coherence-checkpoint.js\n\t.instar/hooks/instar/scope-coherence-collector.js\n\t.instar/hooks/instar/session-start.sh\n\t.instar/review-history.jsonl\n\t.instar/scripts/convergence-check.sh\n\t.instar/topic-resume-map.json\nPlease move or remove them before you merge.\nAborting\nApplied autostash.\n",
-    "impact": "Conflicts may not auto-resolve correctly",
-    "timestamp": "2026-03-09T19:35:24.496Z",
-    "reported": true,
-    "alerted": true
-  },
-  {
     "feature": "TopicMemory",
     "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
     "fallback": "JSONL-based last 20 messages (no summaries, no search)",
@@ -996,6 +976,26 @@
     "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
     "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
     "timestamp": "2026-03-25T23:53:47.318Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-03-26T00:23:47.272Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "SemanticMemory",
+    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
+    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
+    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
+    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
+    "timestamp": "2026-03-26T00:23:47.275Z",
     "reported": false,
     "alerted": false
   }
