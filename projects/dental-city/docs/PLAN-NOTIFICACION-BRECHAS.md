@@ -241,9 +241,9 @@ Al firmar, cada miembro del personal confirma haber leído, entendido y aceptado
 
 | Nombre | Cargo | Firma | Fecha |
 |--------|-------|-------|-------|
-| | | | |
-| | | | |
-| | | | |
+| Marlón Granados | Coordinador de Pacientes / Responsable de Privacidad | | |
+| Dr. Francisco Rodríguez | Odontólogo | | |
+| Dra. Mariela Hernández | Odontóloga | | |
 | | | | |
 
 ---
