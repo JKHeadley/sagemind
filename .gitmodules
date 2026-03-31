@@ -4,3 +4,6 @@
 [submodule "projects/adriana-work"]
 	path = projects/adriana-work
 	url = https://github.com/SageMindAI/adriana-work.git
+[submodule "projects/cordoza-electric"]
+	path = projects/cordoza-electric
+	url = https://github.com/JKHeadley/cordoza-electric.git
