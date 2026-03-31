@@ -9,7 +9,7 @@
 
 ## Directory Structure
 
-- **projects/** (282 files) — Project directory
+- **projects/** (283 files) — Project directory
 - **project_sandbox/** (28 files) — Project directory
 - **docs/** (3 files) — Documentation
 - **brand/** (2 files) — Project directory
@@ -22,4 +22,4 @@
 - CLAUDE.md
 - README.md
 
-*Generated: 2026-03-31T01:36:47.663Z*
+*Generated: 2026-03-31T03:36:53.561Z*
