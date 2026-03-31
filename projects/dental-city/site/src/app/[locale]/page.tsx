@@ -6,6 +6,7 @@ import ContactForm from "@/components/ContactForm";
 import FAQ from "@/components/FAQ";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import ServiceIcon from "@/components/ServiceIcon";
+import VideoPlayer from "@/components/VideoPlayer";
 
 const servicesData = {
   en: [
@@ -273,10 +274,10 @@ export default async function Home({
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
           <div className="flex items-center gap-3 text-sm text-text-light">
             <span className="font-medium text-navy">{dict.socialProof.trustedBy}</span>
-            <span className="text-xl" title="United States">🇺🇸</span>
-            <span className="text-xl" title="Canada">🇨🇦</span>
-            <span className="text-xl" title="United Kingdom">🇬🇧</span>
-            <span className="text-xl" title="Costa Rica">🇨🇷</span>
+            <span title="United States">US</span>
+            <span title="Canada">CA</span>
+            <span title="United Kingdom">UK</span>
+            <span title="Costa Rica">CR</span>
           </div>
           <div className="hidden sm:block w-px h-6 bg-navy/10" />
           <p className="text-sm text-text-light italic">
@@ -310,6 +311,23 @@ export default async function Home({
               fill
               className="object-cover"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Facility Tour */}
+      <section className="py-12 md:py-20 bg-surface">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-navy mb-4">
+            {locale === "es" ? "Conozca Nuestras Instalaciones" : "Tour Our Facilities"}
+          </h2>
+          <p className="text-text-light mb-8 max-w-2xl mx-auto">
+            {locale === "es"
+              ? "Instalaciones modernas diseñadas para su comodidad. Vea por dentro lo que nos hace diferentes."
+              : "Modern facilities designed for your comfort. See firsthand what sets us apart."}
+          </p>
+          <div className="max-w-3xl mx-auto">
+            <VideoPlayer src="/videos/facility-tour.mp4" />
           </div>
         </div>
       </section>

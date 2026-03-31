@@ -147,11 +147,8 @@ export default async function FacilitiesPage({
           <p className="text-text-light mb-8 max-w-2xl">
             {dict.facilities.facilityTourDesc}
           </p>
-          <div className="grid md:grid-cols-2 gap-6">
-            <VideoPlayer src="/videos/tour-waiting-lounge.mp4" />
-            <VideoPlayer src="/videos/tour-lobby-reception.mp4" />
-            <VideoPlayer src="/videos/tour-lobby-sculptures.mp4" />
-            <VideoPlayer src="/videos/tour-treatment-room.mp4" />
+          <div className="max-w-3xl mx-auto">
+            <VideoPlayer src="/videos/facility-tour.mp4" />
           </div>
         </div>
       </section>

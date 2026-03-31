@@ -29,20 +29,20 @@ export async function generateMetadata({
 
 const savingsCategories = {
   en: [
-    { category: "Dental Implants", savings: "50–65%", icon: "🦷", desc: "Single implants, All-on-4, full-arch rehabilitation" },
-    { category: "Crowns & Veneers", savings: "50–75%", icon: "✨", desc: "Porcelain, zirconia, and premium crowns and veneers" },
-    { category: "Root Canals", savings: "60–75%", icon: "🔧", desc: "Anterior, premolar, and molar endodontics" },
-    { category: "Orthodontics", savings: "70–80%", icon: "😁", desc: "Traditional braces and clear aligners" },
-    { category: "Oral Surgery", savings: "55–75%", icon: "⚕️", desc: "Extractions, wisdom teeth, bone grafts" },
-    { category: "Cosmetic Dentistry", savings: "45–65%", icon: "💎", desc: "Whitening, smile design, aesthetic treatments" },
+    { category: "Dental Implants", savings: "50–65%", desc: "Single implants, All-on-4, full-arch rehabilitation" },
+    { category: "Crowns & Veneers", savings: "50–75%", desc: "Porcelain, zirconia, and premium crowns and veneers" },
+    { category: "Root Canals", savings: "60–75%", desc: "Anterior, premolar, and molar endodontics" },
+    { category: "Orthodontics", savings: "70–80%", desc: "Traditional braces and clear aligners" },
+    { category: "Oral Surgery", savings: "55–75%", desc: "Extractions, wisdom teeth, bone grafts" },
+    { category: "Cosmetic Dentistry", savings: "45–65%", desc: "Whitening, smile design, aesthetic treatments" },
   ],
   es: [
-    { category: "Implantes Dentales", savings: "50–65%", icon: "🦷", desc: "Implantes individuales, All-on-4, rehabilitación completa" },
-    { category: "Coronas y Carillas", savings: "50–75%", icon: "✨", desc: "Coronas y carillas de porcelana, zirconio y premium" },
-    { category: "Endodoncias", savings: "60–75%", icon: "🔧", desc: "Endodoncia anterior, premolar y molar" },
-    { category: "Ortodoncia", savings: "70–80%", icon: "😁", desc: "Brackets tradicionales y alineadores transparentes" },
-    { category: "Cirugía Oral", savings: "55–75%", icon: "⚕️", desc: "Extracciones, cordales, injertos óseos" },
-    { category: "Estética Dental", savings: "45–65%", icon: "💎", desc: "Blanqueamiento, diseño de sonrisa, tratamientos estéticos" },
+    { category: "Implantes Dentales", savings: "50–65%", desc: "Implantes individuales, All-on-4, rehabilitación completa" },
+    { category: "Coronas y Carillas", savings: "50–75%", desc: "Coronas y carillas de porcelana, zirconio y premium" },
+    { category: "Endodoncias", savings: "60–75%", desc: "Endodoncia anterior, premolar y molar" },
+    { category: "Ortodoncia", savings: "70–80%", desc: "Brackets tradicionales y alineadores transparentes" },
+    { category: "Cirugía Oral", savings: "55–75%", desc: "Extracciones, cordales, injertos óseos" },
+    { category: "Estética Dental", savings: "45–65%", desc: "Blanqueamiento, diseño de sonrisa, tratamientos estéticos" },
   ],
 };
 
@@ -50,21 +50,18 @@ const packagesData = {
   en: [
     {
       name: "Smile Makeover",
-      icon: "✨",
       includes: ["6–10 porcelain veneers", "Professional teeth whitening", "Digital smile design", "Follow-up adjustments"],
       duration: "5–7 days",
       startingAt: "$3,090",
     },
     {
       name: "Implant Package",
-      icon: "🦷",
       includes: ["Dental implant (titanium)", "Porcelain crown", "CBCT 3D scan", "All follow-up visits"],
       duration: "2 visits (3–4 months apart)",
       startingAt: "$1,765",
     },
     {
       name: "Full Rehabilitation",
-      icon: "⭐",
       includes: ["All-on-4 or All-on-6 implants", "Full-arch prosthesis", "CBCT + digital planning", "Temporary prosthesis included"],
       duration: "2–3 visits over 4–6 months",
       startingAt: "$10,850",
@@ -73,21 +70,18 @@ const packagesData = {
   es: [
     {
       name: "Diseño de Sonrisa",
-      icon: "✨",
       includes: ["6–10 carillas de porcelana", "Blanqueamiento profesional", "Diseño digital de sonrisa", "Ajustes de seguimiento"],
       duration: "5–7 días",
       startingAt: "$3,090",
     },
     {
       name: "Paquete de Implantes",
-      icon: "🦷",
       includes: ["Implante dental (titanio)", "Corona de porcelana", "Escaneo CBCT 3D", "Todas las visitas de seguimiento"],
       duration: "2 visitas (3–4 meses de diferencia)",
       startingAt: "$1,765",
     },
     {
       name: "Rehabilitación Completa",
-      icon: "⭐",
       includes: ["Implantes All-on-4 o All-on-6", "Prótesis de arcada completa", "CBCT + planificación digital", "Prótesis temporal incluida"],
       duration: "2–3 visitas en 4–6 meses",
       startingAt: "$10,850",
@@ -160,7 +154,11 @@ export default async function PricingPage({
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {savings.map((item) => (
               <div key={item.category} className="bg-surface rounded-xl p-6 text-center hover:shadow-md transition-shadow">
-                <div className="text-3xl mb-3">{item.icon}</div>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3 mx-auto">
+                  <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                  </svg>
+                </div>
                 <h3 className="font-semibold text-navy text-lg mb-1">{item.category}</h3>
                 <p className="text-3xl font-bold text-primary mb-2">{item.savings}</p>
                 <p className="text-sm text-text-light">{item.desc}</p>
@@ -204,7 +202,11 @@ export default async function PricingPage({
           <div className="grid md:grid-cols-3 gap-6">
             {packages.map((pkg) => (
               <div key={pkg.name} className="bg-surface rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                <div className="text-3xl mb-3">{pkg.icon}</div>
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3 mx-auto">
+                  <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                  </svg>
+                </div>
                 <h3 className="text-xl font-bold text-navy mb-3">{pkg.name}</h3>
                 <ul className="space-y-2 mb-6 flex-grow">
                   {pkg.includes.map((item) => (

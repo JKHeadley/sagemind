@@ -136,6 +136,12 @@ export async function generateMetadata({
 const servicesData = {
   en: [
     {
+      name: "Facial Harmonization",
+      featured: true,
+      description:
+        "Dra. Hernández Bonilla combines her deep expertise in oral surgery with advanced training in orofacial harmonization to offer treatments that go beyond the smile. Using collagen biostimulators and the latest non-surgical techniques, she enhances facial balance and aesthetics for a naturally refreshed appearance.\n\nThis unique combination of dental and facial expertise means your treatment plan considers the complete picture — your smile, your facial structure, and your confidence — all under one roof.",
+    },
+    {
       name: "Dental Implants",
       description:
         "Think of dental implants as artificial tooth roots, similar in shape to screws. When dental implants are placed in your jawbone, they bond with your natural bone. They become a sturdy base for supporting one or more artificial teeth, called crowns.\n\nModern dental implants have been used successfully for over 30 years. They are the strongest devices available to support replacement teeth and even better, they allow these new teeth to feel, look and function naturally.",
@@ -191,11 +197,6 @@ const servicesData = {
         "Led by Dra. Mariela Hernández Bonilla with 20 years of surgical experience, advanced implant training from the University of Miami, and membership in the International Congress of Oral Implantologists (ICOI). From wisdom tooth extractions to complex surgical procedures, you're in the hands of one of the most experienced oral surgeons in the region.\n\nHer philosophy is simple: every detail matters when it comes to your comfort and well-being. Patients trust her with their most complex cases knowing they'll receive world-class care at a fraction of what they'd pay back home.",
     },
     {
-      name: "Facial Harmonization",
-      description:
-        "Dra. Hernández Bonilla combines her deep expertise in oral surgery with advanced training in orofacial harmonization to offer treatments that go beyond the smile. Using collagen biostimulators and the latest non-surgical techniques, she enhances facial balance and aesthetics for a naturally refreshed appearance.\n\nThis unique combination of dental and facial expertise means your treatment plan considers the complete picture — your smile, your facial structure, and your confidence — all under one roof.",
-    },
-    {
       name: "Dental Prosthetics",
       description:
         "Custom-crafted dentures, partial dentures, and other prosthetic solutions to restore your smile and chewing function. We use high-quality materials for natural-looking, comfortable results that fit your lifestyle.",
@@ -207,6 +208,12 @@ const servicesData = {
     },
   ],
   es: [
+    {
+      name: "Armonización Facial",
+      featured: true,
+      description:
+        "La Dra. Hernández Bonilla combina su amplia experiencia en cirugía oral con formación avanzada en armonización orofacial para ofrecer tratamientos que van más allá de la sonrisa. Utilizando bioestimuladores de colágeno y las técnicas no quirúrgicas más avanzadas, mejora el equilibrio y la estética facial para una apariencia naturalmente rejuvenecida.\n\nEsta combinación única de experiencia dental y facial significa que su plan de tratamiento considera el panorama completo — su sonrisa, su estructura facial y su confianza — todo bajo un mismo techo.",
+    },
     {
       name: "Implantes Dentales",
       description:
@@ -261,11 +268,6 @@ const servicesData = {
       name: "Cirugía Oral",
       description:
         "Liderada por la Dra. Mariela Hernández Bonilla con 20 años de experiencia quirúrgica, formación avanzada en implantes de la Universidad de Miami y membresía en el International Congress of Oral Implantologists (ICOI). Desde extracciones de muelas del juicio hasta procedimientos quirúrgicos complejos, está en manos de una de las cirujanas orales más experimentadas de la región.\n\nSu filosofía es simple: cada detalle importa cuando se trata de su comodidad y bienestar. Los pacientes confían en ella para sus casos más complejos sabiendo que recibirán atención de clase mundial a una fracción de lo que pagarían en su país.",
-    },
-    {
-      name: "Armonización Facial",
-      description:
-        "La Dra. Hernández Bonilla combina su amplia experiencia en cirugía oral con formación avanzada en armonización orofacial para ofrecer tratamientos que van más allá de la sonrisa. Utilizando bioestimuladores de colágeno y las técnicas no quirúrgicas más avanzadas, mejora el equilibrio y la estética facial para una apariencia naturalmente rejuvenecida.\n\nEsta combinación única de experiencia dental y facial significa que su plan de tratamiento considera el panorama completo — su sonrisa, su estructura facial y su confianza — todo bajo un mismo techo.",
     },
     {
       name: "Prótesis Dentales",
@@ -331,8 +333,13 @@ export default async function ServicesPage({
             {services.map((svc) => (
               <div
                 key={svc.name}
-                className="bg-white rounded-xl p-5 md:p-8 shadow-sm hover:shadow-md transition-shadow"
+                className={`bg-white rounded-xl p-5 md:p-8 shadow-sm hover:shadow-md transition-shadow${svc.featured ? " ring-2 ring-primary/30 relative" : ""}`}
               >
+                {svc.featured && (
+                  <span className="absolute top-4 right-4 text-xs font-semibold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
+                    {locale === "es" ? "Destacado" : "Featured"}
+                  </span>
+                )}
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 mt-1"><ServiceIcon name={svc.name} /></div>
                   <div>

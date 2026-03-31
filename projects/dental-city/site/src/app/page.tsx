@@ -4,32 +4,26 @@ import Link from "next/link";
 const services = [
   {
     name: "Dental Implants",
-    icon: "🦷",
     desc: "Artificial tooth roots that bond with your natural bone, providing a sturdy base for replacement teeth that look and feel natural.",
   },
   {
     name: "Orthodontics",
-    icon: "😁",
     desc: "Over 1,500 completed cases. Straighten your teeth and correct bite issues with modern orthodontic treatments from our specialist.",
   },
   {
     name: "Dental Aesthetics",
-    icon: "✨",
     desc: "Veneers, whitening with the award-winning BEYOND POLUS system, and cosmetic procedures for the confident smile you deserve.",
   },
   {
     name: "Root Canal",
-    icon: "🔬",
     desc: "Save damaged teeth with gentle root canal therapy. We remove infection and seal the tooth to restore its health.",
   },
   {
     name: "Oral Surgery",
-    icon: "⚕️",
     desc: "Expert surgical procedures including extractions, bone grafts, and jaw corrections in a comfortable, modern setting.",
   },
   {
     name: "All-on-Four",
-    icon: "💎",
     desc: "Full-arch rehabilitation with just four implants. Replace removable dentures with a permanent, natural-feeling bridge.",
   },
 ];
@@ -213,7 +207,11 @@ export default function Home() {
                 key={svc.name}
                 className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="text-3xl mb-3">{svc.icon}</div>
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                  <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                  </svg>
+                </div>
                 <h3 className="font-semibold text-lg text-navy mb-2">
                   {svc.name}
                 </h3>

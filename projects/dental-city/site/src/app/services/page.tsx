@@ -12,85 +12,71 @@ const services = [
     name: "Dental Implants",
     description:
       "Think of dental implants as artificial tooth roots, similar in shape to screws. When dental implants are placed in your jawbone, they bond with your natural bone. They become a sturdy base for supporting one or more artificial teeth, called crowns.\n\nModern dental implants have been used successfully for over 30 years. They are the strongest devices available to support replacement teeth and even better, they allow these new teeth to feel, look and function naturally.",
-    icon: "🦷",
   },
   {
     name: "Dental Fillings",
     description:
       "To treat a cavity your dentist will remove the decayed portion of the tooth and then fill the area on the tooth where the decayed material was removed. Filling material is then inserted where the affected area was and the original shape of the tooth is restored.\n\nFillings are also used to repair cracked or broken teeth and teeth that have been worn down from misuse (such as from nail-biting or tooth grinding).",
-    icon: "🔧",
   },
   {
     name: "Dental Crowns",
     description:
       "A dental crown is a tooth-shaped cap that is placed over a tooth to cover the tooth to restore its shape and size, strength, and improve its appearance. The crowns, when cemented into place, fully encase the entire visible portion of a tooth that lies at and above the gum line.\n\nA dental crown may be needed to protect a weak tooth from breaking, restore an already broken tooth, cover and support a tooth with a large filling, hold a dental bridge in place, cover misshapen or severely discolored teeth, cover a dental implant, or make a cosmetic modification.",
-    icon: "👑",
   },
   {
     name: "Dental Bridges",
     description:
       "A bridge is made up of two or more crowns for the teeth on either side of the gap. These anchoring teeth are called abutment teeth, and the false teeth in between are called pontics. Pontics can be made from gold, alloys, porcelain, or a combination of these materials. Dental bridges are supported by natural teeth or implants.",
-    icon: "🌉",
   },
   {
     name: "Dental Veneers",
     description:
       "Dental veneers (sometimes called porcelain veneers or dental porcelain laminates) are wafer-thin, custom-made shells of tooth-colored materials designed to cover the front surface of teeth to improve your appearance. These shells are bonded to the front of the teeth changing their color, shape, size, or length.",
-    icon: "✨",
   },
   {
     name: "Root Canal",
     description:
       "A root canal is a treatment used to repair and save a tooth that is badly decayed or becomes infected. During a root canal procedure, the nerve and pulp are removed and the inside of the tooth is cleaned and sealed. Without treatment, the tissue surrounding the tooth will become infected and abscesses may form.",
-    icon: "🔬",
   },
   {
     name: "All-on-Four",
     description:
       "The term All-on-4 refers to all teeth being supported on four dental implants. It is a surgical and prosthetic procedure for total rehabilitation of patients with badly broken down, decayed, or compromised teeth due to gum disease.\n\nIt is a great way to replace removable full dentures with a permanent, non-removable bridge. This alternative creates much more stability and does not allow movement as it is attached to your dental implants. Additionally, you will not have your palate compromised, improving your sense of taste.",
-    icon: "💎",
   },
   {
     name: "Orthodontics",
     description:
       "Led by Dr. Francisco Rodríguez Chaves with over 15 years of exclusive orthodontic practice and over 1,500 completed cases. Our orthodontic treatments straighten teeth and correct bite issues using the latest techniques. Whether you need traditional braces or modern aligners, a personalized treatment plan will be created to give you a perfect smile.",
-    icon: "😁",
   },
   {
     name: "Periodontics",
     description:
       "Our specialists focus on the prevention, diagnosis, and treatment of gum disease. From deep cleanings to gum surgery, we protect the foundation of your smile: your gums and the bone that supports your teeth.",
-    icon: "🩺",
   },
   {
     name: "Dental X-Rays & CAT Scans",
     description:
       "Our clinic is equipped with state-of-the-art digital imaging technology including CBCT (cone beam computed tomography) and panoramic X-ray systems. Digital X-ray sensors provide lower radiation exposure, instant results, and higher resolution images for precise diagnosis and treatment planning.",
-    icon: "📸",
   },
   {
     name: "Oral Surgery",
     description:
       "Led by Dra. Mariela Hernández Bonilla with 20 years of surgical experience, advanced implant training from the University of Miami, and membership in the International Congress of Oral Implantologists (ICOI). From wisdom tooth extractions to complex surgical procedures, you're in the hands of one of the most experienced oral surgeons in the region.\n\nHer philosophy is simple: every detail matters when it comes to your comfort and well-being. Patients trust her with their most complex cases knowing they'll receive world-class care at a fraction of what they'd pay back home.",
-    icon: "⚕️",
   },
   {
     name: "Facial Harmonization",
     description:
       "Dra. Hernández Bonilla combines her deep expertise in oral surgery with advanced training in orofacial harmonization to offer treatments that go beyond the smile. Using collagen biostimulators and the latest non-surgical techniques, she enhances facial balance and aesthetics for a naturally refreshed appearance.\n\nThis unique combination of dental and facial expertise means your treatment plan considers the complete picture — your smile, your facial structure, and your confidence — all under one roof.",
-    icon: "✨",
   },
   {
     name: "Dental Prosthetics",
     description:
       "Custom-crafted dentures, partial dentures, and other prosthetic solutions to restore your smile and chewing function. We use high-quality materials for natural-looking, comfortable results that fit your lifestyle.",
-    icon: "🦷",
   },
   {
     name: "Teeth Whitening",
     description:
       "We use the BEYOND POLUS ADVANCE whitening system, winner of the Top Whitening System award for 8 consecutive years. This professional-grade system delivers dramatically whiter teeth in a single visit, safely and comfortably.\n\nThe BEYOND POLUS ADVANCE uses a combination of halogen and LED light technology to accelerate the whitening process while minimizing sensitivity. Results are visible immediately, giving you a brighter, more confident smile.",
-    icon: "🌟",
   },
 ];
 
@@ -120,7 +106,11 @@ export default function ServicesPage() {
                 className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-4">
-                  <div className="text-4xl flex-shrink-0">{svc.icon}</div>
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                    </svg>
+                  </div>
                   <div>
                     <h2 className="text-xl font-semibold text-navy mb-3">
                       {svc.name}

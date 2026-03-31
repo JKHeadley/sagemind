@@ -41,7 +41,7 @@ export default function VideoPlayer({ src, className = "", aspect = "aspect-vide
           src={src}
           onEnded={handleEnded}
           playsInline
-          preload="none"
+          preload="metadata"
           className={`w-full h-full ${contain ? "object-contain bg-black" : "object-cover"}`}
         />
       </div>
