@@ -1,0 +1,16 @@
+# Revision de los Cristianos Nazoreos/Galileos (Parte 1. Juan el Bautista y los 72 Seguidores)
+
+
+Los nazoreos eran un grupo religioso antiguo mencionado en el Nuevo Testamento, particularmente en relacion con el cristianismo primitivo. El termino "nazoreo" (o "nazareno") se usa a veces para referirse a los primeros seguidores de Jesucristo, frecuentemente empleado de manera intercambiable con "cristianos" en ciertos textos biblicos. Sin embargo, el termino puede tener diferentes interpretaciones segun el contexto.
+
+	1.	Contexto Historico: El termino probablemente se refiere a Jesus de Nazaret y sus seguidores. "Nazoreo" podria significar personas de Nazaret, el pueblo donde Jesus crecio, aunque tambien pudo haber senalado una secta especifica con creencias distintivas.
+
+	2.	Relacion con los Esenios: Algunos eruditos sugieren que los nazoreos podrian haber estado conectados con los esenios, una secta judia conocida por su estilo de vida ascetico, comunidades monasticas y creencias apocalipticas. Aunque la conexion exacta es debatida, algunos grupos cristianos primitivos pudieron haber compartido ideas similares con los esenios.
+
+	3.	Los Nazoreos como Secta: Tambien hubo grupos en los primeros siglos que se identificaban como nazoreos, frecuentemente vistos como cristianos judios, distintos de la Iglesia Romana mas amplia. Estos grupos mantenian las tradiciones y practicas judias mientras seguian a Jesus.
+
+Los esenios eran conocidos por su estricto estilo de vida ascetico, que incluia el celibato como parte de su compromiso con la pureza. Algunas comunidades esenias, especialmente las de Qumran, practicaban el celibato, creyendo que abstenerse de las relaciones sexuales era una forma de permanecer espiritualmente puros y evitar la contaminacion. Tambien tenian reglas estrictas sobre el matrimonio y la procreacion, viendo el celibato como un camino hacia una forma superior de dedicacion espiritual.
+
+Los nazoreos, por otra parte, generalmente no abrazaban el celibato de la misma manera. De hecho, las ensenanzas de Jesus, tal como se registran en el Nuevo Testamento, no abogan por el celibato sino mas bien por un enfoque en los asuntos espirituales y el comportamiento etico. Aunque algunos cristianos primitivos pudieron haber elegido el celibato por razones personales o espirituales (por ejemplo, algunos seguidores de Jesus como Pablo lo sugirieron como una forma de dedicarse plenamente a Dios), el celibato no era un principio central del movimiento nazoreo. De hecho, el propio Jesus es frecuentemente representado interactuando con familias, compartiendo comidas con ellas, e incluso realizando milagros relacionados con la vida familiar (por ejemplo, la curacion de la suegra de Pedro), sugiriendo que el matrimonio y la vida familiar no eran inherentemente opuestos a sus ensenanzas.
+
+Por lo tanto, el enfasis de los esenios en el celibato probablemente contrastaba con el enfoque mas inclusivo y orientado a la familia de los nazoreos, siendo la contribucion definitiva a su cisma. Esta cuestion del celibato versus el matrimonio pudo haber sido un punto de discordia teologica y practica entre los dos grupos, especialmente a medida que las ensenanzas cristianas primitivas comenzaron a difundirse y atraer seguidores de una gama mas amplia de origenes.

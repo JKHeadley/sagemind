@@ -1,0 +1,16 @@
+# Examen des chretiens nazoreens/galileens (Partie 1. Jean le Baptiste et les 72 disciples)
+
+
+Les Nazoreens etaient un ancien groupe religieux mentionne dans le Nouveau Testament, en particulier en relation avec le christianisme primitif. Le terme « Nazoreen » (ou « Nazareen ») est parfois utilise pour designer les premiers disciples de Jesus-Christ, souvent employe de maniere interchangeable avec « chretiens » dans certains textes bibliques. Cependant, le terme peut avoir differentes interpretations selon le contexte.
+
+	1.	Contexte historique : Le terme designe probablement Jesus de Nazareth et ses disciples. « Nazoreen » pouvait signifier les gens de Nazareth, la ville ou Jesus grandit, bien qu'il ait pu aussi designer une secte specifique aux croyances distinctes.
+
+	2.	Relation avec les Esseniens : Certains chercheurs suggerent que les Nazoreens pourraient avoir ete lies aux Esseniens, une secte juive connue pour son mode de vie ascetique, ses communautes monastiques et ses croyances apocalyptiques. Bien que la connexion exacte soit debattue, certains groupes chretiens primitifs ont pu partager des idees similaires avec les Esseniens.
+
+	3.	Les Nazoreens comme secte : Il existait aussi des groupes dans les premiers siecles qui s'identifiaient comme Nazoreens, souvent consideres comme des chretiens juifs, distincts de l'Eglise romaine plus large. Ces groupes maintenaient les traditions et pratiques juives tout en suivant Jesus.
+
+Les Esseniens etaient connus pour leur mode de vie ascetique strict, qui incluait le celibat comme partie de leur engagement envers la purete. Certaines communautes esseniennes, surtout celles de Qumran, pratiquaient le celibat, croyant que s'abstenir de relations sexuelles etait un moyen de rester spirituellement pur et d'eviter la souillure. Ils avaient aussi des regles strictes concernant le mariage et la procreation, voyant le celibat comme un chemin vers une forme superieure de dedicace spirituelle.
+
+Les Nazoreens, en revanche, n'embrassaient generalement pas le celibat de la meme maniere. En fait, les enseignements de Jesus, tels que rapportes dans le Nouveau Testament, ne preconisent pas le celibat mais plutot une concentration sur les questions spirituelles et le comportement ethique. Bien que certains premiers chretiens aient pu choisir le celibat pour des raisons personnelles ou spirituelles (par exemple, certains disciples de Jesus comme Paul le suggeraient comme moyen de se consacrer pleinement a Dieu), le celibat n'etait pas un principe central du mouvement nazoreen. En fait, Jesus lui-meme est souvent represente interagissant avec des familles, mangeant des repas avec eux, et meme accomplissant des miracles lies a la vie familiale (par ex. la guerison de la belle-mere de Pierre), suggerant que le mariage et la vie de famille n'etaient pas inheremment opposes a ses enseignements.
+
+Par consequent, l'accent des Esseniens sur le celibat contrastait probablement avec l'approche plus inclusive et orientee vers la famille des Nazoreens, constituant la contribution ultime a leur schisme. Cette question du celibat contre le mariage pourrait avoir ete un point de discorde theologique et pratique entre les deux groupes, surtout lorsque les enseignements chretiens primitifs commencerent a se repandre et a attirer des disciples d'origines plus diverses.

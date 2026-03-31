@@ -1,0 +1,368 @@
+{
+  "title": "The Hidden Gate",
+  "subtitle": "An Analytical Framework for the Seen and the Unseen",
+  "languages": ["en", "es", "nl", "fr", "pt"],
+  "defaultLanguage": "es",
+  "parts": [
+    {
+      "id": "front-matter",
+      "title": "Front Matter",
+      "dir": "00-front-matter",
+      "sections": [
+        { "id": "dedication", "title": "Dedication", "file": "dedication.md" },
+        { "id": "preface", "title": "Preface", "file": "preface.md" },
+        { "id": "table-of-contents", "title": "Table of Contents", "file": "table-of-contents.md" }
+      ]
+    },
+    {
+      "id": "part-1",
+      "title": "Part I: The Seen (Exoteric Foundations)",
+      "subtitle": "A structural approach to material, psychological, and civil knowledge",
+      "chapters": [
+        {
+          "id": "ch1-analysis",
+          "number": 1,
+          "title": "Analysis",
+          "dir": "01-analysis",
+          "sections": [
+            { "id": "self-similarity", "title": "Self-Similarity", "file": "self-similarity.md" },
+            { "id": "metacognition", "title": "Brief Review of Metacognition", "file": "metacognition.md" },
+            { "id": "semiotics", "title": "Brief Review of Semiotics", "file": "semiotics.md" },
+            { "id": "etymology", "title": "Brief Review of Etymology", "file": "etymology.md" },
+            { "id": "socio-onomastics", "title": "Brief Review of Socio-Onomastics", "file": "socio-onomastics.md" },
+            { "id": "yogacara-analysis", "title": "Yogacara Analysis", "file": "yogacara-analysis.md" },
+            { "id": "intelligence-analysis", "title": "Intelligence Analysis", "file": "intelligence-analysis.md" },
+            { "id": "logical-fallacies", "title": "List of Logical Fallacies", "file": "logical-fallacies.md" },
+            { "id": "biases", "title": "List of Biases", "file": "biases.md" },
+            { "id": "language-learning", "title": "Language Learning", "file": "language-learning.md" }
+          ]
+        },
+        {
+          "id": "ch2-material-science",
+          "number": 2,
+          "title": "Material Science",
+          "dir": "02-material-science",
+          "sections": [
+            { "id": "physics", "title": "Brief Review of Physics", "file": "brief-review-of-physics.md" },
+            { "id": "thermodynamics", "title": "Brief Review of Thermodynamics", "file": "thermodynamics.md" },
+            { "id": "chemistry", "title": "Brief Review of Chemistry", "file": "brief-review-of-chemistry.md" }
+          ]
+        },
+        {
+          "id": "ch3-biology",
+          "number": 3,
+          "title": "Biology",
+          "dir": "03-biology",
+          "sections": [
+            { "id": "biology", "title": "Brief Review of Biology", "file": "brief-review-of-biology.md" },
+            { "id": "web-of-life", "title": "Web of Life", "file": "web-of-life.md" },
+            { "id": "evolution", "title": "Evolution", "file": "evolution.md" }
+          ]
+        },
+        {
+          "id": "ch4-psychology",
+          "number": 4,
+          "title": "Psychology",
+          "dir": "04-psychology",
+          "sections": [
+            { "id": "psychodynamics", "title": "Brief Review of Psychodynamics", "file": "brief-review-of-psychodynamics.md" },
+            { "id": "personality", "title": "Personality and Behavior", "file": "personality-and-behavior.md" },
+            { "id": "cognitive-framing", "title": "Cognitive Framing", "file": "cognitive-framing.md" }
+          ]
+        },
+        {
+          "id": "ch5-music",
+          "number": 5,
+          "title": "Music",
+          "dir": "05-music",
+          "sections": [
+            { "id": "music-theory", "title": "Brief Review of Music Theory", "file": "brief-review-of-music-theory.md" },
+            { "id": "circle-of-fifths", "title": "Circle of Fifths", "file": "circle-of-fifths.md" },
+            { "id": "role-of-music", "title": "The Role of Music", "file": "the-role-of-music.md" },
+            { "id": "psalms-quran", "title": "Psalms and the Quran", "file": "the-psalms-and-the-quran.md" }
+          ]
+        },
+        {
+          "id": "ch6-philosophy",
+          "number": 6,
+          "title": "Philosophy",
+          "dir": "06-philosophy",
+          "sections": [
+            { "id": "ontology", "title": "Ontology", "file": "ontology.md" },
+            { "id": "epistemology", "title": "Epistemology", "file": "epistemology.md" },
+            { "id": "aesthetics", "title": "Aesthetics", "file": "aesthetics.md" }
+          ]
+        },
+        {
+          "id": "ch7-law",
+          "number": 7,
+          "title": "Law",
+          "dir": "07-law",
+          "sections": [
+            { "id": "ethics", "title": "Ethics", "file": "ethics.md", "placeholder": true },
+            { "id": "law", "title": "Brief Review of Law", "file": "brief-review-of-law.md" },
+            { "id": "international-law", "title": "Brief Review of International Law", "file": "brief-review-of-international-law.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "Part II: The Unseen (Esoteric Structures)",
+      "subtitle": "An initiatory map of symbolic, spiritual, and mythic systems",
+      "chapters": [
+        {
+          "id": "ch8-religious-transmissions",
+          "number": 8,
+          "title": "Religious Transmissions",
+          "dir": "08-religious-transmissions",
+          "sections": [
+            { "id": "seven-churches", "title": "The 7 Churches", "file": "the-seven-churches.md" },
+            { "id": "post-inquisitional-trauma", "title": "Post-Inquisitional Trauma", "file": "post-inquisitional-trauma.md" }
+          ],
+          "subchapters": [
+            {
+              "id": "eastern-transmissions",
+              "title": "Eastern Transmissions",
+              "dir": "eastern-transmissions",
+              "sections": [
+                { "id": "shamans", "title": "Shamans of the Eurasian Steppes", "file": "shamans-of-the-eurasian-steppes.md" }
+              ],
+              "subchapters": [
+                {
+                  "id": "indo-iranian",
+                  "title": "Indo-Iranian Transmission",
+                  "dir": "indo-iranian",
+                  "sections": [
+                    { "id": "persian-religions", "title": "Brief Explication of Persian Religions and Their Influence on the Abrahamic Faiths", "file": "brief-explication-of-persian-religions-and-their-influence-on-the.md" },
+                    { "id": "tauroctony", "title": "Brief Analysis of The Tauroctony", "file": "brief-analysis-of-the-tauroctany.md" },
+                    { "id": "indus-valley", "title": "Brief Review of Religion and Spirituality in the Indus Valley", "file": "brief-review-of-religion-and-spirituality-in-the-indus-valley.md" },
+                    { "id": "advaita-vedanta", "title": "Brief Review of Advaita Vedanta", "file": "brief-review-of-advaita-vedanta.md" },
+                    { "id": "shaivism", "title": "Brief Review of Shaivism", "file": "brief-review-of-shaivism.md" }
+                  ]
+                },
+                {
+                  "id": "taoist",
+                  "title": "Taoist Transmission",
+                  "dir": "taoist",
+                  "sections": [
+                    { "id": "taoism", "title": "Brief Review of Taoism", "file": "brief-review-of-taoism.md" }
+                  ]
+                },
+                {
+                  "id": "buddhist",
+                  "title": "Buddhist Transmission",
+                  "dir": "buddhist",
+                  "sections": [
+                    { "id": "yogacara", "title": "Brief Review of Yogacara Tradition", "file": "brief-review-of-the-yogacara-tradition.md" },
+                    { "id": "tibetan-buddhism", "title": "Brief Review of Tibetan Buddhism", "file": "brief-review-of-tibetan-buddhism.md" },
+                    { "id": "buddhist-transmission", "title": "Brief Review of Buddhist Transmission from Siddhartha Gautama to Madame Blavatsky", "file": "brief-review-of-buddhist-transmission-from-siddhartha-gautama-to-madame.md" }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "abrahamic-transmissions",
+              "title": "Abrahamic Transmissions",
+              "dir": "abrahamic-transmissions",
+              "sections": [
+                { "id": "divinity-conflict", "title": "1st Century Abrahamic Divinity Conflict", "file": "1st-century-abrahamic-divinity-conflict.md" }
+              ],
+              "subchapters": [
+                {
+                  "id": "judaic",
+                  "title": "Judaic Transmission",
+                  "dir": "judaic",
+                  "sections": [
+                    { "id": "laws-torah", "title": "The Laws of Torah", "file": "the-laws-of-torah.md" },
+                    { "id": "first-temple", "title": "Brief History of First Temple Judaism", "file": "brief-history-of-first-temple-judaism.md" },
+                    { "id": "second-temple", "title": "Brief History of Second Temple Judaism", "file": "brief-history-of-second-temple-judaism.md" },
+                    { "id": "temple-comparison", "title": "Comparison of First and Second Temple Judaism", "file": "comparison-of-first-and-second-temple-judaism.md" },
+                    { "id": "jewish-sects", "title": "Brief Comparison of Jewish Sects During Second Temple Period", "file": "brief-comparisons-of-jewish-sects-during-second-temple-period.md" },
+                    { "id": "dead-sea-scrolls", "title": "Brief Review of Dead-Sea Scrolls", "file": "brief-review-of-dead-sea-scrolls.md" },
+                    { "id": "noetic-commandments", "title": "The Noetic Commandments for Non-Jews", "file": "the-noetic-commandments-for-non-jews.md" },
+                    { "id": "kabbalah", "title": "Brief Review of Jewish Kabbalah", "file": "brief-review-of-jewish-kabbalah.md" },
+                    { "id": "yeshu", "title": "Yeshu ha-Notzri", "file": "yeshu-ha-notzri.md" },
+                    { "id": "solomonic-royal-arch", "title": "Review of Solomonic Inspired Initiations: Royal Arch Masonry", "file": "review-of-solomonic-initiations-royal-arch-masonry.md" },
+                    { "id": "solomonic-cryptic", "title": "Review of Solomonic Inspired Initiations: Cryptic Masonry", "file": "review-of-solomonic-initiations-cryptic-masonry.md" }
+                  ]
+                },
+                {
+                  "id": "christian",
+                  "title": "Christian Transmission",
+                  "dir": "christian",
+                  "sections": [
+                    { "id": "early-gospels", "title": "Brief Review of Early Christian Gospels Both Canonical and Non-Canonical", "file": "brief-review-of-early-christian-gospels-both-canonical-and-non-canonical.md" },
+                    { "id": "nazorean-part1", "title": "Review of Nazorean/Galilean Christians — Part I: John the Baptist and The 72 Followers", "file": "review-of-nazoreangalilean-christians-part-1-john-the-baptist.md" },
+                    { "id": "nazorean-part2", "title": "Review of Nazorean/Galilean Christians — Part II: Gospel Composition Dating", "file": "review-of-nazoreangalilean-christians-part-2-gospel-composition.md" },
+                    { "id": "nazorean-part3", "title": "Review of Nazorean/Galilean Christians — Part III: Speculative Gospel Reconstruction", "file": "review-of-nazoreangalilean-christians-part-3-speculative-gospel.md" },
+                    { "id": "peter-vs-paul", "title": "Brief Comparison of Peter vs. Paul", "file": "brief-review-of-peter-vs-paul.md" },
+                    { "id": "coptic-ethiopian", "title": "Brief Review of The Coptic and Ethiopian Church", "file": "brief-review-of-the-coptic-and-ethiopian-church.md" },
+                    { "id": "valentinian", "title": "Brief Review of The Valentinian School", "file": "brief-review-of-the-valentinian-school.md" },
+                    { "id": "modern-christianities", "title": "Comparing Modern Existing Christianities", "file": "comparing-modern-existent-christianities.md" },
+                    { "id": "neo-templar", "title": "Modern Neo-Templar Mythology", "file": "modern-neo-templar-mythology.md" },
+                    { "id": "templar-initiations", "title": "Review of Templar Inspired Initiations: Knights Templar Degrees", "file": "review-of-templar-inspired-initiations-preserved-within-york-rite.md" }
+                  ]
+                },
+                {
+                  "id": "islamic",
+                  "title": "Islamic Transmission",
+                  "dir": "islamic",
+                  "sections": [
+                    { "id": "shia-islam", "title": "Brief Explication of Shia Islam and Transmission", "file": "brief-explication-of-shia-islam-and-transmission.md" },
+                    { "id": "islamic-part1", "title": "Review of Islamic Transmission Given to Templars — Part I: Ja'far al-Sadiq", "file": "review-of-islamic-transmission-given-to-templars-part-i-jafar-al.md" },
+                    { "id": "islamic-part2", "title": "Review of Islamic Transmission Given to Templars — Part II: Zaydism", "file": "review-of-islamic-transmission-given-to-templars-part-ii-zaydism.md" },
+                    { "id": "islamic-part3", "title": "Review of Islamic Transmission Given to Templars — Part III: The Ikhwan al-Safa'", "file": "review-of-islamic-transmission-given-to-templars-part-iii-the-ikhwn.md" },
+                    { "id": "islamic-part4", "title": "Review of Islamic Transmission Given to Templars — Part IV: Fatimid Caliphate", "file": "review-of-islamic-transmission-given-to-templars-part-iv-fatimid.md" },
+                    { "id": "islamic-part5", "title": "Review of Islamic Transmission Given to Templars — Part V: Hikmat al-Ishraq", "file": "review-of-islamic-transmission-given-to-templars-part-v-ikmat-al.md" },
+                    { "id": "islamic-part6", "title": "Review of Islamic Transmission Given to Templars — Part VI: The Nizari Ismaili State", "file": "review-of-islamic-transmission-given-to-templars-part-vi-the-nizari.md" },
+                    { "id": "surah-an-nisa", "title": "Surah An-Nisa (4:157)", "file": "surah-an-nisa-4157.md" },
+                    { "id": "sultan-muhammad", "title": "Brief Review of Sultan Muhammad III of Morocco and His Role in the Formation of America", "file": "brief-review-of-sultan-muhammad-iii-of-morocco-and-his-role-in-the.md" }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "new-world-transmissions",
+              "title": "New World Transmissions",
+              "dir": "new-world-transmissions",
+              "sections": [
+                { "id": "religion-new-world", "title": "Religion in the New World", "file": "religion-in-the-new-world.md" }
+              ],
+              "subchapters": [
+                {
+                  "id": "pre-colonial",
+                  "title": "Pre-Colonial Transmission",
+                  "dir": "pre-colonial",
+                  "sections": [
+                    { "id": "african-spirituality", "title": "Brief Review of African Spirituality", "file": "brief-review-of-african-spirituality.md" },
+                    { "id": "american-spirituality", "title": "Brief Review of American Spirituality", "file": "brief-review-of-american-spirituality.md" }
+                  ]
+                },
+                {
+                  "id": "post-colonial",
+                  "title": "Post-Colonial Transmission",
+                  "dir": "post-colonial",
+                  "sections": [
+                    { "id": "regla-de-ocha", "title": "Brief Review of Regla De Ocha", "file": "brief-review-of-regla-de-ocha.md" },
+                    { "id": "palo-kimbisa", "title": "Brief Review of Palo Kimbisa", "file": "brief-review-of-palo-kimbisa.md" },
+                    { "id": "curanderismo", "title": "Brief Review of Curanderismo", "file": "brief-review-of-curanderismo.md" },
+                    { "id": "espiritismo", "title": "Brief Review of Espiritismo", "file": "brief-review-of-espiritismo.md" },
+                    { "id": "rastafarianism", "title": "Brief Review of Rastafarianism", "file": "brief-review-of-rastafarianism.md" }
+                  ]
+                },
+                {
+                  "id": "theosophical",
+                  "title": "Theosophical Transmission",
+                  "dir": "theosophical",
+                  "sections": [
+                    { "id": "theosophy", "title": "Brief Review of Theosophy", "file": "brief-review-of-theosophy.md" },
+                    { "id": "secret-doctrine-cosmogenesis", "title": "Brief Review of The Secret Doctrine — Cosmogenesis", "file": "brief-review-of-the-secret-doctrine-part-i-cosmogenesis.md" },
+                    { "id": "secret-doctrine-anthropogenesis", "title": "Brief Review of The Secret Doctrine — Anthropogenesis", "file": "brief-review-of-the-secret-doctrine-part-ii-anthropogenesis.md" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch9-comparative-myth",
+          "number": 9,
+          "title": "Comparative Myth and Religion",
+          "dir": "09-comparative-myth-and-religion",
+          "sections": [
+            { "id": "tropes", "title": "Brief Explication of Tropes", "file": "brief-explication-of-tropes.md" },
+            { "id": "syncretism", "title": "Religious Syncretism", "file": "religious-syncretism.md" },
+            { "id": "quintessential-myth", "title": "The Quintessential Myth", "file": "the-quintessential-myth.md" },
+            { "id": "chaoskampf", "title": "Chaoskampf", "file": "chaoskampf.md" },
+            { "id": "foundational-myth", "title": "Foundational Myth", "file": "foundational-myth.md" },
+            { "id": "myth-of-perseus", "title": "The Myth of Perseus", "file": "the-myth-of-perseus.md", "placeholder": true },
+            { "id": "indian-iranian-split", "title": "The Indian and Iranian Split", "file": "the-indian-and-iranian-split.md" },
+            { "id": "daughters-of-allah", "title": "The Daughters of Allah, The Norns and the Fates", "file": "the-daughters-of-allah-the-norns-and-the-fates.md" },
+            { "id": "dharma-abrahamic", "title": "The Dharma Religion Underneath The Abrahamic Religions", "file": "the-dharma-religion-underneath-abrahamic-religions.md" },
+            { "id": "iberia-latin-america", "title": "Iberia and Latin America", "file": "iberia-and-latin-america.md" }
+          ]
+        },
+        {
+          "id": "ch10-mysteries",
+          "number": 10,
+          "title": "Mysteries",
+          "dir": "10-mysteries",
+          "sections": [
+            { "id": "charge-against-jesus", "title": "The Charge Against Jesus", "file": "the-charge-against-jesus.md" }
+          ],
+          "subchapters": [
+            {
+              "id": "division-of-bodies",
+              "title": "Division of Bodies",
+              "dir": "division-of-bodies",
+              "sections": [
+                { "id": "egyptians", "title": "According to Egyptians", "file": "according-to-egyptians.md" },
+                { "id": "blavatsky", "title": "According to Blavatsky", "file": "according-to-blavatsky.md" }
+              ]
+            },
+            {
+              "id": "astrology",
+              "title": "Astrology",
+              "dir": "astrology",
+              "sections": [
+                { "id": "sasanian-astrology", "title": "Sasanian Persian Astrology", "file": "sasanian-persian-astrology.md" },
+                { "id": "mayan-astrology", "title": "Mayan Astrology", "file": "mayan-astrology.md" },
+                { "id": "chinese-astrology", "title": "Chinese Astrology", "file": "chinese-astrology.md" },
+                { "id": "natal-chart", "title": "Natal Chart in Western Astrology", "file": "natal-chart-in-western-astrology.md" },
+                { "id": "draconic-chart", "title": "The Draconic Chart", "file": "the-draconic-chart.md" },
+                { "id": "glyphs", "title": "Planetary and Other Important Glyphs", "file": "planetary-and-other-important-glyphs.md" },
+                { "id": "houses", "title": "Houses", "file": "houses.md" },
+                { "id": "lunar-mansions", "title": "Lunar Mansions", "file": "lunar-mansions.md" },
+                { "id": "full-moon-names", "title": "List of Full Moon Names", "file": "names-of-full-moons-by-month.md" },
+                { "id": "abrahamic-correspondences", "title": "Abrahamic Correspondences", "file": "abrahamic-correspondences.md" },
+                { "id": "tree-of-life", "title": "Tree of Life", "file": "the-tree-of-life.md" },
+                { "id": "twin-mystery", "title": "Twin Mystery", "file": "twin-mystery.md" }
+              ]
+            },
+            {
+              "id": "numerology",
+              "title": "Numerology",
+              "dir": "numerology",
+              "sections": [
+                { "id": "pythagorean", "title": "Pythagorean Numerology", "file": "pythagorean-numerology.md" },
+                { "id": "arabic-gematria", "title": "Arabic Gematria", "file": "arabic-gematria.md" }
+              ]
+            },
+            {
+              "id": "theophany",
+              "title": "Theophany",
+              "dir": "theophany",
+              "sections": [
+                { "id": "theophany-intro", "title": "Brief Explication of Theophany", "file": "brief-explication-of-theophany.md" },
+                { "id": "the-72", "title": "The 72", "file": "the-72.md" },
+                { "id": "theurgy", "title": "Common Language of Theurgy", "file": "common-language-of-theurgy.md" },
+                { "id": "synchronicities", "title": "Synchronicities", "file": "synchronicities.md" }
+              ]
+            },
+            {
+              "id": "illusion-casting",
+              "title": "Illusion Casting and Perception Manipulation",
+              "dir": "illusion-casting",
+              "sections": [
+                { "id": "history-magic-war", "title": "History of Magic in War", "file": "history-of-magic-in-war.md" },
+                { "id": "magical-warfare", "title": "Magical Warfare", "file": "magical-warfare.md" },
+                { "id": "tricknology", "title": "Tricknology", "file": "tricknology.md" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ch11-initiation-rite",
+          "number": 11,
+          "title": "Initiation Rite",
+          "dir": "11-initiation-rite",
+          "sections": [
+            { "id": "secret-rite", "title": "Secret Rite of John the Apostle (A Speculative Take on The Book of Revelation as an Initiation Rite)", "file": "secret-rite-of-john-the-apostle-a-speculative-take-on-the-book-of.md" },
+            { "id": "secret-phrase", "title": "Secret Phrase", "file": "secret-phrase.md" }
+          ]
+        }
+      ]
+    }
+  ]
+}
