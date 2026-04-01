@@ -1,15 +1,5 @@
 [
   {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-27T15:36:45.522Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
     "feature": "SemanticMemory",
     "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
     "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
@@ -998,5 +988,15 @@
     "timestamp": "2026-04-01T16:56:52.379Z",
     "reported": true,
     "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Attempt auto-resolution of conflicts",
+    "reason": "Why: Command failed: git pull --rebase --autostash\nfatal: mmap failed: Resource deadlock avoided\n",
+    "impact": "Conflicts may not auto-resolve correctly",
+    "timestamp": "2026-04-01T16:59:00.139Z",
+    "reported": false,
+    "alerted": false
   }
 ]
