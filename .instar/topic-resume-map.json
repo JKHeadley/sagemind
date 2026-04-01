@@ -1,22 +1,12 @@
 {
-  "6": {
-    "uuid": "4ec810fb-b688-4ab9-8617-c36d11e174ad",
-    "savedAt": "2026-03-25T06:53:00.400Z",
+  "30": {
+    "uuid": "33728760-9b7b-4064-b796-b594b46e062d",
+    "savedAt": "2026-04-01T05:56:02.290Z",
+    "sessionName": "sagemind-lifeline"
+  },
+  "358": {
+    "uuid": "3201589f-d9ce-4df9-97c3-23c7368bedcf",
+    "savedAt": "2026-03-31T21:16:01.493Z",
     "sessionName": "sagemind-agent-updates"
-  },
-  "7": {
-    "uuid": "2b563ae0-7aac-4196-a0f9-5e431cdc30b6",
-    "savedAt": "2026-03-25T08:59:27.815Z",
-    "sessionName": "sagemind-agent-attention"
-  },
-  "365": {
-    "uuid": "77ffd1d6-5808-42ce-9683-3e879b65b44f",
-    "savedAt": "2026-03-25T03:13:01.897Z",
-    "sessionName": "sagemind-gci"
-  },
-  "748": {
-    "uuid": "2b563ae0-7aac-4196-a0f9-5e431cdc30b6",
-    "savedAt": "2026-03-25T03:28:57.316Z",
-    "sessionName": "sagemind-topic-748"
   }
 }
