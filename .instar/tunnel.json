@@ -1,7 +1,5 @@
 {
-  "url": "https://telescope-polls-moms-tune.trycloudflare.com",
+  "url": null,
   "type": "quick",
-  "startedAt": "2026-04-01T16:29:27.290Z",
-  "connectionId": "21b264f5-0945-47d0-bed7-595428f2aa45",
-  "connectionLocation": "sjc05"
+  "startedAt": null
 }
