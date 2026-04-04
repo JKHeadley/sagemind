@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sagemind AI — Investor Readiness Plan</title>
+<style>
+  @page {
+    margin: 0.6in 0.7in;
+    size: letter;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.4;
+    color: #1a1a1a;
+    background: #fff;
+  }
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    background: linear-gradient(135deg, #02222e 0%, #014f4f 50%, #008276 100%);
+    color: #fff;
+    padding: 2in 1in;
+  }
+  .cover img { width: 180px; margin-bottom: 30px; }
+  .cover h1 { font-size: 28pt; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+  .cover .subtitle { font-size: 14pt; color: #08f1c7; font-weight: 400; margin-bottom: 40px; }
+  .cover .meta { font-size: 10pt; color: rgba(255,255,255,0.7); line-height: 1.6; }
+  .cover .confidential {
+    margin-top: 50px;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 15px;
+  }
+
+  .content { padding: 0 40px; }
+
+  /* Headers */
+  h2 {
+    font-size: 14pt;
+    color: #02222e;
+    border-bottom: 2px solid #08f1c7;
+    padding-bottom: 4px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt;
+    color: #014f4f;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    page-break-after: avoid;
+  }
+  h4 {
+    font-size: 10pt;
+    color: #008276;
+    margin-top: 8px;
+    margin-bottom: 3px;
+  }
+
+  p { margin-bottom: 4px; }
+  ul, ol { margin: 2px 0 4px 18px; }
+  li { margin-bottom: 1px; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4px 0 8px 0;
+    font-size: 8.5pt;
+  }
+  th {
+    background: #02222e;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 4px 8px;
+    font-size: 8pt;
+  }
+  td {
+    padding: 3px 8px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fafa; }
+  .financial td:last-child, .financial th:last-child { text-align: right; }
+
+  /* Callout boxes */
+  .callout {
+    background: #f0faf8;
+    border-left: 3px solid #08f1c7;
+    padding: 6px 10px;
+    margin: 4px 0 8px 0;
+    font-size: 8.5pt;
+    color: #014f4f;
+  }
+  .callout-warn {
+    background: #fff8e6;
+    border-left: 3px solid #e6a800;
+    padding: 6px 10px;
+    margin: 4px 0 8px 0;
+    font-size: 8.5pt;
+    color: #7a5200;
+  }
+  .callout strong, .callout-warn strong { font-weight: 600; }
+
+  /* Checklist */
+  .checklist { list-style: none; margin-left: 0; }
+  .checklist li { padding: 1px 0; }
+  .checklist li::before { content: "\2610 "; color: #999; margin-right: 4px; }
+  .checklist li.done::before { content: "\2611 "; color: #008276; }
+
+  /* Page header */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+  }
+  .page-header img { height: 32px; }
+  .page-header span { font-size: 7.5pt; color: #999; }
+
+  /* Section break */
+  .section-break { page-break-before: always; }
+
+  /* Two column layout */
+  .two-col { display: flex; gap: 16px; }
+  .two-col > div { flex: 1; }
+
+  /* Highlight numbers */
+  .metric {
+    display: inline-block;
+    background: #02222e;
+    color: #08f1c7;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 9pt;
+  }
+
+  /* Footer for print */
+  @media print {
+    .cover { min-height: 100vh; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  .toc { margin: 16px 0; }
+  .toc a { color: #014f4f; text-decoration: none; }
+  .toc li { margin-bottom: 2px; font-size: 9.5pt; }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <img src="logo-dark.png" alt="Sagemind AI">
+  <h1>Investor Readiness Plan</h1>
+  <div class="subtitle">Internal Working Document</div>
+  <div class="meta">
+    Sagemind AI LLC<br>
+    Justin Headley, Founder & Technical Lead<br>
+    Adriana Headley, Operations & Business<br>
+    <br>
+    sagemindai.io &nbsp;|&nbsp; Bay Area, CA &nbsp;|&nbsp; Nevada LLC<br>
+    <br>
+    March 31, 2026
+  </div>
+  <div class="confidential">Confidential &mdash; Not for Distribution</div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="content">
+<div class="page-header">
+  <img src="logo-dark.png" alt="Sagemind AI">
+  <span>Investor Readiness Plan &mdash; Confidential</span>
+</div>
+
+<h2>Table of Contents</h2>
+<ol class="toc">
+  <li>Current State &amp; Snapshot</li>
+  <li>Foundational Business Concepts</li>
+  <li>Revenue Streams &amp; Business Model</li>
+  <li>Financial Model (2025 Actuals)</li>
+  <li>Business Plan (Lean)</li>
+  <li>Pitch Deck Outline</li>
+  <li>Legal Checklist</li>
+  <li>Due Diligence Package</li>
+  <li>Go-to-Market Deep Dive</li>
+  <li>Decisions &amp; Open Questions</li>
+</ol>
+
+<!-- ============================================================ -->
+<h2 class="section-break">1. Current State</h2>
+
+<div class="two-col">
+<div>
+  <h4>Company</h4>
+  <ul>
+    <li><strong>Entity:</strong> Sagemind AI LLC (Nevada)</li>
+    <li><strong>Domain:</strong> sagemindai.io</li>
+    <li><strong>Team:</strong> Justin (tech) + Adriana (ops)</li>
+    <li><strong>Ownership:</strong> Justin Headley, 100%</li>
+  </ul>
+</div>
+<div>
+  <h4>Key Metrics</h4>
+  <ul>
+    <li><strong>2025 Revenue:</strong> <span class="metric">$46,878</span></li>
+    <li><strong>2026 Q1:</strong> <span class="metric">$25,093</span> (~2x YoY)</li>
+    <li><strong>Net Margin:</strong> <span class="metric">60.5%</span></li>
+    <li><strong>Cash on Hand:</strong> <span class="metric">$12,996</span> (Mar 31, 2026)</li>
+  </ul>
+</div>
+</div>
+
+<p><strong>Revenue streams:</strong> AI consulting/integration, Bot-Me platform (SaaS, owned), Dawn product (owned), AI Guy (profit-sharing with LSB).</p>
+<p><strong>Potential investor:</strong> Gregg Medgalia &mdash; CEO of B2Lead (Sagemind's largest client, 58% of Q1 revenue) and Vistage network member. Expressed interest March 19, 2026. He has firsthand proof of Sagemind's work quality.</p>
+
+<!-- ============================================================ -->
+<h2 class="section-break">2. Foundational Business Concepts</h2>
+
+<h3>Cap Table</h3>
+<p>A capitalization table showing who owns what. Current state:</p>
+<table>
+  <tr><th>Owner</th><th>Ownership</th><th>Notes</th></tr>
+  <tr><td>Justin Headley</td><td>100%</td><td>Sole owner, LLC registered in Nevada</td></tr>
+</table>
+<p>When investment is taken, new rows are added. If Gregg invests $50K at a $2M valuation, he'd own ~2.5%.</p>
+
+<h3>SAFE Note</h3>
+<p><strong>Simple Agreement for Future Equity</strong> (created by Y Combinator). Investor gives money now; it converts into ownership at the next funding round. Key terms: <strong>Valuation Cap</strong> (maximum price for conversion) and <strong>Discount</strong> (typically 20% off next round price). <em>Note: SAFEs are designed for C-Corps. Since Sagemind is an LLC, a convertible note is likely the better instrument.</em></p>
+
+<h3>LLC vs C-Corp</h3>
+<table>
+  <tr><th></th><th>LLC</th><th>C-Corp (Delaware)</th></tr>
+  <tr><td>Investment compatibility</td><td>Harder &mdash; can't use standard SAFEs</td><td>Standard &mdash; all investor docs work</td></tr>
+  <tr><td>Tax treatment</td><td>Pass-through</td><td>Double taxation, but QSBS benefits</td></tr>
+  <tr><td>QSBS benefit</td><td>Not available</td><td>Up to $10M capital gains tax-free</td></tr>
+  <tr><td>Conversion cost</td><td>N/A</td><td>$2K&ndash;$5K legal fees</td></tr>
+  <tr><td>Best for</td><td>Single angel, staying small</td><td>Multiple investors, planning to scale</td></tr>
+</table>
+<p><strong>Bottom line:</strong> For a single angel like Gregg, LLC works. For future VC rounds, convert to Delaware C-Corp.</p>
+
+<h3>Valuation</h3>
+<p><strong>Pre-money:</strong> What the company is worth before investment. <strong>Post-money:</strong> Pre-money + investment.</p>
+<p>At Sagemind's stage, valuation is negotiated. Inputs: revenue multiple ($100K run rate &times; 10&ndash;20x = $1M&ndash;$2M), Berkus method (~$1.5M), comparable companies ($1M&ndash;$3M). <strong>Reasonable range: $1.5M&ndash;$2.5M pre-money.</strong></p>
+
+<h3>Convertible Note</h3>
+<p>A loan that converts into ownership later. Compatible with LLC structure. Interest rate (5&ndash;8%), maturity (18&ndash;24 months), converts at a discount when you raise a bigger round. Delays the hard valuation conversation.</p>
+
+<h3>Equity Dilution</h3>
+<table>
+  <tr><th>Event</th><th>Founders</th><th>Gregg</th><th>Employee Pool</th><th>New Investor</th></tr>
+  <tr><td>Today</td><td>100%</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>
+  <tr><td>Angel round</td><td>~95%</td><td>~5%</td><td>&mdash;</td><td>&mdash;</td></tr>
+  <tr><td>Create option pool</td><td>~80%</td><td>~5%</td><td>~15%</td><td>&mdash;</td></tr>
+  <tr><td>Seed round</td><td>~60%</td><td>~4%</td><td>~12%</td><td>~24%</td></tr>
+</table>
+<p>60% of a $10M company is worth far more than 100% of a $100K company. Dilution is the cost of growth.</p>
+
+<h3>Option Pool &amp; Founder Vesting</h3>
+<p><strong>Option pool:</strong> 10&ndash;20% reserved for future employees. <strong>Founder vesting:</strong> Standard 4-year vest, 1-year cliff. Since Justin has been working for a while, use "reverse vesting" to credit time served.</p>
+
+<!-- ============================================================ -->
+<h2 class="section-break">3. Revenue Streams &amp; Business Model</h2>
+
+<h3>Stream 1: AI Consulting / Integration Services</h3>
+<p>Core business. Building AI agents, automating workflows, AI-powered websites for SMBs. Pricing transitioning from $75&ndash;$150/hr to milestone-based.</p>
+
+<h4>Active Paying Clients</h4>
+<table>
+  <tr><th>Client</th><th>Pricing Model</th><th>Rate</th><th>Status</th></tr>
+  <tr><td>B2Lead</td><td>Hourly</td><td>$150/hr (starting Apr 2026)</td><td>Active</td></tr>
+  <tr><td>GCI</td><td>Hourly</td><td>$150/hr</td><td>Active</td></tr>
+  <tr><td>PBX Software</td><td>Per project</td><td>TBD</td><td>Active</td></tr>
+</table>
+
+<h4>Pipeline &amp; Portfolio</h4>
+<table>
+  <tr><th>Client</th><th>Type</th><th>Status</th></tr>
+  <tr><td>Dempsey Construction</td><td>Prospect</td><td>Trying to close</td></tr>
+  <tr><td>Cordoza Electric</td><td>Portfolio (free)</td><td>Website + AI integration</td></tr>
+  <tr><td>Dental City (Costa Rica)</td><td>Portfolio (free)</td><td>Website + AI integration</td></tr>
+</table>
+
+<h3>Stream 2: Bot-Me Platform (bot-me.ai) &mdash; 100% Sagemind Owned</h3>
+<p>AI assistant platform built by Justin. Multi-tenant SaaS &mdash; others build products on it. "AI Guy" is one product (partnered with Lightning Strike Books / Pamela Knight, Ph.D.). Associated with Thomas Campbell (Joe Rogan appearance).</p>
+
+<h4>AI Guy Profit-Sharing (with Lightning Strike Books)</h4>
+<table class="financial">
+  <tr><th>Net Profit Tier</th><th>LSB Share</th><th>Sagemind Keeps</th></tr>
+  <tr><td>Under $5,000</td><td>20%</td><td>80%</td></tr>
+  <tr><td>$5,000 &ndash; $25,000</td><td>30%</td><td>70%</td></tr>
+  <tr><td>$25,000 &ndash; $75,000</td><td>40%</td><td>60%</td></tr>
+  <tr><td>Over $75,000</td><td>50%</td><td>50%</td></tr>
+</table>
+<p>Expenses (hosting, transaction fees, affiliate payouts, dev time) deducted before profit calc. 2-year term, quarterly reporting. Shifted from one-time purchase to subscription model (Oct 2025).</p>
+<div class="callout-warn"><strong>Contract status:</strong> Never formally signed. Terms agreed via email only. Must be resolved before investor due diligence.</div>
+
+<p><strong>AI Guy Revenue (gross):</strong> 2025: $4,370 | 2026 Q1: $1,877 (not yet profitable &mdash; costs exceed revenue).</p>
+
+<h3>Stream 3: Dawn (dawn.bot-me.ai) &mdash; 100% Sagemind</h3>
+<p>AI conversation product with persistent memory. 200+ users. Built on Bot-Me infrastructure. <strong>Revenue:</strong> 2026 Q1: $1,166. Monetization plan TBD.</p>
+<div class="callout"><strong>Investor angle:</strong> Dawn is a <em>product</em>, not a service. If monetized (subscriptions, API), it's the "services-to-product" bridge investors want to see.</div>
+
+<h3>Revenue Summary</h3>
+<table class="financial">
+  <tr><th>Stream</th><th>Type</th><th>Ownership</th><th>2025</th><th>2026 Q1</th></tr>
+  <tr><td>AI Consulting</td><td>Services ($75&ndash;150/hr)</td><td>100% Sagemind</td><td>$42,509*</td><td>$22,050*</td></tr>
+  <tr><td>Bot-Me: AI Guy</td><td>Profit share w/ LSB</td><td>Revenue shared</td><td>$4,370</td><td>$1,877</td></tr>
+  <tr><td>Bot-Me: Dawn</td><td>Product</td><td>100% Sagemind</td><td>TBD</td><td>$1,166</td></tr>
+  <tr style="font-weight:700;background:#f0faf8"><td>Total</td><td></td><td></td><td>$46,878</td><td>$25,093</td></tr>
+</table>
+<p style="font-size:8pt;color:#666">*Consulting figures calculated as remainder. Actual breakdown may differ.</p>
+
+<!-- ============================================================ -->
+<h2 class="section-break">4. Financial Model (2025 Actuals)</h2>
+<p style="font-size:8pt;color:#666">Source: P&amp;L Spreadsheet (Justin@sagemindai.io) &mdash; verified through Dec 2025.</p>
+
+<div class="two-col">
+<div>
+<h3>Profit &amp; Loss (Full Year 2025)</h3>
+<table class="financial">
+  <tr><th>Account</th><th>Amount</th></tr>
+  <tr><td><strong>Revenue</strong></td><td></td></tr>
+  <tr><td>&nbsp;&nbsp;Service Income</td><td>$43,780</td></tr>
+  <tr><td>&nbsp;&nbsp;Product Sales</td><td>$0</td></tr>
+  <tr style="font-weight:700"><td>Total Revenue</td><td>$43,780</td></tr>
+  <tr><td colspan="2" style="height:4px"></td></tr>
+  <tr><td><strong>COGS</strong></td><td>($85)</td></tr>
+  <tr style="font-weight:700;background:#f0faf8"><td>Gross Profit</td><td>$43,695</td></tr>
+  <tr><td colspan="2" style="height:4px"></td></tr>
+  <tr><td><strong>Operating Expenses</strong></td><td></td></tr>
+  <tr><td>&nbsp;&nbsp;Software &amp; Subscriptions</td><td>$11,366</td></tr>
+  <tr><td>&nbsp;&nbsp;Travel</td><td>$3,543</td></tr>
+  <tr><td>&nbsp;&nbsp;Hosting &amp; Infrastructure</td><td>$981</td></tr>
+  <tr><td>&nbsp;&nbsp;Other Operating</td><td>$676</td></tr>
+  <tr><td>&nbsp;&nbsp;Bank &amp; CC Fees</td><td>$439</td></tr>
+  <tr><td>&nbsp;&nbsp;Meals &amp; Entertainment</td><td>$120</td></tr>
+  <tr style="font-weight:700"><td>Total OpEx</td><td>($17,208)</td></tr>
+  <tr><td colspan="2" style="height:4px"></td></tr>
+  <tr style="font-weight:700;background:#02222e;color:#08f1c7"><td>Net Income</td><td>$26,487</td></tr>
+</table>
+<p><strong>Gross Margin:</strong> 99.8% &nbsp;|&nbsp; <strong>Net Margin:</strong> 60.5%</p>
+</div>
+<div>
+<h3>Balance Sheet (Dec 31, 2025)</h3>
+<table class="financial">
+  <tr><th>Account</th><th>Amount</th></tr>
+  <tr><td><strong>Assets</strong></td><td></td></tr>
+  <tr><td>&nbsp;&nbsp;Cash &amp; Bank</td><td>$3,237</td></tr>
+  <tr><td>&nbsp;&nbsp;Stripe Clearing</td><td>$12</td></tr>
+  <tr><td>&nbsp;&nbsp;Equipment</td><td>$56</td></tr>
+  <tr style="font-weight:700"><td>Total Assets</td><td>$3,170</td></tr>
+  <tr><td colspan="2" style="height:4px"></td></tr>
+  <tr><td><strong>Liabilities</strong></td><td></td></tr>
+  <tr><td>&nbsp;&nbsp;Equipment Loan</td><td>$2,054</td></tr>
+  <tr><td>&nbsp;&nbsp;Business Loan</td><td>$2,298</td></tr>
+  <tr style="font-weight:700"><td>Total Liabilities</td><td>$244</td></tr>
+  <tr><td colspan="2" style="height:4px"></td></tr>
+  <tr><td><strong>Equity</strong></td><td></td></tr>
+  <tr><td>&nbsp;&nbsp;Owner's Equity</td><td>$29,986</td></tr>
+  <tr><td>&nbsp;&nbsp;Net Income</td><td>$26,572</td></tr>
+  <tr style="font-weight:700"><td>Total Equity</td><td>$3,414</td></tr>
+  <tr><td colspan="2" style="height:4px"></td></tr>
+  <tr style="font-weight:700;background:#f0faf8"><td>L + E Check</td><td>$3,170 &#10003;</td></tr>
+</table>
+</div>
+</div>
+
+<div class="callout">
+  <strong>Key observations:</strong> 60% net margin is excellent for a startup (founders aren't drawing salaries &mdash; Justin has Monroe Institute income). Cash grew from $3.2K (Dec 2025) to $12,996 (Mar 31, 2026) &mdash; healthier but still tight for scaling. Minimal debt (~$4.3K). Business is profitable but cash-constrained &mdash; a small investment goes a long way.
+</div>
+
+<h3>Monthly Activity Volume (2025)</h3>
+<table class="financial">
+  <tr><th>Month</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th></tr>
+  <tr><td>Volume</td><td>$5.2K</td><td>$6.8K</td><td>$13.8K</td><td>$10.6K</td><td>$14.6K</td><td>$9.8K</td><td>$7.9K</td><td>$7.7K</td><td>$6.3K</td><td>$11.7K</td><td>$5.4K</td><td>$5.3K</td></tr>
+</table>
+<p>Revenue is lumpy (project-based). March and May were peak months. Retainer/subscription revenue will smooth cash flow.</p>
+
+<p><strong>Owner draws:</strong> ~$30K/year. If Justin goes full-time ($150K/yr minimum), business needs to ~4x revenue first.</p>
+
+<!-- Q1 2026 Actual Financials -->
+<h2 style="color:#008276;margin-top:20px;margin-bottom:8px;">Q1 2026 Actual Financials (Novo Bank — Jan 1 to Mar 31, 2026)</h2>
+
+<div class="two-col">
+<div>
+<h3>Monthly P&L</h3>
+<table class="financial">
+  <tr><th>Month</th><th>Revenue</th><th>Expenses</th><th>Net</th></tr>
+  <tr><td>January</td><td>$3,860</td><td>$2,275</td><td>$1,585</td></tr>
+  <tr><td>February</td><td>$8,319</td><td>$3,854</td><td>$4,464</td></tr>
+  <tr><td>March</td><td>$12,914</td><td>$7,720</td><td>$5,195</td></tr>
+  <tr style="font-weight:700;background:#02222e;color:#08f1c7"><td>Q1 Total</td><td>$25,093</td><td>$13,849</td><td>$11,244</td></tr>
+</table>
+<div class="callout" style="margin-top:8px">
+  <strong>3.3x growth</strong> from Jan to Mar. March alone ($12.9K) exceeded the 2025 monthly average ($3,648).
+</div>
+
+<h3>Revenue Sources</h3>
+<table class="financial">
+  <tr><th>Source</th><th>Amount</th><th>%</th></tr>
+  <tr><td>B2Lead (AI Consulting)</td><td>$14,500</td><td>58%</td></tr>
+  <tr><td>Check Deposit (Client)</td><td>$3,000</td><td>12%</td></tr>
+  <tr><td>GCI / Other Client</td><td>$2,000</td><td>8%</td></tr>
+  <tr><td>PBX Software</td><td>$2,000</td><td>8%</td></tr>
+  <tr><td>Novo Boost (Cashback)</td><td>$1,937</td><td>8%</td></tr>
+  <tr><td>Bot-Me/SaaS (Stripe)</td><td>$1,645</td><td>7%</td></tr>
+  <tr style="font-weight:700"><td>Total</td><td>$25,093</td><td>100%</td></tr>
+</table>
+</div>
+
+<div>
+<h3>Expense Categories</h3>
+<table class="financial">
+  <tr><th>Category</th><th>Amount</th><th>%</th></tr>
+  <tr><td>Owner Draws (Justin)</td><td>$5,020</td><td>36%</td></tr>
+  <tr><td>AI Tools &amp; APIs</td><td>$4,874</td><td>35%</td></tr>
+  <tr><td>Debt Payments</td><td>$1,137</td><td>8%</td></tr>
+  <tr><td>Legal (NV LLC Filing)</td><td>$897</td><td>6%</td></tr>
+  <tr><td>Infrastructure</td><td>$559</td><td>4%</td></tr>
+  <tr><td>Dev Tools</td><td>$403</td><td>3%</td></tr>
+  <tr><td>Marketing</td><td>$242</td><td>2%</td></tr>
+  <tr><td>Other</td><td>$717</td><td>5%</td></tr>
+  <tr style="font-weight:700"><td>Total</td><td>$13,849</td><td>100%</td></tr>
+</table>
+
+<h3>AI Tool Spending ($4,874/qtr)</h3>
+<table class="financial">
+  <tr><th>Tool</th><th>Q1 Cost</th></tr>
+  <tr><td>Claude Subscriptions</td><td>$2,062</td></tr>
+  <tr><td>Anthropic API</td><td>$1,580</td></tr>
+  <tr><td>OpenAI</td><td>$660</td></tr>
+  <tr><td>ElevenLabs</td><td>$297</td></tr>
+  <tr><td>Other (8 tools)</td><td>$275</td></tr>
+  <tr style="font-weight:700"><td>Total (~$19.5K/yr)</td><td>$4,874</td></tr>
+</table>
+</div>
+</div>
+
+<div class="callout">
+  <strong>Investor framing:</strong> AI tool spend ($19.5K/yr) is both cost-of-delivery AND R&amp;D. It generates 5x its cost in billable work. Client concentration risk: B2Lead = 58% &mdash; diversification in progress via Vistage pipeline. Net margin dipped to 44.8% from 60.5% due to healthy scaling investments. Annualized revenue: ~$100K. Monthly burn (excl. draws): ~$2,943. Cash on hand: $12,996 (actual Novo balance, Mar 31) &mdash; ~4 months runway at current burn. A small angel investment ($25&ndash;50K) extends to 12&ndash;18 months and funds hardware scaling.
+</div>
+
+<h3>2025 vs Q1 2026 Comparison</h3>
+<table class="financial" style="max-width:600px">
+  <tr><th>Metric</th><th>2025 Full Year</th><th>Q1 2026</th><th>Q1 Annualized</th></tr>
+  <tr><td>Revenue</td><td>$43,780</td><td>$25,093</td><td>$100,372</td></tr>
+  <tr><td>Expenses</td><td>$17,208</td><td>$13,849</td><td>$55,396</td></tr>
+  <tr><td>Net Income</td><td>$26,487</td><td>$11,244</td><td>$44,976</td></tr>
+  <tr><td>Monthly Avg Rev</td><td>$3,648</td><td>$8,364</td><td>&mdash;</td></tr>
+  <tr style="font-weight:700;background:#f0faf8"><td>Net Margin</td><td>60.5%</td><td>44.8%</td><td>&mdash;</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="section-break">5. Business Plan (Lean)</h2>
+
+<h3>Executive Summary</h3>
+<p><strong>Sagemind AI LLC</strong> helps small and mid-sized businesses integrate AI into their operations &mdash; custom agents, automated workflows, and AI-powered websites at a fraction of enterprise consultancy pricing. Sagemind owns Bot-Me (SaaS platform) and Dawn (AI conversation product, 200+ users). Generated $46.9K in 2025, on pace for ~$100K in 2026 with 60% net margins. Seeking angel investment for hardware, legal formalization, and scaling through the Vistage CEO network.</p>
+
+<h3>Problem</h3>
+<ul>
+  <li>SMBs are being left behind &mdash; enterprise consultancies charge $300&ndash;500/hr</li>
+  <li>Off-the-shelf AI tools are too generic for real business workflows</li>
+  <li>SMB owners know they need AI but don't know where to start</li>
+  <li>Traditional SaaS model is being disrupted &mdash; rigid, expensive, hard to customize</li>
+</ul>
+
+<h3>Solution</h3>
+<ol>
+  <li><strong>AI Integration Consulting</strong> &mdash; Custom agents and automations for each business's workflows</li>
+  <li><strong>Bot-Me Platform</strong> (owned SaaS) &mdash; Multi-tenant AI assistant platform</li>
+  <li><strong>Dawn</strong> (owned product) &mdash; AI conversation product with persistent memory</li>
+</ol>
+<p><strong>Differentiators:</strong> AI-native delivery (3&ndash;5x faster), milestone pricing (outcomes, not hours), reusable across verticals, owned platform.</p>
+
+<h3>Market</h3>
+<table class="financial">
+  <tr><th>Segment</th><th>Size</th><th>Basis</th></tr>
+  <tr><td>TAM</td><td>$60B&ndash;$300B</td><td>~6M US SMBs &times; $10K&ndash;$50K AI spend</td></tr>
+  <tr><td>SAM</td><td>$5B&ndash;$25B</td><td>~500K SMBs in tech-forward industries</td></tr>
+  <tr><td>SOM (Yr 1&ndash;3)</td><td>$500K&ndash;$4M</td><td>50&ndash;200 clients in construction, healthcare, Vistage</td></tr>
+</table>
+
+<h3>Competitive Landscape</h3>
+<table>
+  <tr><th>Competitor Type</th><th>Their Weakness</th><th>Sagemind's Advantage</th></tr>
+  <tr><td>Enterprise consultancies (McKinsey, Accenture)</td><td>$300&ndash;500/hr, enterprise focus</td><td>3&ndash;5x cheaper, SMB-native</td></tr>
+  <tr><td>Freelancers (Upwork, Toptal)</td><td>No methodology, inconsistent</td><td>Proven process, reusable frameworks</td></tr>
+  <tr><td>AI SaaS tools (Jasper, Copy.ai)</td><td>Generic, not customized</td><td>Custom-built for each workflow</td></tr>
+  <tr><td>DIY (ChatGPT, Perplexity)</td><td>No integration, just chat</td><td>Built into actual business systems</td></tr>
+</table>
+
+<h3>Traction</h3>
+<ul>
+  <li>$46.9K revenue (2025) &rarr; $100K run rate (2026) &mdash; <strong>2x YoY growth</strong></li>
+  <li>3 paying clients, 2 portfolio builds, 1 in pipeline</li>
+  <li>60% net margins</li>
+  <li>Bot-Me platform live with subscriptions; Dawn live with 200+ users</li>
+  <li>Strong referral signal from Vistage network (Tommy)</li>
+</ul>
+
+<h3>Team</h3>
+<p><strong>Justin Headley &mdash; Founder &amp; Technical Lead:</strong> Full-stack developer, AI engineer. Built Bot-Me, Dawn, and instar agent infrastructure. Currently also at Monroe Institute (plan: full-time Sagemind).</p>
+<p><strong>Adriana Headley &mdash; Operations &amp; Business:</strong> Full-time employee at B2Lead (Sagemind's largest client), providing dual perspective on client needs and delivery. Manages all Sagemind business ops: invoicing, finances, client relationships, compliance. Built AI agents independently (Dental City site, Luna AI). Manages P&amp;L and operational systems.</p>
+<p><strong>Gap:</strong> Sales/BD hire is the most critical next addition.</p>
+
+<h3>Use of Funds</h3>
+<table class="financial">
+  <tr><th>#</th><th>Item</th><th>Est. Cost</th><th>Why</th></tr>
+  <tr><td>1</td><td>Mac Minis (2&ndash;3 units)</td><td>$7K&ndash;$10.5K</td><td>Run persistent AI agents at scale &mdash; current bottleneck</td></tr>
+  <tr><td>2</td><td>Legal setup</td><td>$3K&ndash;$5K</td><td>Contracts, IP assignment, trademark, investor docs</td></tr>
+  <tr><td>3</td><td>Marketing &amp; sales</td><td>$2K&ndash;$5K</td><td>Case studies, Vistage presence</td></tr>
+  <tr><td>4</td><td>Operating reserve</td><td>$5K&ndash;$10K</td><td>2&ndash;3 months runway cushion</td></tr>
+  <tr><td>5</td><td>Software/API costs</td><td>$2K&ndash;$5K</td><td>Claude API, hosting for scaled operations</td></tr>
+  <tr style="font-weight:700;background:#f0faf8"><td></td><td>Total Range</td><td>$19K&ndash;$35.5K</td><td></td></tr>
+</table>
+
+<h3>12-Month Milestones</h3>
+<table>
+  <tr><th>Timeline</th><th>Milestone</th><th>Success Metric</th></tr>
+  <tr><td>Month 1&ndash;2</td><td>Legal &amp; ops cleanup</td><td>Contracts signed, trademark filed, IP assigned</td></tr>
+  <tr><td>Month 2&ndash;3</td><td>Mac Minis acquired, agents deployed</td><td>2&ndash;3 persistent agents running</td></tr>
+  <tr><td>Month 3&ndash;6</td><td>Scale to 8&ndash;10 paying clients</td><td>$15K+ monthly revenue</td></tr>
+  <tr><td>Month 6&ndash;9</td><td>First sales/BD hire</td><td>3&ndash;5 leads/month from outbound</td></tr>
+  <tr><td>Month 9&ndash;12</td><td>Productize recurring offering</td><td>3+ retainer clients, $20K+ MRR</td></tr>
+  <tr><td>Month 12</td><td>Decision: Justin full-time?</td><td>Revenue supports $80K+ salary</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="section-break">6. Pitch Deck Outline</h2>
+<p><em>Content structure for a 13-slide deck (build in Gamma.app or Canva).</em></p>
+<table>
+  <tr><th>Slide</th><th>Title</th><th>Key Content</th></tr>
+  <tr><td>1</td><td>Title</td><td>"The AI Department for Growing Businesses" + founders + sagemindai.io</td></tr>
+  <tr><td>2</td><td>Problem</td><td>6M SMBs need AI, can't afford McKinsey. Gregg's quote on legacy data.</td></tr>
+  <tr><td>3</td><td>Solution</td><td>Custom AI agents, milestone pricing, AI-native delivery. Dental City demo.</td></tr>
+  <tr><td>4</td><td>How It Works</td><td>4-phase: Discovery &rarr; Build &rarr; Deploy &rarr; Optimize</td></tr>
+  <tr><td>5</td><td>Bot-Me Platform</td><td>Owned SaaS, multi-tenant, Dawn product. Services-to-product bridge.</td></tr>
+  <tr><td>6</td><td>Market Size</td><td>TAM/SAM/SOM. Vistage = 45K+ CEO members.</td></tr>
+  <tr><td>7</td><td>Traction</td><td>$46.9K &rarr; $100K run rate, 2x growth, 60% margins, referral momentum.</td></tr>
+  <tr><td>8</td><td>Business Model</td><td>Revenue streams, unit economics, path to $500K+.</td></tr>
+  <tr><td>9</td><td>Competitive Advantage</td><td>2x2 matrix (price vs customization). Moat: methodology + platform.</td></tr>
+  <tr><td>10</td><td>Go-to-Market</td><td>Vistage network, referrals, case studies, content marketing.</td></tr>
+  <tr><td>11</td><td>Team</td><td>Justin + Adriana. Advisory: Gregg (if invests). Hiring plan.</td></tr>
+  <tr><td>12</td><td>The Ask</td><td>$25K&ndash;$50K. Use of funds. Convertible note or equity.</td></tr>
+  <tr><td>13</td><td>Vision</td><td>Yr 1: $150K+, Justin FT. Yr 3: SaaS revenue. Yr 5: $3&ndash;5M.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="section-break">7. Legal Checklist</h2>
+
+<h3>Critical (Before Any Investment)</h3>
+<ul class="checklist">
+  <li><strong>IP Assignment Agreement</strong> &mdash; All code, platforms, IP legally assigned to Sagemind AI LLC (Bot-Me, Dawn, instar, client deliverables, pre-LLC code)</li>
+  <li><strong>Sign/renegotiate LSB contract</strong> &mdash; AI Guy profit-sharing was never formally signed. Resolve before due diligence.</li>
+  <li><strong>Nevada LLC Operating Agreement</strong> &mdash; Update with investment provisions, Adriana's role, decision authority, distributions</li>
+  <li><strong>LLC vs C-Corp decision</strong> &mdash; For Gregg alone: LLC works. For future VC: convert to Delaware C-Corp ($2K&ndash;$5K).</li>
+</ul>
+
+<h3>Important (Before or Shortly After Investment)</h3>
+<ul class="checklist">
+  <li>File trademarks: "Sagemind AI" + "Bot-Me" (USPTO, ~$250&ndash;$350/class each)</li>
+  <li>Founder vesting agreement (retroactive)</li>
+  <li>Consult startup attorney ($3K&ndash;$10K)</li>
+  <li>Draft investment instrument (convertible note recommended)</li>
+  <li>Contractor/employee IP agreements template</li>
+  <li>Business insurance (general liability + E&amp;O)</li>
+</ul>
+
+<h3>Nice to Have (Within 6 Months)</h3>
+<ul class="checklist">
+  <li>NDA template</li>
+  <li>Master Services Agreement template</li>
+  <li>Privacy policy &amp; ToS for Bot-Me and Dawn</li>
+  <li>D&amp;O insurance (if adding advisory board)</li>
+</ul>
+
+<h3>Legal Resources</h3>
+<table>
+  <tr><th>Need</th><th>Resource</th><th>Cost</th></tr>
+  <tr><td>SAFE templates</td><td>ycombinator.com/documents</td><td>Free</td></tr>
+  <tr><td>Convertible note</td><td>Cooley GO (forms.cooleygo.com)</td><td>Free</td></tr>
+  <tr><td>Advisor agreements</td><td>FAST Agreement (Founder Institute)</td><td>Free</td></tr>
+  <tr><td>Trademark filing</td><td>USPTO TEAS Plus</td><td>$250&ndash;$350/class</td></tr>
+  <tr><td>C-Corp conversion</td><td>Clerky or Stripe Atlas</td><td>$500&ndash;$2K + attorney</td></tr>
+  <tr><td>Startup attorney</td><td>Gregg's network for referrals</td><td>$3K&ndash;$10K</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 class="section-break">8. Due Diligence Package</h2>
+<p>Everything an investor (or their attorney) will want to see.</p>
+
+<div class="two-col">
+<div>
+<h4>Corporate Documents</h4>
+<ul class="checklist">
+  <li>Articles of Organization (Nevada)</li>
+  <li>Operating Agreement (signed)</li>
+  <li>EIN confirmation letter</li>
+  <li>Nevada good standing certificate</li>
+  <li>Business licenses</li>
+</ul>
+
+<h4>Financial Documents</h4>
+<ul class="checklist">
+  <li class="done">P&amp;L spreadsheet (through Dec 2025)</li>
+  <li>Bank statements (12 months)</li>
+  <li>Tax returns (2024, 2025)</li>
+  <li>2026 YTD summary</li>
+  <li>Revenue by client breakdown</li>
+  <li>5-year projections</li>
+  <li>Owner draw history</li>
+</ul>
+
+<h4>IP &amp; Technology</h4>
+<ul class="checklist">
+  <li>IP Assignment (Justin &rarr; LLC)</li>
+  <li>Owned platforms list (Bot-Me, Dawn, instar)</li>
+  <li>Domain registrations</li>
+  <li>GitHub repository list</li>
+  <li>Open-source compliance</li>
+  <li>Trademark filings</li>
+</ul>
+</div>
+<div>
+<h4>Contracts &amp; Agreements</h4>
+<ul class="checklist">
+  <li>Client contracts (B2Lead, GCI, PBX)</li>
+  <li>LSB / AI Guy agreement (UNSIGNED)</li>
+  <li>Contractor agreements</li>
+  <li>NDAs in place</li>
+</ul>
+
+<h4>Customer &amp; Revenue</h4>
+<ul class="checklist">
+  <li>Client list with contract values</li>
+  <li>Revenue by stream breakdown</li>
+  <li>Client references (2&ndash;3)</li>
+  <li>Pipeline / prospect list</li>
+  <li>Case studies (Dental City, Cordoza)</li>
+</ul>
+
+<h4>Team</h4>
+<ul class="checklist">
+  <li>Justin Headley resume/CV</li>
+  <li>Adriana Headley resume/CV</li>
+  <li>Org chart (current + 12-month)</li>
+  <li>Hiring plan</li>
+</ul>
+
+<h4>Insurance &amp; Compliance</h4>
+<ul class="checklist">
+  <li>General liability insurance</li>
+  <li>E&amp;O / professional liability</li>
+  <li>Nevada annual filing status</li>
+</ul>
+</div>
+</div>
+
+<!-- ============================================================ -->
+<h2 class="section-break">9. Go-to-Market Deep Dive</h2>
+
+<h3>The Referral Problem &amp; Solutions</h3>
+<p><strong>Why referrals are slow:</strong> Small client base (3 paying), Justin's time split, no systematic ask, no public case studies.</p>
+
+<h4>Referral Acceleration Plan</h4>
+<table>
+  <tr><th>Action</th><th>Effort</th><th>Impact</th><th>Timeline</th></tr>
+  <tr><td>Ask every client for 1&ndash;2 referrals</td><td>Low</td><td>High</td><td>Immediately</td></tr>
+  <tr><td>Publish Dental City case study</td><td>Medium</td><td>High</td><td>2 weeks</td></tr>
+  <tr><td>Gregg introduces Vistage members</td><td>Low</td><td>Very High</td><td>Post-investment</td></tr>
+  <tr><td>Justin presents at Vistage meeting</td><td>Medium</td><td>Very High</td><td>Schedule w/ Gregg</td></tr>
+  <tr><td>LinkedIn content (1&ndash;2 posts/week)</td><td>Medium</td><td>Compounds</td><td>Start now</td></tr>
+  <tr><td>"AI Readiness Assessment" lead magnet</td><td>Medium</td><td>High</td><td>Month 2&ndash;3</td></tr>
+</table>
+
+<div class="callout"><strong>The Gregg multiplier:</strong> If Gregg invests, his incentive to refer clients goes through the roof. His Vistage network (45,000+ CEO members) could generate more leads than you can handle. Frame investment as "capital + distribution."</div>
+
+<h3>Milestone Pricing Framework</h3>
+<table class="financial">
+  <tr><th>Phase</th><th>Deliverable</th><th>Price Range</th></tr>
+  <tr><td>Discovery</td><td>AI readiness assessment + plan</td><td>$1,500&ndash;$3,000</td></tr>
+  <tr><td>Build</td><td>Custom AI agent/automation/website</td><td>$5,000&ndash;$15,000</td></tr>
+  <tr><td>Deploy</td><td>Integration, training, go-live</td><td>$2,000&ndash;$5,000</td></tr>
+  <tr><td>Optimize</td><td>Monthly retainer</td><td>$1,000&ndash;$3,000/mo</td></tr>
+  <tr style="font-weight:700;background:#f0faf8"><td colspan="2">Full Engagement</td><td>$8.5K&ndash;$23K + recurring</td></tr>
+</table>
+<p>With 10 clients at $15K average = $150K &mdash; enough for Justin to go full-time.</p>
+
+<!-- ============================================================ -->
+<h2 class="section-break">10. Decisions &amp; Open Questions</h2>
+
+<h3>Decisions Pending</h3>
+<table>
+  <tr><th>Decision</th><th>Status</th></tr>
+  <tr><td>Formalize Adriana's role/equity (common: 20&ndash;40% for operational co-founder)</td><td style="color:#e6a800;font-weight:600">NEEDS DISCUSSION</td></tr>
+  <tr><td>LLC (Nevada) vs C-Corp (Delaware) conversion</td><td style="color:#999">PENDING</td></tr>
+  <tr><td>Investment instrument (convertible note recommended)</td><td style="color:#999">PENDING</td></tr>
+  <tr><td>Target valuation range ($1.5M&ndash;$2.5M suggested)</td><td style="color:#999">PENDING</td></tr>
+  <tr><td>Amount to raise ($25K&ndash;$50K suggested)</td><td style="color:#999">PENDING</td></tr>
+  <tr><td>Sign LSB/AI Guy contract</td><td style="color:#c00;font-weight:600">URGENT</td></tr>
+  <tr><td>IP Assignment (Justin &rarr; Sagemind LLC)</td><td style="color:#c00;font-weight:600">URGENT</td></tr>
+  <tr><td>When to stop doing free client work</td><td style="color:#e6a800;font-weight:600">NEEDS DISCUSSION</td></tr>
+</table>
+
+<h3>Questions for Justin &amp; Adriana</h3>
+
+<h4>Before Anything Else</h4>
+<ol>
+  <li>Should Adriana have formal ownership? What split?</li>
+  <li>How much to raise from Gregg? ($25K&ndash;$50K suggested)</li>
+  <li>What terms to offer? ($2M pre-money &rarr; $50K = 2.5%)</li>
+</ol>
+
+<h4>Business Strategy</h4>
+<ol start="4">
+  <li>When does Justin leave Monroe Institute? What revenue threshold?</li>
+  <li>When do you stop doing free work?</li>
+  <li>Vertical focus: deep in construction, or stay horizontal?</li>
+  <li>How were B2Lead and GCI acquired?</li>
+</ol>
+
+<h4>Bot-Me &amp; Products</h4>
+<ol start="8">
+  <li>Dawn monetization plan?</li>
+  <li>Other products on Bot-Me besides AI Guy and Dawn?</li>
+  <li>Bot-Me platform roadmap &mdash; marketplace play?</li>
+</ol>
+
+<h4>Practical</h4>
+<ol start="11">
+  <li>How many Mac Minis needed? (2? 3? 5?)</li>
+  <li>Software spend audit ($11.3K/yr in subscriptions)</li>
+  <li>Reconcile revenue gap: P&amp;L shows $43.8K vs reported $46.9K for 2025</li>
+</ol>
+
+<br>
+<div style="text-align:center;color:#999;font-size:8pt;border-top:1px solid #e0e0e0;padding-top:8px;margin-top:20px">
+  Sagemind AI LLC &nbsp;|&nbsp; sagemindai.io &nbsp;|&nbsp; Confidential &mdash; Not for Distribution<br>
+  Last updated: March 31, 2026
+</div>
+
+</div><!-- /content -->
+</body>
+</html>

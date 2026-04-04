@@ -5,366 +5,6 @@
     "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
     "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
     "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-27T15:36:45.524Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-27T17:36:46.547Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-27T17:36:46.550Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-27T19:36:47.273Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-27T19:36:47.276Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-27T21:36:48.422Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-27T21:36:48.425Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T03:36:50.276Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T03:36:50.279Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T05:36:40.936Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T05:36:40.939Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T07:36:42.236Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T07:36:42.238Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T09:36:43.040Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T09:36:43.043Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T11:36:44.389Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T11:36:44.392Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T13:36:45.326Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T13:36:45.329Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T15:36:46.623Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T15:36:46.626Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T17:36:47.493Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T17:36:47.495Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T19:36:48.640Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T19:36:48.643Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T21:36:49.550Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T21:36:49.553Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-28T23:36:50.568Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-28T23:36:50.571Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-29T01:36:41.359Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-29T01:36:41.362Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-29T03:36:43.591Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-29T03:36:43.593Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-29T05:36:43.413Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
-    "timestamp": "2026-03-29T05:36:43.416Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "TopicMemory",
-    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
-    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
-    "reason": "TopicMemory init failed: spawnSync /bin/sh ENOENT",
-    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
-    "timestamp": "2026-03-29T07:36:44.767Z",
-    "reported": false,
-    "alerted": false
-  },
-  {
-    "feature": "SemanticMemory",
-    "primary": "SQLite-backed knowledge graph with FTS5 + vector hybrid search",
-    "fallback": "Legacy memory systems (MEMORY.md, CanonicalState, MemoryIndex)",
-    "reason": "SemanticMemory init failed: The module '/Users/justin/Documents/Projects/sagemind/.instar/shadow-install/node_modules/better-sqlite3/build/Release/better_sqlite3.node'\nwas compiled against a different Node.js version using\nNODE_MODULE_VERSION 127. This version of Node.js requires\nNODE_MODULE_VERSION 141. Please try re-compiling or re-installing\nthe module (for instance, using `npm rebuild` or `npm install`).",
-    "impact": "Knowledge graph unavailable. Migration, semantic search, and entity-relationship queries disabled.",
     "timestamp": "2026-03-29T07:36:44.769Z",
     "reported": false,
     "alerted": false
@@ -996,7 +636,367 @@
     "reason": "Why: Command failed: git pull --rebase --autostash\nfatal: mmap failed: Resource deadlock avoided\n",
     "impact": "Conflicts may not auto-resolve correctly",
     "timestamp": "2026-04-01T16:59:00.139Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-01T16:59:00.930Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "Slack",
+    "primary": "Slack messaging adapter",
+    "fallback": "Other messaging channels",
+    "reason": "Slack init failed: Slack Socket Mode connection timeout after 15s",
+    "impact": "Slack messaging unavailable.",
+    "timestamp": "2026-04-01T16:59:15.940Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-01T17:00:02.261Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-01T17:00:02.973Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-01T17:55:07.842Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-01T17:55:08.574Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-01T18:08:19.426Z",
     "reported": false,
     "alerted": false
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-01T18:08:20.177Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "Slack",
+    "primary": "Slack messaging adapter",
+    "fallback": "Other messaging channels",
+    "reason": "Slack init failed: Slack Socket Mode connection timeout after 15s",
+    "impact": "Slack messaging unavailable.",
+    "timestamp": "2026-04-01T18:08:35.193Z",
+    "reported": false,
+    "alerted": false
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-01T18:08:36.970Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-01T18:08:36.981Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "Slack",
+    "primary": "Slack messaging adapter",
+    "fallback": "Other messaging channels",
+    "reason": "Slack init failed: Slack Socket Mode connection timeout after 15s",
+    "impact": "Slack messaging unavailable.",
+    "timestamp": "2026-04-01T18:08:51.995Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-01T18:09:24.919Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-01T18:09:25.631Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-01T18:17:13.449Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-01T18:17:14.163Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: /opt/homebrew/Cellar/node@20/20.20.0/bin/node /Users/amrch/Documents/Projects/sagemind/.instar/shadow-install/node_modules/instar/dist/cli.js migrate --dir /Users/amrch/Documents/Projects/sagemind\n{\"error\":\"__dirname is not defined\"}\n (stderr: {\"error\":\"__dirname is not defined\"}\n)",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-04-01T18:52:18.731Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "SessionManager.injectMessage",
+    "primary": "Inject Telegram message into tmux session",
+    "fallback": "Message lost — user input never reaches Claude",
+    "reason": "Failed to inject message: Command failed: /opt/homebrew/bin/tmux send-keys -t =sagemind-topic-970283441: -l --- Agent Identity ---\nAgent: sagemind\nAutonomy: autonomous\n--- End Agent Identity ---\n\n[telegram:-970283441] Session started — send a message to continue.\ncommand send-keys: invalid flag --\n",
+    "impact": "User message silently dropped",
+    "timestamp": "2026-04-01T19:25:04.089Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: /opt/homebrew/Cellar/node@20/20.20.0/bin/node /Users/amrch/Documents/Projects/sagemind/.instar/shadow-install/node_modules/instar/dist/cli.js migrate --dir /Users/amrch/Documents/Projects/sagemind\n{\"error\":\"__dirname is not defined\"}\n (stderr: {\"error\":\"__dirname is not defined\"}\n)",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-04-01T21:22:19.207Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "SessionManager.injectMessage",
+    "primary": "Inject Telegram message into tmux session",
+    "fallback": "Message lost — user input never reaches Claude",
+    "reason": "Failed to inject message: Command failed: /opt/homebrew/bin/tmux send-keys -t =sagemind-topic-970283441: -l --- Agent Identity ---\nAgent: sagemind\nAutonomy: autonomous\n--- End Agent Identity ---\n\n[telegram:-970283441] Session started — send a message to continue.\ncommand send-keys: invalid flag --\n",
+    "impact": "User message silently dropped",
+    "timestamp": "2026-04-01T23:53:16.339Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "UpdateChecker.postUpdateMigration",
+    "primary": "Run post-update migrations",
+    "fallback": "Migration skipped — data may not be upgraded",
+    "reason": "Why: Command failed: /opt/homebrew/Cellar/node@20/20.20.0/bin/node /Users/amrch/Documents/Projects/sagemind/.instar/shadow-install/node_modules/instar/dist/cli.js migrate --dir /Users/amrch/Documents/Projects/sagemind\n{\"error\":\"__dirname is not defined\"}\n (stderr: {\"error\":\"__dirname is not defined\"}\n)",
+    "impact": "Agent configuration may be stale after update",
+    "timestamp": "2026-04-02T01:52:19.035Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-02T03:12:36.786Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-02T03:12:36.807Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "Slack",
+    "primary": "Slack messaging adapter",
+    "fallback": "Other messaging channels",
+    "reason": "Slack init failed: Slack Socket Mode connection timeout after 15s",
+    "impact": "Slack messaging unavailable.",
+    "timestamp": "2026-04-02T03:12:51.823Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-02T19:48:20.990Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-02T19:48:21.016Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-02T22:53:47.457Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-02T22:53:47.487Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-03T02:29:03.917Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-03T02:29:03.940Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-03T20:04:33.279Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-03T20:04:33.308Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-03T20:39:58.487Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-03T20:39:58.511Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "GitSync.pull",
+    "primary": "Clean git pull",
+    "fallback": "Stuck rebase abort + retry failed",
+    "reason": "Why: Aborted stuck rebase but pull still failed. Command failed: git rebase --abort\nwarning: could not read '.git/rebase-merge/head-name': No such file or directory\n",
+    "impact": "Git pull blocked. Manual intervention may be needed: cd to project and run git rebase --abort, then git pull.",
+    "timestamp": "2026-04-03T21:15:13.898Z",
+    "reported": true,
+    "alerted": true
+  },
+  {
+    "feature": "TopicMemory",
+    "primary": "SQLite-backed conversational memory with summaries and FTS5 search",
+    "fallback": "JSONL-based last 20 messages (no summaries, no search)",
+    "reason": "TopicMemory init failed: database disk image is malformed",
+    "impact": "Sessions start without conversation summaries. Search unavailable. Context limited to last 20 raw messages.",
+    "timestamp": "2026-04-03T21:15:13.924Z",
+    "reported": true,
+    "alerted": true
   }
 ]
